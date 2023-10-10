@@ -1,38 +1,48 @@
 import enums.SecurityType;
-import org.w3c.dom.Document;
-
-import org.w3c.dom.NodeList;
-
 import models.Security;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import services.SecurityService;
+import xml.XmlFileWriter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 import static constants.PathConstants.BASE_PATH;
 import static constants.PathConstants.FILE_NAME;
-import static services.SecurityService.processSecurities;
 import static xml.XmlFileReader.getAllSecurities;
 import static xml.XmlFileReader.getDocument;
-import static xml.XmlFileWriter.updateXml;
 
 public class Main {
 
     public static void main(String[] args) {
+        Main main = new Main();
+        main.run();
+    }
+
+    private void run() {
         System.out.printf("----- Start -----\n");
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        System.out.println("Working Directory = " + BASE_PATH);
 
         Document doc = getDocument(BASE_PATH + FILE_NAME);
         NodeList allSecurities = getAllSecurities(doc);
 
-        List<SecurityType> userSecurityTypes = inputSecurities();
+        List<SecurityType> requestedSecurityTypes = inputSecurities();
 
-        Security[] allSecuritiesProcessed = processSecurities(allSecurities, userSecurityTypes);
-        updateXml(doc, allSecuritiesProcessed);
+        SecurityService securityService = new SecurityService();
+        Security[] allSecuritiesProcessed = securityService.processSecurities(allSecurities, requestedSecurityTypes);
+        List<Security> allSecurities2 = new ArrayList<>(Arrays.asList(allSecuritiesProcessed));
 
-        //System.out.printf("name: %s; isin: %s\n", oEtf.getName(), oEtf.getIsin())
+        XmlFileWriter xmlFileWriter = new XmlFileWriter();
+        xmlFileWriter.updateXml(doc, allSecuritiesProcessed);
+
         System.out.printf("----- END -----\n");
+
     }
 
-    private static List<SecurityType> inputSecurities() {
+    private List<SecurityType> inputSecurities() {
         System.out.printf("\n\nChoose security types:\n- ETF\n- Fond\n- all\n");
         Scanner userInput = new Scanner(System.in);
         String input = userInput.nextLine().toLowerCase();
@@ -52,4 +62,5 @@ public class Main {
 
         return inputSecurities;
     }
+
 }

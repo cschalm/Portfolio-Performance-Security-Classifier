@@ -83,3 +83,7 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+/portfolio_performance_file/logs/
+/portfolio_performance_file/Portfolio Performance imported.xml
+/src/main/resources/portfolio_performance_file/backups/
+/src/main/resources/portfolio_performance_file/logs/
