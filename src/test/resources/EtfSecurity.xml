@@ -1,0 +1,74 @@
+<security>
+    <uuid>ae646cc4-06c2-4e5c-a2f7-edb0de1a724a</uuid>
+    <name>iShares MSCI Europe Quality Dividend UCITS ETF EUR (Dist)</name>
+    <currencyCode>EUR</currencyCode>
+    <isin>IE00BYYHSM20</isin>
+    <tickerSymbol>QDVX.DE</tickerSymbol>
+    <wkn>A2DRG4</wkn>
+    <feed>YAHOO</feed>
+    <prices>
+        <price t="2023-09-01" v="546700000"/>
+        <price t="2023-09-04" v="545400000"/>
+        <price t="2023-09-05" v="544000000"/>
+        <price t="2023-09-06" v="543300000"/>
+        <price t="2023-09-07" v="542200000"/>
+        <price t="2023-09-08" v="542300000"/>
+        <price t="2023-09-11" v="544500000"/>
+        <price t="2023-09-12" v="542800000"/>
+        <price t="2023-09-13" v="541700000"/>
+        <price t="2023-09-14" v="549000000"/>
+        <price t="2023-09-15" v="550300000"/>
+        <price t="2023-09-18" v="545000000"/>
+        <price t="2023-09-19" v="544300000"/>
+        <price t="2023-09-20" v="550100000"/>
+        <price t="2023-09-21" v="544500000"/>
+        <price t="2023-09-22" v="541600000"/>
+        <price t="2023-09-25" v="537600000"/>
+        <price t="2023-09-26" v="534700000"/>
+        <price t="2023-09-27" v="531000000"/>
+        <price t="2023-09-28" v="532700000"/>
+        <price t="2023-09-29" v="535100000"/>
+        <price t="2023-10-02" v="529900000"/>
+        <price t="2023-10-03" v="523600000"/>
+        <price t="2023-10-04" v="523900000"/>
+        <price t="2023-10-05" v="527500000"/>
+    </prices>
+    <latest t="2023-10-05" v="527500000">
+        <high>-1</high>
+        <low>-1</low>
+        <volume>-1</volume>
+    </latest>
+    <attributes>
+        <map>
+            <entry>
+                <string>logo</string>
+                <string>data:image/png;base64,AAABAAIAEBAAAAEAIABoBAAAJgAAACAgAAABACAAqBAAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAAAAEAAASCwAAEgsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQUBwcEywcHBP8HBwT/BwcEywcHBBQHBwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwQABwcEFAcHBMsHBwT/BwcE/wcHBMsHBwQUBwcEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcEAAcHBBQHBwTLBwcE/wcHBP8HBwTLBwcEFAcHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQUBwcEywcHBP8HBwT/BwcEywcHBBQHBwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwQABwcEFAcHBMsHBwT/BwcE/wcHBMsHBwQUBwcEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcEAAcHBBQHBwTLBwcE/wcHBP8HBwTLBwcEFAcHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQUBwcEywcHBP8HBwT/BwcEywcHBBQHBwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwQABwcEFAcHBMsHBwT/BwcE/wcHBMsHBwQUBwcEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcEAAcHBBQHBwTLBwcE/wcHBP8HBwTLBwcEFAcHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQUBwcEywcHBP8HBwT/BwcEywcHBBQHBwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwQABwcEFAcHBMsHBwT/BwcE/wcHBMsHBwQUBwcEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcEAAcHBA8HBwSfBwcEywcHBMsHBwSfBwcEDwcHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQEBwcEJgcHBDAHBwQwBwcEJgcHBAQHBwQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBwQABwcEEQcHBLMHBwTkBwcE5AcHBLMHBwQRBwcEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwcEAAcHBBQHBwTLBwcE/wcHBP8HBwTLBwcEFAcHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcHBAAHBwQUBwcEywcHBP8HBwT/BwcEywcHBBQHBwQAAAAAAAAAAAAAAAAAAAAAAPgfAAD4HwAA+B8AAPgfAAD4HwAA+B8AAPgfAAD4HwAA+B8AAPgfAAD4HwAA+B8AAPgfAAD4HwAA+B8AAPgfAAAoAAAAIAAAAEAAAAABACAAAAAAAAAQAAASCwAAEgsAAAAAAAAAAAAA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBJAHBwTABwcEwAcHBMAHBwTABwcEwAcHBMAHBwSQ////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAcHBMAHBwT/BwcE/wcHBP8HBwT/BwcE/wcHBP8HBwTA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ABwcEwAcHBP8HBwT/BwcE/wcHBP8HBwT/BwcE/wcHBMD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wAHBwTABwcE/wcHBP8HBwT/BwcE/wcHBP8HBwT/BwcEwP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP/wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//////////////AP///wD///8A////AP///wD///8A//</string>
+            </entry>
+        </map>
+    </attributes>
+    <events>
+        <dividendEvent>
+            <date>2022-05-12</date>
+            <type>DIVIDEND_PAYMENT</type>
+            <paymentDate>2022-05-25</paymentDate>
+            <amount currency="EUR" amount="10"/>
+            <source>divvydiary.com</source>
+        </dividendEvent>
+        <dividendEvent>
+            <date>2022-11-17</date>
+            <type>DIVIDEND_PAYMENT</type>
+            <paymentDate>2022-11-30</paymentDate>
+            <amount currency="EUR" amount="11"/>
+            <source>divvydiary.com</source>
+        </dividendEvent>
+        <dividendEvent>
+            <date>2023-05-19</date>
+            <type>DIVIDEND_PAYMENT</type>
+            <paymentDate>2023-05-30</paymentDate>
+            <amount currency="EUR" amount="9"/>
+            <source>divvydiary.com</source>
+        </dividendEvent>
+    </events>
+    <isRetired>false</isRetired>
+    <updatedAt>2023-01-27T11:26:15.406348200Z</updatedAt>
+</security>

@@ -8,6 +8,7 @@ import models.Security;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import xml.XmlHelper;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -19,48 +20,46 @@ import java.util.Scanner;
 
 public class SecurityService {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
+    XmlHelper xmlHelper = new XmlHelper();
 
     public Security[] processSecurities(NodeList oAllSecurities, List<SecurityType> requestedSecurityTypes) {
         Security[] allSecurity = new Security[oAllSecurities.getLength()];
         //System.out.printf("oAllSecurities.getLength(): %s\n", oAllSecurities.getLength());
         for (int i = 0; i < oAllSecurities.getLength(); i++) {
-            Element securitiesElement = (Element) oAllSecurities.item(i);
-            Node oIsinNode = getFirstChild(securitiesElement, "isin");
-            Node oNameNode = getFirstChild(securitiesElement, "name");
-            Node isRetiredNode = getFirstChild(securitiesElement, "isRetired");
-            String isin = oIsinNode == null ? "" : oIsinNode.getTextContent();
-            String name = oNameNode == null ? "" : oNameNode.getTextContent();
-            String isRetired = isRetiredNode == null ? "" : isRetiredNode.getTextContent();
-
-            if (!isin.isEmpty() && "false".equals(isRetired)) {
-                //System.out.printf("oSecurity: %s\n", element.getElementsByTagName("isin").item(0).getTextContent());
-                System.out.print("Fetching data for \"" + isin + "\"... - ");
-                allSecurity[i] = createSecurity(isin, requestedSecurityTypes);
-                if (!name.isEmpty()) {
-                    allSecurity[i].setName(name);
-                }
-                System.out.print(" done!\n");
-            }
+            processSecurity(oAllSecurities, requestedSecurityTypes, i, allSecurity);
         }
 
         return allSecurity;
     }
 
-    private Node getFirstChild(Element parentElement, String tagName) {
-        return parentElement.getElementsByTagName(tagName).item(0);
+    void processSecurity(NodeList oAllSecurities, List<SecurityType> requestedSecurityTypes, int i, Security[] allSecurity) {
+        Element securitiesElement = (Element) oAllSecurities.item(i);
+        String isin = xmlHelper.getTextContent(securitiesElement, "isin");
+        String isRetired = xmlHelper.getTextContent(securitiesElement, "isRetired");
+
+        if (!isin.isEmpty() && "false".equals(isRetired)) {
+            System.out.print("Fetching data for \"" + isin + "\"... - ");
+            allSecurity[i] = createSecurity(isin, requestedSecurityTypes);
+            String name = xmlHelper.getTextContent(securitiesElement, "name");
+            if (!name.isEmpty()) {
+                allSecurity[i].setName(name);
+            }
+            System.out.print(" done!\n");
+        }
     }
 
-    private boolean isETF(String strResponseFromFirstCall, List<SecurityType> allowedSecurities) {
+
+    boolean isETF(String strResponseFromFirstCall, List<SecurityType> allowedSecurities) {
         return strResponseFromFirstCall.startsWith("/etf/anlageschwerpunkt")
                 && allowedSecurities.contains(SecurityType.ETF);
     }
 
-    private boolean isFond(String strResponseFromFirstCall, List<SecurityType> allowedSecurities) {
+    boolean isFond(String strResponseFromFirstCall, List<SecurityType> allowedSecurities) {
         return strResponseFromFirstCall.startsWith("/fonds/anlageschwerpunkt")
                 && allowedSecurities.contains(SecurityType.FOND);
     }
 
-    private Security createSecurity(String strIsin, List<SecurityType> requestedSecurityTypes) {
+    Security createSecurity(String strIsin, List<SecurityType> requestedSecurityTypes) {
         Security security = new Security(strIsin);
         boolean debug = !true;
         try {
@@ -118,7 +117,7 @@ public class SecurityService {
         return security;
     }
 
-    private Map<String, Security.PercentageUsedTuple> getListForNode(JsonObject oNode, boolean debugLog) {
+    Map<String, Security.PercentageUsedTuple> getListForNode(JsonObject oNode, boolean debugLog) {
         Map<String, Security.PercentageUsedTuple> oResultList = new HashMap<String, Security.PercentageUsedTuple>();
         if (oNode != null) {
             JsonArray oArrayList = oNode.getAsJsonArray("list");
@@ -138,7 +137,7 @@ public class SecurityService {
         return oResultList;
     }
 
-    private String readStringFromURL(String requestURL) {
+    String readStringFromURL(String requestURL) {
         Scanner scanner = null;
         String result = "";
         try {

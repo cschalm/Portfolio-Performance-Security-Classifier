@@ -261,6 +261,8 @@ public class XmlFileWriter {
                                     }
                                 }
                                 if (!strMatchingStringForFile.isEmpty()) {
+                                    File logsDir = new File(LOGS_PATH);
+                                    logsDir.mkdirs();
                                     PrintWriter out = new PrintWriter(LOGS_PATH + oAllEtf[indexEtf].getName() + ".txt");
                                     out.print(strMatchingStringForFile);
                                     out.close();

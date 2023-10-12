@@ -6,7 +6,6 @@ import services.SecurityService;
 import xml.XmlFileWriter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +15,8 @@ import static xml.XmlFileReader.getAllSecurities;
 import static xml.XmlFileReader.getDocument;
 
 public class Main {
+    SecurityService securityService = new SecurityService();
+    XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -23,27 +24,28 @@ public class Main {
     }
 
     private void run() {
-        System.out.printf("----- Start -----\n");
+        System.out.print("----- Start -----\n");
         System.out.println("Working Directory = " + BASE_PATH);
 
-        Document doc = getDocument(BASE_PATH + FILE_NAME);
-        NodeList allSecurities = getAllSecurities(doc);
+        Document portfolioDocument = loadPortfolioDocumentFromFile();
+
+        NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
 
         List<SecurityType> requestedSecurityTypes = inputSecurities();
 
-        SecurityService securityService = new SecurityService();
-        Security[] allSecuritiesProcessed = securityService.processSecurities(allSecurities, requestedSecurityTypes);
-        List<Security> allSecurities2 = new ArrayList<>(Arrays.asList(allSecuritiesProcessed));
+        Security[] updatedSecurities = addClassificationData(allSecurities, requestedSecurityTypes);
 
-        XmlFileWriter xmlFileWriter = new XmlFileWriter();
-        xmlFileWriter.updateXml(doc, allSecuritiesProcessed);
+        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities);
 
-        System.out.printf("----- END -----\n");
-
+        System.out.print("----- END -----\n");
     }
 
-    private List<SecurityType> inputSecurities() {
-        System.out.printf("\n\nChoose security types:\n- ETF\n- Fond\n- all\n");
+    Security[] addClassificationData(NodeList allSecurities, List<SecurityType> requestedSecurityTypes) {
+        return securityService.processSecurities(allSecurities, requestedSecurityTypes);
+    }
+
+    List<SecurityType> inputSecurities() {
+        System.out.print("\n\nChoose security types:\n- ETF\n- Fond\n- all\n");
         Scanner userInput = new Scanner(System.in);
         String input = userInput.nextLine().toLowerCase();
 
@@ -61,6 +63,14 @@ public class Main {
         }
 
         return inputSecurities;
+    }
+
+    NodeList getAllSecuritiesFromPortfolio(Document portfolioDoc) {
+        return getAllSecurities(portfolioDoc);
+    }
+
+    Document loadPortfolioDocumentFromFile() {
+        return getDocument(BASE_PATH + FILE_NAME);
     }
 
 }
