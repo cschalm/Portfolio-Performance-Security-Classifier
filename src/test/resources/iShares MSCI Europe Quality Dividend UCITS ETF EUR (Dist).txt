@@ -1,0 +1,9 @@
+-> Branche (ETF / Fond) "Industrie" mit 14.95% der Branche (PP) "Industrie" zugeordnet.
+-> Branche (ETF / Fond) "IT/Telekommunikation" mit 14.48% der Branche (PP) "Telekommunikationsdienste" zugeordnet.
+-> Branche (ETF / Fond) "Gesundheitswesen" mit 11.13% der Branche (PP) "Gesundheitswesen" zugeordnet.
+-> Branche (ETF / Fond) "Rohstoffe" mit 7.62% der Branche (PP) "Baustoffe" zugeordnet.
+-> Branche (ETF / Fond) "Versorger" mit 6.84% der Branche (PP) "Multi-Versorger" zugeordnet.
+-> Branche (ETF / Fond) "Energie" mit 2.09% der Branche (PP) "Energie" zugeordnet.
+-> Branche (ETF / Fond) "Finanzen" mit 23.12% der Branche (PP) "Finanzwesen" zugeordnet.
+-> Branche (ETF / Fond) "Konsumgüter" mit 17.49% der Branche (PP) "Basiskonsumgüter" zugeordnet.
+-> Branche (ETF / Fond) "Immobilien" mit 1.54% der Branche (PP) "Immobilien" zugeordnet.
