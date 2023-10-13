@@ -190,17 +190,17 @@ public class Security {
      *
      * @return Double
      */
-    public Double getPercentageOfHolding(String strholding) {
-        if (this.oListForHoldings.containsKey(strholding)) {
-            this.oListForHoldings.get(strholding).fIsUsed = true;
-            return this.oListForHoldings.get(strholding).dPerc;
+    public Double getPercentageOfHolding(String strHolding) {
+        if (this.oListForHoldings.containsKey(strHolding)) {
+            this.oListForHoldings.get(strHolding).fIsUsed = true;
+            return this.oListForHoldings.get(strHolding).dPerc;
         } else {
             return 0.0;
         }
     }
 
     /**
-     * returns all unused countries as string; seperated by ';'
+     * returns all unused countries as string; separated by ';'
      * all countries just => empty string
      *
      * @return string
@@ -216,7 +216,7 @@ public class Security {
     }
 
     /**
-     * returns all unused branches as string; seperated by ';'
+     * returns all unused branches as string; separated by ';'
      * all branches just => empty string
      *
      * @return string
@@ -235,6 +235,11 @@ public class Security {
         return this.oListForBranches.keySet().toArray(new String[0]);
     }
 
+    @Override
+    public String toString() {
+        return "Security " + strISIN + " (" + strName + ')';
+    }
+
     public class PercentageUsedTuple {
         Double dPerc;
         Boolean fIsUsed;
@@ -244,5 +249,4 @@ public class Security {
             this.fIsUsed = b;
         }
     }
-
 }

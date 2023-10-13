@@ -1,4 +1,3 @@
-import enums.SecurityType;
 import models.Security;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -6,22 +5,18 @@ import services.SecurityService;
 import xml.XmlFileWriter;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.BASE_PATH;
-import static constants.PathConstants.FILE_NAME;
+import static constants.PathConstants.INPUT_FILE_NAME;
 import static xml.XmlFileReader.getAllSecurities;
 import static xml.XmlFileReader.getDocument;
 
 public class Main {
-    private static Logger logger = Logger.getLogger(Main.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
     SecurityService securityService = new SecurityService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
@@ -40,38 +35,15 @@ public class Main {
 
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
 
-        List<SecurityType> requestedSecurityTypes = inputSecurities();
-
-        List<Security> updatedSecurities = addClassificationData(allSecurities, requestedSecurityTypes);
+        List<Security> updatedSecurities = addClassificationData(allSecurities);
 
         xmlFileWriter.updateXml(portfolioDocument, updatedSecurities.toArray(new Security[0]));
 
         logger.info("----- END -----\n");
     }
 
-    List<Security> addClassificationData(NodeList allSecurities, List<SecurityType> requestedSecurityTypes) {
-        return securityService.processSecurities(allSecurities, requestedSecurityTypes);
-    }
-
-    List<SecurityType> inputSecurities() {
-        System.out.print("\n\nChoose security types:\n- ETF\n- Fond\n- all\n");
-        Scanner userInput = new Scanner(System.in);
-        String input = userInput.nextLine().toLowerCase();
-
-        List<SecurityType> inputSecurities = new ArrayList<>();
-
-        if (input.equals("etf")) {
-            inputSecurities.add(SecurityType.ETF);
-        }
-        if (input.equals("fond")) {
-            inputSecurities.add(SecurityType.FOND);
-        }
-        if (input.equals("all")) {
-            inputSecurities.add(SecurityType.ETF);
-            inputSecurities.add(SecurityType.FOND);
-        }
-
-        return inputSecurities;
+    List<Security> addClassificationData(NodeList allSecurities) {
+        return securityService.processSecurities(allSecurities);
     }
 
     NodeList getAllSecuritiesFromPortfolio(Document portfolioDoc) {
@@ -79,7 +51,7 @@ public class Main {
     }
 
     Document loadPortfolioDocumentFromFile() {
-        return getDocument(BASE_PATH + FILE_NAME);
+        return getDocument(BASE_PATH + INPUT_FILE_NAME);
     }
 
 }

@@ -17,10 +17,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static constants.PathConstants.*;
 
 public class XmlFileWriter {
+    private static final Logger logger = Logger.getLogger(XmlFileWriter.class.getCanonicalName());
+    XmlHelper xmlHelper = new XmlHelper();
 
     // write doc to output stream
     private void writeXml(Document doc, OutputStream output) throws TransformerException, UnsupportedEncodingException {
@@ -55,14 +58,7 @@ public class XmlFileWriter {
                 oAlreadyAddedStocks = oAlreadyAddedTriples.get("topten").getAsJsonArray();
                 oSavedTriplesFile.close();
             } catch (Exception e) {
-                System.out.print("Die bisherigen Importe konnten nicht aus der Datei gelesen werden.\nDies ist beim ersten Aufruf normal.\nSoll eine neue Datei erstellt werden und alle Daten neu importiert werden?\n(Eventuell werden alle Klassifizierungen der ETF / Fonds zusaetzlich angelegt!)");
-                Scanner userInput = new Scanner(System.in);
-                System.out.println("\nja/nein?: ");
-                String input = userInput.nextLine().toLowerCase();
-                userInput.close();
-                if (input.isEmpty() || !input.equals("ja")) {
-                    return;
-                }
+                logger.finer("Cache of imports could not be read: " + e.getMessage());
                 oAlreadyAddedCountries = new JsonArray();
                 oAlreadyAddedBranches = new JsonArray();
                 oAlreadyAddedStocks = new JsonArray();
@@ -73,324 +69,24 @@ public class XmlFileWriter {
                 Node taxonomy = listOfTaxonomies.item(i);
                 if (taxonomy.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) taxonomy;
-                    String taxonomyName = element.getElementsByTagName("name").item(0).getTextContent();
-                    //System.out.printf("Regionname: %s;\n", taxonomyName);
+                    String taxonomyName = xmlHelper.getTextContent(element, "name");
+                    logger.info("taxonomyName: " + taxonomyName);
 
                     // countries start
                     if (taxonomyName.equals("Regionen")) {
-                        System.out.print("Importing regions...");
-                        NodeList oListOfAllCountries = element.getElementsByTagName("classification");
-
-                        JsonArray oSavedCountryTriples = new JsonArray();
-                        for (int indexCountry = 0; indexCountry < oListOfAllCountries.getLength(); indexCountry++) {
-                            Node countryNode = oListOfAllCountries.item(indexCountry);
-                            int nCountryAppearence = 0;
-                            if (countryNode.getNodeType() == Node.ELEMENT_NODE) {
-                                String strCountry = ((Element) countryNode).getElementsByTagName("name").item(0).getTextContent();
-                                if (strCountry.equals("Vereinigte Staaten")) {
-                                    strCountry = "USA";
-                                }
-                                for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
-                                    if (oAllEtf[indexEtf] != null) {
-                                        int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfCountry(strCountry) * 100.0);
-
-                                        boolean fSkipCurrentAdding = false;
-                                        // checking if the triple was added in an earlier run of the tool (therefor skip it -> no double entry AND it may have been moved
-                                        for (int nIndexAddedCountries = 0; nIndexAddedCountries < oAlreadyAddedCountries.size(); nIndexAddedCountries++) {
-                                            JsonObject oTriple = oAlreadyAddedCountries.get(nIndexAddedCountries).getAsJsonObject();
-                                            if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strCountry)) {
-                                                fSkipCurrentAdding = true;
-                                                JsonObject oSavingTriple = new JsonObject();
-                                                oSavingTriple.addProperty("weight", nPercentage);
-                                                oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
-                                                oSavingTriple.addProperty("classification", strCountry);
-                                                oSavedCountryTriples.add(oSavingTriple);
-                                                break;
-                                            }
-                                        }
-
-
-                                        if (nPercentage > 0 && !fSkipCurrentAdding) {
-                                            //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountry, oAllEtf[indexEtf].getName());
-                                            Element assignment = doc.createElement("assignment");
-                                            NodeList oAllChildren = countryNode.getChildNodes();
-                                            Element assigments = doc.createElement("assignments");
-                                            for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-                                                if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
-                                                    assigments = (Element) oAllChildren.item(nNodeIndex);
-                                                }
-                                            }
-
-
-                                            int nRootsteps = returnRootsteps(assigments) + 3;
-                                            //System.out.printf("nRootsteps: %s \n", nRootsteps);
-                                            Element investmentVehicle = doc.createElement("investmentVehicle");
-                                            investmentVehicle.setAttribute("class", "security");
-
-                                            StringBuilder strParentsToClient = new StringBuilder();
-                                            for (int steps = 0; steps < nRootsteps; steps++) {
-                                                strParentsToClient.append("../");
-                                            }
-                                            investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + (indexEtf + 1) + "]");
-
-                                            Element weight = doc.createElement("weight");
-                                            weight.setTextContent(Integer.toString(nPercentage));
-
-                                            Element rank = doc.createElement("rank");
-                                            nCountryAppearence++;
-                                            rank.setTextContent(Integer.toString(nCountryAppearence));
-
-                                            assignment.appendChild(investmentVehicle);
-                                            assignment.appendChild(weight);
-                                            assignment.appendChild(rank);
-
-                                            assigments.appendChild(assignment);
-
-                                            JsonObject oSavingTriple = new JsonObject();
-                                            oSavingTriple.addProperty("weight", nPercentage);
-                                            oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
-                                            oSavingTriple.addProperty("classification", strCountry);
-                                            oSavedCountryTriples.add(oSavingTriple);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        // adding all country triples to the "all" jsonObject (for performance split on country/region/etc
-                        oAllToBeSavedTriples.add("countries", oSavedCountryTriples);
-                        System.out.print(" done!\n");
+                        importRegions(doc, oAllEtf, oAlreadyAddedCountries, oAllToBeSavedTriples, element);
                     }
                     // endof countries
 
-
                     // branches start
                     if (taxonomyName.equals("Branchen (GICS)")) {
-                        System.out.print("Importing branches...");
-                        NodeList oListOfAllBranches = element.getElementsByTagName("classification");
-
-                        JsonArray oSavedBranchesTriples = new JsonArray();
-                        Map<String, NodeRankTuple> oNodesWithNameAsKey = new HashMap<>();
-                        for (int indexBranch = 0; indexBranch < oListOfAllBranches.getLength(); indexBranch++) {
-                            Node branchNode = oListOfAllBranches.item(indexBranch);
-                            if (branchNode.getNodeType() == Node.ELEMENT_NODE) {
-                                String strNameOfNode = ((Element) branchNode).getElementsByTagName("name").item(0).getTextContent();
-                                oNodesWithNameAsKey.put(strNameOfNode, new NodeRankTuple(branchNode, 0));
-                                //System.out.printf("branchnodes name: %s\n", strNameOfNode);
-                            }
-                        }
-
-                        for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
-                            String[] oArrayOfBranchnames = oAllEtf[indexEtf] != null ? oAllEtf[indexEtf].getAllBranches() : null;
-                            if (oAllEtf[indexEtf] != null && oArrayOfBranchnames != null && oArrayOfBranchnames.length > 0) {
-
-                                String strMatchingStringForFile = "";
-                                for (String oArrayOfBranchname : oArrayOfBranchnames) {
-                                    String strBestMatch = "";
-                                    int currentLowestDistance = 1000;
-                                    for (String strBranchname : oNodesWithNameAsKey.keySet()) {
-                                        int temp = levenshteinDistance(oArrayOfBranchname, strBranchname);
-                                        //System.out.printf("%s --levenshtein-- %s\n", oArrayOfBranchnames[branchNameIndex], temp);
-                                        if (temp < currentLowestDistance) {
-                                            strBestMatch = strBranchname;
-                                            currentLowestDistance = temp;
-                                        }
-                                    }
-                                    //System.out.printf("%s --- %s --- %s\n", oArrayOfBranchnames[branchNameIndex], strBestMatch, currentLowestDistance);
-
-                                    int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfBranch(oArrayOfBranchname) * 100.0);
-
-                                    boolean fSkipCurrentAdding = false;
-                                    // checking if the triple was added in an earlier run of the tool (therefor skip it -> no double entry AND it may have been moved
-                                    for (int nIndexAddedBranches = 0; nIndexAddedBranches < oAlreadyAddedBranches.size(); nIndexAddedBranches++) {
-                                        JsonObject oTriple = oAlreadyAddedBranches.get(nIndexAddedBranches).getAsJsonObject();
-                                        if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strBestMatch)) {
-                                            fSkipCurrentAdding = true;
-                                            JsonObject oSavingTriple = new JsonObject();
-                                            oSavingTriple.addProperty("weight", nPercentage);
-                                            oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
-                                            oSavingTriple.addProperty("classification", strBestMatch);
-                                            oSavedBranchesTriples.add(oSavingTriple);
-                                            break;
-                                        }
-                                    }
-
-                                    if (nPercentage > 0 && !fSkipCurrentAdding) {
-                                        //System.out.printf("branch: %s with more than 0.0 found in etf: %s\n", strBranch, oAllEtf[indexEtf].getName());
-                                        Element assignment = doc.createElement("assignment");
-                                        NodeRankTuple oTuple = oNodesWithNameAsKey.get(strBestMatch);
-                                        Node branchNode = oTuple.oNode;
-
-                                        NodeList oAllChildren = branchNode.getChildNodes();
-                                        Element assigments = doc.createElement("assignments");
-                                        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-                                            if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
-                                                assigments = (Element) oAllChildren.item(nNodeIndex);
-                                            }
-                                        }
-
-                                        int nRootsteps = returnRootsteps(assigments) + 3;
-                                        //System.out.printf("nRootsteps: %s for branch: %s\n", nRootsteps, strBestMatch);
-                                        Element investmentVehicle = doc.createElement("investmentVehicle");
-                                        investmentVehicle.setAttribute("class", "security");
-                                        StringBuilder strParentsToClient = new StringBuilder();
-                                        for (int steps = 0; steps < nRootsteps; steps++) {
-                                            strParentsToClient.append("../");
-                                        }
-                                        //System.out.printf("strParentsToClient: %s\n", strParentsToClient);
-                                        investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + Integer.toString(indexEtf + 1) + "]");
-
-                                        Element weight = doc.createElement("weight");
-                                        weight.setTextContent(Integer.toString(nPercentage));
-
-                                        Element rank = doc.createElement("rank");
-                                        oTuple.nRank++;
-                                        rank.setTextContent(Integer.toString(oTuple.nRank));
-
-                                        assignment.appendChild(investmentVehicle);
-                                        assignment.appendChild(weight);
-                                        assignment.appendChild(rank);
-
-                                        assigments.appendChild(assignment);
-                                        strMatchingStringForFile += "-> Branche (ETF / Fond) \"" + oArrayOfBranchname + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + strBestMatch + "\" zugeordnet.\n";
-
-                                        JsonObject oSavingTriple = new JsonObject();
-                                        oSavingTriple.addProperty("weight", nPercentage);
-                                        oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
-                                        oSavingTriple.addProperty("classification", strBestMatch);
-                                        oSavedBranchesTriples.add(oSavingTriple);
-                                    }
-                                }
-                                if (!strMatchingStringForFile.isEmpty()) {
-                                    File logsDir = new File(LOGS_PATH);
-                                    logsDir.mkdirs();
-                                    PrintWriter out = new PrintWriter(LOGS_PATH + oAllEtf[indexEtf].getName() + ".txt");
-                                    out.print(strMatchingStringForFile);
-                                    out.close();
-                                }
-                            }
-                        }
-
-                        oAllToBeSavedTriples.add("branches", oSavedBranchesTriples);
-                        System.out.printf(" done!\n");
+                        importBranches(doc, oAllEtf, oAlreadyAddedBranches, oAllToBeSavedTriples, element);
                     }
                     // end of branches
 
-
                     // top ten start
                     if (taxonomyName.equals("Top Ten")) {
-                        System.out.printf("Importing Top Ten...");
-                        Element oRootOfTopTen = (Element) element.getElementsByTagName("root").item(0);
-
-                        JsonArray oSavedTopTenTriples = new JsonArray();
-                        NodeList oAllChildren = oRootOfTopTen.getChildNodes();
-                        Element childrenNode = doc.createElement("children");
-                        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-                            Node item = oAllChildren.item(nNodeIndex);
-                            if (item.getNodeType() == Node.ELEMENT_NODE && ((Element) item).getNodeName().equals("children")) {
-                                childrenNode = (Element) item;
-                            }
-                        }
-
-                        TreeSet<String> oListOfAllStocks = new TreeSet<String>();
-
-                        for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
-                            if (oAllEtf[indexEtf] != null) {
-                                Map<String, Security.PercentageUsedTuple> oHoldingsOfCurrentETF = oAllEtf[indexEtf].getHoldings();
-                                for (String key : oHoldingsOfCurrentETF.keySet()) {
-                                    if (!oListOfAllStocks.contains(key)) {
-                                        oListOfAllStocks.add(key);
-                                    }
-                                }
-                            }
-                        }
-
-                        for (String strStockname : oListOfAllStocks) {
-                            System.out.printf("\nStockname: " + strStockname);
-
-                            //setting each stock as own classification
-                            Element classificationNodeForStock = doc.createElement("classification");
-
-                            Element id = doc.createElement("id");
-                            id.setTextContent(UUID.randomUUID().toString());
-
-                            Element name = doc.createElement("name");
-                            name.setTextContent(strStockname);
-
-                            Element color = doc.createElement("color");
-                            color.setTextContent("#FFFFFF");
-
-                            Element parent = doc.createElement("parent");
-                            parent.setAttribute("reference", "../../..");
-
-                            Element children = doc.createElement("children");
-
-                            Element assignments = doc.createElement("assignments");
-
-                            Element weight = doc.createElement("weight");
-                            weight.setTextContent("10000");
-
-                            Element rank = doc.createElement("rank");
-                            rank.setTextContent("0");
-
-                            classificationNodeForStock.appendChild(id);
-                            classificationNodeForStock.appendChild(name);
-                            classificationNodeForStock.appendChild(color);
-                            classificationNodeForStock.appendChild(parent);
-                            classificationNodeForStock.appendChild(children);
-                            classificationNodeForStock.appendChild(assignments);
-                            classificationNodeForStock.appendChild(weight);
-                            classificationNodeForStock.appendChild(rank);
-
-                            int nETFAppearence = 0;
-                            for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
-                                if (oAllEtf[indexEtf] != null && oAllEtf[indexEtf].getHoldings().containsKey(strStockname)) {
-
-                                    Element assignment = doc.createElement("assignment");
-                                    Element investmentVehicle = doc.createElement("investmentVehicle");
-                                    investmentVehicle.setAttribute("class", "security");
-
-                                    investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + Integer.toString(indexEtf + 1) + "]");
-
-                                    int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfHolding(strStockname) * 100.0);
-
-                                    boolean fSkipCurrentAdding = false;
-                                    for (int nIndexAddedStocks = 0; nIndexAddedStocks < oAlreadyAddedStocks.size(); nIndexAddedStocks++) {
-                                        JsonObject oTriple = oAlreadyAddedStocks.get(nIndexAddedStocks).getAsJsonObject();
-                                        if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strStockname)) {
-                                            fSkipCurrentAdding = true;
-                                            break;
-                                        }
-                                    }
-
-                                    if (!fSkipCurrentAdding) {
-                                        Element weightOfETF = doc.createElement("weight");
-                                        weightOfETF.setTextContent(Integer.toString(nPercentage));
-
-                                        Element rankOfETF = doc.createElement("rank");
-                                        nETFAppearence++;
-                                        rankOfETF.setTextContent(Integer.toString(nETFAppearence));
-
-                                        assignment.appendChild(investmentVehicle);
-                                        assignment.appendChild(weightOfETF);
-                                        assignment.appendChild(rankOfETF);
-
-                                        assignments.appendChild(assignment);
-                                    }
-                                    JsonObject oSavingTriple = new JsonObject();
-                                    oSavingTriple.addProperty("weight", nPercentage);
-                                    oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
-                                    oSavingTriple.addProperty("classification", strStockname);
-                                    oSavedTopTenTriples.add(oSavingTriple);
-                                }
-                            }
-                            // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
-                            if (assignments.hasChildNodes()) {
-                                childrenNode.appendChild(classificationNodeForStock);
-                            }
-                        }
-
-                        oAllToBeSavedTriples.add("topten", oSavedTopTenTriples);
-                        System.out.printf(" done!\n");
+                        importTopTen(doc, oAllEtf, oAlreadyAddedStocks, oAllToBeSavedTriples, element);
                     }
                     // endof top ten
 
@@ -405,21 +101,324 @@ public class XmlFileWriter {
 
             // write all saved triples to avoid importing the same assignments several times for each run
             PrintWriter savingImport = new PrintWriter(SAVE_FILE);
-            savingImport.print(oAllToBeSavedTriples.toString() + "\n");
+            savingImport.print(oAllToBeSavedTriples + "\n");
             savingImport.close();
 
             // output to console
             // writeXml(doc, System.out);
 
-            try (FileOutputStream output = new FileOutputStream(BASE_PATH + "Portfolio Performance imported.xml")) {
+            try (FileOutputStream output = new FileOutputStream(BASE_PATH + OUTPUT_FILE_NAME)) {
                 writeXml(doc, output);
             }
 
-
         } catch (IOException | TransformerException e) {
-            e.printStackTrace();
+            logger.warning("Error updating XML: " + e.getMessage());
         }
 
+    }
+
+    private void importTopTen(Document doc, Security[] oAllEtf, JsonArray oAlreadyAddedStocks, JsonObject oAllToBeSavedTriples, Element element) {
+        logger.info("Importing Top Ten...");
+        Element oRootOfTopTen = (Element) element.getElementsByTagName("root").item(0);
+
+        JsonArray oSavedTopTenTriples = new JsonArray();
+        NodeList oAllChildren = oRootOfTopTen.getChildNodes();
+        Element childrenNode = doc.createElement("children");
+        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
+            Node item = oAllChildren.item(nNodeIndex);
+            if (item.getNodeType() == Node.ELEMENT_NODE && item.getNodeName().equals("children")) {
+                childrenNode = (Element) item;
+            }
+        }
+
+        TreeSet<String> oListOfAllStocks = new TreeSet<>();
+
+        for (Security security : oAllEtf) {
+            if (security != null) {
+                Map<String, Security.PercentageUsedTuple> oHoldingsOfCurrentETF = security.getHoldings();
+                oListOfAllStocks.addAll(oHoldingsOfCurrentETF.keySet());
+            }
+        }
+
+        for (String strStockname : oListOfAllStocks) {
+            logger.info("Stockname: " + strStockname);
+
+            //setting each stock as own classification
+            Element classificationNodeForStock = doc.createElement("classification");
+
+            Element id = doc.createElement("id");
+            id.setTextContent(UUID.randomUUID().toString());
+
+            Element name = doc.createElement("name");
+            name.setTextContent(strStockname);
+
+            Element color = doc.createElement("color");
+            color.setTextContent("#FFFFFF");
+
+            Element parent = doc.createElement("parent");
+            parent.setAttribute("reference", "../../..");
+
+            Element children = doc.createElement("children");
+
+            Element assignments = doc.createElement("assignments");
+
+            Element weight = doc.createElement("weight");
+            weight.setTextContent("10000");
+
+            Element rank = doc.createElement("rank");
+            rank.setTextContent("0");
+
+            classificationNodeForStock.appendChild(id);
+            classificationNodeForStock.appendChild(name);
+            classificationNodeForStock.appendChild(color);
+            classificationNodeForStock.appendChild(parent);
+            classificationNodeForStock.appendChild(children);
+            classificationNodeForStock.appendChild(assignments);
+            classificationNodeForStock.appendChild(weight);
+            classificationNodeForStock.appendChild(rank);
+
+            int nETFAppearence = 0;
+            for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
+                if (oAllEtf[indexEtf] != null && oAllEtf[indexEtf].getHoldings().containsKey(strStockname)) {
+
+                    Element assignment = doc.createElement("assignment");
+                    Element investmentVehicle = doc.createElement("investmentVehicle");
+                    investmentVehicle.setAttribute("class", "security");
+
+                    investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexEtf + 1) + "]");
+
+                    int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfHolding(strStockname) * 100.0);
+
+                    boolean fSkipCurrentAdding = false;
+                    for (int nIndexAddedStocks = 0; nIndexAddedStocks < oAlreadyAddedStocks.size(); nIndexAddedStocks++) {
+                        JsonObject oTriple = oAlreadyAddedStocks.get(nIndexAddedStocks).getAsJsonObject();
+                        if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strStockname)) {
+                            fSkipCurrentAdding = true;
+                            break;
+                        }
+                    }
+
+                    if (!fSkipCurrentAdding) {
+                        Element weightOfETF = doc.createElement("weight");
+                        weightOfETF.setTextContent(Integer.toString(nPercentage));
+
+                        Element rankOfETF = doc.createElement("rank");
+                        nETFAppearence++;
+                        rankOfETF.setTextContent(Integer.toString(nETFAppearence));
+
+                        assignment.appendChild(investmentVehicle);
+                        assignment.appendChild(weightOfETF);
+                        assignment.appendChild(rankOfETF);
+
+                        assignments.appendChild(assignment);
+                    }
+                    JsonObject oSavingTriple = new JsonObject();
+                    oSavingTriple.addProperty("weight", nPercentage);
+                    oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
+                    oSavingTriple.addProperty("classification", strStockname);
+                    oSavedTopTenTriples.add(oSavingTriple);
+                }
+            }
+            // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
+            if (assignments.hasChildNodes()) {
+                childrenNode.appendChild(classificationNodeForStock);
+            }
+        }
+
+        oAllToBeSavedTriples.add("topten", oSavedTopTenTriples);
+        logger.info(" - done!");
+    }
+
+    private void importBranches(Document doc, Security[] oAllEtf, JsonArray oAlreadyAddedBranches, JsonObject oAllToBeSavedTriples, Element element) throws FileNotFoundException {
+        logger.info("Importing branches...");
+        NodeList oListOfAllBranches = element.getElementsByTagName("classification");
+
+        JsonArray oSavedBranchesTriples = new JsonArray();
+        Map<String, NodeRankTuple> oNodesWithNameAsKey = new HashMap<>();
+        for (int indexBranch = 0; indexBranch < oListOfAllBranches.getLength(); indexBranch++) {
+            Node branchNode = oListOfAllBranches.item(indexBranch);
+            if (branchNode.getNodeType() == Node.ELEMENT_NODE) {
+                String strNameOfNode = xmlHelper.getTextContent((Element) branchNode, "name");
+                oNodesWithNameAsKey.put(strNameOfNode, new NodeRankTuple(branchNode, 0));
+                //System.out.printf("branchnodes name: %s\n", strNameOfNode);
+            }
+        }
+
+        for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
+            String[] oArrayOfBranchnames = oAllEtf[indexEtf] != null ? oAllEtf[indexEtf].getAllBranches() : null;
+            if (oAllEtf[indexEtf] != null && oArrayOfBranchnames != null && oArrayOfBranchnames.length > 0) {
+
+                StringBuilder strMatchingStringForFile = new StringBuilder();
+                for (String oArrayOfBranchname : oArrayOfBranchnames) {
+                    String strBestMatch = "";
+                    int currentLowestDistance = 1000;
+                    for (String strBranchname : oNodesWithNameAsKey.keySet()) {
+                        int temp = levenshteinDistance(oArrayOfBranchname, strBranchname);
+                        //System.out.printf("%s --levenshtein-- %s\n", oArrayOfBranchnames[branchNameIndex], temp);
+                        if (temp < currentLowestDistance) {
+                            strBestMatch = strBranchname;
+                            currentLowestDistance = temp;
+                        }
+                    }
+                    //System.out.printf("%s --- %s --- %s\n", oArrayOfBranchnames[branchNameIndex], strBestMatch, currentLowestDistance);
+
+                    int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfBranch(oArrayOfBranchname) * 100.0);
+
+                    boolean fSkipCurrentAdding = false;
+                    // checking if the triple was added in an earlier run of the tool (therefor skip it -> no double entry AND it may have been moved
+                    for (int nIndexAddedBranches = 0; nIndexAddedBranches < oAlreadyAddedBranches.size(); nIndexAddedBranches++) {
+                        JsonObject oTriple = oAlreadyAddedBranches.get(nIndexAddedBranches).getAsJsonObject();
+                        if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strBestMatch)) {
+                            fSkipCurrentAdding = true;
+                            JsonObject oSavingTriple = new JsonObject();
+                            oSavingTriple.addProperty("weight", nPercentage);
+                            oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
+                            oSavingTriple.addProperty("classification", strBestMatch);
+                            oSavedBranchesTriples.add(oSavingTriple);
+                            break;
+                        }
+                    }
+
+                    if (nPercentage > 0 && !fSkipCurrentAdding) {
+                        //System.out.printf("branch: %s with more than 0.0 found in etf: %s\n", strBranch, oAllEtf[indexEtf].getName());
+                        Element assignment = doc.createElement("assignment");
+                        NodeRankTuple oTuple = oNodesWithNameAsKey.get(strBestMatch);
+                        Node branchNode = oTuple.oNode;
+
+                        NodeList oAllChildren = branchNode.getChildNodes();
+                        Element assigments = doc.createElement("assignments");
+                        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
+                            if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
+                                assigments = (Element) oAllChildren.item(nNodeIndex);
+                            }
+                        }
+
+                        int nRootsteps = returnRootsteps(assigments) + 3;
+                        //System.out.printf("nRootsteps: %s for branch: %s\n", nRootsteps, strBestMatch);
+                        Element investmentVehicle = doc.createElement("investmentVehicle");
+                        investmentVehicle.setAttribute("class", "security");
+                        StringBuilder strParentsToClient = new StringBuilder();
+                        for (int steps = 0; steps < nRootsteps; steps++) {
+                            strParentsToClient.append("../");
+                        }
+                        //System.out.printf("strParentsToClient: %s\n", strParentsToClient);
+                        investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + (indexEtf + 1) + "]");
+
+                        Element weight = doc.createElement("weight");
+                        weight.setTextContent(Integer.toString(nPercentage));
+
+                        Element rank = doc.createElement("rank");
+                        oTuple.nRank++;
+                        rank.setTextContent(Integer.toString(oTuple.nRank));
+
+                        assignment.appendChild(investmentVehicle);
+                        assignment.appendChild(weight);
+                        assignment.appendChild(rank);
+
+                        assigments.appendChild(assignment);
+                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(oArrayOfBranchname).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(strBestMatch).append("\" zugeordnet.\n");
+
+                        JsonObject oSavingTriple = new JsonObject();
+                        oSavingTriple.addProperty("weight", nPercentage);
+                        oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
+                        oSavingTriple.addProperty("classification", strBestMatch);
+                        oSavedBranchesTriples.add(oSavingTriple);
+                    }
+                }
+                if (strMatchingStringForFile.length() > 0) {
+                    File logsDir = new File(LOGS_PATH);
+                    logsDir.mkdirs();
+                    PrintWriter out = new PrintWriter(LOGS_PATH + oAllEtf[indexEtf].getName() + ".txt");
+                    out.print(strMatchingStringForFile);
+                    out.close();
+                }
+            }
+        }
+
+        oAllToBeSavedTriples.add("branches", oSavedBranchesTriples);
+        logger.info(" - done!");
+    }
+
+    private void importRegions(Document doc, Security[] oAllEtf, JsonArray oAlreadyAddedCountries, JsonObject oAllToBeSavedTriples, Element element) {
+        logger.info("Importing regions...");
+        NodeList oListOfAllCountries = element.getElementsByTagName("classification");
+
+        JsonArray oSavedCountryTriples = new JsonArray();
+        for (int indexCountry = 0; indexCountry < oListOfAllCountries.getLength(); indexCountry++) {
+            Node countryNode = oListOfAllCountries.item(indexCountry);
+            int nCountryAppearence = 0;
+            if (countryNode.getNodeType() == Node.ELEMENT_NODE) {
+                String strCountry = xmlHelper.getTextContent((Element) countryNode, "name");
+                if (strCountry.equals("Vereinigte Staaten")) {
+                    strCountry = "USA";
+                }
+                for (int indexEtf = 0; indexEtf < oAllEtf.length; indexEtf++) {
+                    if (oAllEtf[indexEtf] != null) {
+                        int nPercentage = (int) Math.ceil(oAllEtf[indexEtf].getPercentageOfCountry(strCountry) * 100.0);
+
+                        boolean fSkipCurrentAdding = false;
+                        // checking if the triple was added in an earlier run of the tool (therefor skip it -> no double entry AND it may have been moved
+                        for (int nIndexAddedCountries = 0; nIndexAddedCountries < oAlreadyAddedCountries.size(); nIndexAddedCountries++) {
+                            JsonObject oTriple = oAlreadyAddedCountries.get(nIndexAddedCountries).getAsJsonObject();
+                            if (oTriple.get("weight").getAsInt() == nPercentage && oTriple.get("isin").getAsString().equals(oAllEtf[indexEtf].getIsin()) && oTriple.get("classification").getAsString().equals(strCountry)) {
+                                fSkipCurrentAdding = true;
+                                JsonObject oSavingTriple = new JsonObject();
+                                oSavingTriple.addProperty("weight", nPercentage);
+                                oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
+                                oSavingTriple.addProperty("classification", strCountry);
+                                oSavedCountryTriples.add(oSavingTriple);
+                                break;
+                            }
+                        }
+
+                        if (nPercentage > 0 && !fSkipCurrentAdding) {
+                            //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountry, oAllEtf[indexEtf].getName());
+                            Element assignment = doc.createElement("assignment");
+                            NodeList oAllChildren = countryNode.getChildNodes();
+                            Element assigments = doc.createElement("assignments");
+                            for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
+                                if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
+                                    assigments = (Element) oAllChildren.item(nNodeIndex);
+                                }
+                            }
+
+                            int nRootsteps = returnRootsteps(assigments) + 3;
+                            //System.out.printf("nRootsteps: %s \n", nRootsteps);
+                            Element investmentVehicle = doc.createElement("investmentVehicle");
+                            investmentVehicle.setAttribute("class", "security");
+
+                            StringBuilder strParentsToClient = new StringBuilder();
+                            for (int steps = 0; steps < nRootsteps; steps++) {
+                                strParentsToClient.append("../");
+                            }
+                            investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + (indexEtf + 1) + "]");
+
+                            Element weight = doc.createElement("weight");
+                            weight.setTextContent(Integer.toString(nPercentage));
+
+                            Element rank = doc.createElement("rank");
+                            nCountryAppearence++;
+                            rank.setTextContent(Integer.toString(nCountryAppearence));
+
+                            assignment.appendChild(investmentVehicle);
+                            assignment.appendChild(weight);
+                            assignment.appendChild(rank);
+
+                            assigments.appendChild(assignment);
+
+                            JsonObject oSavingTriple = new JsonObject();
+                            oSavingTriple.addProperty("weight", nPercentage);
+                            oSavingTriple.addProperty("isin", oAllEtf[indexEtf].getIsin());
+                            oSavingTriple.addProperty("classification", strCountry);
+                            oSavedCountryTriples.add(oSavingTriple);
+                        }
+                    }
+                }
+            }
+        }
+        // adding all country triples to the "all" jsonObject (for performance split on country/region/etc
+        oAllToBeSavedTriples.add("countries", oSavedCountryTriples);
+        logger.info(" - done!");
     }
 
     private int returnRootsteps(Node node) {
@@ -476,20 +475,11 @@ public class XmlFileWriter {
     public static class NodeRankTuple {
         Node oNode;
         int nRank;
+
         public NodeRankTuple(Node node, int b) {
             this.oNode = node;
             this.nRank = b;
         }
     }
 
-    public static class TripleForSavingAddedCombos {
-        int nWeight;
-        String strIsin;
-        String strClassification;
-        public TripleForSavingAddedCombos(int a, String b, String c) {
-            this.nWeight = a;
-            this.strIsin = b;
-            this.strClassification = c;
-        }
-    }
 }
