@@ -5,9 +5,15 @@ import org.w3c.dom.NodeList;
 import services.SecurityService;
 import xml.XmlFileWriter;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static constants.PathConstants.BASE_PATH;
 import static constants.PathConstants.FILE_NAME;
@@ -15,17 +21,20 @@ import static xml.XmlFileReader.getAllSecurities;
 import static xml.XmlFileReader.getDocument;
 
 public class Main {
+    private static Logger logger = Logger.getLogger(Main.class.getCanonicalName());
     SecurityService securityService = new SecurityService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main main = new Main();
         main.run();
     }
 
-    private void run() {
-        System.out.print("----- Start -----\n");
-        System.out.println("Working Directory = " + BASE_PATH);
+    private void run() throws IOException {
+        LogManager logManager = LogManager.getLogManager();
+        logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
+        logger.info("----- Start -----");
+        logger.info("Working Directory = " + BASE_PATH);
 
         Document portfolioDocument = loadPortfolioDocumentFromFile();
 
@@ -33,14 +42,14 @@ public class Main {
 
         List<SecurityType> requestedSecurityTypes = inputSecurities();
 
-        Security[] updatedSecurities = addClassificationData(allSecurities, requestedSecurityTypes);
+        List<Security> updatedSecurities = addClassificationData(allSecurities, requestedSecurityTypes);
 
-        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities);
+        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities.toArray(new Security[0]));
 
-        System.out.print("----- END -----\n");
+        logger.info("----- END -----\n");
     }
 
-    Security[] addClassificationData(NodeList allSecurities, List<SecurityType> requestedSecurityTypes) {
+    List<Security> addClassificationData(NodeList allSecurities, List<SecurityType> requestedSecurityTypes) {
         return securityService.processSecurities(allSecurities, requestedSecurityTypes);
     }
 

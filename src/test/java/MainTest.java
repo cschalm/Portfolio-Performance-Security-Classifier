@@ -34,8 +34,8 @@ public class MainTest {
         securityTypes.add(ETF);
         securityTypes.add(FOND);
 
-        Security[] securities = main.addClassificationData(securityNodes, securityTypes);
-        assertEquals(1, securities.length);
+        List<Security> securities = main.addClassificationData(securityNodes, securityTypes);
+        assertEquals(1, securities.size());
     }
 
 }
