@@ -1,6 +1,7 @@
 package services;
 
 import enums.SecurityType;
+import models.Security;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
@@ -26,11 +27,13 @@ public class SecurityServiceTest extends AbstractTest {
 
     @Test
     public void processSecurities() throws IOException, ParserConfigurationException, SAXException {
-        Document document = xmlHelper.readXmlStream(Files.newInputStream(new File("src/test/resources/EtfSecurity.xml").toPath()));
+        Document document = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "EtfSecurity.xml").toPath()));
         NodeList securityNodes = document.getElementsByTagName("security");
         assertNotNull(securityNodes);
         assertEquals(1, securityNodes.getLength());
 
-        service.processSecurities(securityNodes);
+        List<Security> securityList = service.processSecurities(securityNodes);
+        assertNotNull(securityList);
+        assertEquals(1, securityList.size());
     }
 }

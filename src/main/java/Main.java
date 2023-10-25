@@ -37,7 +37,7 @@ public class Main {
 
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
-        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities.toArray(new Security[0]));
+        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities.toArray(new Security[0]), BASE_PATH);
 
         logger.info("----- END -----\n");
     }

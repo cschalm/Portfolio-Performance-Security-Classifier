@@ -5905,8 +5905,8 @@
                       <classification>
                         <id>65cb1b84-645b-4bda-bcce-91cafb7063b5</id>
                         <name>Spezialisierte Finanzdienstleistungen</name>
-                        <description>Anbieter von spezialisierten Finanzdienstleistungen, die keiner anderen Kategorie zugeordnet sind. Unternehmen in dieser Unterkategorie beziehen einen Großteil ihrer Einnahmen aus einer spezialisierten Geschäftssparte.
-                          Dazu gehören u.a. gewerbliche Finanzunternehmen, Zentralbanken, Leasing-Gesellschaften, Anbieter von Factoring-Geschäften und Spezialboutiquen. Ausgenommen von Unternehmen in der Branche „Börsen &amp; Daten“.</description>
+                        <description>Anbieter von spezialisierten Finanzdienstleistungen, die keiner anderen Kategorie zugeordnet sind. Unternehmen in dieser Unterkategorie beziehen einen Großteil ihrer Einnahmen aus einer spezialisierten Geschäftssparte. 
+Dazu gehören u.a. gewerbliche Finanzunternehmen, Zentralbanken, Leasing-Gesellschaften, Anbieter von Factoring-Geschäften und Spezialboutiquen. Ausgenommen von Unternehmen in der Branche „Börsen &amp; Daten“.</description>
                         <color>#9b85d6</color>
                         <parent reference="../../.."/>
                         <children/>

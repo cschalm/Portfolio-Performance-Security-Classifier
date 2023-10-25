@@ -16,9 +16,7 @@ public class XmlFileReader {
             // parse XML file
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new File(filepath));
-
-            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-            doc.getDocumentElement().normalize();
+            normalizeDocument(doc);
 
             return doc;
         } catch (Exception e) {
@@ -27,10 +25,14 @@ public class XmlFileReader {
         return null;
     }
 
+    private static void normalizeDocument(Document doc) {
+        // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+        doc.getDocumentElement().normalize();
+    }
+
     public static NodeList getAllSecurities(Document doc) {
         try {
-            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-            doc.getDocumentElement().normalize();
+            normalizeDocument(doc);
 
             return doc.getElementsByTagName("security");
         } catch (Exception e) {
