@@ -24,7 +24,8 @@ public class SecurityService {
     public List<Security> processSecurities(NodeList oAllSecurities) {
         List<Security> securities = new ArrayList<>();
         for (int i = 0; i < oAllSecurities.getLength(); i++) {
-            securities.add(processSecurity((Element) oAllSecurities.item(i)));
+            Security security = processSecurity((Element) oAllSecurities.item(i));
+            securities.add(security);
         }
 
         return securities;
@@ -116,7 +117,7 @@ public class SecurityService {
                 String nameFundsBreakdown = oNode.get("nameFundsBreakdown").getAsString();
                 logger.finer("nameBreakdown: " + strName + " - nameFundsBreakdown: " + nameFundsBreakdown);
                 if (!strName.equals("Barmittel") || nameFundsBreakdown.equals("Instrument")) {
-                    oResultList.put(strName, security.new PercentageUsedTuple(nPercent, false));
+                    oResultList.put(strName, new Security.PercentageUsedTuple(nPercent, false));
                     logger.fine(String.format("name: %s; Percentage: %s%%", strName, DECIMAL_FORMAT.format(nPercent)));
                 }
             }
@@ -134,7 +135,7 @@ public class SecurityService {
             String strHoldingName = oHolding.getAsJsonObject("instrument").get("name").getAsString();
             Double nHoldingPercent = oHolding.get("investmentPct").getAsDouble();
             logger.fine(String.format("Holding: %s; Percentage: %s%%", strHoldingName, DECIMAL_FORMAT.format(nHoldingPercent)));
-            oListForHoldings.put(strHoldingName, security.new PercentageUsedTuple(nHoldingPercent, false));
+            oListForHoldings.put(strHoldingName, new Security.PercentageUsedTuple(nHoldingPercent, false));
         }
         return oListForHoldings;
     }

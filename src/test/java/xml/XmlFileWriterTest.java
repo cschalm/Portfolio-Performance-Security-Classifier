@@ -28,30 +28,29 @@ public class XmlFileWriterTest extends AbstractTest {
     SecurityService service = new SecurityService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
-    private Security[] loadSecurities() throws IOException, ParserConfigurationException, SAXException {
+    private List<Security> loadSecurities() throws IOException, ParserConfigurationException, SAXException {
         Document document = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "EtfSecurity.xml").toPath()));
         NodeList securityNodes = document.getElementsByTagName("security");
         List<Security> securityList = service.processSecurities(securityNodes);
 
-        return securityList.toArray(new Security[0]);
+        return securityList;
     }
 
     @Test
     public void updateXml() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
-        Security[] securities = loadSecurities();
+        List<Security> securities = loadSecurities();
 
-        xmlFileWriter.updateXml(portfolioDocument, securities, BASE_TEST_PATH);
+        xmlFileWriter.updateXml(portfolioDocument, securities);
     }
 
     @Test
     public void importBranches() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
-        Security[] securities = loadSecurities();
+        List<Security> securities = loadSecurities();
         //JsonObject cacheFileJson = JsonParser.parseReader(new FileReader(SAVE_FILE)).getAsJsonObject();
         //JsonArray cachedBranches = cacheFileJson.get("branches").getAsJsonArray();
         JsonArray cachedBranches = new JsonArray();
-        JsonObject newCacheFileJson = new JsonObject();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {

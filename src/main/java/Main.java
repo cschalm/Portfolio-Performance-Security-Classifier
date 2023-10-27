@@ -4,14 +4,14 @@ import org.w3c.dom.NodeList;
 import services.SecurityService;
 import xml.XmlFileWriter;
 
+import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.BASE_PATH;
-import static constants.PathConstants.INPUT_FILE_NAME;
+import static constants.PathConstants.*;
 import static xml.XmlFileReader.getAllSecurities;
 import static xml.XmlFileReader.getDocument;
 
@@ -20,12 +20,12 @@ public class Main {
     SecurityService securityService = new SecurityService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, TransformerException {
         Main main = new Main();
         main.run();
     }
 
-    private void run() throws IOException {
+    private void run() throws IOException, TransformerException {
         LogManager logManager = LogManager.getLogManager();
         logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
         logger.info("----- Start -----");
@@ -37,7 +37,8 @@ public class Main {
 
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
-        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities.toArray(new Security[0]), BASE_PATH);
+        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities);
+        xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
 
         logger.info("----- END -----\n");
     }

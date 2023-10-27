@@ -13,7 +13,7 @@ public class AbstractTest {
     @BeforeClass
     public static void setupLogging() throws IOException {
         LogManager logManager = LogManager.getLogManager();
-        logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
+        logManager.readConfiguration(new FileInputStream("src/test/resources/test-logging.properties"));
     }
 
 }

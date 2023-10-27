@@ -8,7 +8,6 @@ import java.util.Map;
 import static utils.StringUtils.containsIgnoreCase;
 
 public class Security {
-
     private final String strISIN;
     private String strName;
     private Map<String, PercentageUsedTuple> oListForBranches = new HashMap<String, PercentageUsedTuple>();
@@ -206,13 +205,7 @@ public class Security {
      * @return string
      */
     public String getUnusedCountries() {
-        String strResult = "";
-        for (Map.Entry<String, PercentageUsedTuple> oEntry : this.oListForCountries.entrySet()) {
-            if (!oEntry.getValue().fIsUsed) {
-                strResult += oEntry.getKey() + ";";
-            }
-        }
-        return strResult;
+        return getUnusedEntriesListed(this.oListForCountries);
     }
 
     /**
@@ -222,13 +215,20 @@ public class Security {
      * @return string
      */
     public String getUnusedBranches() {
-        String strResult = "";
-        for (Map.Entry<String, PercentageUsedTuple> oEntry : this.oListForBranches.entrySet()) {
+        return getUnusedEntriesListed(this.oListForBranches);
+    }
+
+    private String getUnusedEntriesListed(Map<String, PercentageUsedTuple> map) {
+        StringBuilder strResult = new StringBuilder();
+        for (Map.Entry<String, PercentageUsedTuple> oEntry : map.entrySet()) {
             if (!oEntry.getValue().fIsUsed) {
-                strResult += oEntry.getKey() + ";";
+                if (strResult.length() > 0) {
+                    strResult.append(';');
+                }
+                strResult.append(oEntry.getKey());
             }
         }
-        return strResult;
+        return strResult.toString();
     }
 
     public String[] getAllBranches() {
@@ -237,10 +237,10 @@ public class Security {
 
     @Override
     public String toString() {
-        return "Security " + strISIN + " (" + strName + ')';
+        return strISIN + ": " + strName;
     }
 
-    public class PercentageUsedTuple {
+    public static class PercentageUsedTuple {
         Double dPerc;
         Boolean fIsUsed;
 
