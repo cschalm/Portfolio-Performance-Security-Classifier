@@ -71,20 +71,20 @@ public class SecurityService {
 
                 // parsing holdings
                 if (breakdownsNode != null) {
-                    Map<String, Security.PercentageUsedTuple> oListForHoldings = getHoldingPercentageMap(breakdownsNode, security);
+                    Map<String, Security.PercentageUsedTuple> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
                     security.setHoldings(oListForHoldings);
 
                     // parsing branches
-                    security.setBranches(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown"), security));
+                    security.setBranches(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
 
                     // parsing currency
-                    security.setCurrencies(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("currencyBreakdown"), security));
+                    security.setCurrencies(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("currencyBreakdown")));
 
                     // parsing instrument
-                    security.setInstruments(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("instrumentBreakdown"), security));
+                    security.setInstruments(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("instrumentBreakdown")));
 
                     // parsing country
-                    security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown"), security));
+                    security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
             }
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class SecurityService {
         return splitResponse[1].split("</script>")[0];
     }
 
-    Map<String, Security.PercentageUsedTuple> getMappedPercentageForNode(JsonObject oNode, Security security) {
+    Map<String, Security.PercentageUsedTuple> getMappedPercentageForNode(JsonObject oNode) {
         Map<String, Security.PercentageUsedTuple> oResultList = new HashMap<>();
         if (oNode != null) {
             JsonArray oArrayList = oNode.getAsJsonArray("list");
@@ -125,7 +125,7 @@ public class SecurityService {
         return oResultList;
     }
 
-    Map<String, Security.PercentageUsedTuple> getHoldingPercentageMap(JsonObject breakdownsNode, Security security) {
+    Map<String, Security.PercentageUsedTuple> getHoldingPercentageMap(JsonObject breakdownsNode) {
         Map<String, Security.PercentageUsedTuple> oListForHoldings = new HashMap<>();
         JsonObject fundsHoldingList = breakdownsNode.getAsJsonObject("fundsHoldingList");
         JsonArray holdingListArray = fundsHoldingList != null ? fundsHoldingList.getAsJsonArray("list") : new JsonArray();
@@ -148,7 +148,7 @@ public class SecurityService {
             scanner.useDelimiter("\\A");
             result = scanner.hasNext() ? scanner.next() : "";
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warning("Error reading URL \"" + requestURL + "\": " + e.getMessage());
         } finally {
             assert scanner != null;
             scanner.close();
