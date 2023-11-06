@@ -124,7 +124,7 @@ public class XmlFileWriter {
         TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
 
         for (String stockName : allStockNames.keySet()) {
-//            logger.info("Stockname: " + stockName);
+            logger.info("Stockname: " + stockName);
 
             //setting each stock as own classification
             Element classificationNodeForStock = portfolioDocument.createElement("classification");
@@ -165,31 +165,18 @@ public class XmlFileWriter {
             for (Security security : allSecurities) {
                 if (security != null) {
                     // find security that contains the current stock identified by any similar name
-                    for (String holdingsName : security.getHoldings().keySet()) {
-                        if (allStockNames.get(stockName).contains(holdingsName)) {
-//                            if (holdingsName.toLowerCase().startsWith("alphabet")) {
-//                                logger.info("Found Stock: " + stockName + " with Holding: " + holdingsName);
-//                            }
+                        if (security.getHoldings().containsKey(stockName)) {
+                            // primary name
+                            nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                        } else {
+                            // alternative names
                             List<String> alternativeNames = allStockNames.get(stockName);
-                            if (security.getHoldings().containsKey(stockName)) {
-                                // primary name
-//                                if (holdingsName.toLowerCase().startsWith("alphabet")) {
-//                                    logger.info("Security " + security + " contains primary " + stockName);
-//                                }
-                                nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
-                            } else {
-                                // alternative names
-                                for (String alternativeName : alternativeNames) {
-                                    if (security.getHoldings().containsKey(alternativeName)) {
-//                                        if (holdingsName.toLowerCase().startsWith("alphabet")) {
-//                                            logger.info("Security " + security + " contains alternative " + alternativeName);
-//                                        }
-                                        nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
-                                    }
+                            for (String alternativeName : alternativeNames) {
+                                if (security.getHoldings().containsKey(alternativeName)) {
+                                    nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
                                 }
                             }
                         }
-                    }
                 }
                 indexEtf++;
             }
@@ -219,9 +206,6 @@ public class XmlFileWriter {
             }
         }
 
-        if (stockName.toLowerCase().startsWith("alphabet")) {
-            logger.info("StockName " + stockName + " found: " + found);
-        }
         if (!found) {
             // verify that this stock was not imported by an alternative name before
             for (int i = 0; i < importedTopTen.size(); i++) {
@@ -231,9 +215,6 @@ public class XmlFileWriter {
                     break;
                 }
             }
-        }
-        if (stockName.toLowerCase().startsWith("alphabet")) {
-            logger.info("StockName " + stockName + " found: " + found);
         }
         if (!found) {
             Element assignment = createAssignment(portfolioDocument, ++nETFAppearance, percentage);

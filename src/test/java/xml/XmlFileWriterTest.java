@@ -19,12 +19,11 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class XmlFileWriterTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(XmlFileWriterTest.class.getCanonicalName());
