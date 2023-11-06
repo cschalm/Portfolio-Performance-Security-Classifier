@@ -3,6 +3,8 @@ package xml;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import models.Security;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -119,17 +121,10 @@ public class XmlFileWriter {
             }
         }
 
-        TreeSet<String> oListOfAllStocks = new TreeSet<>();
+        TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
 
-        for (Security security : allSecurities) {
-            if (security != null) {
-                Map<String, Security.PercentageUsedTuple> oHoldingsOfCurrentETF = security.getHoldings();
-                oListOfAllStocks.addAll(oHoldingsOfCurrentETF.keySet());
-            }
-        }
-
-        for (String strStockname : oListOfAllStocks) {
-            logger.info("Stockname: " + strStockname);
+        for (String stockName : allStockNames.keySet()) {
+//            logger.info("Stockname: " + stockName);
 
             //setting each stock as own classification
             Element classificationNodeForStock = portfolioDocument.createElement("classification");
@@ -138,7 +133,7 @@ public class XmlFileWriter {
             id.setTextContent(UUID.randomUUID().toString());
 
             Element name = portfolioDocument.createElement("name");
-            name.setTextContent(strStockname);
+            name.setTextContent(stockName);
 
             Element color = portfolioDocument.createElement("color");
             color.setTextContent("#FFFFFF");
@@ -168,34 +163,33 @@ public class XmlFileWriter {
             int nETFAppearance = 0;
             int indexEtf = 0;
             for (Security security : allSecurities) {
-                if (security != null && security.getHoldings().containsKey(strStockname)) {
-
-                    Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                    investmentVehicle.setAttribute("class", "security");
-
-                    investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexEtf + 1) + "]");
-
-                    int nPercentage = (int) Math.ceil(security.getPercentageOfHolding(strStockname) * 100.0);
-
-                    boolean fSkipCurrentAdding = false;
-                    for (int nIndexAddedStocks = 0; nIndexAddedStocks < cachedTopTen.size(); nIndexAddedStocks++) {
-                        JsonObject oTriple = cachedTopTen.get(nIndexAddedStocks).getAsJsonObject();
-                        if (jsonObjectEqualsInWeightAndIsinAndClassification(oTriple, security.getIsin(), nPercentage, strStockname)) {
-                            fSkipCurrentAdding = true;
-                            break;
+                if (security != null) {
+                    // find security that contains the current stock identified by any similar name
+                    for (String holdingsName : security.getHoldings().keySet()) {
+                        if (allStockNames.get(stockName).contains(holdingsName)) {
+//                            if (holdingsName.toLowerCase().startsWith("alphabet")) {
+//                                logger.info("Found Stock: " + stockName + " with Holding: " + holdingsName);
+//                            }
+                            List<String> alternativeNames = allStockNames.get(stockName);
+                            if (security.getHoldings().containsKey(stockName)) {
+                                // primary name
+//                                if (holdingsName.toLowerCase().startsWith("alphabet")) {
+//                                    logger.info("Security " + security + " contains primary " + stockName);
+//                                }
+                                nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                            } else {
+                                // alternative names
+                                for (String alternativeName : alternativeNames) {
+                                    if (security.getHoldings().containsKey(alternativeName)) {
+//                                        if (holdingsName.toLowerCase().startsWith("alphabet")) {
+//                                            logger.info("Security " + security + " contains alternative " + alternativeName);
+//                                        }
+                                        nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    if (!fSkipCurrentAdding) {
-                        Element assignment = createAssignment(portfolioDocument, ++nETFAppearance, nPercentage);
-                        assignment.appendChild(investmentVehicle);
-                        assignments.appendChild(assignment);
-                    }
-                    JsonObject oSavingTriple = new JsonObject();
-                    oSavingTriple.addProperty("weight", nPercentage);
-                    oSavingTriple.addProperty("isin", security.getIsin());
-                    oSavingTriple.addProperty("classification", strStockname);
-                    importedTopTen.add(oSavingTriple);
                 }
                 indexEtf++;
             }
@@ -207,6 +201,93 @@ public class XmlFileWriter {
         logger.info(" - done!");
 
         return importedTopTen;
+    }
+
+    private int addTopTenAssignment(Document portfolioDocument, JsonArray cachedTopTen, String stockName, Security security, int indexEtf, int nETFAppearance, Element assignments, JsonArray importedTopTen) {
+        Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+        investmentVehicle.setAttribute("class", "security");
+        investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexEtf + 1) + "]");
+
+        int percentage = (int) Math.ceil(security.getPercentageOfHolding(stockName) * 100.0);
+
+        boolean found = false;
+        for (int i = 0; i < cachedTopTen.size(); i++) {
+            JsonObject topTen = cachedTopTen.get(i).getAsJsonObject();
+            if (jsonObjectEqualsInWeightAndIsinAndClassification(topTen, security.getIsin(), percentage, stockName)) {
+                found = true;
+                break;
+            }
+        }
+
+        if (stockName.toLowerCase().startsWith("alphabet")) {
+            logger.info("StockName " + stockName + " found: " + found);
+        }
+        if (!found) {
+            // verify that this stock was not imported by an alternative name before
+            for (int i = 0; i < importedTopTen.size(); i++) {
+                JsonObject topTen = importedTopTen.get(i).getAsJsonObject();
+                if (jsonObjectEqualsInWeightAndIsinAndClassification(topTen, security.getIsin(), percentage, stockName)) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (stockName.toLowerCase().startsWith("alphabet")) {
+            logger.info("StockName " + stockName + " found: " + found);
+        }
+        if (!found) {
+            Element assignment = createAssignment(portfolioDocument, ++nETFAppearance, percentage);
+            assignment.appendChild(investmentVehicle);
+            assignments.appendChild(assignment);
+            JsonObject topTen = new JsonObject();
+            topTen.addProperty("weight", percentage);
+            topTen.addProperty("isin", security.getIsin());
+            topTen.addProperty("classification", stockName);
+            importedTopTen.add(topTen);
+        }
+        return nETFAppearance;
+    }
+
+    TreeMap<String, List<String>> collectAllStockNames(List<Security> allSecurities) {
+        TreeSet<String> allStockNames = new TreeSet<>();
+        for (Security security : allSecurities) {
+            if (security != null) {
+                Map<String, Security.PercentageUsedTuple> holdings = security.getHoldings();
+                allStockNames.addAll(holdings.keySet());
+            }
+        }
+        return reduceSimilarStrings(allStockNames);
+    }
+
+    TreeMap<String, List<String>> reduceSimilarStrings(Collection<String> input) {
+        TreeMap<String, List<String>> result = new TreeMap<>();
+        LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
+        for (String inputName : input) {
+            if (result.isEmpty()) {
+                // very first entry
+                result.put(inputName, new ArrayList<>());
+            } else {
+                boolean found = false;
+                // check if similar name already exists in map
+                if (!inputName.startsWith("Vanguard")) {
+                    for (String existingName : result.keySet()) {
+                        Integer dist = distance.apply(inputName.toLowerCase(), existingName.toLowerCase());
+                        if (dist <= 20) {
+                            if (StringUtils.indexOfDifference(inputName.toLowerCase(), existingName.toLowerCase()) >= 5) {
+                                // similar name exists, add alternative name to list
+                                result.get(existingName).add(inputName);
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!found) {
+                    result.put(inputName, new ArrayList<>());
+                }
+            }
+        }
+        return result;
     }
 
     Element createAssignment(Document doc, int rank, int weight) {
@@ -274,24 +355,10 @@ public class XmlFileWriter {
                         NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(strBestMatch);
                         Node branchNode = oTuple.oNode;
 
-                        NodeList oAllChildren = branchNode.getChildNodes();
-                        Element assigments = portfolioDocument.createElement("assignments");
-                        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-                            if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
-                                assigments = (Element) oAllChildren.item(nNodeIndex);
-                            }
-                        }
-
-                        int nRootsteps = returnRootSteps(assigments) + 3;
-                        //System.out.printf("nRootsteps: %s for branch: %s\n", nRootsteps, strBestMatch);
+                        Element assignments = portfolioDocument.createElement("assignments");
                         Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                        investmentVehicle.setAttribute("class", "security");
-                        StringBuilder strParentsToClient = new StringBuilder();
-                        for (int steps = 0; steps < nRootsteps; steps++) {
-                            strParentsToClient.append("../");
-                        }
-                        //System.out.printf("strParentsToClient: %s\n", strParentsToClient);
-                        investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + (indexEtf + 1) + "]");
+
+                        assignments = linkAssignmentsToInvestmentVehicle(branchNode, assignments, investmentVehicle, indexEtf);
 
                         Element weight = portfolioDocument.createElement("weight");
                         weight.setTextContent(Integer.toString(nPercentage));
@@ -304,7 +371,7 @@ public class XmlFileWriter {
                         assignment.appendChild(weight);
                         assignment.appendChild(rank);
 
-                        assigments.appendChild(assignment);
+                        assignments.appendChild(assignment);
                         strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(strBestMatch).append("\" zugeordnet. Distanz: ").append(currentLowestDistance).append(")\n");
 
                         JsonObject oSavingTriple = new JsonObject();
@@ -328,6 +395,26 @@ public class XmlFileWriter {
         logger.info(" - done!");
 
         return importedBranches;
+    }
+
+    private Element linkAssignmentsToInvestmentVehicle(Node node, Element assignments, Element investmentVehicle, int indexEtf) {
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignments")) {
+                assignments = (Element) children.item(i);
+            }
+        }
+
+        int stepsToRoot = returnRootSteps(assignments) + 3;
+        StringBuilder pathToParent = new StringBuilder();
+        for (int steps = 0; steps < stepsToRoot; steps++) {
+            pathToParent.append("../");
+        }
+
+        investmentVehicle.setAttribute("reference", pathToParent + "securities/security[" + (indexEtf + 1) + "]");
+        investmentVehicle.setAttribute("class", "security");
+
+        return assignments;
     }
 
     private boolean isContainedInCache(JsonArray cache, String isin, int weight, String classification, JsonArray parentArray) {
@@ -428,34 +515,20 @@ public class XmlFileWriter {
 
                         if (nPercentage > 0 && !fSkipCurrentAdding) {
                             //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountry, allSecurities[indexEtf].getName());
-                            NodeList oAllChildren = countryNode.getChildNodes();
-                            Element assigments = portfolioDocument.createElement("assignments");
-                            for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-                                if (oAllChildren.item(nNodeIndex).getNodeType() == Node.ELEMENT_NODE && oAllChildren.item(nNodeIndex).getNodeName().equals("assignments")) {
-                                    assigments = (Element) oAllChildren.item(nNodeIndex);
-                                }
-                            }
-
-                            int nRootsteps = returnRootSteps(assigments) + 3;
-                            //System.out.printf("nRootsteps: %s \n", nRootsteps);
+                            Element assignments = portfolioDocument.createElement("assignments");
                             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                            investmentVehicle.setAttribute("class", "security");
 
-                            StringBuilder strParentsToClient = new StringBuilder();
-                            for (int steps = 0; steps < nRootsteps; steps++) {
-                                strParentsToClient.append("../");
-                            }
-                            investmentVehicle.setAttribute("reference", strParentsToClient + "securities/security[" + (indexEtf + 1) + "]");
+                            assignments = linkAssignmentsToInvestmentVehicle(countryNode, assignments, investmentVehicle, indexEtf);
 
                             Element assignment = createAssignment(portfolioDocument, ++nCountryAppearence, nPercentage);
                             assignment.appendChild(investmentVehicle);
-                            assigments.appendChild(assignment);
+                            assignments.appendChild(assignment);
 
-                            JsonObject oSavingTriple = new JsonObject();
-                            oSavingTriple.addProperty("weight", nPercentage);
-                            oSavingTriple.addProperty("isin", security.getIsin());
-                            oSavingTriple.addProperty("classification", strCountry);
-                            importedRegions.add(oSavingTriple);
+                            JsonObject region = new JsonObject();
+                            region.addProperty("weight", nPercentage);
+                            region.addProperty("isin", security.getIsin());
+                            region.addProperty("classification", strCountry);
+                            importedRegions.add(region);
                         }
                     }
                     indexEtf++;
