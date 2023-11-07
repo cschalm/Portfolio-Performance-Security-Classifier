@@ -13,18 +13,12 @@ public class SecurityDetailsCache {
     private static final Logger logger = Logger.getLogger(SecurityDetailsCache.class.getCanonicalName());
     private final String fullFileName;
     private JsonObject cacheFileJson;
-//    private JsonArray cachedCountries;
-//    private JsonArray cachedBranches;
-//    private JsonArray cachedTopTen;
 
     public SecurityDetailsCache(String fullFileName) {
         this.fullFileName = fullFileName;
         try {
             // if there is an entry in the cache-file, nothing is imported !!!
             cacheFileJson = JsonParser.parseReader(new FileReader(fullFileName)).getAsJsonObject();
-//            cachedCountries = cacheFileJson.get("countries").getAsJsonArray();
-//            cachedBranches = cacheFileJson.get("branches").getAsJsonArray();
-//            cachedTopTen = cacheFileJson.get("topten").getAsJsonArray();
         } catch (Exception e) {
             logger.warning("Cache of security details could not be read: " + e.getMessage());
             cacheFileJson = new JsonObject();
@@ -51,29 +45,24 @@ public class SecurityDetailsCache {
     }
 
     public void setCachedCountries(JsonArray cachedCountries) {
-//        this.cachedCountries = cachedCountries;
         cacheFileJson.add("countries", cachedCountries);
     }
 
     public void setCachedBranches(JsonArray cachedBranches) {
-//        this.cachedBranches = cachedBranches;
         cacheFileJson.add("branches", cachedBranches);
     }
 
     public void setCachedTopTen(JsonArray cachedTopTen) {
-//        this.cachedTopTen = cachedTopTen;
         cacheFileJson.add("topten", cachedTopTen);
     }
 
-    public boolean save() {
+    public void save() {
         // write all saved triples to avoid importing the same assignments several times for each run
         try (PrintWriter savingImport = new PrintWriter(fullFileName)) {
             savingImport.print(getCacheFileJson() + "\n");
         } catch (FileNotFoundException e) {
             logger.warning("Cache of security details could not be saved: " + e.getMessage());
-            return false;
         }
-        return true;
     }
 
 }

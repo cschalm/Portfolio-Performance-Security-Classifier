@@ -124,7 +124,7 @@ public class XmlFileWriter {
         TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
 
         for (String stockName : allStockNames.keySet()) {
-            logger.info("Stockname: " + stockName);
+            logger.fine("Stockname: " + stockName);
 
             //setting each stock as own classification
             Element classificationNodeForStock = portfolioDocument.createElement("classification");
@@ -165,18 +165,18 @@ public class XmlFileWriter {
             for (Security security : allSecurities) {
                 if (security != null) {
                     // find security that contains the current stock identified by any similar name
-                        if (security.getHoldings().containsKey(stockName)) {
-                            // primary name
-                            nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
-                        } else {
-                            // alternative names
-                            List<String> alternativeNames = allStockNames.get(stockName);
-                            for (String alternativeName : alternativeNames) {
-                                if (security.getHoldings().containsKey(alternativeName)) {
-                                    nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
-                                }
+                    if (security.getHoldings().containsKey(stockName)) {
+                        // primary name
+                        nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                    } else {
+                        // alternative names
+                        List<String> alternativeNames = allStockNames.get(stockName);
+                        for (String alternativeName : alternativeNames) {
+                            if (security.getHoldings().containsKey(alternativeName)) {
+                                nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
                             }
                         }
+                    }
                 }
                 indexEtf++;
             }
@@ -295,7 +295,7 @@ public class XmlFileWriter {
             Node branchFromPortfolioNode = allBranchesFromPortfolioNodeList.item(indexBranch);
             if (branchFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                 String branchNameFromPortfolio = xmlHelper.getTextContent((Element) branchFromPortfolioNode, "name");
-                logger.info("Importing branch " + branchNameFromPortfolio);
+                logger.fine("Importing branch " + branchNameFromPortfolio);
                 branchNameFromPortfolioToNodeMap.put(branchNameFromPortfolio, new NodeRankTuple(branchFromPortfolioNode, 0));
             }
         }
@@ -305,7 +305,7 @@ public class XmlFileWriter {
                 indexEtf++;
                 continue;
             }
-            logger.info("Security: " + security);
+            logger.fine("Security: " + security);
             String[] branchNamesFromSecurity = security.getAllBranches();
             if (branchNamesFromSecurity != null && branchNamesFromSecurity.length > 0) {
 
@@ -326,7 +326,7 @@ public class XmlFileWriter {
 
                     int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
 
-                    logger.info("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + strBestMatch + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
+                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + strBestMatch + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
 
                     boolean fSkipCurrentAdding = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, strBestMatch, importedBranches);
 

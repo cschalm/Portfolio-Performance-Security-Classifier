@@ -2,21 +2,19 @@ package services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import models.Security;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import xml.XmlHelper;
 
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class SecurityService {
-    public static final String ONVISTA_DETAILS_REQUEST_URL = "https://www.onvista.de/etf/anlageschwerpunkt/";
-    public static final String ONVISTA_URL = "https://www.onvista.de";
     private static final Logger logger = Logger.getLogger(SecurityService.class.getCanonicalName());
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     XmlHelper xmlHelper = new XmlHelper();
@@ -37,13 +35,11 @@ public class SecurityService {
         String isRetired = xmlHelper.getTextContent(securitiesElement, "isRetired");
 
         if (!isin.isEmpty() && "false".equals(isRetired)) {
-            logger.info("Fetching data for \"" + isin + "\"...");
             security = createSecurity(isin);
             String name = xmlHelper.getTextContent(securitiesElement, "name");
             if (!name.isEmpty()) {
                 security.setName(name);
             }
-            logger.info(security.toString() + " - done!");
         }
 
         return security;
@@ -61,13 +57,14 @@ public class SecurityService {
     Security createSecurity(String strIsin) {
         Security security = new Security(strIsin);
         try {
-            String detailsRequestPath = readStringFromURL(ONVISTA_DETAILS_REQUEST_URL + strIsin);
+            SecurityDetails securityDetails = new SecurityDetails(strIsin);
+            String detailsRequestPath = securityDetails.getDetailsRequestPath();
 
             boolean isEftOrFond = isETF(detailsRequestPath)
                     || isFond(detailsRequestPath);
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
             if (isEftOrFond) {
-                JsonObject breakdownsNode = getBreakDownForSecurity(detailsRequestPath);
+                JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
 
                 // parsing holdings
                 if (breakdownsNode != null) {
@@ -91,19 +88,6 @@ public class SecurityService {
             logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());
         }
         return security;
-    }
-
-    JsonObject getBreakDownForSecurity(String detailsRequestPath) {
-        String htmlPageAnlageschwerpunkt = readStringFromURL(ONVISTA_URL + detailsRequestPath);
-        String jsonResponsePart = extractJsonPartFromHtml(htmlPageAnlageschwerpunkt);
-
-        JsonObject rootObj = JsonParser.parseString(jsonResponsePart).getAsJsonObject();
-        return rootObj.getAsJsonObject("props").getAsJsonObject("pageProps").getAsJsonObject("data").getAsJsonObject("breakdowns");
-    }
-
-    private String extractJsonPartFromHtml(String htmlPageAnlageschwerpunkt) {
-        String[] splitResponse = htmlPageAnlageschwerpunkt.split("<script id=\"__NEXT_DATA__\" type=\"application/json\">");
-        return splitResponse[1].split("</script>")[0];
     }
 
     Map<String, Security.PercentageUsedTuple> getMappedPercentageForNode(JsonObject oNode) {
@@ -138,22 +122,6 @@ public class SecurityService {
             oListForHoldings.put(strHoldingName, new Security.PercentageUsedTuple(nHoldingPercent, false));
         }
         return oListForHoldings;
-    }
-
-    String readStringFromURL(String requestURL) {
-        Scanner scanner = null;
-        String result = "";
-        try {
-            scanner = new Scanner(new URL(requestURL).openStream(), StandardCharsets.UTF_8.toString());
-            scanner.useDelimiter("\\A");
-            result = scanner.hasNext() ? scanner.next() : "";
-        } catch (Exception e) {
-            logger.warning("Error reading URL \"" + requestURL + "\": " + e.getMessage());
-        } finally {
-            assert scanner != null;
-            scanner.close();
-        }
-        return result;
     }
 
 }
