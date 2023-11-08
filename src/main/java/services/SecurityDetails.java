@@ -58,7 +58,7 @@ public class SecurityDetails {
         return detailsRequestPath;
     }
 
-    public String readStringFromURL(String requestURL) {
+    String readStringFromURL(String requestURL) {
         Scanner scanner = null;
         String result = "";
         try {

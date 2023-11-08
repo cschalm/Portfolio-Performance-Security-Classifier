@@ -217,16 +217,43 @@ public class XmlFileWriter {
             }
         }
         if (!found) {
-            Element assignment = createAssignment(portfolioDocument, ++nETFAppearance, percentage);
-            assignment.appendChild(investmentVehicle);
-            assignments.appendChild(assignment);
-            JsonObject topTen = new JsonObject();
-            topTen.addProperty("weight", percentage);
-            topTen.addProperty("isin", security.getIsin());
-            topTen.addProperty("classification", stockName);
-            importedTopTen.add(topTen);
+            createAssignmentAndJson(portfolioDocument, stockName, security.getIsin(), nETFAppearance, assignments, importedTopTen, percentage, investmentVehicle);
+            nETFAppearance++;
         }
         return nETFAppearance;
+    }
+
+    private void createAssignmentAndJson(Document doc, String stockName, String isin, int rank, Element assignments, JsonArray importParent, int weight, Element investmentVehicle) {
+        appendNewAssignment(doc, rank, assignments, weight, investmentVehicle);
+        addNewJsonSecurity(importParent, stockName, isin, weight);
+    }
+
+    private void addNewJsonSecurity(JsonArray importParent, String classification, String isin, int weight) {
+        JsonObject imported = new JsonObject();
+        imported.addProperty("weight", weight);
+        imported.addProperty("isin", isin);
+        imported.addProperty("classification", classification);
+        importParent.add(imported);
+    }
+
+    private void appendNewAssignment(Document doc, int rank, Element assignments, int weight, Element investmentVehicle) {
+        Element assignment = createAssignment(doc, rank + 1, weight);
+        assignment.appendChild(investmentVehicle);
+        assignments.appendChild(assignment);
+    }
+
+    Element createAssignment(Document doc, int rank, int weight) {
+        Element weightOfETF = doc.createElement("weight");
+        weightOfETF.setTextContent(Integer.toString(weight));
+
+        Element rankOfETF = doc.createElement("rank");
+        rankOfETF.setTextContent(Integer.toString(rank));
+
+        Element assignment = doc.createElement("assignment");
+        assignment.appendChild(weightOfETF);
+        assignment.appendChild(rankOfETF);
+
+        return assignment;
     }
 
     TreeMap<String, List<String>> collectAllStockNames(List<Security> allSecurities) {
@@ -271,19 +298,6 @@ public class XmlFileWriter {
         return result;
     }
 
-    Element createAssignment(Document doc, int rank, int weight) {
-        Element weightOfETF = doc.createElement("weight");
-        weightOfETF.setTextContent(Integer.toString(weight));
-
-        Element rankOfETF = doc.createElement("rank");
-        rankOfETF.setTextContent(Integer.toString(rank));
-
-        Element assignment = doc.createElement("assignment");
-        assignment.appendChild(weightOfETF);
-        assignment.appendChild(rankOfETF);
-
-        return assignment;
-    }
 
     JsonArray importBranches(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedBranches, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing branches...");
@@ -355,11 +369,7 @@ public class XmlFileWriter {
                         assignments.appendChild(assignment);
                         strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(strBestMatch).append("\" zugeordnet. Distanz: ").append(currentLowestDistance).append(")\n");
 
-                        JsonObject oSavingTriple = new JsonObject();
-                        oSavingTriple.addProperty("weight", nPercentage);
-                        oSavingTriple.addProperty("isin", security.getIsin());
-                        oSavingTriple.addProperty("classification", strBestMatch);
-                        importedBranches.add(oSavingTriple);
+                        addNewJsonSecurity(importedBranches, strBestMatch, security.getIsin(), nPercentage);
                     }
                 }
                 if (strMatchingStringForFile.length() > 0) {
@@ -501,15 +511,8 @@ public class XmlFileWriter {
 
                             assignments = linkAssignmentsToInvestmentVehicle(countryNode, assignments, investmentVehicle, indexEtf);
 
-                            Element assignment = createAssignment(portfolioDocument, ++nCountryAppearence, nPercentage);
-                            assignment.appendChild(investmentVehicle);
-                            assignments.appendChild(assignment);
-
-                            JsonObject region = new JsonObject();
-                            region.addProperty("weight", nPercentage);
-                            region.addProperty("isin", security.getIsin());
-                            region.addProperty("classification", strCountry);
-                            importedRegions.add(region);
+                            createAssignmentAndJson(portfolioDocument, strCountry, security.getIsin(), nCountryAppearence, assignments, importedRegions, nPercentage, investmentVehicle);
+                            nCountryAppearence++;
                         }
                     }
                     indexEtf++;

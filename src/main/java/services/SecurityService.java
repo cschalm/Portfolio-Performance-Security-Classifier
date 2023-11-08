@@ -60,8 +60,7 @@ public class SecurityService {
             SecurityDetails securityDetails = new SecurityDetails(strIsin);
             String detailsRequestPath = securityDetails.getDetailsRequestPath();
 
-            boolean isEftOrFond = isETF(detailsRequestPath)
-                    || isFond(detailsRequestPath);
+            boolean isEftOrFond = isETF(detailsRequestPath) || isFond(detailsRequestPath);
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
             if (isEftOrFond) {
                 JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
