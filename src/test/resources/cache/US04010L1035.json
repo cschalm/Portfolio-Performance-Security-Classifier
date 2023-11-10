@@ -1,0 +1,2610 @@
+{
+  "props": {
+    "pageProps": {
+      "data": {
+        "snapshot": {
+          "expires": 1699626762166,
+          "type": "StocksSnapshot",
+          "instrument": {
+            "type": "Instrument",
+            "entityType": "STOCK",
+            "entityAttributes": [
+              "INSTRUMENT",
+              "BROKER_LIST"
+            ],
+            "entityValue": "11426618",
+            "name": "Ares Capital",
+            "urls": {
+              "NEWS": "https://www.onvista.de/news/aktien/ARES-CAPITAL-CORP-News-US04010L1035",
+              "WEBSITE": "https://www.onvista.de/aktien/ARES-CAPITAL-CORP-Aktie-US04010L1035"
+            },
+            "instrumentType": "Instrument",
+            "isin": "US04010L1035",
+            "wkn": "A0DQY4",
+            "symbol": "9A2",
+            "displayType": "Aktie",
+            "urlName": "ARES-CAPITAL-CORP",
+            "tinyName": "Ares Capital"
+          },
+          "quote": {
+            "expires": 1699626757160,
+            "idInstrument": "11426618",
+            "entityType": "STOCK",
+            "entityValue": "11426618",
+            "market": {
+              "name": "Tradegate",
+              "codeMarket": "_GAT",
+              "nameExchange": "Tradegate",
+              "codeExchange": "GAT",
+              "idNotation": 179548620,
+              "isoCountry": "DE"
+            },
+            "isoCurrency": "EUR",
+            "idTradingSchedule": 299,
+            "volumeBid": 900,
+            "highPrice1Year": 19.396,
+            "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+            "datetimeBid": "2023-11-10T14:32:28.454+00:00",
+            "ask": 18.308,
+            "performance1YearPct": -3.9634,
+            "open": 18.436,
+            "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+            "lowPrice1Year": 15.752,
+            "totalMoney": 75737.368,
+            "low": 18.268,
+            "performance": 0.036,
+            "previousLast": 18.234,
+            "volumeAsk": 1400,
+            "money": 52873.38,
+            "datetimeAsk": "2023-11-10T14:32:28.454+00:00",
+            "performance1Year": -0.754,
+            "performancePct": 0.1974,
+            "datetimeOpen": "2023-11-10T08:02:07.906+00:00",
+            "idTypePrice": 1,
+            "last": 18.27,
+            "codeQualityPrice": "RLT",
+            "addendum": "",
+            "datetimeHigh": "2023-11-10T08:02:07.906+00:00",
+            "datetimeLow": "2023-11-10T11:12:38.569+00:00",
+            "high": 18.436,
+            "totalVolume": 4142,
+            "bid": 18.256,
+            "volume4Weeks": 109138,
+            "codeQualityPriceBidAsk": "RLT",
+            "datetimeLast": "2023-11-10T14:19:09.180+00:00",
+            "datetimePreviousLast": "2023-11-09T21:26:06.198+00:00",
+            "volume": 2894,
+            "unitType": "STK",
+            "displayUnit": "EUR"
+          },
+          "quoteList": {
+            "list": [
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Nasdaq",
+                  "codeMarket": "_NMS",
+                  "nameExchange": "Nasdaq",
+                  "codeExchange": "NMS",
+                  "idNotation": 10550240,
+                  "isoCountry": "US"
+                },
+                "isoCurrency": "USD",
+                "idTradingSchedule": 125,
+                "volumeBid": 100,
+                "highPrice1Year": 20.17,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:02:31.538+00:00",
+                "ask": 19.59,
+                "performance1YearPct": 2.2059,
+                "open": 19.53,
+                "datetimeHighPrice1Year": "2023-02-07T12:00:00.000+00:00",
+                "lowPrice1Year": 16.95,
+                "totalMoney": 57734736.377701,
+                "low": 19.41,
+                "performance": -0.07,
+                "previousLast": 19.53,
+                "volumeAsk": 100,
+                "money": 2701339.9,
+                "datetimeAsk": "2023-11-10T14:02:31.538+00:00",
+                "performance1Year": 0.42,
+                "performancePct": -0.3584,
+                "datetimeOpen": "2023-11-09T13:37:11.317+00:00",
+                "idTypePrice": 1,
+                "last": 19.46,
+                "codeQualityPrice": "DLY",
+                "addendum": "NAS",
+                "datetimeHigh": "2023-11-09T14:43:26.314+00:00",
+                "datetimeLow": "2023-11-09T19:52:05.058+00:00",
+                "high": 19.74,
+                "totalVolume": 2959820,
+                "bid": 19.56,
+                "volume4Weeks": 67064179,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2023-11-09T21:00:00.207+00:00",
+                "datetimePreviousLast": "2023-11-08T21:00:00.270+00:00",
+                "volume": 138815,
+                "unitType": "STK",
+                "displayUnit": "USD"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Tradegate",
+                  "codeMarket": "_GAT",
+                  "nameExchange": "Tradegate",
+                  "codeExchange": "GAT",
+                  "idNotation": 179548620,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 299,
+                "volumeBid": 900,
+                "highPrice1Year": 19.396,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:28.454+00:00",
+                "ask": 18.308,
+                "performance1YearPct": -3.9634,
+                "open": 18.436,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.752,
+                "totalMoney": 75737.368,
+                "low": 18.268,
+                "performance": 0.036,
+                "previousLast": 18.234,
+                "volumeAsk": 1400,
+                "money": 52873.38,
+                "datetimeAsk": "2023-11-10T14:32:28.454+00:00",
+                "performance1Year": -0.754,
+                "performancePct": 0.1974,
+                "datetimeOpen": "2023-11-10T08:02:07.906+00:00",
+                "idTypePrice": 1,
+                "last": 18.27,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:02:07.906+00:00",
+                "datetimeLow": "2023-11-10T11:12:38.569+00:00",
+                "high": 18.436,
+                "totalVolume": 4142,
+                "bid": 18.256,
+                "volume4Weeks": 109138,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T14:19:09.180+00:00",
+                "datetimePreviousLast": "2023-11-09T21:26:06.198+00:00",
+                "volume": 2894,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "gettex",
+                  "codeMarket": "_TRO",
+                  "nameExchange": "gettex",
+                  "codeExchange": "TRO",
+                  "idNotation": 253908474,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 455,
+                "volumeBid": 514,
+                "highPrice1Year": 19.49,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:27.980+00:00",
+                "ask": 18.324,
+                "performance1YearPct": -3.6948,
+                "open": 18.416,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.742,
+                "totalMoney": 20532.602,
+                "low": 18.154,
+                "performance": 0.1,
+                "previousLast": 18.25,
+                "volumeAsk": 514,
+                "money": 256.9,
+                "datetimeAsk": "2023-11-10T14:32:27.980+00:00",
+                "performance1Year": -0.704,
+                "performancePct": 0.5479,
+                "datetimeOpen": "2023-11-10T07:00:43.391+00:00",
+                "idTypePrice": 1,
+                "last": 18.35,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:50:34.310+00:00",
+                "datetimeLow": "2023-11-10T08:27:15.258+00:00",
+                "high": 18.57,
+                "totalVolume": 1122,
+                "bid": 18.242,
+                "volume4Weeks": 47165,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T14:31:24.762+00:00",
+                "datetimePreviousLast": "2023-11-09T20:44:45.600+00:00",
+                "volume": 14,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Stuttgart",
+                  "codeMarket": "_STU",
+                  "nameExchange": "Stuttgart",
+                  "codeExchange": "STU",
+                  "idNotation": 125219673,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 330,
+                "volumeBid": 2300,
+                "highPrice1Year": 19.232,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:12.233+00:00",
+                "ask": 18.308,
+                "performance1YearPct": -5.0125,
+                "open": 18.144,
+                "datetimeHighPrice1Year": "2022-11-09T12:00:00.000+00:00",
+                "lowPrice1Year": 15.832,
+                "totalMoney": 9039.404,
+                "low": 18.144,
+                "performance": 0.16,
+                "previousLast": 18.108,
+                "volumeAsk": 2300,
+                "money": 8037.92,
+                "datetimeAsk": "2023-11-10T14:32:12.233+00:00",
+                "performance1Year": -0.964,
+                "performancePct": 0.8836,
+                "datetimeOpen": "2023-11-10T07:03:04.609+00:00",
+                "idTypePrice": 1,
+                "last": 18.268,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T10:19:57.941+00:00",
+                "datetimeLow": "2023-11-10T07:03:04.609+00:00",
+                "high": 18.546,
+                "totalVolume": 494,
+                "bid": 18.254,
+                "volume4Weeks": 15810,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T10:47:45.643+00:00",
+                "datetimePreviousLast": "2023-11-09T07:05:05.156+00:00",
+                "volume": 440,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "LS Exchange",
+                  "codeMarket": "_LSX",
+                  "nameExchange": "LS Exchange",
+                  "codeExchange": "LSX",
+                  "idNotation": 244496041,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 626,
+                "volumeBid": 549,
+                "highPrice1Year": 19.568,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:31.001+00:00",
+                "ask": 18.308,
+                "performance1YearPct": -3.9158,
+                "open": 18.13,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.682,
+                "totalMoney": 8176.52,
+                "low": 18.072,
+                "performance": 0.276,
+                "previousLast": 17.98,
+                "volumeAsk": 549,
+                "datetimeAsk": "2023-11-10T14:32:31.001+00:00",
+                "performance1Year": -0.744,
+                "performancePct": 1.535,
+                "datetimeOpen": "2023-11-10T06:32:03.088+00:00",
+                "idTypePrice": 128,
+                "last": 18.256,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:49:41.682+00:00",
+                "datetimeLow": "2023-11-10T14:30:08.800+00:00",
+                "high": 18.57,
+                "totalVolume": 445,
+                "bid": 18.256,
+                "volume4Weeks": 157124,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T14:32:31.001+00:00",
+                "datetimePreviousLast": "2023-11-09T21:59:50.294+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Lang & Schwarz",
+                  "codeMarket": "@_LUSG",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "Lang & Schwarz",
+                  "codeContributor": "LUSG",
+                  "idNotation": 179479549,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 250,
+                "volumeBid": 549,
+                "highPrice1Year": 19.262,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:30.591+00:00",
+                "ask": 18.308,
+                "performance1YearPct": -3.9158,
+                "open": 18.13,
+                "datetimeHighPrice1Year": "2022-11-23T12:00:00.000+00:00",
+                "lowPrice1Year": 15.67,
+                "totalMoney": 3687.6,
+                "low": 18.072,
+                "performance": 0.276,
+                "previousLast": 17.98,
+                "volumeAsk": 549,
+                "datetimeAsk": "2023-11-10T14:32:30.591+00:00",
+                "performance1Year": -0.744,
+                "performancePct": 1.535,
+                "datetimeOpen": "2023-11-10T06:32:03.073+00:00",
+                "idTypePrice": 128,
+                "last": 18.256,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:07:50.550+00:00",
+                "datetimeLow": "2023-11-10T14:30:06.020+00:00",
+                "high": 18.438,
+                "totalVolume": 200,
+                "bid": 18.256,
+                "volume4Weeks": 11320,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T14:32:30.591+00:00",
+                "datetimePreviousLast": "2023-11-09T21:59:50.272+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "London",
+                  "codeMarket": "_LSE",
+                  "nameExchange": "London",
+                  "codeExchange": "LSE",
+                  "idNotation": 208370506,
+                  "isoCountry": "GB"
+                },
+                "isoCurrency": "USD",
+                "idTradingSchedule": 101,
+                "highPrice1Year": 19.72,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "open": 18.94,
+                "datetimeHighPrice1Year": "2022-12-01T12:00:00.000+00:00",
+                "lowPrice1Year": 17.02,
+                "totalMoney": 2670.54,
+                "low": 18.94,
+                "performance": -0.21,
+                "previousLast": 19.15,
+                "money": 2670.54,
+                "performancePct": -1.0966,
+                "datetimeOpen": "2023-10-09T13:34:22.730+00:00",
+                "idTypePrice": 1,
+                "last": 18.94,
+                "codeQualityPrice": "DLY",
+                "addendum": "OFF",
+                "datetimeHigh": "2023-10-09T13:34:22.730+00:00",
+                "datetimeLow": "2023-10-09T13:34:22.730+00:00",
+                "high": 18.94,
+                "totalVolume": 141,
+                "volume4Weeks": 18163,
+                "codeQualityPriceBidAsk": "",
+                "datetimeLast": "2023-10-09T13:34:22.730+00:00",
+                "datetimePreviousLast": "2023-08-23T14:58:20.773+00:00",
+                "volume": 141,
+                "unitType": "STK",
+                "displayUnit": "USD"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "BX Swiss",
+                  "codeMarket": "_BRN",
+                  "nameExchange": "BX Swiss",
+                  "codeExchange": "BRN",
+                  "idNotation": 407628995,
+                  "isoCountry": "CH"
+                },
+                "isoCurrency": "CHF",
+                "idTradingSchedule": 39,
+                "volumeBid": 1193,
+                "datetimeBid": "2023-11-10T14:17:28.000+00:00",
+                "ask": 17.632,
+                "open": 17.789,
+                "totalMoney": 444.7,
+                "low": 17.789,
+                "performance": 0.507,
+                "previousLast": 17.282,
+                "volumeAsk": 1193,
+                "money": 444.725,
+                "datetimeAsk": "2023-11-10T14:17:28.000+00:00",
+                "performancePct": 2.9337,
+                "datetimeOpen": "2023-09-26T15:20:35.000+00:00",
+                "idTypePrice": 1,
+                "last": 17.789,
+                "codeQualityPrice": "DLY",
+                "addendum": "",
+                "datetimeHigh": "2023-09-26T15:20:35.000+00:00",
+                "datetimeLow": "2023-09-26T15:20:35.000+00:00",
+                "high": 17.789,
+                "totalVolume": 25,
+                "bid": 17.581,
+                "volume4Weeks": 4575,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2023-09-26T16:00:00.000+00:00",
+                "datetimePreviousLast": "2023-09-07T16:00:00.000+00:00",
+                "volume": 25,
+                "unitType": "STK",
+                "displayUnit": "CHF"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Frankfurt",
+                  "codeMarket": "_FRA",
+                  "nameExchange": "Frankfurt",
+                  "codeExchange": "FRA",
+                  "idNotation": 31532592,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 66,
+                "volumeBid": 400,
+                "highPrice1Year": 19.384,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T13:48:11.000+00:00",
+                "ask": 18.412,
+                "performance1YearPct": -6.7272,
+                "open": 18.134,
+                "datetimeHighPrice1Year": "2022-11-09T12:00:00.000+00:00",
+                "lowPrice1Year": 15.672,
+                "totalMoney": 126.812,
+                "low": 18.08,
+                "performance": -0.132,
+                "previousLast": 18.212,
+                "volumeAsk": 400,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T13:48:11.000+00:00",
+                "performance1Year": -1.304,
+                "performancePct": -0.7248,
+                "datetimeOpen": "2023-11-10T07:14:56.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.08,
+                "codeQualityPrice": "DLY",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:09:59.000+00:00",
+                "datetimeLow": "2023-11-10T12:49:54.000+00:00",
+                "high": 18.15,
+                "totalVolume": 7,
+                "bid": 18.112,
+                "volume4Weeks": 1911,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2023-11-10T12:49:54.000+00:00",
+                "datetimePreviousLast": "2023-11-09T18:08:35.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Baader Bank",
+                  "codeMarket": "@_BBF",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "Baader Bank",
+                  "codeContributor": "BBF",
+                  "idNotation": 253908467,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 459,
+                "volumeBid": 514,
+                "highPrice1Year": 19.339,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:28.714+00:00",
+                "ask": 18.324,
+                "performance1YearPct": -3.9214,
+                "open": 18.28,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.789,
+                "low": 18.185,
+                "performance": 0.043,
+                "previousLast": 18.235,
+                "volumeAsk": 514,
+                "datetimeAsk": "2023-11-10T14:32:31.776+00:00",
+                "performance1Year": -0.746,
+                "performancePct": 0.2358,
+                "datetimeOpen": "2023-11-10T06:55:42.495+00:00",
+                "idTypePrice": 1,
+                "last": 18.278,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T08:40:27.399+00:00",
+                "datetimeLow": "2023-11-10T11:12:40.986+00:00",
+                "high": 18.434,
+                "bid": 18.242,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T14:32:28.714+00:00",
+                "datetimePreviousLast": "2023-11-09T20:59:59.190+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Berlin",
+                  "codeMarket": "_BER",
+                  "nameExchange": "Berlin",
+                  "codeExchange": "BER",
+                  "idNotation": 31625841,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 32,
+                "volumeBid": 936,
+                "highPrice1Year": 19.314,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:30:11.000+00:00",
+                "ask": 18.434,
+                "performance1YearPct": -4.1018,
+                "open": 18.266,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.84,
+                "totalMoney": 0,
+                "low": 18.184,
+                "performance": 0.038,
+                "previousLast": 18.198,
+                "volumeAsk": 936,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T14:30:11.000+00:00",
+                "performance1Year": -0.78,
+                "performancePct": 0.2088,
+                "datetimeOpen": "2023-11-10T07:03:49.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.236,
+                "codeQualityPrice": "RLT",
+                "addendum": "-T",
+                "datetimeHigh": "2023-11-10T08:50:06.000+00:00",
+                "datetimeLow": "2023-11-10T11:22:04.000+00:00",
+                "high": 18.434,
+                "totalVolume": 0,
+                "bid": 18.182,
+                "volume4Weeks": 57,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T13:45:08.000+00:00",
+                "datetimePreviousLast": "2023-11-09T20:52:11.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Düsseldorf",
+                  "codeMarket": "_DUS",
+                  "nameExchange": "Düsseldorf",
+                  "codeExchange": "DUS",
+                  "idNotation": 281128397,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 60,
+                "highPrice1Year": 19.136,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "performance1YearPct": -4.6421,
+                "open": 18.128,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 15.858,
+                "totalMoney": 0,
+                "low": 18.118,
+                "performance": -0.066,
+                "previousLast": 18.184,
+                "money": 0,
+                "performance1Year": -0.882,
+                "performancePct": -0.363,
+                "datetimeOpen": "2023-11-10T07:10:59.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.118,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2023-11-10T08:31:12.000+00:00",
+                "datetimeLow": "2023-11-10T11:31:26.000+00:00",
+                "high": 18.162,
+                "totalVolume": 0,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T11:31:26.000+00:00",
+                "datetimePreviousLast": "2023-11-09T18:31:28.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Hamburg",
+                  "codeMarket": "_HAM",
+                  "nameExchange": "Hamburg",
+                  "codeExchange": "HAM",
+                  "idNotation": 37452765,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 72,
+                "volumeBid": 200,
+                "highPrice1Year": 18.98,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:12.000+00:00",
+                "ask": 18.332,
+                "performance1YearPct": -3.2224,
+                "open": 18.14,
+                "datetimeHighPrice1Year": "2022-12-01T12:00:00.000+00:00",
+                "lowPrice1Year": 15.696,
+                "totalMoney": 0,
+                "low": 18.14,
+                "performance": 0.042,
+                "previousLast": 18.098,
+                "volumeAsk": 200,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T14:32:12.000+00:00",
+                "performance1Year": -0.604,
+                "performancePct": 0.2321,
+                "datetimeOpen": "2023-11-10T07:16:12.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.14,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2023-11-10T07:16:12.000+00:00",
+                "datetimeLow": "2023-11-10T07:16:12.000+00:00",
+                "high": 18.14,
+                "totalVolume": 0,
+                "bid": 18.234,
+                "volume4Weeks": 624,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T07:16:12.000+00:00",
+                "datetimePreviousLast": "2023-11-09T07:16:12.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Hannover",
+                  "codeMarket": "_HAN",
+                  "nameExchange": "Hannover",
+                  "codeExchange": "HAN",
+                  "idNotation": 307253182,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 73,
+                "volumeBid": 200,
+                "highPrice1Year": 18.822,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:12.000+00:00",
+                "ask": 18.332,
+                "performance1YearPct": -3.2224,
+                "open": 18.14,
+                "datetimeHighPrice1Year": "2022-11-11T12:00:00.000+00:00",
+                "lowPrice1Year": 15.696,
+                "totalMoney": 0,
+                "low": 18.14,
+                "performance": 0.042,
+                "previousLast": 18.098,
+                "volumeAsk": 200,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T14:32:12.000+00:00",
+                "performance1Year": -0.604,
+                "performancePct": 0.2321,
+                "datetimeOpen": "2023-11-10T07:16:04.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.14,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2023-11-10T07:16:04.000+00:00",
+                "datetimeLow": "2023-11-10T07:16:04.000+00:00",
+                "high": 18.14,
+                "totalVolume": 0,
+                "bid": 18.234,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T07:16:04.000+00:00",
+                "datetimePreviousLast": "2023-11-09T07:16:04.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "München",
+                  "codeMarket": "_MUN",
+                  "nameExchange": "München",
+                  "codeExchange": "MUN",
+                  "idNotation": 253780904,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 118,
+                "volumeBid": 500,
+                "highPrice1Year": 18.974,
+                "datetimeLowPrice1Year": "2023-05-04T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:15.000+00:00",
+                "ask": 18.31,
+                "performance1YearPct": -3.2568,
+                "open": 18.298,
+                "datetimeHighPrice1Year": "2022-11-10T12:00:00.000+00:00",
+                "lowPrice1Year": 16,
+                "totalMoney": 0,
+                "low": 18.298,
+                "performance": 0,
+                "previousLast": 18.298,
+                "volumeAsk": 500,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T14:32:15.000+00:00",
+                "performance1Year": -0.616,
+                "performancePct": 0,
+                "datetimeOpen": "2023-11-10T07:01:21.000+00:00",
+                "idTypePrice": 1,
+                "last": 18.298,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2023-11-10T07:01:21.000+00:00",
+                "datetimeLow": "2023-11-10T07:01:21.000+00:00",
+                "high": 18.298,
+                "totalVolume": 0,
+                "bid": 18.256,
+                "volume4Weeks": 505,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T07:01:21.000+00:00",
+                "datetimePreviousLast": "2023-11-09T07:02:25.000+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1699626757160,
+                "idInstrument": "11426618",
+                "entityType": "STOCK",
+                "entityValue": "11426618",
+                "market": {
+                  "name": "Quotrix",
+                  "codeMarket": "_QUO",
+                  "nameExchange": "Quotrix",
+                  "codeExchange": "QUO",
+                  "idNotation": 281299777,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 511,
+                "volumeBid": 1000,
+                "highPrice1Year": 19.122,
+                "datetimeLowPrice1Year": "2023-03-24T12:00:00.000+00:00",
+                "datetimeBid": "2023-11-10T14:32:28.387+00:00",
+                "ask": 18.31,
+                "performance1YearPct": -3.3418,
+                "open": 18.28,
+                "datetimeHighPrice1Year": "2022-11-11T12:00:00.000+00:00",
+                "lowPrice1Year": 15.932,
+                "totalMoney": 0,
+                "low": 18.28,
+                "performance": -0.088,
+                "previousLast": 18.368,
+                "volumeAsk": 1000,
+                "money": 0,
+                "datetimeAsk": "2023-11-10T14:32:26.134+00:00",
+                "performance1Year": -0.632,
+                "performancePct": -0.4791,
+                "datetimeOpen": "2023-11-10T06:57:36.038+00:00",
+                "idTypePrice": 1,
+                "last": 18.28,
+                "codeQualityPrice": "RLT",
+                "addendum": "M",
+                "datetimeHigh": "2023-11-10T06:57:36.038+00:00",
+                "datetimeLow": "2023-11-10T06:57:36.038+00:00",
+                "high": 18.28,
+                "totalVolume": 0,
+                "bid": 18.256,
+                "volume4Weeks": 3696,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2023-11-10T06:57:36.038+00:00",
+                "datetimePreviousLast": "2023-11-09T07:45:51.074+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              }
+            ]
+          },
+          "chart": {
+            "idNotation": 179548620,
+            "selectedRange": "W1",
+            "ranges": [
+              "D1",
+              "W1",
+              "M1",
+              "M3",
+              "M6",
+              "Y1",
+              "Y3",
+              "Y5",
+              "Y10",
+              "MAX"
+            ],
+            "codeMarket": "_GAT",
+            "isoCurrency": "EUR"
+          },
+          "cnPerformance": {
+            "expires": 1699630352196,
+            "idNotation": 179548620,
+            "averageMoneyD5": 489488.858,
+            "averageMoneyD30": 2574391.084,
+            "averageMoneyD100": 10919143.98,
+            "averageMoneyD250": 29446999.996,
+            "averageMoneyCy": 118891.987801,
+            "averagePriceD5": 18.2786666667,
+            "averagePriceD30": 18.0952903226,
+            "averagePriceD100": 17.8312871287,
+            "averagePriceD250": 17.6297928287,
+            "averagePriceCy": 17.5706486486,
+            "averageVolumeD5": 5345.4,
+            "averageVolumeD30": 4728.13333333,
+            "averageVolumeD100": 6109.27,
+            "averageVolumeD250": 6706.524,
+            "moneyD5": 489488.858,
+            "moneyD30": 2574391.084,
+            "moneyD100": 10919143.98,
+            "moneyD250": 29446999.996,
+            "performanceAbsCm": 0.298,
+            "performanceAbsCy": 0.538,
+            "performanceAbsW1": -0.178,
+            "performanceAbsW4": 0.082,
+            "performanceAbsM3": 0.414,
+            "performanceAbsM6": 1.61,
+            "performanceAbsW52": -0.79,
+            "performanceAbsY3": 5.412,
+            "performanceAbsY5": 2.724,
+            "performanceRelCm": 1.66146297948,
+            "performanceRelCy": 3.04023508137,
+            "performanceRelD1": -0.0328947368421,
+            "performanceRelW1": -0.966760808169,
+            "performanceRelW4": 0.451740855002,
+            "performanceRelM2": -0.306178239475,
+            "performanceRelM3": 2.32323232323,
+            "performanceRelM6": 9.68479307026,
+            "performanceRelW52": -4.15264928511,
+            "performanceRelY2": 1.18756936737,
+            "performanceRelY3": 42.2087037904,
+            "performanceRelY4": 8.53571428571,
+            "performanceRelY5": 17.5628626692,
+            "volaW1": 4.93533106981,
+            "vola30": 15.4738664757,
+            "volaM1": 15.3423698833,
+            "volaM3": 14.0857407761,
+            "volaM6": 14.3333516362,
+            "vola250": 19.1289514439,
+            "volaY1": 18.9209600525,
+            "volaY3": 21.3716304,
+            "volaY5": 31.3978660339,
+            "volaCy": 18.446521213,
+            "volumeAvgW1": 5345.4,
+            "volumeAvgW4": 4745.13043478,
+            "volumeAvgW52": 6593.55252918,
+            "volumeW1": 26727,
+            "volumeW4": 109138,
+            "volumeW52": 1694543,
+            "dateM1High": "2023-10-17T12:00:00.000+00:00",
+            "dateM1Low": "2023-10-23T12:00:00.000+00:00",
+            "dateM3High": "2023-09-29T12:00:00.000+00:00",
+            "dateM3Low": "2023-08-18T12:00:00.000+00:00",
+            "dateM6High": "2023-09-29T12:00:00.000+00:00",
+            "dateM6Low": "2023-05-10T12:00:00.000+00:00",
+            "dateW1High": "2023-11-09T12:00:00.000+00:00",
+            "dateW1Low": "2023-11-02T12:00:00.000+00:00",
+            "dateW52High": "2022-11-10T12:00:00.000+00:00",
+            "dateW52Low": "2023-03-24T12:00:00.000+00:00",
+            "dateY3High": "2022-08-24T12:00:00.000+00:00",
+            "dateY3Low": "2020-11-09T12:00:00.000+00:00",
+            "dateY5High": "2022-08-24T12:00:00.000+00:00",
+            "dateY5Low": "2020-03-19T12:00:00.000+00:00",
+            "dateYearHigh": "2023-02-08T12:00:00.000+00:00",
+            "dateYearLow": "2023-03-24T12:00:00.000+00:00",
+            "dateW1Last": "2023-11-02",
+            "dateW4Last": "2023-10-09",
+            "dateM3Last": "2023-08-09",
+            "dateM6Last": "2023-05-09",
+            "dateW52Last": "2022-11-09",
+            "dateY3Last": "2020-11-09",
+            "dateY5Last": "2018-11-09",
+            "dateY7Last": "",
+            "dateY10Last": "",
+            "dateCyLast": "2022-12-30",
+            "highPriceW1": 18.576,
+            "highPriceM1": 18.722,
+            "highPriceM3": 18.732,
+            "highPriceM6": 18.732,
+            "highPriceW52": 19.396,
+            "highPriceY3": 21,
+            "highPriceY5": 21,
+            "highPriceYear": 18.962,
+            "lowPriceW1": 18.054,
+            "lowPriceM1": 17.558,
+            "lowPriceM3": 17.502,
+            "lowPriceM6": 16.538,
+            "lowPriceW52": 15.752,
+            "lowPriceY3": 12.666,
+            "lowPriceY5": 7.356,
+            "lowPriceYear": 15.752,
+            "lastPriceCy": 17.696,
+            "lastPriceW1": 18.412,
+            "lastPriceW4": 18.152,
+            "lastPriceM3": 17.82,
+            "lastPriceM6": 16.624,
+            "lastPriceW52": 19.024,
+            "lastPriceY3": 12.822,
+            "lastPriceY5": 15.51
+          },
+          "profile": [],
+          "relatedInstrumentItemList": [],
+          "keywords": {
+            "entityType": "STOCK",
+            "entityValue": "11426618",
+            "wkn": "A0DQY4",
+            "isin": "US04010L1035",
+            "idCompany": "409532",
+            "isoCountry": ""
+          },
+          "chartBenchmark": {
+            "instrument": {
+              "type": "Instrument",
+              "entityType": "FUND",
+              "entitySubType": "ETF",
+              "entityAttributes": [
+                "INSTRUMENT",
+                "BROKER_LIST"
+              ],
+              "entityValue": "73072394",
+              "name": "Xtrackers MSCI World UCITS ETF 1D USD Dis.",
+              "urls": {
+                "WEBSITE": "https://www.onvista.de/etf/Xtrackers-MSCI-World-UCITS-ETF-1D-USD-Dis-ETF-IE00BK1PV551"
+              },
+              "instrumentType": "Instrument",
+              "isin": "IE00BK1PV551",
+              "wkn": "A1XEY2",
+              "symbol": "XDWL",
+              "displayType": "ETF",
+              "urlName": "Xtrackers-MSCI-World-UCITS-ETF-1D-USD-Dis",
+              "tinyName": "Xtrackers MSCI World UCITS ETF 1D USD Dis."
+            },
+            "currencyToIdNotation": {
+              "CHF": 131518798,
+              "EUR": 136655068,
+              "USD": 197111677,
+              "DEFAULT": 136655068
+            }
+          },
+          "company": {
+            "type": "Company",
+            "entityType": "COMPANY",
+            "entityAttributes": [],
+            "entityValue": "409532",
+            "name": "ARES CAPITAL CORP",
+            "urls": {},
+            "isoCountry": "",
+            "nameCountry": ""
+          },
+          "stocksDetails": {
+            "shortName": "Ares Capital",
+            "officialName": "Ares Capital Corp. Registered Shares DL -,001",
+            "theScreenerChance": 3,
+            "theScreenerRisk": 0,
+            "categories": []
+          },
+          "stocksCnTechnical": {
+            "idInstrument": 11426618,
+            "idNotation": 10550240,
+            "datetimeCalculation": "2023-11-10T12:00:00.000+00:00",
+            "movingAverage5": 18.31937528,
+            "movingAverage20": 17.983738824,
+            "movingAverage30": 17.9521752467,
+            "movingAverage38": 17.9914857989,
+            "movingAverage100": 18.0380688034,
+            "movingAverage200": 17.7659501404,
+            "movingAverage250": 17.7769942674,
+            "relativeStrengthLevy5": 0.995905834186,
+            "relativeStrengthLevy20": 1.01449275362,
+            "relativeStrengthLevy30": 1.01627643833,
+            "relativeStrengthLevy250": 1.02629119668,
+            "momentum20": 1.02098635887,
+            "momentum30": 0.99083503055,
+            "momentum50": 1.00051413882,
+            "momentum250": 1.00205973223,
+            "relativeStrengthIndexWilder5": 29.0322580645,
+            "relativeStrengthIndexWilder20": 56.5789473684,
+            "relativeStrengthIndexWilder250": 50.0479846449,
+            "volatility30": 17.3640383803,
+            "volatility250": 19.1265171027
+          },
+          "stocksFigure": {
+            "idNotation": 179479549,
+            "isoCurrency": ""
+          },
+          "stocksCnFundamentalList": {
+            "list": [
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "isoCurrency": "EUR",
+                "cnPeg": -0.0921305745840906,
+                "cnPriceHigh": 21.74,
+                "cnPriceHighAdj": 21.74,
+                "datePriceHigh": "2021-10-28T12:00:00.000+00:00",
+                "cnPriceCf": 7.76188606650701,
+                "cnPriceLow": 16.41,
+                "cnPriceLowAdj": 16.41,
+                "datePriceLow": "2021-01-04T12:00:00.000+00:00",
+                "cnDpsAdj": 1.5122,
+                "dateExDividend": "2021-03-12T12:00:00.000+00:00",
+                "cnPer": 6.03710150238182,
+                "cnDivYield": 7.64884700788557,
+                "cnDps": 1.5122,
+                "cnPriceProfit": 16.5642402998437
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "isoCurrency": "EUR",
+                "cnPeg": 0.132506728181469,
+                "cnPriceHigh": 23,
+                "cnPriceHighAdj": 23,
+                "datePriceHigh": "2022-02-09T12:00:00.000+00:00",
+                "cnPriceCf": 10.0317266270812,
+                "cnPriceLow": 16.5312,
+                "cnPriceLowAdj": 16.5312,
+                "datePriceLow": "2022-10-03T12:00:00.000+00:00",
+                "cnDpsAdj": 1.7447,
+                "dateExDividend": "2022-12-14T12:00:00.000+00:00",
+                "cnPer": 15.2648595978386,
+                "cnDivYield": 10.1244741041636,
+                "cnDps": 1.7447,
+                "cnPriceProfit": 6.55099376178732
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "isoCurrency": "EUR",
+                "cnPeg": -0.696008403361346,
+                "cnPriceHigh": 20.17,
+                "cnPriceHighAdj": 20.17,
+                "datePriceHigh": "2023-02-07T12:00:00.000+00:00",
+                "cnPriceCf": 10.857764271243,
+                "cnPriceLow": 16.95,
+                "cnPriceLowAdj": 16.95,
+                "datePriceLow": "2023-03-24T12:00:00.000+00:00",
+                "cnDpsAdj": 1.7914,
+                "cnPerLow1y": 14.0086810169191,
+                "cnPer": 7.50041162426937,
+                "cnDivYield": 9.83124331147271,
+                "cnPerHigh1y": 16.6698556116574,
+                "cnDps": 1.7914,
+                "cnPriceProfit": 13.3326015970145
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "isoCurrency": "EUR",
+                "cnPeg": -1.39414690130069,
+                "cnPriceCf": 9.45490867579909,
+                "cnDpsAdj": 1.8237,
+                "cnPer": 8.40630190071969,
+                "cnDivYield": 10.0085064347063,
+                "cnDps": 1.8237,
+                "cnPriceProfit": 11.8958373350163
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "isoCurrency": "EUR",
+                "cnPriceCf": 8.60763380414758,
+                "cnDpsAdj": 1.8287,
+                "cnPer": 8.94570180175757,
+                "cnDivYield": 10.0359465466619,
+                "cnDps": 1.8287,
+                "cnPriceProfit": 11.1785528084955
+              },
+              {
+                "label": "2026",
+                "idYear": 2026,
+                "isoCurrency": "EUR"
+              }
+            ]
+          },
+          "stocksBalanceSheetList": {
+            "list": []
+          },
+          "stocksCnFinancialList": {
+            "isoCurrency": "EUR",
+            "list": [
+              {
+                "label": "2019",
+                "idYear": 2019,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.6397,
+                "cnCpsAdj": 1.6733
+              },
+              {
+                "label": "2020",
+                "idYear": 2020,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.0636,
+                "cnCpsAdj": 1.2502
+              },
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 3.2748,
+                "cnCpsAdj": 2.5471
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.1289,
+                "cnCpsAdj": 1.7178
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.4294,
+                "cnCpsAdj": 1.6782
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.1676,
+                "cnCpsAdj": 1.9272
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.0369,
+                "cnCpsAdj": 2.1169
+              }
+            ]
+          }
+        },
+        "news": [
+          {
+            "type": "RECENT_NEWS",
+            "name": "Aktuelle News",
+            "url": "https://www.onvista.de/news/aktien/ARES-CAPITAL-CORP-News-US04010L1035",
+            "list": []
+          },
+          {
+            "type": "ANALYSES",
+            "name": "Analysen",
+            "url": "https://www.onvista.de/news/aktien-analysen/ARES-CAPITAL-CORP-Analysen-US04010L1035",
+            "list": []
+          },
+          {
+            "type": "DIVIDEND_NEWS",
+            "name": "Dividenden-News",
+            "list": []
+          },
+          {
+            "type": "COMPANY_ANNOUNCEMENT",
+            "name": "Unternehmensmitteilungen",
+            "url": "https://www.onvista.de/news/unternehmensmitteilungen/ARES-CAPITAL-CORP-Unternehmensmitteilungen-US04010L1035",
+            "list": []
+          },
+          {
+            "type": "VIDEO_NEWS",
+            "name": "Video News",
+            "list": []
+          },
+          {
+            "type": "INDUSTRY_NEWS",
+            "name": "Branchen-News",
+            "list": []
+          },
+          {
+            "type": "STOCK_RATING_NEWS",
+            "name": "Aktieneinstufungen",
+            "url": "https://www.onvista.de/news/analysten-prognosen/ARES-CAPITAL-CORP-Kursziele-US04010L1035",
+            "list": []
+          },
+          {
+            "type": "INVESTMENT_TOPICS_OTHER",
+            "name": "Andere Anlagethemen",
+            "urlDescription": "INVESTMENT_TOPICS_OTHER",
+            "url": "https://www.onvista.de/anlagethemen",
+            "list": [
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138439",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/e-mobilitaet-26138439"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "E-Mobilität",
+                "kicker": "Anlagethema",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Steige ein ins Anlagethema E-Mobilität: Informiere dich über Kursentwicklung, Marktdaten, News und Analysen für fundierte Investitionsentscheidungen.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:36:57.468+00:00",
+                "datetimePublicationVersion": "2023-11-08T13:40:10.599+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Smile Fight/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/article/z2wkpcuwv71i3iflrwug.jpg",
+                  "ratio": 1.568,
+                  "cloudinaryId": "article/z2wkpcuwv71i3iflrwug",
+                  "width": 6272,
+                  "height": 4000,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/article/z2wkpcuwv71i3iflrwug.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138438",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/infrastruktur-26138438"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Infrastruktur",
+                "kicker": "Anlagethema",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Schaffe ein solides Fundament für deine Investitionsentscheidungen im Bereich Infrastruktur mit den neuesten Daten, News und Analysen.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:35:52.061+00:00",
+                "datetimePublicationVersion": "2023-11-08T12:52:23.273+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "tonton/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/heufb6dxcx4myjk5h0wt.jpg",
+                  "ratio": 1.4978299719172836,
+                  "cloudinaryId": "article/heufb6dxcx4myjk5h0wt",
+                  "width": 5867,
+                  "height": 3917,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/heufb6dxcx4myjk5h0wt.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138432",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/luxusgueter-26138432"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Luxusgüter",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investieren in Luxusgüter: Chancen erkennen und profitabel anlegen. Marktentwicklung, Echtzeitübersicht und Anlagemöglichkeiten in Aktien, ETFs und Fonds.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:34:11.887+00:00",
+                "datetimePublicationVersion": "2023-11-10T08:14:26.454+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Hadrian/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/kyzearuvhkcag2d5hunx.jpg",
+                  "ratio": 1.8110716099542916,
+                  "cloudinaryId": "article/kyzearuvhkcag2d5hunx",
+                  "width": 3566,
+                  "height": 1969,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/kyzearuvhkcag2d5hunx.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138445",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/erneuerbare-energien-26138445"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Erneuerbare Energien",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investieren in Erneuerbare Energien: Bleibe bestens informiert über den Markttrend und profitiere mit Aktien, ETFs und Fonds. Realtime Marktübersicht, Kursentwicklung, Daten & News.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:39:37.658+00:00",
+                "datetimePublicationVersion": "2023-11-08T14:30:12.459+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Mr. Kosal/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/tuzelqlqcsppcgplr1hw.jpg",
+                  "ratio": 1.5600954369221594,
+                  "cloudinaryId": "article/tuzelqlqcsppcgplr1hw",
+                  "width": 5231,
+                  "height": 3353,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/tuzelqlqcsppcgplr1hw.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138443",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/batterien-26138443"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Batterien",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investment-Trend Batterien: Finanzieller Erfolg durch informiertes Investieren. Marktzahlen, Entwicklung und Anlagemöglichkeiten mit Aktien, ETFs und Fonds.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:38:05.691+00:00",
+                "datetimePublicationVersion": "2023-10-31T07:38:35.623+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Shutterstock",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/qyizpkxxfkdavi9cdcur.jpg",
+                  "ratio": 2.1555555555555554,
+                  "cloudinaryId": "article/qyizpkxxfkdavi9cdcur",
+                  "width": 388,
+                  "height": 180,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/qyizpkxxfkdavi9cdcur.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138444",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/wasserstoff-26138444"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Wasserstoff",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Anlagetrend Wasserstoff: Entdecke die Zukunftspotenziale und informiere dich über aktuelle Daten, News und Analysen für eine fundierte Investitionsplanung.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:38:58.475+00:00",
+                "datetimePublicationVersion": "2023-11-10T13:32:48.810+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "petrmalinak/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/bfzkgngzz8qgthwseff1.jpg",
+                  "ratio": 1.5001500150015001,
+                  "cloudinaryId": "article/bfzkgngzz8qgthwseff1",
+                  "width": 5000,
+                  "height": 3333,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/bfzkgngzz8qgthwseff1.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138436",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/cybersecurity-26138436"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Cybersecurity",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Bleib im Bilde über die dynamische Marktentwicklung der Cybersecurity. Hole die neuesten Daten, News und Analysen für eine fundierte Investmentstrategie.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:35:08.520+00:00",
+                "datetimePublicationVersion": "2023-11-10T11:42:06.366+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Thapana_Studio/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/mih0bfbysrfneqxquypv.jpg",
+                  "ratio": 2.1109448482257376,
+                  "cloudinaryId": "article/mih0bfbysrfneqxquypv",
+                  "width": 9875,
+                  "height": 4678,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/mih0bfbysrfneqxquypv.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138428",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/dividenden-aristokraten-26138428"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Dividenden-Aristokraten",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Rendite-Potenzial durch Dividenden-Aristokraten: Marktchancen, historische Kursentwicklung und passende Aktien, ETFs und Fonds mit starken Dividenden.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:32:44.295+00:00",
+                "datetimePublicationVersion": "2023-11-06T13:52:42.597+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "jittawit21/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/uj3qdwwtpyz4cxawvlfh.jpg",
+                  "ratio": 1.5,
+                  "cloudinaryId": "article/uj3qdwwtpyz4cxawvlfh",
+                  "width": 6000,
+                  "height": 4000,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/uj3qdwwtpyz4cxawvlfh.jpg"
+                },
+                "premium": false
+              }
+            ]
+          }
+        ],
+        "calendarEvents": [],
+        "forumThreads": {
+          "expires": 1699627352236,
+          "urlForum": "https://forum.onvista.de/forum/A0DQY4/forum",
+          "items": [
+            {
+              "position": 1,
+              "rating": 0,
+              "subject": "US04010L1035 - Ares Capital Corp.",
+              "url": "https://forum.onvista.de/forum/US04010L1035_Ares_Capital_Corp-t581526",
+              "answersTotal": 23,
+              "hitsToday": 2,
+              "lastPostingDate": "2023-07-23T21:35:58.000+00:00"
+            }
+          ]
+        },
+        "peergroup": [],
+        "wikifolio": {
+          "expires": 1699627794449,
+          "urlLogo": "https://www.wikifolio.com/de/de/home?utm_source=onvista&utm_campaign=partner&utm_medium=api-feed&utm_content=wikifolio-logo",
+          "underlying": {
+            "isin": "US04010L1035",
+            "wkn": "A0DQY4",
+            "shortDescription": "Ares Capital",
+            "popularity": {
+              "absolute": 13,
+              "relative": 0.00007284382284382284
+            },
+            "sentiment": {
+              "buy": {
+                "absolute": 11,
+                "relative": 0.9166666666666666
+              },
+              "sell": {
+                "absolute": 1,
+                "relative": 0.08333333333333333
+              },
+              "lookback": {
+                "value": 30,
+                "unit": "day"
+              }
+            },
+            "button": {
+              "text": "Über Ares Capital",
+              "url": "https://www.wikifolio.com/de/de/alle-wikifolios/suche?investable=true&sortOrder=asc&sortBy=topwikis&searchTerm=us04010l1035&utm_source=onvista&utm_campaign=partner&utm_content=detail&utm_medium=api-underlying"
+            }
+          },
+          "layout": "standard",
+          "feed": {
+            "items": [
+              {
+                "contentItemId": "UnderlyingTopBuy",
+                "rank": 3,
+                "contentType": "UnderlyingTopBuy",
+                "payload": {
+                  "image": "https://wikifolio.imgix.net/prod/images/top-trader/e8a92317-8a42-4195-8eca-84376004c15f_profile.png?v=20231110",
+                  "text": {
+                    "plain": "6 Trader haben Ares Capital gekauft, darunter auch Top-Trader Patricia Neudeck mit dem wikifolio Megatrends.",
+                    "values": {
+                      "mapValue": {
+                        "traderName": "Patricia Neudeck",
+                        "underlyingName": "Ares Capital",
+                        "numberOfTraders": 6,
+                        "wikifolioDescription": "Megatrends"
+                      }
+                    }
+                  },
+                  "kpi": {
+                    "default": {
+                      "text": "Ø Perf./Jahr",
+                      "unit": "%",
+                      "value": {
+                        "doubleValue": 17.805
+                      }
+                    },
+                    "ranking": {
+                      "text": "wikifolio Rangliste",
+                      "unit": "Platz",
+                      "value": {
+                        "integerValue": 257
+                      }
+                    }
+                  },
+                  "button": {
+                    "text": "Zum wikifolio",
+                    "url": "https://www.wikifolio.com/de/de/w/wf00future?utm_source=onvista&utm_campaign=partner&utm_content=underlyingtopbuy&utm_medium=api-feed&wikifoliosymbol=WF00FUTURE&contentitemid=fd4872e4-7f64-11ee-9c89-bbf12d049be9&isin=us04010l1035"
+                  }
+                },
+                "traderId": "UnderlyingTopBuy"
+              },
+              {
+                "contentItemId": "TopWikifolio",
+                "rank": 2,
+                "contentType": "TopWikifolio",
+                "payload": {
+                  "image": "https://wikifolio.imgix.net/prod/images/top-trader/519e1a53-20e2-4365-901e-e6e8b4c01c36_profile.png?v=20231110",
+                  "text": {
+                    "plain": "Das wikifolio Topnews von Harald Mueller enthält zwar nicht diese Aktie, zählt aber zu den Top wikifolios.",
+                    "values": {
+                      "mapValue": {
+                        "traderName": "Harald Mueller",
+                        "wikifolioDescription": "Topnews"
+                      }
+                    }
+                  },
+                  "kpi": {
+                    "default": {
+                      "text": "seit Beginn",
+                      "unit": "%",
+                      "value": {
+                        "doubleValue": 103.3043
+                      }
+                    },
+                    "ranking": {
+                      "text": "wikifolio Rangliste",
+                      "unit": "Platz",
+                      "value": {
+                        "integerValue": 4
+                      }
+                    }
+                  },
+                  "button": {
+                    "text": "Zum wikifolio",
+                    "url": "https://www.wikifolio.com/de/de/w/wfnews2019?utm_source=onvista&utm_campaign=partner&utm_content=topwikifolio&utm_medium=api-feed&wikifoliosymbol=WFNEWS2019&contentitemid=0138bdec-7f65-11ee-9c89-bbf12d049be9&isin=us04010l1035"
+                  }
+                },
+                "traderId": "TopWikifolio"
+              },
+              {
+                "contentItemId": "TopWikifolio",
+                "rank": 1,
+                "contentType": "TopWikifolio",
+                "payload": {
+                  "image": "https://wikifolio.imgix.net/prod/images/top-trader/77459565-2f11-4f6a-82ce-cf6902964bb2_profile.png?v=20231110",
+                  "text": {
+                    "plain": "Das wikifolio Spezialwerte von Thomas Dittmer enthält zwar nicht diese Aktie, zählt aber zu den Top wikifolios.",
+                    "values": {
+                      "mapValue": {
+                        "traderName": "Thomas Dittmer",
+                        "wikifolioDescription": "Spezialwerte"
+                      }
+                    }
+                  },
+                  "kpi": {
+                    "default": {
+                      "text": "seit Beginn",
+                      "unit": "%",
+                      "value": {
+                        "doubleValue": 261.4243
+                      }
+                    },
+                    "ranking": {
+                      "text": "wikifolio Rangliste",
+                      "unit": "Platz",
+                      "value": {
+                        "integerValue": 6
+                      }
+                    }
+                  },
+                  "button": {
+                    "text": "Zum wikifolio",
+                    "url": "https://www.wikifolio.com/de/de/w/wf00200775?utm_source=onvista&utm_campaign=partner&utm_content=topwikifolio&utm_medium=api-feed&wikifoliosymbol=WF00200775&contentitemid=0138bdee-7f65-11ee-9c89-bbf12d049be9&isin=us04010l1035"
+                  }
+                },
+                "traderId": "TopWikifolio"
+              }
+            ]
+          }
+        },
+        "orderBook": {},
+        "ratings": {},
+        "figures": {
+          "expires": 1699627064210,
+          "stocksBalanceSheetList": {
+            "list": []
+          },
+          "stocksCnFundamentalList": {
+            "list": [
+              {
+                "label": "2013",
+                "idYear": 2013,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 18.67,
+                "cnPriceHighAdj": 18.67,
+                "datePriceHigh": "2013-03-06T12:00:00.000+00:00",
+                "cnPriceLow": 16.15,
+                "cnPriceLowAdj": 16.15,
+                "datePriceLow": "2013-06-24T12:00:00.000+00:00",
+                "cnMarketCap": 4899975352.4,
+                "dateExDividend": "2013-12-12T12:00:00.000+00:00"
+              },
+              {
+                "label": "2014",
+                "idYear": 2014,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 18.63,
+                "cnPriceHighAdj": 18.63,
+                "datePriceHigh": "2014-02-24T12:00:00.000+00:00",
+                "cnPriceLow": 14.63,
+                "cnPriceLowAdj": 14.63,
+                "datePriceLow": "2014-12-16T12:00:00.000+00:00",
+                "cnMarketCap": 4573255426,
+                "dateExDividend": "2014-09-11T12:00:00.000+00:00"
+              },
+              {
+                "label": "2015",
+                "idYear": 2015,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 17.68,
+                "cnPriceHighAdj": 17.68,
+                "datePriceHigh": "2015-03-09T12:00:00.000+00:00",
+                "cnPriceLow": 11.01,
+                "cnPriceLowAdj": 11.01,
+                "datePriceLow": "2015-08-24T12:00:00.000+00:00",
+                "cnMarketCap": 4183880066.451,
+                "dateExDividend": "2015-09-11T12:00:00.000+00:00"
+              },
+              {
+                "label": "2016",
+                "idYear": 2016,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 16.91,
+                "cnPriceHighAdj": 16.91,
+                "datePriceHigh": "2016-12-12T12:00:00.000+00:00",
+                "cnPriceLow": 12.31,
+                "cnPriceLowAdj": 12.31,
+                "datePriceLow": "2016-02-11T12:00:00.000+00:00",
+                "dateExDividend": "2016-03-11T12:00:00.000+00:00"
+              },
+              {
+                "label": "2017",
+                "idYear": 2017,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 17.87,
+                "cnPriceHighAdj": 17.87,
+                "datePriceHigh": "2017-03-01T12:00:00.000+00:00",
+                "cnPriceLow": 15.6,
+                "cnPriceLowAdj": 15.6,
+                "datePriceLow": "2017-09-14T12:00:00.000+00:00",
+                "dateExDividend": "2017-03-13T12:00:00.000+00:00"
+              },
+              {
+                "label": "2018",
+                "idYear": 2018,
+                "isoCurrency": "EUR",
+                "cnPriceHigh": 17.63,
+                "cnPriceHighAdj": 17.63,
+                "datePriceHigh": "2018-11-12T12:00:00.000+00:00",
+                "cnPriceCf": 6.06226540995913,
+                "cnPriceLow": 14.81,
+                "cnPriceLowAdj": 14.81,
+                "datePriceLow": "2018-12-21T12:00:00.000+00:00",
+                "dateExDividend": "2018-03-14T12:00:00.000+00:00"
+              },
+              {
+                "label": "2019",
+                "idYear": 2019,
+                "isoCurrency": "EUR",
+                "cnPeg": -0.30203957646242,
+                "cnPriceHigh": 19.28,
+                "cnPriceHighAdj": 19.28,
+                "datePriceHigh": "2019-09-12T12:00:00.000+00:00",
+                "cnPriceCf": 10.3989123289309,
+                "cnPriceLow": 15.28,
+                "cnPriceLowAdj": 15.28,
+                "datePriceLow": "2019-01-03T12:00:00.000+00:00",
+                "cnDpsAdj": 1.5033,
+                "dateExDividend": "2019-12-13T12:00:00.000+00:00",
+                "cnPer": 10.6120021955236,
+                "cnDivYield": 8.63940691359443,
+                "cnDps": 1.5033,
+                "cnPriceProfit": 9.42329243412546
+              },
+              {
+                "label": "2020",
+                "idYear": 2020,
+                "isoCurrency": "EUR",
+                "cnPeg": 0.0712662807525326,
+                "cnPriceHigh": 19.33,
+                "cnPriceHighAdj": 19.33,
+                "datePriceHigh": "2020-02-12T12:00:00.000+00:00",
+                "cnPriceCf": 12.6047032474804,
+                "cnPriceLow": 7.9,
+                "cnPriceLowAdj": 7.9,
+                "datePriceLow": "2020-03-19T12:00:00.000+00:00",
+                "cnDpsAdj": 1.4928,
+                "dateExDividend": "2020-12-14T12:00:00.000+00:00",
+                "cnPer": 14.8160962767958,
+                "cnDivYield": 9.47304294852269,
+                "cnDps": 1.4928,
+                "cnPriceProfit": 6.7494161843842
+              },
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "isoCurrency": "EUR",
+                "cnPeg": -0.0921305745840906,
+                "cnPriceHigh": 21.74,
+                "cnPriceHighAdj": 21.74,
+                "datePriceHigh": "2021-10-28T12:00:00.000+00:00",
+                "cnPriceCf": 7.76188606650701,
+                "cnPriceLow": 16.41,
+                "cnPriceLowAdj": 16.41,
+                "datePriceLow": "2021-01-04T12:00:00.000+00:00",
+                "cnDpsAdj": 1.5122,
+                "dateExDividend": "2021-03-12T12:00:00.000+00:00",
+                "cnPer": 6.03710150238182,
+                "cnDivYield": 7.64884700788557,
+                "cnDps": 1.5122,
+                "cnPriceProfit": 16.5642402998437
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "isoCurrency": "EUR",
+                "cnPeg": 0.132506728181469,
+                "cnPriceHigh": 23,
+                "cnPriceHighAdj": 23,
+                "datePriceHigh": "2022-02-09T12:00:00.000+00:00",
+                "cnPriceCf": 10.0317266270812,
+                "cnPriceLow": 16.5312,
+                "cnPriceLowAdj": 16.5312,
+                "datePriceLow": "2022-10-03T12:00:00.000+00:00",
+                "cnDpsAdj": 1.7447,
+                "dateExDividend": "2022-12-14T12:00:00.000+00:00",
+                "cnPer": 15.2648595978386,
+                "cnDivYield": 10.1244741041636,
+                "cnDps": 1.7447,
+                "cnPriceProfit": 6.55099376178732
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "isoCurrency": "EUR",
+                "cnPeg": -0.696008403361346,
+                "cnPriceHigh": 20.17,
+                "cnPriceHighAdj": 20.17,
+                "datePriceHigh": "2023-02-07T12:00:00.000+00:00",
+                "cnPriceCf": 10.857764271243,
+                "cnPriceLow": 16.95,
+                "cnPriceLowAdj": 16.95,
+                "datePriceLow": "2023-03-24T12:00:00.000+00:00",
+                "cnDpsAdj": 1.7914,
+                "cnPerLow1y": 14.0086810169191,
+                "cnPer": 7.50041162426937,
+                "cnDivYield": 9.83124331147271,
+                "cnPerHigh1y": 16.6698556116574,
+                "cnDps": 1.7914,
+                "cnPriceProfit": 13.3326015970145
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "isoCurrency": "EUR",
+                "cnPeg": -1.39414690130069,
+                "cnPriceCf": 9.45490867579909,
+                "cnDpsAdj": 1.8237,
+                "cnPer": 8.40630190071969,
+                "cnDivYield": 10.0085064347063,
+                "cnDps": 1.8237,
+                "cnPriceProfit": 11.8958373350163
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "isoCurrency": "EUR",
+                "cnPriceCf": 8.60763380414758,
+                "cnDpsAdj": 1.8287,
+                "cnPer": 8.94570180175757,
+                "cnDivYield": 10.0359465466619,
+                "cnDps": 1.8287,
+                "cnPriceProfit": 11.1785528084955
+              }
+            ]
+          },
+          "stocksCnGrowthList": {
+            "list": [
+              {
+                "label": "2013",
+                "idYear": 2013,
+                "cnProfGrt1yrProj": -6.6265060241,
+                "cnProfGrt2yrProj": -3.6822527582
+              },
+              {
+                "label": "2014",
+                "idYear": 2014,
+                "cnProfGrt1yr": -6.6265060241,
+                "cnProfGrt1yrProj": -0.645161290323
+              },
+              {
+                "label": "2015",
+                "idYear": 2015,
+                "cnProfGrt3yrProj": 9.28446877431,
+                "cnProfGrt1yr": -0.645161290323
+              },
+              {
+                "label": "2016",
+                "idYear": 2016
+              },
+              {
+                "label": "2017",
+                "idYear": 2017
+              },
+              {
+                "label": "2018",
+                "idYear": 2018,
+                "cnProfGrt3yrProj": -5.99012586205,
+                "cnProfGrt3yr": 9.28446877431,
+                "cnProfGrt5yr": 3.90048955961,
+                "cnProfGrt1yrProj": -5.97014925373,
+                "cnProfGrt2yrProj": -11.0593019974
+              },
+              {
+                "label": "2019",
+                "idYear": 2019,
+                "cnProfGrt3yrProj": -2.76385735618,
+                "cnProfGrt1yr": -5.97014925373,
+                "cnProfGrt5yr": 3.71372893366,
+                "cnProfGrt1yrProj": -64.247311828,
+                "cnProfGrt2yrProj": -5.24508126933
+              },
+              {
+                "label": "2020",
+                "idYear": 2020,
+                "cnProfGrt3yrProj": 31.7989302579,
+                "cnProfGrt1yr": -64.247311828,
+                "cnProfGrt5yr": -5.83775028054,
+                "cnProfGrt1yrProj": 207.894736842,
+                "cnProfGrt2yrProj": 3.02443927399
+              },
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "cnProfGrt3yrProj": -13.2288217776,
+                "cnProfGrt1yr": 207.894736842,
+                "cnProfGrt3yr": -5.99012586205,
+                "cnProfGrt1yrProj": -65.5270655271,
+                "cnProfGrt2yrProj": -13.7683501497
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "cnProfGrt3yrProj": 21.6295354721,
+                "cnProfGrt1yr": -65.5270655271,
+                "cnProfGrt3yr": -2.76385735618,
+                "cnProfGrt1yrProj": 115.702479339,
+                "cnProfGrt2yrProj": 37.6651825239
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "cnProfGrt1yr": 115.702479339,
+                "cnProfGrt3yr": 31.7989302579,
+                "cnProfGrt1yrProj": -12.1396168582,
+                "cnProfGrt2yrProj": -8.66631009382
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "cnProfGrt1yr": -12.1396168582,
+                "cnProfGrt3yr": -13.2288217776,
+                "cnProfGrt1yrProj": -5.0556961672
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "cnProfGrt1yr": -5.0556961672,
+                "cnProfGrt3yr": 21.6295354721,
+                "cnProfGrt5yr": 13.8150078415
+              }
+            ]
+          },
+          "stocksCnFinancialList": {
+            "isoCurrency": "EUR",
+            "list": [
+              {
+                "label": "2013",
+                "idYear": 2013,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4899975352.4,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2014",
+                "idYear": 2014,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4573255426,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2015",
+                "idYear": 2015,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4183880066.451,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2016",
+                "idYear": 2016,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2017",
+                "idYear": 2017,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2018",
+                "idYear": 2018,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 2.3978
+              },
+              {
+                "label": "2019",
+                "idYear": 2019,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.6397,
+                "cnCpsAdj": 1.6733
+              },
+              {
+                "label": "2020",
+                "idYear": 2020,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.0636,
+                "cnCpsAdj": 1.2502
+              },
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 3.2748,
+                "cnCpsAdj": 2.5471
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.1289,
+                "cnCpsAdj": 1.7178
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.4294,
+                "cnCpsAdj": 1.6782
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.1676,
+                "cnCpsAdj": 1.9272
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.0369,
+                "cnCpsAdj": 2.1169
+              }
+            ]
+          },
+          "stocksCnTechnical": {
+            "idInstrument": 11426618,
+            "idNotation": 10550240,
+            "datetimeCalculation": "2023-11-10T12:00:00.000+00:00",
+            "movingAverage5": 18.31937528,
+            "movingAverage20": 17.983738824,
+            "movingAverage30": 17.9521752467,
+            "movingAverage38": 17.9914857989,
+            "movingAverage100": 18.0380688034,
+            "movingAverage200": 17.7659501404,
+            "movingAverage250": 17.7769942674,
+            "relativeStrengthLevy5": 0.995905834186,
+            "relativeStrengthLevy20": 1.01449275362,
+            "relativeStrengthLevy30": 1.01627643833,
+            "relativeStrengthLevy250": 1.02629119668,
+            "momentum20": 1.02098635887,
+            "momentum30": 0.99083503055,
+            "momentum50": 1.00051413882,
+            "momentum250": 1.00205973223,
+            "relativeStrengthIndexWilder5": 29.0322580645,
+            "relativeStrengthIndexWilder20": 56.5789473684,
+            "relativeStrengthIndexWilder250": 50.0479846449,
+            "volatility30": 17.3640383803,
+            "volatility250": 19.1265171027
+          },
+          "stocksBenchmarkList": {
+            "list": [
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT",
+                    "GODMODE_TRADER_TRENDRADAR",
+                    "TURBO_BOX",
+                    "TRADER_BOX"
+                  ],
+                  "entityValue": "4359526",
+                  "name": "S&P 500",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/S-P-500-Index-4359526"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "US78378X1072",
+                  "wkn": "A0AET0",
+                  "displayType": "Index",
+                  "urlName": "S-P-500",
+                  "underlyingEntity": {
+                    "type": "INDEX",
+                    "value": "4359526",
+                    "name": "S&P 500",
+                    "urlName": "S-P-500"
+                  },
+                  "tinyName": "S&P 500"
+                },
+                "cnBeta30": 0.926749999575,
+                "cnBeta250": 0.802404346015,
+                "cnKor30": 0.762441490304,
+                "cnKor250": 0.602157667416,
+                "cnOpb1W": -1.34844655331,
+                "cnOpb1M": 1.13735834037,
+                "cnOpb1Y": -13.7676755638,
+                "default": true
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "3193857",
+                  "name": "MSCI World",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/MSCI-WORLD-Index-3193857"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "GB00BJDQQQ59",
+                  "wkn": "A3DR38",
+                  "displayType": "Index",
+                  "urlName": "MSCI-WORLD",
+                  "tinyName": "MSCI World"
+                },
+                "cnBeta30": 1.01558672341,
+                "cnBeta250": 0.81173598816,
+                "cnKor30": 0.785319126826,
+                "cnKor250": 0.578529281988,
+                "cnOpb1W": -1.58993197931,
+                "cnOpb1M": 0.697850521619,
+                "cnOpb1Y": -12.5051364078,
+                "default": false
+              }
+            ]
+          }
+        },
+        "company": {
+          "expires": 1699627982209,
+          "companyDescriptor": {
+            "company": {
+              "type": "Company",
+              "entityType": "COMPANY",
+              "entityAttributes": [],
+              "entityValue": "409532",
+              "name": "ARES CAPITAL CORP",
+              "urls": {}
+            },
+            "isoCurrency": "EUR",
+            "nameCompanyFull": "ARES CAPITAL CORP",
+            "nameCompanyType": "",
+            "yearEndFiscal": "",
+            "freeFloat": 85.956491251559,
+            "contact": {
+              "title": "",
+              "nameFirst": "",
+              "nameLast": "",
+              "city": "",
+              "zipCode": "",
+              "state": "",
+              "street": "",
+              "streetnumber": "",
+              "phone": "",
+              "mobile": "",
+              "email": "",
+              "fax": ""
+            },
+            "contactPr": {
+              "title": "",
+              "nameFirst": "",
+              "nameLast": "",
+              "phone": "",
+              "email": "",
+              "fax": ""
+            },
+            "contactIr": {
+              "title": "",
+              "nameFirst": "",
+              "nameLast": "",
+              "phone": "",
+              "email": "",
+              "fax": ""
+            }
+          },
+          "companyLogo": {
+            "type": "NewsPhoto",
+            "ignoreIfUnknown": false,
+            "photoUrl": "https://images.onvista.com/onvista-media/image/fetch/e_trim:10/e_trim:10/e_sharpen:100/c_fit,h_54,w_170/https://gateway.mdgms.com/extern/logo_image.html%3FID_LOGO%3D140037%26ID_TYPE_IMAGE_LOGO%3D3"
+          },
+          "companyOwnerList": {
+            "list": [
+              {
+                "id": 155689909,
+                "name": "Streubesitz",
+                "percentage": 85.956491251559
+              },
+              {
+                "id": 3114949,
+                "name": "City National Rochdale LLC",
+                "percentage": 1.84797666325
+              },
+              {
+                "id": 3124479,
+                "name": "Morgan Stanley Smith Barney LLC (Investment Management)",
+                "percentage": 1.74939039577
+              },
+              {
+                "id": 3091510,
+                "name": "Van Eck Associates Corp.",
+                "percentage": 1.20791954132
+              },
+              {
+                "id": 3115100,
+                "name": "Merrill Lynch, Pierce, Fenner & Smith, Inc. (Invt Mgmt)",
+                "percentage": 0.908485500722
+              },
+              {
+                "id": 3091196,
+                "name": "OMERS Administration Corp.",
+                "percentage": 0.86674387352
+              },
+              {
+                "id": 3093998,
+                "name": "Legal & General Investment Management Ltd.",
+                "percentage": 0.798625393114
+              },
+              {
+                "id": 3092406,
+                "name": "Confluence Investment Management LLC",
+                "percentage": 0.770276810972
+              },
+              {
+                "id": 3109479,
+                "name": "Columbia Management Investment Advisers LLC",
+                "percentage": 0.68426385884
+              },
+              {
+                "id": 3092123,
+                "name": "Advisors Capital Management LLC",
+                "percentage": 0.541809762188
+              },
+              {
+                "id": 3116802,
+                "name": "Wells Fargo Clearing Services LLC",
+                "percentage": 0.512267736835
+              },
+              {
+                "id": 2455671,
+                "name": "Enstar Group",
+                "percentage": 0.497652722185
+              },
+              {
+                "id": 3092889,
+                "name": "Two Sigma Advisers LP",
+                "percentage": 0.480911684976
+              },
+              {
+                "id": 3109280,
+                "name": "BlackRock Advisors (UK) Ltd.",
+                "percentage": 0.471434468469
+              },
+              {
+                "id": 3091602,
+                "name": "Two Sigma Investments LP",
+                "percentage": 0.445513319678
+              },
+              {
+                "id": 3091617,
+                "name": "UBS Financial Services, Inc.",
+                "percentage": 0.441719670143
+              },
+              {
+                "id": 3132756,
+                "name": "Border to Coast Pensions Partnership Ltd.",
+                "percentage": 0.384953253142
+              },
+              {
+                "id": 3091137,
+                "name": "Ares Management LLC",
+                "percentage": 0.370159006716
+              },
+              {
+                "id": 3094364,
+                "name": "CCLA Investment Management Ltd.",
+                "percentage": 0.363046967879
+              },
+              {
+                "id": 3118478,
+                "name": "Stifel Nicolaus & Co., Inc. (Investment Management)",
+                "percentage": 0.356223422229
+              },
+              {
+                "id": 2528714,
+                "name": "Michael J. Arougheti",
+                "percentage": 0.344134696493
+              }
+            ],
+            "total": 21
+          },
+          "stocksBalanceSheetList": {
+            "list": []
+          },
+          "stocksCnFinancialList": {
+            "isoCurrency": "EUR",
+            "list": [
+              {
+                "label": "2013",
+                "idYear": 2013,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4899975352.4,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2014",
+                "idYear": 2014,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4573255426,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2015",
+                "idYear": 2015,
+                "cnCfReturnOnInv": 0,
+                "cnMarketCap": 4183880066.451,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2016",
+                "idYear": 2016,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2017",
+                "idYear": 2017,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 0
+              },
+              {
+                "label": "2018",
+                "idYear": 2018,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 0,
+                "cnCpsAdj": 2.3978
+              },
+              {
+                "label": "2019",
+                "idYear": 2019,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.6397,
+                "cnCpsAdj": 1.6733
+              },
+              {
+                "label": "2020",
+                "idYear": 2020,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.0636,
+                "cnCpsAdj": 1.2502
+              },
+              {
+                "label": "2021",
+                "idYear": 2021,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 3.2748,
+                "cnCpsAdj": 2.5471
+              },
+              {
+                "label": "2022",
+                "idYear": 2022,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 1.1289,
+                "cnCpsAdj": 1.7178
+              },
+              {
+                "label": "2023",
+                "idYear": 2023,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.4294,
+                "cnCpsAdj": 1.6782
+              },
+              {
+                "label": "2024",
+                "idYear": 2024,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.1676,
+                "cnCpsAdj": 1.9272
+              },
+              {
+                "label": "2025",
+                "idYear": 2025,
+                "cnCfReturnOnInv": 0,
+                "cnCir": 0,
+                "cnEpsAdj": 2.0369,
+                "cnCpsAdj": 2.1169
+              }
+            ]
+          }
+        },
+        "allStocks": [],
+        "holdingsFunds": [],
+        "holdingsEtfs": [],
+        "topPeers": [],
+        "robotext": {
+          "datetime": "",
+          "headline": "",
+          "contentItems": []
+        },
+        "siteConfig": {
+          "TOPIC_TEXT_TEASER": {
+            "type": "CONTENT_ITEM_LIST",
+            "name": "TOPIC_TEXT_TEASER",
+            "newsContentItemValue": [
+              {
+                "type": "NewsParagraph",
+                "ignoreIfUnknown": false,
+                "value": "Neben den unternehmensspezifischen Faktoren spielen für den Aktienkurs immer auch strukturelle Faktoren eine Rolle: Auf den onvista-Themenseiten findest du Daten, News und Analysen zu aktuellen Markttrends, dazu übersichtliche Listen der wichtigsten Anlage-Assets zu jedem Investment-Thema."
+              }
+            ]
+          }
+        }
+      },
+      "isin": "US04010L1035",
+      "tab": null,
+      "idNotation": null
+    },
+    "__N_SSP": true
+  },
+  "page": "/aktien/[...snapshot]",
+  "query": {
+    "snapshot": [
+      "ARES-CAPITAL-CORP-Aktie-US04010L1035"
+    ]
+  },
+  "buildId": "ZU-2kxNHN3927QuAzcp4g",
+  "isFallback": false,
+  "dynamicIds": [
+    37209,
+    92937,
+    2727,
+    59281,
+    7446,
+    7741,
+    90366,
+    40771,
+    87729,
+    23949,
+    47221,
+    69267,
+    43998,
+    49527,
+    34789,
+    36384,
+    14939,
+    43043,
+    12594,
+    63296,
+    26597
+  ],
+  "gssp": true,
+  "scriptLoader": []
+}

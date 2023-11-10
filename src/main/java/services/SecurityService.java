@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static constants.PathConstants.CACHE_PATH;
+
 public class SecurityService {
     private static final Logger logger = Logger.getLogger(SecurityService.class.getCanonicalName());
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
@@ -45,22 +47,12 @@ public class SecurityService {
         return security;
     }
 
-
-    boolean isETF(String strResponseFromFirstCall) {
-        return strResponseFromFirstCall.startsWith("/etf/anlageschwerpunkt");
-    }
-
-    boolean isFond(String strResponseFromFirstCall) {
-        return strResponseFromFirstCall.startsWith("/fonds/anlageschwerpunkt");
-    }
-
     Security createSecurity(String strIsin) {
         Security security = new Security(strIsin);
         try {
-            SecurityDetails securityDetails = new SecurityDetails(strIsin);
-            String detailsRequestPath = securityDetails.getDetailsRequestPath();
+            SecurityDetails securityDetails = new SecurityDetails(CACHE_PATH, strIsin);
 
-            boolean isEftOrFond = isETF(detailsRequestPath) || isFond(detailsRequestPath);
+            boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFond();
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
             if (isEftOrFond) {
                 JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
@@ -82,6 +74,16 @@ public class SecurityService {
                     // parsing country
                     security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
+            } else {
+                String branch = securityDetails.getBranchForSecurity();
+                Map<String, Security.PercentageUsedTuple> branchMap = new HashMap<>();
+                branchMap.put(branch, new Security.PercentageUsedTuple(100.0, false));
+                security.setBranches(branchMap);
+                String country = securityDetails.getCountryForSecurity();
+                Map<String, Security.PercentageUsedTuple> countryMap = new HashMap<>();
+                countryMap.put(country, new Security.PercentageUsedTuple(100.0, false));
+                security.setCountries(countryMap);
+                logger.info("Setting branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
             logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());

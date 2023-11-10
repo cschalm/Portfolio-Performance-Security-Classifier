@@ -478,6 +478,9 @@ public class XmlFileWriter {
             case "Bauwesen":
                 result = "Bau- & Ingenieurswesen";
                 break;
+            case "Unterhaltungselektronik":
+                result = "Verbraucherelektronik";
+                break;
             default:
                 break;
         }
