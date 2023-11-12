@@ -35,9 +35,7 @@ public class XmlFileWriter {
         writeXml(doc, output);
     }
 
-    // write doc to output stream
     private void writeXml(Document doc, OutputStream output) throws TransformerException {
-
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
         // https://mkyong.com/java/pretty-print-xml-with-java-dom-and-xslt/
@@ -64,29 +62,20 @@ public class XmlFileWriter {
                     String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                     logger.info("taxonomyName: " + taxonomyName);
 
-                    // countries start
                     if (taxonomyName.equals("Regionen")) {
                         JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, securityDetailsCache.getCachedCountries(), taxonomyElement);
-                        // adding all country triples to the "all" jsonObject (for performance split on country/region/etc
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
-                    // end of countries
 
-                    // branches start
                     if (taxonomyName.equals("Branchen (GICS)")) {
                         JsonArray importedBranches = importBranches(portfolioDocument, allSecurities, securityDetailsCache.getCachedBranches(), taxonomyElement);
-                        // adding all country triples to the "all" jsonObject (for performance split on country/region/etc
                         securityDetailsCache.setCachedBranches(importedBranches);
                     }
-                    // end of branches
 
-                    // top ten start
                     if (taxonomyName.equals("Top Ten")) {
                         JsonArray importedTopTen = importTopTen(portfolioDocument, allSecurities, securityDetailsCache.getCachedTopTen(), taxonomyElement);
-                        // adding all country triples to the "all" jsonObject (for performance split on country/region/etc
                         securityDetailsCache.setCachedTopTen(importedTopTen);
                     }
-                    // end of top ten
                 }
             }
 
@@ -336,28 +325,35 @@ public class XmlFileWriter {
                         // Tui is classified as "Sonstige Branchen" ?!?
                         optimizeBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
                     }
+                    if ("US04010L1035".equalsIgnoreCase(security.getIsin())) {
+                        // Ares Capital Markets has no classification on Onvista ?!?
+                        optimizeBranchNameFromSecurity = "Kapitalmärkte";
+                    }
+                    if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
+                        // Hannover Rück is classified as "Sonstige Branchen" ?!?
+                        optimizeBranchNameFromSecurity = "Rückversicherungen";
+                    }
                     // skip not matching branches
                     if (optimizeBranchNameFromSecurity.isEmpty()) continue;
-                    String strBestMatch = "";
+                    String bestMatchingBranchName = "";
                     int currentLowestDistance = 1000;
                     for (String branchNameFromPortfolio : branchNameFromPortfolioToNodeMap.keySet()) {
                         int temp = levenshteinDistance(optimizeBranchNameFromSecurity, branchNameFromPortfolio);
                         if (temp < currentLowestDistance) {
-                            strBestMatch = branchNameFromPortfolio;
+                            bestMatchingBranchName = branchNameFromPortfolio;
                             currentLowestDistance = temp;
                         }
                     }
 
                     int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
 
-                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + strBestMatch + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
+                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatchingBranchName + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
 
-                    boolean fSkipCurrentAdding = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, strBestMatch, importedBranches);
+                    boolean fSkipCurrentAdding = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatchingBranchName, importedBranches);
 
                     if (nPercentage > 0 && !fSkipCurrentAdding) {
-                        //System.out.printf("branch: %s with more than 0.0 found in etf: %s\n", strBranch, security.getName());
                         Element assignment = portfolioDocument.createElement("assignment");
-                        NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(strBestMatch);
+                        NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatchingBranchName);
                         Node branchNode = oTuple.oNode;
 
                         Element assignments = portfolioDocument.createElement("assignments");
@@ -377,9 +373,9 @@ public class XmlFileWriter {
                         assignment.appendChild(rank);
 
                         assignments.appendChild(assignment);
-                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(strBestMatch).append("\" zugeordnet. Distanz: ").append(currentLowestDistance).append(")\n");
+                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(currentLowestDistance).append(")\n");
 
-                        addNewJsonSecurity(importedBranches, strBestMatch, security.getIsin(), nPercentage);
+                        addNewJsonSecurity(importedBranches, bestMatchingBranchName, security.getIsin(), nPercentage);
                     }
                 }
                 if (strMatchingStringForFile.length() > 0) {
@@ -418,8 +414,8 @@ public class XmlFileWriter {
         boolean found = false;
         // checking if the triple was added in an earlier run of the tool (therefore skip it -> no double entry AND it may have been moved
         for (int index = 0; index < cache.size(); index++) {
-            JsonObject oTriple = cache.get(index).getAsJsonObject();
-            if (jsonObjectEqualsInWeightAndIsinAndClassification(oTriple, isin, weight, classification)) {
+            JsonObject cachedJson = cache.get(index).getAsJsonObject();
+            if (jsonObjectEqualsInWeightAndIsinAndClassification(cachedJson, isin, weight, classification)) {
                 found = true;
                 JsonObject oSavingTriple = new JsonObject();
                 oSavingTriple.addProperty("weight", weight);
@@ -440,7 +436,7 @@ public class XmlFileWriter {
 
     /*
         Some names from the official data from a security might not fit well into the schema from
-        Portfolio Performance and should be "optimized"
+        Portfolio Performance and should be "optimized" - some are misspelled
      */
     String optimizeBranchNameFromSecurity(String branchNameFromSecurity) {
         String result = branchNameFromSecurity;
