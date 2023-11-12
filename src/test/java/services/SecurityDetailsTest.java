@@ -16,32 +16,33 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Parameterized.class)
 public class SecurityDetailsTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(SecurityDetailsTest.class.getCanonicalName());
+    private final String isin;
+    private final String branch;
+    private final String country;
+    private final String name;
+
+    public SecurityDetailsTest(String isin, String branch, String country, String name) {
+        this.isin = isin;
+        this.branch = branch;
+        this.country = country;
+        this.name = name;
+    }
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"DE000TUAG505", "Sonstige Branchen", "Deutschland"},
-                {"DE0008402215", "Versicherungen", "Deutschland"},
-                {"DE000A2NB650", "Finanzdienstleistungen", "Deutschland"},
-                {"KYG9830T1067", "Unterhaltungselektronik", "China"},
-                {"NL0011821202", "Banken", "Niederlande"},
-                {"US04010L1035", "", "Vereinigte Staaten"},
-                {"US0357108390", "Immobilien", "Vereinigte Staaten"},
-                {"US0378331005", "Unterhaltungselektronik", "USA"},
-                {"US5949181045", "Standardsoftware", "USA"},
-                {"US6819361006", "Immobilien", "USA"},
-                {"DE000A1J5RX9", "Telekomdienstleister", "Deutschland"}
+                {"DE000TUAG505", "Sonstige Branchen", "Deutschland", "TUI AG"},
+                {"DE0008402215", "Versicherungen", "Deutschland", "HANNOVER RUECK SE"},
+                {"DE000A2NB650", "Finanzdienstleistungen", "Deutschland", "MUTARES SE & CO. KGAA"},
+                {"KYG9830T1067", "Unterhaltungselektronik", "China", "XIAOMI CORP."},
+                {"NL0011821202", "Banken", "Niederlande", "ING GROEP NV"},
+                {"US04010L1035", "", "USA", "ARES CAPITAL CORP"},
+                {"US0357108390", "Immobilien", "USA", "ANNALY CAPITAL MANAGEMENT"},
+                {"US0378331005", "Unterhaltungselektronik", "USA", "APPLE INC."},
+                {"US5949181045", "Standardsoftware", "USA", "MICROSOFT CORP."},
+                {"US6819361006", "Immobilien", "USA", "OMEGA HEALTHCARE INVESTORS INC."},
+                {"DE000A1J5RX9", "Telekomdienstleister", "Deutschland", "TELEFÓNICA DEUTSCHLAND HOLDING AG"}
         });
-    }
-
-    private final String isin;
-    private final String branch;
-    private final String country;
-
-    public SecurityDetailsTest(String isin, String branch, String country) {
-        this.isin = isin;
-        this.branch = branch;
-        this.country = country;
     }
 
     @Test
@@ -57,6 +58,7 @@ public class SecurityDetailsTest extends AbstractTest {
                 .getAsJsonObject("company").toString());
         assertEquals(branch, securityDetails.getBranchForSecurity());
         assertEquals(country, securityDetails.getCountryForSecurity());
+        assertEquals(name, securityDetails.getCompanyNameForSecurity());
     }
 
 //    @Test

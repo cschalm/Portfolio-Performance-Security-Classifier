@@ -93,12 +93,6 @@ public class SecurityDetails {
     }
 
     public String getBranchForSecurity() {
-//        return rootNode.getAsJsonObject("props")
-//                .getAsJsonObject("pageProps")
-//                .getAsJsonObject("data")
-//                .getAsJsonObject("company")
-//                .getAsJsonObject("companyDescriptor")
-//                .get("nameCompanyType").getAsString();
         JsonObject branch = rootNode.getAsJsonObject("props")
                 .getAsJsonObject("pageProps")
                 .getAsJsonObject("data")
@@ -106,13 +100,6 @@ public class SecurityDetails {
                 .getAsJsonObject("company")
                 .getAsJsonObject("branch");
         return branch == null ? "" : branch.get("name").getAsString();
-//        return rootNode.getAsJsonObject("props")
-//                .getAsJsonObject("pageProps")
-//                .getAsJsonObject("data")
-//                .getAsJsonObject("snapshot")
-//                .getAsJsonObject("company")
-//                .getAsJsonObject("branch")
-//                .get("name").getAsString();
     }
 
     public String getCountryForSecurity() {
@@ -122,10 +109,21 @@ public class SecurityDetails {
                 .getAsJsonObject("snapshot")
                 .getAsJsonObject("company")
                 .get("nameCountry").getAsString();
-        if (country != null && country.isEmpty()) {
+        if (country == null || country.isEmpty()) {
             if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
         }
+        if ("Vereinigte Staaten".equalsIgnoreCase(country)) country = "USA";
+
         return country;
+    }
+
+    public String getCompanyNameForSecurity() {
+        return rootNode.getAsJsonObject("props")
+                .getAsJsonObject("pageProps")
+                .getAsJsonObject("data")
+                .getAsJsonObject("snapshot")
+                .getAsJsonObject("company")
+                .get("name").getAsString();
     }
 
     String extractJsonPartFromHtml(String htmlPageAnlageschwerpunkt) {

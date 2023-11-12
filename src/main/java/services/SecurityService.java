@@ -79,11 +79,18 @@ public class SecurityService {
                 Map<String, Security.PercentageUsedTuple> branchMap = new HashMap<>();
                 branchMap.put(branch, new Security.PercentageUsedTuple(100.0, false));
                 security.setBranches(branchMap);
+
                 String country = securityDetails.getCountryForSecurity();
                 Map<String, Security.PercentageUsedTuple> countryMap = new HashMap<>();
                 countryMap.put(country, new Security.PercentageUsedTuple(100.0, false));
                 security.setCountries(countryMap);
-                logger.info("Setting branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
+
+                String companyName = securityDetails.getCompanyNameForSecurity();
+                Map<String, Security.PercentageUsedTuple> holdingsMap = new HashMap<>();
+                holdingsMap.put(companyName, new Security.PercentageUsedTuple(100.0, false));
+                security.setHoldings(holdingsMap);
+
+                logger.info("Setting name \""+ companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
             logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());

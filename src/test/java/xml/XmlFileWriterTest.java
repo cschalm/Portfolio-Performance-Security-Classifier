@@ -84,7 +84,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Top Ten")) {
                     JsonArray importedTopTen = xmlFileWriter.importTopTen(portfolioDocument, securities, cachedBranches, taxonomyElement);
-                    assertEquals(190, importedTopTen.size());
+                    assertEquals(187, importedTopTen.size());
                 }
             }
         }

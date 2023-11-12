@@ -26,6 +26,8 @@ import static constants.PathConstants.SAVE_FILE;
 
 public class XmlFileWriter {
     private static final Logger logger = Logger.getLogger(XmlFileWriter.class.getCanonicalName());
+    // create random object - reuse this as often as possible
+    Random random = new Random();
     XmlHelper xmlHelper = new XmlHelper();
 
     public void writeXml(Document doc, String fileName) throws TransformerException, FileNotFoundException {
@@ -136,7 +138,11 @@ public class XmlFileWriter {
             name.setTextContent(stockName);
 
             Element color = portfolioDocument.createElement("color");
-            color.setTextContent("#FFFFFF");
+            // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+            int nextInt = random.nextInt(0xffffff + 1);
+            // format it as hexadecimal string (with hashtag and leading zeros)
+            String colorCode = String.format("#%06x", nextInt);
+            color.setTextContent(colorCode);
 
             Element parent = portfolioDocument.createElement("parent");
             parent.setAttribute("reference", "../../..");
@@ -326,6 +332,10 @@ public class XmlFileWriter {
                 StringBuilder strMatchingStringForFile = new StringBuilder();
                 for (String branchNameFromSecurity : branchNamesFromSecurity) {
                     String optimizeBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
+                    if ("DE000TUAG505".equalsIgnoreCase(security.getIsin())) {
+                        // Tui is classified as "Sonstige Branchen" ?!?
+                        optimizeBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
+                    }
                     // skip not matching branches
                     if (optimizeBranchNameFromSecurity.isEmpty()) continue;
                     String strBestMatch = "";
@@ -397,12 +407,8 @@ public class XmlFileWriter {
         }
 
         int stepsToRoot = returnRootSteps(assignments) + 3;
-        StringBuilder pathToParent = new StringBuilder();
-        for (int steps = 0; steps < stepsToRoot; steps++) {
-            pathToParent.append("../");
-        }
 
-        investmentVehicle.setAttribute("reference", pathToParent + "securities/security[" + (indexEtf + 1) + "]");
+        investmentVehicle.setAttribute("reference", "../".repeat(Math.max(0, stepsToRoot)) + "securities/security[" + (indexEtf + 1) + "]");
         investmentVehicle.setAttribute("class", "security");
 
         return assignments;
@@ -443,6 +449,7 @@ public class XmlFileWriter {
                 result = "Telekommunikationsdienste";
                 break;
             case "diverse Branchen":
+            case "Sonstige Branchen":
                 result = "";
                 break;
             case "Konsumgüter zyklisch":
