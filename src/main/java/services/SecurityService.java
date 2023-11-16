@@ -20,6 +20,14 @@ public class SecurityService {
     private static final Logger logger = Logger.getLogger(SecurityService.class.getCanonicalName());
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     XmlHelper xmlHelper = new XmlHelper();
+    private String cachePath = CACHE_PATH;
+
+    public SecurityService() {
+    }
+
+    public SecurityService(String cachePath) {
+        this.cachePath = cachePath;
+    }
 
     public List<Security> processSecurities(NodeList oAllSecurities) {
         List<Security> securities = new ArrayList<>();
@@ -50,7 +58,7 @@ public class SecurityService {
     Security createSecurity(String strIsin) {
         Security security = new Security(strIsin);
         try {
-            SecurityDetails securityDetails = new SecurityDetails(CACHE_PATH, strIsin);
+            SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
             boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFond();
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
@@ -90,7 +98,7 @@ public class SecurityService {
                 holdingsMap.put(companyName, new Security.PercentageUsedTuple(100.0, false));
                 security.setHoldings(holdingsMap);
 
-                logger.info("Setting name \""+ companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
+                logger.info("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
             logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());

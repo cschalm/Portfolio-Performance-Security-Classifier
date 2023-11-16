@@ -10,11 +10,11 @@ import static utils.StringUtils.containsIgnoreCase;
 public class Security {
     private final String strISIN;
     private String strName;
-    private Map<String, PercentageUsedTuple> oListForBranches = new HashMap<String, PercentageUsedTuple>();
-    private Map<String, PercentageUsedTuple> oListForHoldings = new HashMap<String, PercentageUsedTuple>();
-    private Map<String, PercentageUsedTuple> oListForCurrencies = new HashMap<String, PercentageUsedTuple>();
-    private Map<String, PercentageUsedTuple> oListForInstruments = new HashMap<String, PercentageUsedTuple>();
-    private Map<String, PercentageUsedTuple> oListForCountries = new HashMap<String, PercentageUsedTuple>();
+    private Map<String, PercentageUsedTuple> oListForBranches = new HashMap<>();
+    private Map<String, PercentageUsedTuple> oListForHoldings = new HashMap<>();
+    private Map<String, PercentageUsedTuple> oListForCurrencies = new HashMap<>();
+    private Map<String, PercentageUsedTuple> oListForInstruments = new HashMap<>();
+    private Map<String, PercentageUsedTuple> oListForCountries = new HashMap<>();
 
     public Security(String isin) {
         this.strISIN = isin;
@@ -57,8 +57,8 @@ public class Security {
      * setter
      */
     public void setBranches(Map<String, PercentageUsedTuple> oBranches) {
-        List<String> toRemove = new ArrayList<String>();
-        Map<String, PercentageUsedTuple> toAdd = new HashMap<String, PercentageUsedTuple>();
+        List<String> toRemove = new ArrayList<>();
+        Map<String, PercentageUsedTuple> toAdd = new HashMap<>();
         for (Map.Entry<String, PercentageUsedTuple> entry : oBranches.entrySet()) {
             String strKey = entry.getKey();
             if (containsIgnoreCase(strKey, "service")) {
@@ -71,9 +71,7 @@ public class Security {
         for (String strRemove : toRemove) {
             oBranches.remove(strRemove);
         }
-        for (Map.Entry<String, PercentageUsedTuple> addEntry : toAdd.entrySet()) {
-            oBranches.put(addEntry.getKey(), addEntry.getValue());
-        }
+        oBranches.putAll(toAdd);
         this.oListForBranches = oBranches;
         //setRest(this.oListForBranches);
     }
