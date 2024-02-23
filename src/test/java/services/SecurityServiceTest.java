@@ -69,4 +69,20 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void getHoldingPercentageMap() {
     }
+    @Test
+    public void createSecurityEtfMsciWorld() {
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertEquals("IE000CNSFAR2", security.getIsin());
+        assertNotNull(security.getBranches());
+        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getCountries());
+        assertFalse(security.getCountries().isEmpty());
+        assertNotNull(security.getCurrencies());
+        assertFalse(security.getCurrencies().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertFalse(security.getHoldings().isEmpty());
+    }
+
 }

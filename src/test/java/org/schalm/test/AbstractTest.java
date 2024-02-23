@@ -3,7 +3,6 @@ package org.schalm.test;
 import org.junit.BeforeClass;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.LogManager;
 

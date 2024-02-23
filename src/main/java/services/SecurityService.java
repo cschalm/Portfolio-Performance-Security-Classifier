@@ -55,7 +55,7 @@ public class SecurityService {
         return security;
     }
 
-    Security createSecurity(String strIsin) {
+    public Security createSecurity(String strIsin) {
         Security security = new Security(strIsin);
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
@@ -98,7 +98,7 @@ public class SecurityService {
                 holdingsMap.put(companyName, new Security.PercentageUsedTuple(100.0, false));
                 security.setHoldings(holdingsMap);
 
-                logger.info("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
+                logger.fine("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
             logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());

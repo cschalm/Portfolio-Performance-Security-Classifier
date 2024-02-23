@@ -235,7 +235,9 @@ public class Security {
 
     @Override
     public String toString() {
-        return strISIN + ": " + strName;
+        if (strName != null)
+            return strISIN + ": " + strName;
+        return strISIN;
     }
 
     public static class PercentageUsedTuple {
@@ -245,6 +247,11 @@ public class Security {
         public PercentageUsedTuple(Double dOthers, boolean b) {
             this.dPerc = dOthers;
             this.fIsUsed = b;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%.2f%%", dPerc);
         }
     }
 }

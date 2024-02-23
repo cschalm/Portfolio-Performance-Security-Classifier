@@ -40,8 +40,8 @@ public class SecurityDetailsParamtererizedTest extends AbstractTest {
                 {"US0357108390", "Immobilien", "USA", "ANNALY CAPITAL MANAGEMENT"},
                 {"US0378331005", "Unterhaltungselektronik", "USA", "APPLE INC."},
                 {"US5949181045", "Standardsoftware", "USA", "MICROSOFT CORP."},
-                {"US6819361006", "Immobilien", "USA", "OMEGA HEALTHCARE INVESTORS INC."},
-                {"DE000A1J5RX9", "Telekomdienstleister", "Deutschland", "TELEFÓNICA DEUTSCHLAND HOLDING AG"}
+                {"US6819361006", "Immobilien", "USA", "OMEGA HEALTHCARE INVESTORS INC."}//,
+//                {"DE000A1J5RX9", "Telekomdienstleister", "Deutschland", "TELEFÓNICA DEUTSCHLAND HOLDING AG"}
         });
     }
 

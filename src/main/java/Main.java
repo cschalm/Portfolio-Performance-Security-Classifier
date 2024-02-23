@@ -2,6 +2,7 @@ import models.Security;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import services.SecurityService;
+import xml.SecurityDetailsCache;
 import xml.XmlFileWriter;
 
 import javax.xml.transform.TransformerException;
@@ -36,8 +37,9 @@ public class Main {
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
 
         List<Security> updatedSecurities = addClassificationData(allSecurities);
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
 
-        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities);
+        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
         xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
 
         logger.info("----- END -----\n");

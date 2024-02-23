@@ -22,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.LOGS_PATH;
-import static constants.PathConstants.SAVE_FILE;
 
 public class XmlFileWriter {
     private static final Logger logger = Logger.getLogger(XmlFileWriter.class.getCanonicalName());
@@ -50,10 +49,8 @@ public class XmlFileWriter {
         transformer.transform(source, result);
     }
 
-    public void updateXml(Document portfolioDocument, List<Security> allSecurities) {
+    public void updateXml(Document portfolioDocument, List<Security> allSecurities, SecurityDetailsCache securityDetailsCache) {
         try {
-            SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
-
             NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
             for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
                 Node taxonomyNode = listOfTaxonomies.item(i);
@@ -259,6 +256,10 @@ public class XmlFileWriter {
                 allStockNames.addAll(holdings.keySet());
             }
         }
+        logger.fine("All Stocknames:");
+        for (String name : allStockNames) {
+            logger.fine(name);
+        }
         return reduceSimilarStrings(allStockNames);
     }
 
@@ -290,6 +291,10 @@ public class XmlFileWriter {
                 }
             }
         }
+        logger.fine("Reduced Stocknames:");
+        for (String name : result.keySet()) {
+            logger.fine(name);
+        }
         return result;
     }
 
@@ -320,25 +325,25 @@ public class XmlFileWriter {
 
                 StringBuilder strMatchingStringForFile = new StringBuilder();
                 for (String branchNameFromSecurity : branchNamesFromSecurity) {
-                    String optimizeBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
+                    String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
                     if ("DE000TUAG505".equalsIgnoreCase(security.getIsin())) {
                         // Tui is classified as "Sonstige Branchen" ?!?
-                        optimizeBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
+                        optimizedBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
                     }
                     if ("US04010L1035".equalsIgnoreCase(security.getIsin())) {
                         // Ares Capital Markets has no classification on Onvista ?!?
-                        optimizeBranchNameFromSecurity = "Kapitalmärkte";
+                        optimizedBranchNameFromSecurity = "Kapitalmärkte";
                     }
                     if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
                         // Hannover Rück is classified as "Sonstige Branchen" ?!?
-                        optimizeBranchNameFromSecurity = "Rückversicherungen";
+                        optimizedBranchNameFromSecurity = "Rückversicherungen";
                     }
                     // skip not matching branches
-                    if (optimizeBranchNameFromSecurity.isEmpty()) continue;
+                    if (optimizedBranchNameFromSecurity.isEmpty()) continue;
                     String bestMatchingBranchName = "";
                     int currentLowestDistance = 1000;
                     for (String branchNameFromPortfolio : branchNameFromPortfolioToNodeMap.keySet()) {
-                        int temp = levenshteinDistance(optimizeBranchNameFromSecurity, branchNameFromPortfolio);
+                        int temp = levenshteinDistance(optimizedBranchNameFromSecurity, branchNameFromPortfolio);
                         if (temp < currentLowestDistance) {
                             bestMatchingBranchName = branchNameFromPortfolio;
                             currentLowestDistance = temp;
@@ -349,9 +354,9 @@ public class XmlFileWriter {
 
                     logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatchingBranchName + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
 
-                    boolean fSkipCurrentAdding = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatchingBranchName, importedBranches);
+                    boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatchingBranchName, importedBranches);
 
-                    if (nPercentage > 0 && !fSkipCurrentAdding) {
+                    if (nPercentage > 0 && !alreadyAddedBefore) {
                         Element assignment = portfolioDocument.createElement("assignment");
                         NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatchingBranchName);
                         Node branchNode = oTuple.oNode;
@@ -508,9 +513,9 @@ public class XmlFileWriter {
                     if (security != null) {
                         int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(strCountry) * 100.0);
 
-                        boolean fSkipCurrentAdding = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountry, importedRegions);
+                        boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountry, importedRegions);
 
-                        if (nPercentage > 0 && !fSkipCurrentAdding) {
+                        if (nPercentage > 0 && !alreadyAddedBefore) {
                             //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountry, allSecurities[indexEtf].getName());
                             Element assignments = portfolioDocument.createElement("assignments");
                             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
