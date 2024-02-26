@@ -47,7 +47,7 @@ public class SecurityDetails {
         File jsonUrl = new File(cachePath + isin + ".json");
         try {
             // if there is an entry in the cache-file, nothing is imported !!!
-            rootNode = JsonParser.parseReader(new FileReader(jsonUrl)).getAsJsonObject();
+            rootNode = JsonParser.parseReader(new FileReader(jsonUrl, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
             logger.warning("JSON for " + isin + " not found in cache, loading...");
             String jsonResponsePart;
@@ -61,7 +61,7 @@ public class SecurityDetails {
                 jsonResponsePart = extractJsonPartFromHtml(response.body());
             }
             rootNode = JsonParser.parseString(jsonResponsePart).getAsJsonObject();
-            try (PrintWriter savingImport = new PrintWriter(jsonUrl)) {
+            try (PrintWriter savingImport = new PrintWriter(jsonUrl, StandardCharsets.UTF_8)) {
                 savingImport.print(rootNode + "\n");
             } catch (FileNotFoundException fnfe) {
                 logger.warning("Error writing JSON for " + isin + ": " + fnfe.getMessage());

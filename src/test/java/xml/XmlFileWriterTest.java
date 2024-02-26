@@ -45,7 +45,7 @@ public class XmlFileWriterTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
         List<Security> securities = loadTestSecurity();
 
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20" + UUID.randomUUID().toString() + ".json");
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID().toString() + ".json");
 
         xmlFileWriter.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 14, securityDetailsCache.getCachedCountries().asList().size());
@@ -62,7 +62,7 @@ public class XmlFileWriterTest extends AbstractTest {
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
 
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2" + UUID.randomUUID().toString() + ".json");
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID().toString() + ".json");
 
         xmlFileWriter.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 33, securityDetailsCache.getCachedCountries().asList().size());
@@ -116,7 +116,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importTopTen() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
         List<Security> securities = service.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
         JsonArray cachedBranches = new JsonArray();
 
@@ -128,7 +128,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Top Ten")) {
                     JsonArray importedTopTen = xmlFileWriter.importTopTen(portfolioDocument, securities, cachedBranches, taxonomyElement);
-                    assertEquals(198, importedTopTen.size());
+                    assertEquals(10, importedTopTen.size());
                 }
             }
         }
@@ -194,6 +194,33 @@ public class XmlFileWriterTest extends AbstractTest {
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
             if (!entry.getValue().isEmpty())
                 logger.info(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    @Test
+    public void importCountries_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
+        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getCountries());
+        assertEquals(34, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet());
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+        JsonArray cachedCountries = new JsonArray();
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Regionen")) {
+                    JsonArray importedCountries = xmlFileWriter.importRegions(portfolioDocument, securities, cachedCountries, taxonomyElement);
+                    assertEquals(33, importedCountries.size());
+                }
+            }
         }
     }
 

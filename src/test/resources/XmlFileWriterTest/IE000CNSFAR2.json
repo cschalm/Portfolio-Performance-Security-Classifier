@@ -1,0 +1,273 @@
+{
+    "branches": [
+        {
+            "classification": "Industrie",
+            "isin": "IE000CNSFAR2",
+            "weight": 1097
+        },
+        {
+            "classification": "Telekommunikationsdienste",
+            "isin": "IE000CNSFAR2",
+            "weight": 2365
+        },
+        {
+            "classification": "Telekommunikationsdienste",
+            "isin": "IE000CNSFAR2",
+            "weight": 738
+        },
+        {
+            "classification": "Gesundheitswesen",
+            "isin": "IE000CNSFAR2",
+            "weight": 1229
+        },
+        {
+            "classification": "Nicht-Basiskonsumgüter",
+            "isin": "IE000CNSFAR2",
+            "weight": 1058
+        },
+        {
+            "classification": "Roh-, Hilfs- & Betriebsstoffe",
+            "isin": "IE000CNSFAR2",
+            "weight": 389
+        },
+        {
+            "classification": "Multi-Versorger",
+            "isin": "IE000CNSFAR2",
+            "weight": 250
+        },
+        {
+            "classification": "Energie",
+            "isin": "IE000CNSFAR2",
+            "weight": 438
+        },
+        {
+            "classification": "Finanzwesen",
+            "isin": "IE000CNSFAR2",
+            "weight": 1521
+        },
+        {
+            "classification": "Basiskonsumgüter",
+            "isin": "IE000CNSFAR2",
+            "weight": 681
+        },
+        {
+            "classification": "Immobilien",
+            "isin": "IE000CNSFAR2",
+            "weight": 234
+        }
+    ],
+    "countries": [
+        {
+            "classification": "Dänemark",
+            "isin": "IE000CNSFAR2",
+            "weight": 93
+        },
+        {
+            "classification": "Finnland",
+            "isin": "IE000CNSFAR2",
+            "weight": 29
+        },
+        {
+            "classification": "Großbritannien",
+            "isin": "IE000CNSFAR2",
+            "weight": 289
+        },
+        {
+            "classification": "Irland",
+            "isin": "IE000CNSFAR2",
+            "weight": 10
+        },
+        {
+            "classification": "Norwegen",
+            "isin": "IE000CNSFAR2",
+            "weight": 16
+        },
+        {
+            "classification": "Schweden",
+            "isin": "IE000CNSFAR2",
+            "weight": 83
+        },
+        {
+            "classification": "Österreich",
+            "isin": "IE000CNSFAR2",
+            "weight": 8
+        },
+        {
+            "classification": "Belgien",
+            "isin": "IE000CNSFAR2",
+            "weight": 24
+        },
+        {
+            "classification": "Frankreich",
+            "isin": "IE000CNSFAR2",
+            "weight": 274
+        },
+        {
+            "classification": "Deutschland",
+            "isin": "IE000CNSFAR2",
+            "weight": 223
+        },
+        {
+            "classification": "Luxemburg",
+            "isin": "IE000CNSFAR2",
+            "weight": 4
+        },
+        {
+            "classification": "Niederlande",
+            "isin": "IE000CNSFAR2",
+            "weight": 162
+        },
+        {
+            "classification": "Schweiz",
+            "isin": "IE000CNSFAR2",
+            "weight": 171
+        },
+        {
+            "classification": "Italien",
+            "isin": "IE000CNSFAR2",
+            "weight": 62
+        },
+        {
+            "classification": "Portugal",
+            "isin": "IE000CNSFAR2",
+            "weight": 6
+        },
+        {
+            "classification": "Spanien",
+            "isin": "IE000CNSFAR2",
+            "weight": 66
+        },
+        {
+            "classification": "Kanada",
+            "isin": "IE000CNSFAR2",
+            "weight": 308
+        },
+        {
+            "classification": "USA",
+            "isin": "IE000CNSFAR2",
+            "weight": 7183
+        },
+        {
+            "classification": "Brasilien",
+            "isin": "IE000CNSFAR2",
+            "weight": 17
+        },
+        {
+            "classification": "Chile",
+            "isin": "IE000CNSFAR2",
+            "weight": 2
+        },
+        {
+            "classification": "Israel",
+            "isin": "IE000CNSFAR2",
+            "weight": 15
+        },
+        {
+            "classification": "Jordanien",
+            "isin": "IE000CNSFAR2",
+            "weight": 1
+        },
+        {
+            "classification": "China",
+            "isin": "IE000CNSFAR2",
+            "weight": 19
+        },
+        {
+            "classification": "Hongkong",
+            "isin": "IE000CNSFAR2",
+            "weight": 50
+        },
+        {
+            "classification": "Japan",
+            "isin": "IE000CNSFAR2",
+            "weight": 623
+        },
+        {
+            "classification": "Südkorea",
+            "isin": "IE000CNSFAR2",
+            "weight": 1
+        },
+        {
+            "classification": "Singapur",
+            "isin": "IE000CNSFAR2",
+            "weight": 40
+        },
+        {
+            "classification": "Burkina Faso",
+            "isin": "IE000CNSFAR2",
+            "weight": 1
+        },
+        {
+            "classification": "Sambia",
+            "isin": "IE000CNSFAR2",
+            "weight": 1
+        },
+        {
+            "classification": "Südafrika",
+            "isin": "IE000CNSFAR2",
+            "weight": 5
+        },
+        {
+            "classification": "Südafrika",
+            "isin": "IE000CNSFAR2",
+            "weight": 5
+        },
+        {
+            "classification": "Australien",
+            "isin": "IE000CNSFAR2",
+            "weight": 206
+        },
+        {
+            "classification": "Neuseeland",
+            "isin": "IE000CNSFAR2",
+            "weight": 8
+        }
+    ],
+    "topten": [
+        {
+            "classification": "ALPHABET INC CL A",
+            "isin": "IE000CNSFAR2",
+            "weight": 136
+        },
+        {
+            "classification": "AMAZON.COM INC",
+            "isin": "IE000CNSFAR2",
+            "weight": 236
+        },
+        {
+            "classification": "APPLE INC",
+            "isin": "IE000CNSFAR2",
+            "weight": 474
+        },
+        {
+            "classification": "BROADCOM INC",
+            "isin": "IE000CNSFAR2",
+            "weight": 85
+        },
+        {
+            "classification": "ELI LILLY & CO",
+            "isin": "IE000CNSFAR2",
+            "weight": 84
+        },
+        {
+            "classification": "META PLATFORMS INC-CLASS A",
+            "isin": "IE000CNSFAR2",
+            "weight": 142
+        },
+        {
+            "classification": "MICROSOFT CORP",
+            "isin": "IE000CNSFAR2",
+            "weight": 460
+        },
+        {
+            "classification": "NVIDIA CORP",
+            "isin": "IE000CNSFAR2",
+            "weight": 250
+        },
+        {
+            "classification": "TESLA INC",
+            "isin": "IE000CNSFAR2",
+            "weight": 89
+        }
+    ]
+}

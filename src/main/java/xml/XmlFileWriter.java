@@ -497,33 +497,38 @@ public class XmlFileWriter {
 
     JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedCountries, Element taxonomyElement) {
         logger.info("Importing regions...");
-        NodeList oListOfAllCountries = taxonomyElement.getElementsByTagName("classification");
+        NodeList oListOfAllCountriesFromPortfolio = taxonomyElement.getElementsByTagName("classification");
 
         JsonArray importedRegions = new JsonArray();
-        for (int indexCountry = 0; indexCountry < oListOfAllCountries.getLength(); indexCountry++) {
-            Node countryNode = oListOfAllCountries.item(indexCountry);
+        for (int indexCountry = 0; indexCountry < oListOfAllCountriesFromPortfolio.getLength(); indexCountry++) {
+            Node countryNodeFromPortfolio = oListOfAllCountriesFromPortfolio.item(indexCountry);
             int nCountryAppearence = 0;
-            if (countryNode.getNodeType() == Node.ELEMENT_NODE) {
-                String strCountry = xmlHelper.getTextContent((Element) countryNode, "name");
-                if (strCountry.equals("Vereinigte Staaten")) {
-                    strCountry = "USA";
+            if (countryNodeFromPortfolio.getNodeType() == Node.ELEMENT_NODE) {
+                String strCountryFromPortfolio = xmlHelper.getTextContent((Element) countryNodeFromPortfolio, "name");
+                if (strCountryFromPortfolio.equals("Vereinigte Staaten")) {
+                    strCountryFromPortfolio = "USA";
                 }
+                logger.fine("CountryFromPortfolio " + strCountryFromPortfolio);
                 int indexEtf = 0;
                 for (Security security : allSecurities) {
                     if (security != null) {
-                        int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(strCountry) * 100.0);
+                        // potentielles Umlautproblem!!!
+                        int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(strCountryFromPortfolio) * 100.0);
 
-                        boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountry, importedRegions);
+                        // cachedCountries is always empty in unit-test
+                        boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountryFromPortfolio, importedRegions);
 
                         if (nPercentage > 0 && !alreadyAddedBefore) {
-                            //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountry, allSecurities[indexEtf].getName());
+                            //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountryFromPortfolio, allSecurities[indexEtf].getName());
                             Element assignments = portfolioDocument.createElement("assignments");
                             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
 
-                            assignments = linkAssignmentsToInvestmentVehicle(countryNode, assignments, investmentVehicle, indexEtf);
+                            assignments = linkAssignmentsToInvestmentVehicle(countryNodeFromPortfolio, assignments, investmentVehicle, indexEtf);
 
-                            createAssignmentAndJson(portfolioDocument, strCountry, security.getIsin(), nCountryAppearence, assignments, importedRegions, nPercentage, investmentVehicle);
+                            createAssignmentAndJson(portfolioDocument, strCountryFromPortfolio, security.getIsin(), nCountryAppearence, assignments, importedRegions, nPercentage, investmentVehicle);
                             nCountryAppearence++;
+                        } else {
+                            logger.fine("Skipping CountryFromPortfolio " + strCountryFromPortfolio + " as percentage is " + nPercentage);
                         }
                     }
                     indexEtf++;

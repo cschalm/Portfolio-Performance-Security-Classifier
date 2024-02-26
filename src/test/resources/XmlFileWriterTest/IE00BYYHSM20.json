@@ -1,0 +1,173 @@
+{
+    "branches": [
+        {
+            "classification": "Industrie",
+            "isin": "IE00BYYHSM20",
+            "weight": 1774
+        },
+        {
+            "classification": "Telekommunikationsdienste",
+            "isin": "IE00BYYHSM20",
+            "weight": 1456
+        },
+        {
+            "classification": "Gesundheitswesen",
+            "isin": "IE00BYYHSM20",
+            "weight": 1079
+        },
+        {
+            "classification": "Multi-Versorger",
+            "isin": "IE00BYYHSM20",
+            "weight": 793
+        },
+        {
+            "classification": "Roh-, Hilfs- & Betriebsstoffe",
+            "isin": "IE00BYYHSM20",
+            "weight": 595
+        },
+        {
+            "classification": "Energie",
+            "isin": "IE00BYYHSM20",
+            "weight": 198
+        },
+        {
+            "classification": "Finanzwesen",
+            "isin": "IE00BYYHSM20",
+            "weight": 2268
+        },
+        {
+            "classification": "Basiskonsumgüter",
+            "isin": "IE00BYYHSM20",
+            "weight": 1670
+        },
+        {
+            "classification": "Immobilien",
+            "isin": "IE00BYYHSM20",
+            "weight": 122
+        }
+    ],
+    "countries": [
+        {
+            "classification": "Dänemark",
+            "isin": "IE00BYYHSM20",
+            "weight": 820
+        },
+        {
+            "classification": "Finnland",
+            "isin": "IE00BYYHSM20",
+            "weight": 462
+        },
+        {
+            "classification": "Großbritannien",
+            "isin": "IE00BYYHSM20",
+            "weight": 2043
+        },
+        {
+            "classification": "Irland",
+            "isin": "IE00BYYHSM20",
+            "weight": 200
+        },
+        {
+            "classification": "Norwegen",
+            "isin": "IE00BYYHSM20",
+            "weight": 199
+        },
+        {
+            "classification": "Schweden",
+            "isin": "IE00BYYHSM20",
+            "weight": 392
+        },
+        {
+            "classification": "Österreich",
+            "isin": "IE00BYYHSM20",
+            "weight": 80
+        },
+        {
+            "classification": "Belgien",
+            "isin": "IE00BYYHSM20",
+            "weight": 217
+        },
+        {
+            "classification": "Frankreich",
+            "isin": "IE00BYYHSM20",
+            "weight": 1263
+        },
+        {
+            "classification": "Deutschland",
+            "isin": "IE00BYYHSM20",
+            "weight": 981
+        },
+        {
+            "classification": "Niederlande",
+            "isin": "IE00BYYHSM20",
+            "weight": 684
+        },
+        {
+            "classification": "Schweiz",
+            "isin": "IE00BYYHSM20",
+            "weight": 1881
+        },
+        {
+            "classification": "Italien",
+            "isin": "IE00BYYHSM20",
+            "weight": 265
+        },
+        {
+            "classification": "Spanien",
+            "isin": "IE00BYYHSM20",
+            "weight": 474
+        }
+    ],
+    "topten": [
+        {
+            "classification": "ABB",
+            "isin": "IE00BYYHSM20",
+            "weight": 273
+        },
+        {
+            "classification": "ASML Holding",
+            "isin": "IE00BYYHSM20",
+            "weight": 404
+        },
+        {
+            "classification": "AXA",
+            "isin": "IE00BYYHSM20",
+            "weight": 260
+        },
+        {
+            "classification": "Diageo",
+            "isin": "IE00BYYHSM20",
+            "weight": 270
+        },
+        {
+            "classification": "Lonza Group",
+            "isin": "IE00BYYHSM20",
+            "weight": 262
+        },
+        {
+            "classification": "Novo Nordisk",
+            "isin": "IE00BYYHSM20",
+            "weight": 470
+        },
+        {
+            "classification": "Relx Plc",
+            "isin": "IE00BYYHSM20",
+            "weight": 280
+        },
+        {
+            "classification": "SAP",
+            "isin": "IE00BYYHSM20",
+            "weight": 382
+        },
+        {
+            "classification": "Schneider Electric",
+            "isin": "IE00BYYHSM20",
+            "weight": 307
+        },
+        {
+            "classification": "Zurich Insurance Group",
+            "isin": "IE00BYYHSM20",
+            "weight": 263
+        }
+    ]
+}

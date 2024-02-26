@@ -4,9 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 public class SecurityDetailsCache {
@@ -18,7 +19,7 @@ public class SecurityDetailsCache {
         this.fullFileName = fullFileName;
         try {
             // if there is an entry in the cache-file, nothing is imported !!!
-            cacheFileJson = JsonParser.parseReader(new FileReader(fullFileName)).getAsJsonObject();
+            cacheFileJson = JsonParser.parseReader(new FileReader(fullFileName, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
             logger.warning("Cache of security details could not be read: " + e.getMessage());
             cacheFileJson = new JsonObject();
@@ -58,9 +59,9 @@ public class SecurityDetailsCache {
 
     public void save() {
         // write all saved triples to avoid importing the same assignments several times for each run
-        try (PrintWriter savingImport = new PrintWriter(fullFileName)) {
+        try (PrintWriter savingImport = new PrintWriter(fullFileName, StandardCharsets.UTF_8)) {
             savingImport.print(getCacheFileJson() + "\n");
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             logger.warning("Cache of security details could not be saved: " + e.getMessage());
         }
     }
