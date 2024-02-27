@@ -1,4 +1,3 @@
-import enums.SecurityType;
 import models.Security;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
@@ -8,14 +7,11 @@ import org.xml.sax.SAXException;
 import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
-import java.nio.file.Files;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
-import static enums.SecurityType.ETF;
-import static enums.SecurityType.FOND;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class MainTest extends AbstractTest {
     private Main main = new Main();
@@ -23,7 +19,7 @@ public class MainTest extends AbstractTest {
 
     @Test
     public void addClassificationData() throws IOException, ParserConfigurationException, SAXException {
-        Document document = xmlHelper.readXmlStream(Files.newInputStream(new File("src/test/resources/EtfSecurity.xml").toPath()));
+        Document document = xmlHelper.readXmlStream("src/test/resources/EtfSecurity.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         assertNotNull(securityNodes);
         assertEquals(1, securityNodes.getLength());

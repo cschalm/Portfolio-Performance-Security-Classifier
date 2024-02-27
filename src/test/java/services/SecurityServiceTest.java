@@ -9,9 +9,7 @@ import org.xml.sax.SAXException;
 import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,7 +20,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void processSecurities() throws IOException, ParserConfigurationException, SAXException {
         SecurityService service = new SecurityService();
-        Document document = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "EtfSecurity.xml").toPath()));
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         assertNotNull(securityNodes);
         assertEquals(1, securityNodes.getLength());
@@ -69,6 +67,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void getHoldingPercentageMap() {
     }
+
     @Test
     public void createSecurityEtfMsciWorld() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");

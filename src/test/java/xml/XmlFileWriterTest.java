@@ -2,6 +2,7 @@ package xml;
 
 import com.google.gson.JsonArray;
 import models.Security;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
@@ -12,8 +13,9 @@ import org.xml.sax.SAXException;
 import services.SecurityService;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static constants.PathConstants.BASE_TARGET_PATH;
+import static constants.PathConstants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -32,7 +34,7 @@ public class XmlFileWriterTest extends AbstractTest {
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
 
     private List<Security> loadTestSecurity() throws IOException, ParserConfigurationException, SAXException {
-        Document document = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "EtfSecurity.xml").toPath()));
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         List<Security> securityList = service.processSecurities(securityNodes);
         logger.info("Loaded " + securityList.size() + " securities from file");
@@ -42,7 +44,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void updateXml_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID().toString() + ".json");
@@ -55,7 +57,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void updateXml_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService();
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
@@ -72,7 +74,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importBranches_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
         JsonArray cachedBranches = new JsonArray();
 
@@ -92,7 +94,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importBranches_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
@@ -116,7 +118,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importTopTen() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = service.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
         JsonArray cachedBranches = new JsonArray();
 
@@ -136,7 +138,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importTopTen_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
@@ -160,7 +162,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void importTopTen_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE00BYYHSM20");
         assertNotNull(security);
@@ -190,16 +192,16 @@ public class XmlFileWriterTest extends AbstractTest {
             assertEquals(176, input.size());
         }
         TreeMap<String, List<String>> result = xmlFileWriter.reduceSimilarStrings(input);
-        assertEquals(123, result.size());
+        assertEquals(142, result.size());
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
-            if (!entry.getValue().isEmpty())
-                logger.info(entry.getKey() + ": " + entry.getValue());
+//            if (!entry.getValue().isEmpty())
+            logger.info(entry.getKey() + ": " + entry.getValue());
         }
     }
 
     @Test
     public void importCountries_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
-        Document portfolioDocument = xmlHelper.readXmlStream(Files.newInputStream(new File(BASE_TEST_PATH + "Portfolio Performance Single.xml").toPath()));
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
@@ -221,6 +223,43 @@ public class XmlFileWriterTest extends AbstractTest {
                     assertEquals(33, importedCountries.size());
                 }
             }
+        }
+    }
+
+    @Test
+    public void collectAllStockNames() throws IOException, ParserConfigurationException, SAXException {
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
+//        Document portfolioDocument = xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
+        List<Security> securities = service.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
+        TreeMap<String, List<String>> allStockNames = xmlFileWriter.collectAllStockNames(securities);
+        assertNotNull(allStockNames);
+        assertEquals(10, allStockNames.size());
+    }
+
+    @Test
+    @Ignore
+    public void testReduceDistinctStrings2() throws IOException {
+        List<String> input;
+        try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-input2.txt"))) {
+            input = lines.collect(Collectors.toList());
+            assertEquals(168, input.size());
+        }
+        TreeMap<String, List<String>> result = xmlFileWriter.reduceSimilarStrings(input);
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, List<String>> entry : result.entrySet()) {
+            sb.append(entry.getKey()).append('\n');
+        }
+        try (PrintWriter savingImport = new PrintWriter(BASE_TEST_PATH + "StockNames-distinct3.txt", StandardCharsets.UTF_8)) {
+            savingImport.print(sb.toString());
+        } catch (IOException e) {
+            logger.warning("Cache of security details could not be saved: " + e.getMessage());
+        }
+        String expected = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-distinct2.txt")).collect(Collectors.joining("\n"));
+        assertEquals(expected, sb.toString());
+        assertEquals(136, result.size());
+        for (Map.Entry<String, List<String>> entry : result.entrySet()) {
+//            if (!entry.getValue().isEmpty())
+            logger.info(entry.getKey() + ": " + entry.getValue());
         }
     }
 

@@ -8,8 +8,10 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 public class XmlHelper {
 
@@ -18,6 +20,11 @@ public class XmlHelper {
 
         return builder.parse(stream);
     }
+
+    public Document readXmlStream(String fileName) throws IOException, ParserConfigurationException, SAXException {
+        return this.readXmlStream(Files.newInputStream(new File(fileName).toPath()));
+    }
+
     public Node getFirstChild(Element parentElement, String tagName) {
         return parentElement.getElementsByTagName(tagName).item(0);
     }

@@ -271,14 +271,23 @@ public class XmlFileWriter {
                 // very first entry
                 result.put(inputName, new ArrayList<>());
             } else {
-                boolean found = false;
                 // check if similar name already exists in map
+                boolean found = false;
+                // Vanguard-ETFs should not be reduced as they most of the time only vary very little in their names
                 if (!inputName.startsWith("Vanguard")) {
                     for (String existingName : result.keySet()) {
                         Integer dist = distance.apply(inputName.toLowerCase(), existingName.toLowerCase());
-                        if (dist <= 20) {
-                            if (StringUtils.indexOfDifference(inputName.toLowerCase(), existingName.toLowerCase()) >= 5) {
-                                // similar name exists, add alternative name to list
+                        String pattern = "Nov";
+                        if (inputName.startsWith(pattern) && existingName.startsWith(pattern))
+                            logger.info("Distance of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + dist);
+                        if (dist <= 8) {
+                            // names are similiar
+                            logger.fine("Distance of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + dist);
+                            int indexOfDifference = StringUtils.indexOfDifference(inputName.toLowerCase(), existingName.toLowerCase());
+                            int shorterNameLength = Math.min(inputName.toLowerCase().length(), existingName.toLowerCase().length());
+                            if (shorterNameLength >= 3 && indexOfDifference >= 3) {
+                                logger.fine("IndexOfDifference of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + indexOfDifference);
+                                // similar names exist and are not almost equal, add alternative name to list
                                 result.get(existingName).add(inputName);
                                 found = true;
                                 break;
@@ -291,9 +300,11 @@ public class XmlFileWriter {
                 }
             }
         }
-        logger.fine("Reduced Stocknames:");
-        for (String name : result.keySet()) {
-            logger.fine(name);
+        if (logger.isLoggable(Level.FINE)) {
+            logger.fine("Reduced Stocknames:");
+            for (String name : result.keySet()) {
+                logger.fine(name);
+            }
         }
         return result;
     }

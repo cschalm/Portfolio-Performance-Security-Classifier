@@ -1,10 +1,13 @@
 import models.Security;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import services.SecurityService;
 import xml.SecurityDetailsCache;
 import xml.XmlFileWriter;
+import xml.XmlHelper;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,19 +17,19 @@ import java.util.logging.Logger;
 
 import static constants.PathConstants.*;
 import static xml.XmlFileReader.getAllSecurities;
-import static xml.XmlFileReader.getDocument;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
     SecurityService securityService = new SecurityService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
+    XmlHelper xmlHelper = new XmlHelper();
 
-    public static void main(String[] args) throws IOException, TransformerException {
+    public static void main(String[] args) throws IOException, TransformerException, ParserConfigurationException, SAXException {
         Main main = new Main();
         main.run();
     }
 
-    private void run() throws IOException, TransformerException {
+    private void run() throws IOException, TransformerException, ParserConfigurationException, SAXException {
         LogManager logManager = LogManager.getLogManager();
         logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
         logger.info("----- Start -----");
@@ -53,8 +56,9 @@ public class Main {
         return getAllSecurities(portfolioDoc);
     }
 
-    Document loadPortfolioDocumentFromFile() {
-        return getDocument(BASE_PATH + INPUT_FILE_NAME);
+    Document loadPortfolioDocumentFromFile() throws IOException, ParserConfigurationException, SAXException {
+        return xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
+//        return getDocument(BASE_PATH + INPUT_FILE_NAME);
     }
 
 }
