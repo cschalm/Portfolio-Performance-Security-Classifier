@@ -28,6 +28,7 @@ public class XmlFileWriter {
     // create random object - reuse this as often as possible
     Random random = new Random();
     XmlHelper xmlHelper = new XmlHelper();
+    LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
 
     public void writeXml(Document doc, String fileName) throws TransformerException, FileNotFoundException {
         FileOutputStream output = new FileOutputStream(fileName);
@@ -265,7 +266,6 @@ public class XmlFileWriter {
 
     TreeMap<String, List<String>> reduceSimilarStrings(Collection<String> input) {
         TreeMap<String, List<String>> result = new TreeMap<>();
-        LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
         for (String inputName : input) {
             if (result.isEmpty()) {
                 // very first entry
@@ -276,22 +276,11 @@ public class XmlFileWriter {
                 // Vanguard-ETFs should not be reduced as they most of the time only vary very little in their names
                 if (!inputName.startsWith("Vanguard")) {
                     for (String existingName : result.keySet()) {
-                        Integer dist = distance.apply(inputName.toLowerCase(), existingName.toLowerCase());
-                        String pattern = "Nov";
-                        if (inputName.startsWith(pattern) && existingName.startsWith(pattern))
-                            logger.info("Distance of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + dist);
-                        if (dist <= 8) {
-                            // names are similiar
-                            logger.fine("Distance of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + dist);
-                            int indexOfDifference = StringUtils.indexOfDifference(inputName.toLowerCase(), existingName.toLowerCase());
-                            int shorterNameLength = Math.min(inputName.toLowerCase().length(), existingName.toLowerCase().length());
-                            if (shorterNameLength >= 3 && indexOfDifference >= 3) {
-                                logger.fine("IndexOfDifference of \"" + inputName.toLowerCase() + "\" and \"" + existingName.toLowerCase() + "\": " + indexOfDifference);
-                                // similar names exist and are not almost equal, add alternative name to list
-                                result.get(existingName).add(inputName);
-                                found = true;
-                                break;
-                            }
+                        if (isNameSimilar(inputName, existingName)) {
+                            // similar names exist and are not almost equal, add alternative name to list
+                            result.get(existingName).add(inputName);
+                            found = true;
+                            break;
                         }
                     }
                 }
@@ -309,6 +298,32 @@ public class XmlFileWriter {
         return result;
     }
 
+    boolean isNameSimilar(String one, String two) {
+        final int LEVENSHTEINDISTANCELIMIT = 15;
+        Integer levenshteinDistanceLowerCase = distance.apply(one.toLowerCase(), two.toLowerCase());
+        logger.fine("Distance of \"" + one + "\" and \"" + two + "\": " + levenshteinDistanceLowerCase);
+        if (levenshteinDistanceLowerCase == 0) {
+            return true;
+        }
+        if (levenshteinDistanceLowerCase <= LEVENSHTEINDISTANCELIMIT) {
+            // names are similar, less than LEVENSHTEINDISTANCELIMIT differences
+            int indexOfDifferenceLowerCase = StringUtils.indexOfDifference(one.toLowerCase(), two.toLowerCase());
+            int inputNameLength = one.length();
+            int existingNameLength = two.length();
+            int shorterNameLength = Math.min(inputNameLength, existingNameLength);
+            logger.fine("IndexOfDifference of \"" + one + "\" and \"" + two + "\": " + indexOfDifferenceLowerCase + ", shorterNameLength: " + shorterNameLength);
+            if (shorterNameLength <= indexOfDifferenceLowerCase) {
+                // real subsets of names are identical, e.g. "SAP" and "SAP SE"
+                return true;
+            }
+            //  || (inputNameLength == existingNameLength)
+            // (shorterNameLength >= 3 && indexOfDifferenceLowerCase >= 3) && (shorterNameLength == indexOfDifferenceLowerCase)
+            if (indexOfDifferenceLowerCase > 7) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     JsonArray importBranches(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedBranches, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing branches...");

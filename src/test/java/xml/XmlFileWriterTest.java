@@ -2,7 +2,6 @@ package xml;
 
 import com.google.gson.JsonArray;
 import models.Security;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
@@ -23,9 +22,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static constants.PathConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static constants.PathConstants.BASE_TARGET_PATH;
+import static org.junit.Assert.*;
 
 public class XmlFileWriterTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(XmlFileWriterTest.class.getCanonicalName());
@@ -192,10 +190,10 @@ public class XmlFileWriterTest extends AbstractTest {
             assertEquals(176, input.size());
         }
         TreeMap<String, List<String>> result = xmlFileWriter.reduceSimilarStrings(input);
-        assertEquals(142, result.size());
+        assertEquals(129, result.size());
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
-//            if (!entry.getValue().isEmpty())
-            logger.info(entry.getKey() + ": " + entry.getValue());
+            if (!entry.getValue().isEmpty())
+                logger.info(entry.getKey() + ": " + entry.getValue());
         }
     }
 
@@ -237,7 +235,6 @@ public class XmlFileWriterTest extends AbstractTest {
     }
 
     @Test
-    @Ignore
     public void testReduceDistinctStrings2() throws IOException {
         List<String> input;
         try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-input2.txt"))) {
@@ -255,12 +252,28 @@ public class XmlFileWriterTest extends AbstractTest {
             logger.warning("Cache of security details could not be saved: " + e.getMessage());
         }
         String expected = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-distinct2.txt")).collect(Collectors.joining("\n"));
-        assertEquals(expected, sb.toString());
-        assertEquals(136, result.size());
+        assertEquals(expected.trim(), sb.toString().trim());
+        assertEquals(134, result.size());
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
-//            if (!entry.getValue().isEmpty())
-            logger.info(entry.getKey() + ": " + entry.getValue());
+            if (!entry.getValue().isEmpty())
+                logger.info(entry.getKey() + ": " + entry.getValue());
         }
+    }
+
+    @Test
+    public void isNameSimilar() {
+        assertTrue(xmlFileWriter.isNameSimilar("SAP", "SAP SE"));
+        assertTrue(xmlFileWriter.isNameSimilar("SAP", "Sap SE"));
+        assertTrue(xmlFileWriter.isNameSimilar("Sap", "SAP SE"));
+        assertFalse(xmlFileWriter.isNameSimilar("AXA", "ABB"));
+        assertFalse(xmlFileWriter.isNameSimilar("Novartis AG", "Novo Nordisk"));
+        assertTrue(xmlFileWriter.isNameSimilar("ALPHABET INC CL A", "ALPHABET INC CL C"));
+        assertTrue(xmlFileWriter.isNameSimilar("Alphabet A (Google)", "Alphabet C (Google)"));
+        assertTrue(xmlFileWriter.isNameSimilar("Alphabet A (Google)", "Alphabet Inc."));
+        assertTrue(xmlFileWriter.isNameSimilar("Alphabet Inc.", "Alphabet Inc."));
+        assertTrue(xmlFileWriter.isNameSimilar("Meta Platforms (ehem. Facebook)", "Meta Platforms Inc."));
+        assertTrue(xmlFileWriter.isNameSimilar("SAMSUNG ELECTRONIC CO LTD", "Samsung Electronics Co. Ltd."));
+        assertFalse(xmlFileWriter.isNameSimilar("Mitsui & Co. Ltd.", "Mitsui O.S.K. Lines"));
     }
 
 }

@@ -9,7 +9,6 @@ APPLE INC
 ARES CAPITAL CORP
 ASML Holding
 AXA
-Alphabet A (Google)
 AstraZeneca
 BHP Group Ltd.
 BP
@@ -57,7 +56,6 @@ META PLATFORMS INC-CLASS A
 MICROSOFT CORP
 MUTARES SE & CO. KGAA
 Meituan
-Meta Platforms (ehem. Facebook)
 Mitsubishi Corp.
 Mitsubishi UFJ Financial Group Inc.
 Mitsui & Co. Ltd.
@@ -108,7 +106,6 @@ TENCENT HOLDINGS LTD
 TESLA INC
 TOPBUILD CORP. DL -,01
 TUI AG
-Taiwan Semiconductor Manufacturing Co. Ltd.
 Taylor Wimpey
 Tokyo Electron Ltd.
 TotalEnergies SE
