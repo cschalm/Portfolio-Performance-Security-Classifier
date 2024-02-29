@@ -1,7 +1,8 @@
-package xml;
+package services;
 
 import com.google.gson.JsonArray;
 import models.Security;
+import models.SecurityDetailsCache;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
@@ -9,7 +10,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import services.SecurityService;
+import xml.XmlFileReader;
+import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -25,16 +27,16 @@ import java.util.stream.Stream;
 import static constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
-public class XmlFileWriterTest extends AbstractTest {
-    private static final Logger logger = Logger.getLogger(XmlFileWriterTest.class.getCanonicalName());
+public class PortfolioDocumentServiceTest extends AbstractTest {
+    private static final Logger logger = Logger.getLogger(PortfolioDocumentServiceTest.class.getCanonicalName());
     XmlHelper xmlHelper = new XmlHelper();
-    SecurityService service = new SecurityService();
-    XmlFileWriter xmlFileWriter = new XmlFileWriter();
+    SecurityService securityService = new SecurityService();
+    PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
 
     private List<Security> loadTestSecurity() throws IOException, ParserConfigurationException, SAXException {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
-        List<Security> securityList = service.processSecurities(securityNodes);
+        List<Security> securityList = securityService.processSecurities(securityNodes);
         logger.info("Loaded " + securityList.size() + " securities from file");
 
         return securityList;
@@ -47,7 +49,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID().toString() + ".json");
 
-        xmlFileWriter.updateXml(portfolioDocument, securities, securityDetailsCache);
+        portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 14, securityDetailsCache.getCachedCountries().asList().size());
         assertEquals("Branches", 9, securityDetailsCache.getCachedBranches().asList().size());
         assertEquals("Top 10", 10, securityDetailsCache.getCachedTopTen().asList().size());
@@ -64,7 +66,7 @@ public class XmlFileWriterTest extends AbstractTest {
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID().toString() + ".json");
 
-        xmlFileWriter.updateXml(portfolioDocument, securities, securityDetailsCache);
+        portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 33, securityDetailsCache.getCachedCountries().asList().size());
         assertEquals("Branches", 11, securityDetailsCache.getCachedBranches().asList().size());
         assertEquals("Top 10", 9, securityDetailsCache.getCachedTopTen().asList().size());
@@ -83,7 +85,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = xmlFileWriter.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
                     assertEquals(9, importedBranches.size());
                 }
             }
@@ -107,7 +109,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = xmlFileWriter.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
                     assertEquals(11, importedBranches.size());
                 }
             }
@@ -117,7 +119,7 @@ public class XmlFileWriterTest extends AbstractTest {
     @Test
     public void importTopTen() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = service.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
+        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
         JsonArray cachedBranches = new JsonArray();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
@@ -127,7 +129,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Top Ten")) {
-                    JsonArray importedTopTen = xmlFileWriter.importTopTen(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, cachedBranches, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -151,7 +153,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Top Ten")) {
-                    JsonArray importedTopTen = xmlFileWriter.importTopTen(portfolioDocument, securities, cachedTopTen, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, cachedTopTen, taxonomyElement);
                     assertEquals(9, importedTopTen.size());
                 }
             }
@@ -175,7 +177,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Top Ten")) {
-                    JsonArray importedTopTen = xmlFileWriter.importTopTen(portfolioDocument, securities, cachedTopTen, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, cachedTopTen, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -189,7 +191,7 @@ public class XmlFileWriterTest extends AbstractTest {
             input = lines.collect(Collectors.toList());
             assertEquals(176, input.size());
         }
-        TreeMap<String, List<String>> result = xmlFileWriter.reduceSimilarStrings(input);
+        TreeMap<String, List<String>> result = portfolioDocumentService.reduceSimilarStrings(input);
         assertEquals(129, result.size());
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
             if (!entry.getValue().isEmpty())
@@ -204,7 +206,7 @@ public class XmlFileWriterTest extends AbstractTest {
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
         assertNotNull(security.getCountries());
-        assertEquals(34, security.getCountries().size());
+        assertEquals(33, security.getCountries().size());
         logger.info("Countries from Security: " + security.getCountries().keySet());
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -217,7 +219,7 @@ public class XmlFileWriterTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    JsonArray importedCountries = xmlFileWriter.importRegions(portfolioDocument, securities, cachedCountries, taxonomyElement);
+                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, cachedCountries, taxonomyElement);
                     assertEquals(33, importedCountries.size());
                 }
             }
@@ -228,8 +230,8 @@ public class XmlFileWriterTest extends AbstractTest {
     public void collectAllStockNames() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
 //        Document portfolioDocument = xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
-        List<Security> securities = service.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
-        TreeMap<String, List<String>> allStockNames = xmlFileWriter.collectAllStockNames(securities);
+        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
+        TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
         assertNotNull(allStockNames);
         assertEquals(10, allStockNames.size());
     }
@@ -241,7 +243,7 @@ public class XmlFileWriterTest extends AbstractTest {
             input = lines.collect(Collectors.toList());
             assertEquals(168, input.size());
         }
-        TreeMap<String, List<String>> result = xmlFileWriter.reduceSimilarStrings(input);
+        TreeMap<String, List<String>> result = portfolioDocumentService.reduceSimilarStrings(input);
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
             sb.append(entry.getKey()).append('\n');
@@ -262,18 +264,18 @@ public class XmlFileWriterTest extends AbstractTest {
 
     @Test
     public void isNameSimilar() {
-        assertTrue(xmlFileWriter.isNameSimilar("SAP", "SAP SE"));
-        assertTrue(xmlFileWriter.isNameSimilar("SAP", "Sap SE"));
-        assertTrue(xmlFileWriter.isNameSimilar("Sap", "SAP SE"));
-        assertFalse(xmlFileWriter.isNameSimilar("AXA", "ABB"));
-        assertFalse(xmlFileWriter.isNameSimilar("Novartis AG", "Novo Nordisk"));
-        assertTrue(xmlFileWriter.isNameSimilar("ALPHABET INC CL A", "ALPHABET INC CL C"));
-        assertTrue(xmlFileWriter.isNameSimilar("Alphabet A (Google)", "Alphabet C (Google)"));
-        assertTrue(xmlFileWriter.isNameSimilar("Alphabet A (Google)", "Alphabet Inc."));
-        assertTrue(xmlFileWriter.isNameSimilar("Alphabet Inc.", "Alphabet Inc."));
-        assertTrue(xmlFileWriter.isNameSimilar("Meta Platforms (ehem. Facebook)", "Meta Platforms Inc."));
-        assertTrue(xmlFileWriter.isNameSimilar("SAMSUNG ELECTRONIC CO LTD", "Samsung Electronics Co. Ltd."));
-        assertFalse(xmlFileWriter.isNameSimilar("Mitsui & Co. Ltd.", "Mitsui O.S.K. Lines"));
+        assertTrue(portfolioDocumentService.isNameSimilar("SAP", "SAP SE"));
+        assertTrue(portfolioDocumentService.isNameSimilar("SAP", "Sap SE"));
+        assertTrue(portfolioDocumentService.isNameSimilar("Sap", "SAP SE"));
+        assertFalse(portfolioDocumentService.isNameSimilar("AXA", "ABB"));
+        assertFalse(portfolioDocumentService.isNameSimilar("Novartis AG", "Novo Nordisk"));
+        assertTrue(portfolioDocumentService.isNameSimilar("ALPHABET INC CL A", "ALPHABET INC CL C"));
+        assertTrue(portfolioDocumentService.isNameSimilar("Alphabet A (Google)", "Alphabet C (Google)"));
+        assertTrue(portfolioDocumentService.isNameSimilar("Alphabet A (Google)", "Alphabet Inc."));
+        assertTrue(portfolioDocumentService.isNameSimilar("Alphabet Inc.", "Alphabet Inc."));
+        assertTrue(portfolioDocumentService.isNameSimilar("Meta Platforms (ehem. Facebook)", "Meta Platforms Inc."));
+        assertTrue(portfolioDocumentService.isNameSimilar("SAMSUNG ELECTRONIC CO LTD", "Samsung Electronics Co. Ltd."));
+        assertFalse(portfolioDocumentService.isNameSimilar("Mitsui & Co. Ltd.", "Mitsui O.S.K. Lines"));
     }
 
 }

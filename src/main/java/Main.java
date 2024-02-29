@@ -1,9 +1,10 @@
 import models.Security;
+import models.SecurityDetailsCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import services.PortfolioDocumentService;
 import services.SecurityService;
-import xml.SecurityDetailsCache;
 import xml.XmlFileWriter;
 import xml.XmlHelper;
 
@@ -21,6 +22,7 @@ import static xml.XmlFileReader.getAllSecurities;
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
     SecurityService securityService = new SecurityService();
+    PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
     XmlFileWriter xmlFileWriter = new XmlFileWriter();
     XmlHelper xmlHelper = new XmlHelper();
 
@@ -38,11 +40,11 @@ public class Main {
         Document portfolioDocument = loadPortfolioDocumentFromFile();
 
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
-
         List<Security> updatedSecurities = addClassificationData(allSecurities);
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
 
-        xmlFileWriter.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
+        portfolioDocumentService.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
+
         xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
 
         logger.info("----- END -----\n");
@@ -58,7 +60,6 @@ public class Main {
 
     Document loadPortfolioDocumentFromFile() throws IOException, ParserConfigurationException, SAXException {
         return xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
-//        return getDocument(BASE_PATH + INPUT_FILE_NAME);
     }
 
 }

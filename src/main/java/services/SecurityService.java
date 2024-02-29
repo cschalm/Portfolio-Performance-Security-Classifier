@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.CACHE_PATH;
+import static java.lang.Double.valueOf;
 
 public class SecurityService {
     private static final Logger logger = Logger.getLogger(SecurityService.class.getCanonicalName());
@@ -67,35 +68,29 @@ public class SecurityService {
 
                 // parsing holdings
                 if (breakdownsNode != null) {
-                    Map<String, Security.PercentageUsedTuple> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
+                    Map<String, Double> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
                     security.setHoldings(oListForHoldings);
 
                     // parsing branches
                     security.setBranches(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
-
-                    // parsing currency
-                    security.setCurrencies(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("currencyBreakdown")));
-
-                    // parsing instrument
-                    security.setInstruments(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("instrumentBreakdown")));
 
                     // parsing country
                     security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
             } else {
                 String branch = securityDetails.getBranchForSecurity();
-                Map<String, Security.PercentageUsedTuple> branchMap = new HashMap<>();
-                branchMap.put(branch, new Security.PercentageUsedTuple(100.0, false));
+                Map<String, Double> branchMap = new HashMap<>();
+                branchMap.put(branch, valueOf(100.0));
                 security.setBranches(branchMap);
 
                 String country = securityDetails.getCountryForSecurity();
-                Map<String, Security.PercentageUsedTuple> countryMap = new HashMap<>();
-                countryMap.put(country, new Security.PercentageUsedTuple(100.0, false));
+                Map<String, Double> countryMap = new HashMap<>();
+                countryMap.put(country, valueOf(100.0));
                 security.setCountries(countryMap);
 
                 String companyName = securityDetails.getCompanyNameForSecurity();
-                Map<String, Security.PercentageUsedTuple> holdingsMap = new HashMap<>();
-                holdingsMap.put(companyName, new Security.PercentageUsedTuple(100.0, false));
+                Map<String, Double> holdingsMap = new HashMap<>();
+                holdingsMap.put(companyName, valueOf(100.0));
                 security.setHoldings(holdingsMap);
 
                 logger.fine("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
@@ -106,8 +101,8 @@ public class SecurityService {
         return security;
     }
 
-    Map<String, Security.PercentageUsedTuple> getMappedPercentageForNode(JsonObject oNode) {
-        Map<String, Security.PercentageUsedTuple> oResultList = new HashMap<>();
+    Map<String, Double> getMappedPercentageForNode(JsonObject oNode) {
+        Map<String, Double> oResultList = new HashMap<>();
         if (oNode != null) {
             JsonArray oArrayList = oNode.getAsJsonArray("list");
             for (int i = 0; i < oArrayList.size(); i++) {
@@ -117,7 +112,7 @@ public class SecurityService {
                 String nameFundsBreakdown = oNode.get("nameFundsBreakdown").getAsString();
                 logger.finer("nameBreakdown: " + strName + " - nameFundsBreakdown: " + nameFundsBreakdown);
                 if (!strName.equals("Barmittel") || nameFundsBreakdown.equals("Instrument")) {
-                    oResultList.put(strName, new Security.PercentageUsedTuple(nPercent, false));
+                    oResultList.put(strName, valueOf(nPercent));
                     logger.fine(String.format("name: %s; Percentage: %s%%", strName, DECIMAL_FORMAT.format(nPercent)));
                 }
             }
@@ -125,8 +120,8 @@ public class SecurityService {
         return oResultList;
     }
 
-    Map<String, Security.PercentageUsedTuple> getHoldingPercentageMap(JsonObject breakdownsNode) {
-        Map<String, Security.PercentageUsedTuple> oListForHoldings = new HashMap<>();
+    Map<String, Double> getHoldingPercentageMap(JsonObject breakdownsNode) {
+        Map<String, Double> oListForHoldings = new HashMap<>();
         JsonObject fundsHoldingList = breakdownsNode.getAsJsonObject("fundsHoldingList");
         JsonArray holdingListArray = fundsHoldingList != null ? fundsHoldingList.getAsJsonArray("list") : new JsonArray();
 
@@ -135,7 +130,7 @@ public class SecurityService {
             String strHoldingName = oHolding.getAsJsonObject("instrument").get("name").getAsString();
             Double nHoldingPercent = oHolding.get("investmentPct").getAsDouble();
             logger.fine(String.format("Holding: %s; Percentage: %s%%", strHoldingName, DECIMAL_FORMAT.format(nHoldingPercent)));
-            oListForHoldings.put(strHoldingName, new Security.PercentageUsedTuple(nHoldingPercent, false));
+            oListForHoldings.put(strHoldingName, nHoldingPercent);
         }
         return oListForHoldings;
     }

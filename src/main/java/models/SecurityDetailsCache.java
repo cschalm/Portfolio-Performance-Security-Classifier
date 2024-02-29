@@ -1,4 +1,4 @@
-package xml;
+package models;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
+/**
+ * Cache of already analyzed details for a security (share or ETF).
+ */
 public class SecurityDetailsCache {
     private static final Logger logger = Logger.getLogger(SecurityDetailsCache.class.getCanonicalName());
     private final String fullFileName;

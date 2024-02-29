@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
-import xml.SecurityDetailsCache;
+import models.SecurityDetailsCache;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,67 +1,48 @@
 package models;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utils.StringUtils.containsIgnoreCase;
-
+/**
+ * One share or ETF with name and ISIN and branches, holdings and counties.
+ */
 public class Security {
-    private final String strISIN;
-    private String strName;
-    private Map<String, PercentageUsedTuple> oListForBranches = new HashMap<>();
-    private Map<String, PercentageUsedTuple> oListForHoldings = new HashMap<>();
-    private Map<String, PercentageUsedTuple> oListForCurrencies = new HashMap<>();
-    private Map<String, PercentageUsedTuple> oListForInstruments = new HashMap<>();
-    private Map<String, PercentageUsedTuple> oListForCountries = new HashMap<>();
+    private final String isin;
+    private String name;
+    private Map<String, Double> branchesMap = new HashMap<>();
+    private Map<String, Double> holdingsMap = new HashMap<>();
+    private Map<String, Double> countriesMap = new HashMap<>();
 
     public Security(String isin) {
-        this.strISIN = isin;
+        this.isin = isin;
     }
 
-    public void setRest(Map<String, PercentageUsedTuple> oRest) {
-        Double dOthers = 100.0;
-        for (Map.Entry<String, PercentageUsedTuple> oEntry : oRest.entrySet()) {
-            dOthers -= oEntry.getValue().dPerc;
-        }
-        oRest.put("Andere", new PercentageUsedTuple(dOthers, false));
-    }
-
-    /*
-     * getter
-     */
     public String getName() {
-        return this.strName;
+        return this.name;
     }
 
     public void setName(String strName) {
-        this.strName = strName;
+        this.name = strName;
     }
 
     public String getIsin() {
-        return this.strISIN;
+        return this.isin;
     }
 
-    /**
-     * Last element is called "Andere" and collects the missing percentage (to
-     * 100) not included in the others element
-     *
-     * @return Map<String, Double>
-     */
-    public Map<String, PercentageUsedTuple> getBranches() {
-        return this.oListForBranches;
+    public Map<String, Double> getBranches() {
+        return this.branchesMap;
     }
 
-    /*
-     * setter
-     */
-    public void setBranches(Map<String, PercentageUsedTuple> oBranches) {
+    public void setBranches(Map<String, Double> branchesMap) {
         List<String> toRemove = new ArrayList<>();
-        Map<String, PercentageUsedTuple> toAdd = new HashMap<>();
-        for (Map.Entry<String, PercentageUsedTuple> entry : oBranches.entrySet()) {
+        Map<String, Double> toAdd = new HashMap<>();
+        for (Map.Entry<String, Double> entry : branchesMap.entrySet()) {
             String strKey = entry.getKey();
-            if (containsIgnoreCase(strKey, "service")) {
+            if (StringUtils.containsIgnoreCase(strKey, "service")) {
                 toRemove.add(strKey);
                 strKey = strKey.toLowerCase().replaceAll("services", "dienste");
                 strKey = strKey.toLowerCase().replaceAll("service", "dienste");
@@ -69,71 +50,26 @@ public class Security {
             }
         }
         for (String strRemove : toRemove) {
-            oBranches.remove(strRemove);
+            branchesMap.remove(strRemove);
         }
-        oBranches.putAll(toAdd);
-        this.oListForBranches = oBranches;
-        //setRest(this.oListForBranches);
+        branchesMap.putAll(toAdd);
+        this.branchesMap = branchesMap;
     }
 
-    /**
-     * Last element is called "Andere" and collects the missing percentage (to
-     * 100) not included in the others element
-     *
-     * @return Map<String, Double>
-     */
-    public Map<String, PercentageUsedTuple> getHoldings() {
-        return this.oListForHoldings;
+    public Map<String, Double> getHoldings() {
+        return this.holdingsMap;
     }
 
-    public void setHoldings(Map<String, PercentageUsedTuple> oHoldings) {
-        this.oListForHoldings = oHoldings;
-        //setRest(this.oListForHoldings);
+    public void setHoldings(Map<String, Double> holdingsMap) {
+        this.holdingsMap = holdingsMap;
     }
 
-    /**
-     * Last element is called "Andere" and collects the missing percentage (to
-     * 100) not included in the others element
-     *
-     * @return Map<String, Double>
-     */
-    public Map<String, PercentageUsedTuple> getCurrencies() {
-        return this.oListForCurrencies;
+    public Map<String, Double> getCountries() {
+        return this.countriesMap;
     }
 
-    public void setCurrencies(Map<String, PercentageUsedTuple> oCurrencies) {
-        this.oListForCurrencies = oCurrencies;
-        //setRest(this.oListForCurrencies);
-    }
-
-    /**
-     * Last element is called "Andere" and collects the missing percentage (to
-     * 100) not included in the others element
-     *
-     * @return Map<String, Double>
-     */
-    public Map<String, PercentageUsedTuple> getInstruments() {
-        return this.oListForInstruments;
-    }
-
-    public void setInstruments(Map<String, PercentageUsedTuple> oInstruments) {
-        this.oListForInstruments = oInstruments;
-        //setRest(this.oListForInstruments);
-    }
-
-    /**
-     * Last element is called "Andere" and collects the missing percentage (to
-     * 100) not included in the others element
-     *
-     * @return Map<String, Double>
-     */
-    public Map<String, PercentageUsedTuple> getCountries() {
-        return this.oListForCountries;
-    }
-
-    public void setCountries(Map<String, PercentageUsedTuple> oCountries) {
-        this.oListForCountries = oCountries;
-        setRest(this.oListForCountries);
+    public void setCountries(Map<String, Double> countriesMap) {
+        this.countriesMap = countriesMap;
     }
 
     /**
@@ -142,13 +78,8 @@ public class Security {
      *
      * @return Double
      */
-    public Double getPercentageOfCountry(String strCountry) {
-        if (this.oListForCountries.containsKey(strCountry)) {
-            this.oListForCountries.get(strCountry).fIsUsed = true;
-            return this.oListForCountries.get(strCountry).dPerc;
-        } else {
-            return 0.0;
-        }
+    public Double getPercentageOfCountry(String country) {
+        return this.countriesMap.getOrDefault(country, 0.0);
     }
 
     /**
@@ -157,28 +88,8 @@ public class Security {
      *
      * @return Double
      */
-    public Double getPercentageOfBranch(String strBranch) {
-        if (this.oListForBranches.containsKey(strBranch)) {
-            this.oListForBranches.get(strBranch).fIsUsed = true;
-            return this.oListForBranches.get(strBranch).dPerc;
-        } else {
-            return 0.0;
-        }
-    }
-
-    /**
-     * returns percentage of given Instrument; if ETF hasn't any percentage in that Instrument => 0.0
-     * sets the Instrument as used
-     *
-     * @return Double
-     */
-    public Double getPercentageOfInstrument(String strInstrument) {
-        if (this.oListForInstruments.containsKey(strInstrument)) {
-            this.oListForInstruments.get(strInstrument).fIsUsed = true;
-            return this.oListForInstruments.get(strInstrument).dPerc;
-        } else {
-            return 0.0;
-        }
+    public Double getPercentageOfBranch(String branch) {
+        return this.branchesMap.getOrDefault(branch, 0.0);
     }
 
     /**
@@ -187,71 +98,19 @@ public class Security {
      *
      * @return Double
      */
-    public Double getPercentageOfHolding(String strHolding) {
-        if (this.oListForHoldings.containsKey(strHolding)) {
-            this.oListForHoldings.get(strHolding).fIsUsed = true;
-            return this.oListForHoldings.get(strHolding).dPerc;
-        } else {
-            return 0.0;
-        }
-    }
-
-    /**
-     * returns all unused countries as string; separated by ';'
-     * all countries just => empty string
-     *
-     * @return string
-     */
-    public String getUnusedCountries() {
-        return getUnusedEntriesListed(this.oListForCountries);
-    }
-
-    /**
-     * returns all unused branches as string; separated by ';'
-     * all branches just => empty string
-     *
-     * @return string
-     */
-    public String getUnusedBranches() {
-        return getUnusedEntriesListed(this.oListForBranches);
-    }
-
-    private String getUnusedEntriesListed(Map<String, PercentageUsedTuple> map) {
-        StringBuilder strResult = new StringBuilder();
-        for (Map.Entry<String, PercentageUsedTuple> oEntry : map.entrySet()) {
-            if (!oEntry.getValue().fIsUsed) {
-                if (strResult.length() > 0) {
-                    strResult.append(';');
-                }
-                strResult.append(oEntry.getKey());
-            }
-        }
-        return strResult.toString();
+    public Double getPercentageOfHolding(String holding) {
+        return this.holdingsMap.getOrDefault(holding, 0.0);
     }
 
     public String[] getAllBranches() {
-        return this.oListForBranches.keySet().toArray(new String[0]);
+        return this.branchesMap.keySet().toArray(new String[0]);
     }
 
     @Override
     public String toString() {
-        if (strName != null)
-            return strISIN + ": " + strName;
-        return strISIN;
+        if (name != null)
+            return isin + ": " + name;
+        return isin;
     }
 
-    public static class PercentageUsedTuple {
-        Double dPerc;
-        Boolean fIsUsed;
-
-        public PercentageUsedTuple(Double dOthers, boolean b) {
-            this.dPerc = dOthers;
-            this.fIsUsed = b;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%.2f%%", dPerc);
-        }
-    }
 }

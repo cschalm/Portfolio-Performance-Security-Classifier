@@ -40,8 +40,6 @@ public class SecurityServiceTest extends AbstractTest {
         assertFalse(security.getBranches().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
-        assertNotNull(security.getCurrencies());
-        assertFalse(security.getCurrencies().isEmpty());
         assertNotNull(security.getHoldings());
         assertFalse(security.getHoldings().isEmpty());
     }
@@ -78,8 +76,6 @@ public class SecurityServiceTest extends AbstractTest {
         assertFalse(security.getBranches().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
-        assertNotNull(security.getCurrencies());
-        assertFalse(security.getCurrencies().isEmpty());
         assertNotNull(security.getHoldings());
         assertFalse(security.getHoldings().isEmpty());
     }

@@ -18,6 +18,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * One object of this class represents a security (share or ETF) containing data from a provider on the internet.
+ * It contains meta-data for this share like the name and percentages for each country, branch and holding.
+ */
 public class SecurityDetails {
     public static final String ONVISTA_DETAILS_REQUEST_URL = "https://www.onvista.de/etf/anlageschwerpunkt/";
     public static final String ONVISTA_URL = "https://www.onvista.de";
