@@ -248,13 +248,16 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
             sb.append(entry.getKey()).append('\n');
         }
-        try (PrintWriter savingImport = new PrintWriter(BASE_TEST_PATH + "StockNames-distinct3.txt", StandardCharsets.UTF_8)) {
+        try (PrintWriter savingImport = new PrintWriter(BASE_TARGET_PATH + "StockNames-distinct3.txt", StandardCharsets.UTF_8)) {
             savingImport.print(sb);
         } catch (IOException e) {
             logger.warning("Cache of security details could not be saved: " + e.getMessage());
         }
-        String expected = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-distinct2.txt")).collect(Collectors.joining("\n"));
-        assertEquals(expected.trim(), sb.toString().trim());
+        String expected;
+        try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-distinct2.txt"))) {
+            expected = lines.collect(Collectors.joining("\n"));
+            assertEquals(expected.trim(), sb.toString().trim());
+        }
         assertEquals(134, result.size());
         for (Map.Entry<String, List<String>> entry : result.entrySet()) {
             if (!entry.getValue().isEmpty())
