@@ -10,10 +10,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.logging.Logger;
 
 public class XmlFileWriter {
-    private static final Logger logger = Logger.getLogger(XmlFileWriter.class.getCanonicalName());
 
     public void writeXml(Document doc, String fileName) throws TransformerException, FileNotFoundException {
         FileOutputStream output = new FileOutputStream(fileName);

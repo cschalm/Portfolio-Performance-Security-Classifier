@@ -112,7 +112,7 @@ public class SecurityService {
                 String nameFundsBreakdown = oNode.get("nameFundsBreakdown").getAsString();
                 logger.finer("nameBreakdown: " + strName + " - nameFundsBreakdown: " + nameFundsBreakdown);
                 if (!strName.equals("Barmittel") || nameFundsBreakdown.equals("Instrument")) {
-                    oResultList.put(strName, valueOf(nPercent));
+                    oResultList.put(strName, nPercent);
                     logger.fine(String.format("name: %s; Percentage: %s%%", strName, DECIMAL_FORMAT.format(nPercent)));
                 }
             }

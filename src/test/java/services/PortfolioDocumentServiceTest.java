@@ -47,7 +47,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
 
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID().toString() + ".json");
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 14, securityDetailsCache.getCachedCountries().asList().size());
@@ -64,7 +64,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
 
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID().toString() + ".json");
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 33, securityDetailsCache.getCachedCountries().asList().size());
@@ -249,7 +249,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             sb.append(entry.getKey()).append('\n');
         }
         try (PrintWriter savingImport = new PrintWriter(BASE_TEST_PATH + "StockNames-distinct3.txt", StandardCharsets.UTF_8)) {
-            savingImport.print(sb.toString());
+            savingImport.print(sb);
         } catch (IOException e) {
             logger.warning("Cache of security details could not be saved: " + e.getMessage());
         }

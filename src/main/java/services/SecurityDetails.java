@@ -28,7 +28,7 @@ public class SecurityDetails {
     private static final Logger logger = Logger.getLogger(SecurityDetails.class.getCanonicalName());
     private String detailsRequestPath;
     private JsonObject rootNode;
-    private String isin;
+    private final String isin;
 
     public SecurityDetails(String cachePath, String isin) throws IOException, InterruptedException {
         this.isin = isin;
