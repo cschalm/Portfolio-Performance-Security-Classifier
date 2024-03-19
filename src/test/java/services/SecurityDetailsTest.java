@@ -3,16 +3,19 @@ package services;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import models.SecurityDetailsCache;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
-import models.SecurityDetailsCache;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
+import static constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
 public class SecurityDetailsTest extends AbstractTest {
+    private static final Logger logger = Logger.getLogger(SecurityDetailsTest.class.getCanonicalName());
 
     @Test
     public void readStringFromURL() throws IOException, InterruptedException {
@@ -60,4 +63,17 @@ public class SecurityDetailsTest extends AbstractTest {
         assertEquals("Branches", 11, securityDetailsCache.getCachedBranches().asList().size());
         assertEquals("Top 10", 9, securityDetailsCache.getCachedTopTen().asList().size());
     }
+
+    @Test
+    public void readAresPageFromParquet() throws IOException, InterruptedException {
+        String isin = "US04010L1035";
+        String url = "https://app.parqet.com/wertpapiere/" + isin;
+        SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
+        String pageContent = securityDetails.readStringFromURL(url);
+        assertNotNull(pageContent);
+        assertFalse(pageContent.isEmpty());
+        assertTrue(pageContent.length() > 100);
+        logger.info(pageContent);
+    }
+
 }
