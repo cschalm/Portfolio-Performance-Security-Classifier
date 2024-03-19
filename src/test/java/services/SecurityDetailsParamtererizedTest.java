@@ -31,17 +31,17 @@ public class SecurityDetailsParamtererizedTest extends AbstractTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"DE000TUAG505", "Sonstige Branchen", "Deutschland", "TUI AG"},
-                {"DE0008402215", "Versicherungen", "Deutschland", "HANNOVER RUECK SE"},
+                {"DE000TUAG505", "Hotels, Restaurants und Freizeit", "Deutschland", "TUI AG"},
+                {"DE0008402215", "Versicherung", "Deutschland", "HANNOVER RUECK SE"},
                 {"DE000A2NB650", "Finanzdienstleistungen", "Deutschland", "MUTARES SE & CO. KGAA"},
-                {"KYG9830T1067", "Unterhaltungselektronik", "China", "XIAOMI CORP."},
+                {"KYG9830T1067", "Hardware- Technologie, Speicherung und Peripheriegeräte", "China", "XIAOMI CORP."},
                 {"NL0011821202", "Banken", "Niederlande", "ING GROEP NV"},
-                {"US04010L1035", "", "USA", "ARES CAPITAL CORP"},
-                {"US0357108390", "Immobilien", "USA", "ANNALY CAPITAL MANAGEMENT"},
-                {"US0378331005", "Unterhaltungselektronik", "USA", "APPLE INC."},
-                {"US5949181045", "Standardsoftware", "USA", "MICROSOFT CORP."},
-                {"US6819361006", "Immobilien", "USA", "OMEGA HEALTHCARE INVESTORS INC."},
-                {"DE000A1J5RX9", "Telekomdienstleister", "Deutschland", "TELEFÓNICA DEUTSCHLAND HOLDING AG"}
+                {"US04010L1035", "Kapitalmärkte", "USA", "ARES CAPITAL CORP"},
+                {"US0357108390", "Hypotheken-Immobilien-fonds (REITs)", "USA", "ANNALY CAPITAL MANAGEMENT"},
+                {"US0378331005", "Hardware- Technologie, Speicherung und Peripheriegeräte", "USA", "APPLE INC."},
+                {"US5949181045", "Software", "USA", "MICROSOFT CORP."},
+                {"US6819361006", "Diversifizierte REITs", "USA", "OMEGA HEALTHCARE INVESTORS INC."},
+                {"DE000A1J5RX9", "Drahtlose Telekommunikationsdienste", "Deutschland", "TELEFÓNICA DEUTSCHLAND HOLDING AG"}
         });
     }
 
@@ -56,7 +56,8 @@ public class SecurityDetailsParamtererizedTest extends AbstractTest {
                 .getAsJsonObject("data")
                 .getAsJsonObject("snapshot")
                 .getAsJsonObject("company").toString());
-        assertEquals(branch, securityDetails.getBranchForSecurity());
+//        assertEquals(branch, securityDetails.getBranchForSecurity());
+        assertEquals(branch, securityDetails.getBranchName());
         assertEquals(country, securityDetails.getCountryForSecurity());
         assertEquals(name, securityDetails.getCompanyNameForSecurity());
     }

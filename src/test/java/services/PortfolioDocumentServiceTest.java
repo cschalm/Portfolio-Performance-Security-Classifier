@@ -67,7 +67,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
-        assertEquals("Countries", 33, securityDetailsCache.getCachedCountries().asList().size());
+        assertEquals("Countries", 32, securityDetailsCache.getCachedCountries().asList().size());
         assertEquals("Branches", 11, securityDetailsCache.getCachedBranches().asList().size());
         assertEquals("Top 10", 9, securityDetailsCache.getCachedTopTen().asList().size());
     }

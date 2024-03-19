@@ -2,6 +2,11 @@ package services;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.net.URI;
@@ -145,6 +150,22 @@ public class SecurityDetails {
 
     JsonObject getRootNode() {
         return rootNode;
+    }
+
+    public String getBranchName() {
+        try {
+            String url = "https://app.parqet.com/wertpapiere/" + isin;
+            Document doc = Jsoup.connect(url).get();
+            Elements elements = doc.selectXpath("//td[contains(text(), \"Industrie\")]");
+            Element td = elements.get(0);
+            List<TextNode> textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
+            String branch = textNodes.get(0).text().trim();
+            logger.info("found branch \"" + branch + "\" for " + isin);
+            return branch;
+        } catch (IOException e) {
+            logger.warning("Error loading branch for " + isin + ": " + e.getMessage());
+            return getBranchForSecurity();
+        }
     }
 
 }
