@@ -57,7 +57,7 @@ public class SecurityDetailsParamtererizedTest extends AbstractTest {
                 .getAsJsonObject("snapshot")
                 .getAsJsonObject("company").toString());
 //        assertEquals(branch, securityDetails.getBranchForSecurity());
-        assertEquals(branch, securityDetails.getBranchName());
+        assertEquals(branch, securityDetails.getBranch());
         assertEquals(country, securityDetails.getCountryForSecurity());
         assertEquals(name, securityDetails.getCompanyNameForSecurity());
     }

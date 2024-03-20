@@ -34,6 +34,7 @@ public class SecurityDetails {
     private String detailsRequestPath;
     private JsonObject rootNode;
     private final String isin;
+    private String branch;
 
     public SecurityDetails(String cachePath, String isin) throws IOException, InterruptedException {
         this.isin = isin;
@@ -74,6 +75,23 @@ public class SecurityDetails {
                 savingImport.print(rootNode + "\n");
             } catch (FileNotFoundException fnfe) {
                 logger.warning("Error writing JSON for " + isin + ": " + fnfe.getMessage());
+            }
+        }
+        if (isETF() || isFond()) {
+            branch = "";
+        } else {
+            File branchCacheFileName = new File(cachePath + isin + "-branch.txt");
+            try (Stream<String> lines = Files.lines(Paths.get(branchCacheFileName.toURI()))) {
+                List<String> input = lines.collect(Collectors.toList());
+                if (!input.isEmpty()) branch = input.get(0);
+            } catch (IOException e) {
+                logger.info("Branch for " + isin + " not found in cache, loading...");
+                branch = loadBranchName();
+                try (PrintWriter savingImport = new PrintWriter(branchCacheFileName)) {
+                    savingImport.print(branch + "\n");
+                } catch (FileNotFoundException fnfe) {
+                    logger.warning("Error writing branch for " + isin + ": " + fnfe.getMessage());
+                }
             }
         }
     }
@@ -152,7 +170,7 @@ public class SecurityDetails {
         return rootNode;
     }
 
-    public String getBranchName() {
+    String loadBranchName() {
         try {
             String url = "https://app.parqet.com/wertpapiere/" + isin;
             Document doc = Jsoup.connect(url).get();
@@ -166,6 +184,10 @@ public class SecurityDetails {
             logger.warning("Error loading branch for " + isin + ": " + e.getMessage());
             return getBranchForSecurity();
         }
+    }
+
+    public String getBranch() {
+        return this.branch;
     }
 
 }

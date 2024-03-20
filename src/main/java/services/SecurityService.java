@@ -78,7 +78,7 @@ public class SecurityService {
                     security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
             } else {
-                String branch = securityDetails.getBranchForSecurity();
+                String branch = securityDetails.getBranch();
                 Map<String, Double> branchMap = new HashMap<>();
                 branchMap.put(branch, valueOf(100.0));
                 security.setBranches(branchMap);

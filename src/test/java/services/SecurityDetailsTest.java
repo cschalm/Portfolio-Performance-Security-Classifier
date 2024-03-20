@@ -4,17 +4,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import models.SecurityDetailsCache;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.BASE_TARGET_PATH;
@@ -74,7 +68,7 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresPageFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        String branchName = securityDetails.getBranchName();
+        String branchName = securityDetails.loadBranchName();
         assertEquals("Kapitalmärkte", branchName);
     }
 

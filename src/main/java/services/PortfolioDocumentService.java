@@ -317,16 +317,16 @@ public class PortfolioDocumentService {
                 StringBuilder strMatchingStringForFile = new StringBuilder();
                 for (String branchNameFromSecurity : branchNamesFromSecurity) {
                     String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
-                    if ("DE000TUAG505".equalsIgnoreCase(security.getIsin())) {
-                        // Tui is classified as "Sonstige Branchen" ?!?
-                        optimizedBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
-                    }
-                    if ("US04010L1035".equalsIgnoreCase(security.getIsin())) {
-                        // Ares Capital Markets has no classification on Onvista ?!?
-                        optimizedBranchNameFromSecurity = "Kapitalmärkte";
-                    }
+//                    if ("DE000TUAG505".equalsIgnoreCase(security.getIsin())) {
+//                        // Tui is classified as "Sonstige Branchen" ?!?
+//                        optimizedBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
+//                    }
+//                    if ("US04010L1035".equalsIgnoreCase(security.getIsin())) {
+//                        // Ares Capital Markets has no classification on Onvista ?!?
+//                        optimizedBranchNameFromSecurity = "Kapitalmärkte";
+//                    }
                     if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
-                        // Hannover Rück is classified as "Sonstige Branchen" ?!?
+                        // Hannover Rück is classified as "Versicherung" ?!?
                         optimizedBranchNameFromSecurity = "Rückversicherungen";
                     }
                     // skip not matching branches
@@ -437,6 +437,9 @@ public class PortfolioDocumentService {
     String optimizeBranchNameFromSecurity(String branchNameFromSecurity) {
         String result = branchNameFromSecurity;
         switch (branchNameFromSecurity) {
+            case "IT/Telekommunikation":
+                result = "Kommunikationsausrüstung";
+                break;
             case "Telekomdienste":
                 result = "Telekommunikationsdienste";
                 break;
@@ -479,6 +482,12 @@ public class PortfolioDocumentService {
                 break;
             case "Unterhaltungselektronik":
                 result = "Verbraucherelektronik";
+                break;
+            case "Finanzdienstleistungen":
+                result = "Private Finanzdienste";
+                break;
+            case "Einzelhandel REITs":
+                result = "Handels-REITs";
                 break;
             default:
                 break;
