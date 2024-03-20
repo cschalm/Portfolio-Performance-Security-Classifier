@@ -40,16 +40,19 @@ public class PortfolioDocumentService {
                     logger.info("taxonomyName: " + taxonomyName);
 
                     if (taxonomyName.equals("Regionen")) {
+                        // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, securityDetailsCache.getCachedCountries(), taxonomyElement);
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
 
                     if (taxonomyName.equals("Branchen (GICS)")) {
+                        // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedBranches = importBranches(portfolioDocument, allSecurities, securityDetailsCache.getCachedBranches(), taxonomyElement);
                         securityDetailsCache.setCachedBranches(importedBranches);
                     }
 
                     if (taxonomyName.equals("Top Ten")) {
+                        // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedTopTen = importTopTen(portfolioDocument, allSecurities, securityDetailsCache.getCachedTopTen(), taxonomyElement);
                         securityDetailsCache.setCachedTopTen(importedTopTen);
                     }
@@ -438,7 +441,7 @@ public class PortfolioDocumentService {
         String result = branchNameFromSecurity;
         switch (branchNameFromSecurity) {
             case "IT/Telekommunikation":
-                result = "Kommunikationsausrüstung";
+                result = "Informationstechnologie";
                 break;
             case "Telekomdienste":
                 result = "Telekommunikationsdienste";

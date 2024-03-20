@@ -21,7 +21,7 @@ public class SecurityDetailsCache {
     public SecurityDetailsCache(String fullFileName) {
         this.fullFileName = fullFileName;
         try {
-            // if there is an entry in the cache-file, nothing is imported !!!
+            // if there is an entry in the cache-file, nothing is imported !!! (in PortfolioDucumentService)
             cacheFileJson = JsonParser.parseReader(new FileReader(fullFileName, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
             logger.warning("Cache of security details could not be read: " + e.getMessage());

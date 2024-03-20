@@ -66,8 +66,8 @@ public class SecurityService {
             if (isEftOrFond) {
                 JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
 
-                // parsing holdings
                 if (breakdownsNode != null) {
+                    // parsing holdings
                     Map<String, Double> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
                     security.setHoldings(oListForHoldings);
 

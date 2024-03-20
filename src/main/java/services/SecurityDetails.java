@@ -56,10 +56,9 @@ public class SecurityDetails {
         }
         File jsonUrl = new File(cachePath + isin + ".json");
         try {
-            // if there is an entry in the cache-file, nothing is imported !!!
             rootNode = JsonParser.parseReader(new FileReader(jsonUrl, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
-            logger.warning("JSON for " + isin + " not found in cache, loading...");
+            logger.info("JSON for " + isin + " not found in cache, loading...");
             String jsonResponsePart;
             if (isETF() || isFond()) {
                 String htmlPageAnlageschwerpunkt = readStringFromURL(ONVISTA_URL + detailsRequestPath);
@@ -178,7 +177,7 @@ public class SecurityDetails {
             Element td = elements.get(0);
             List<TextNode> textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
             String branch = textNodes.get(0).text().trim();
-            logger.info("found branch \"" + branch + "\" for " + isin);
+            logger.fine("found branch \"" + branch + "\" for " + isin);
             return branch;
         } catch (IOException e) {
             logger.warning("Error loading branch for " + isin + ": " + e.getMessage());

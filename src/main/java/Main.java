@@ -10,6 +10,7 @@ import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +35,6 @@ public class Main {
     private void run() throws IOException, TransformerException, ParserConfigurationException, SAXException {
         LogManager logManager = LogManager.getLogManager();
         logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
-        logger.info("----- Start -----");
         logger.info("Working Directory = " + BASE_PATH);
 
         Document portfolioDocument = loadPortfolioDocumentFromFile();
@@ -42,12 +42,16 @@ public class Main {
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
+        {
+            // remove cache-file to force analysis
+            File cacheFile = new File(SAVE_FILE);
+            if (cacheFile.exists())
+                logger.info("Cache-file deleted: " + cacheFile.delete());
+        }
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
         portfolioDocumentService.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
 
         xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
-
-        logger.info("----- END -----\n");
     }
 
     List<Security> addClassificationData(NodeList allSecurities) {
