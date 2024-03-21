@@ -34,6 +34,7 @@ public class SecurityDetails {
     private String detailsRequestPath;
     private JsonObject rootNode;
     private final String isin;
+    private String name;
     private String branch;
 
     public SecurityDetails(String cachePath, String isin) throws IOException, InterruptedException {
@@ -78,16 +79,21 @@ public class SecurityDetails {
         }
         if (isETF() || isFond()) {
             branch = "";
+            name = "";
         } else {
-            File branchCacheFileName = new File(cachePath + isin + "-branch.txt");
-            try (Stream<String> lines = Files.lines(Paths.get(branchCacheFileName.toURI()))) {
+            File branchAndNameCacheFileName = new File(cachePath + isin + "-branch.txt");
+            try (Stream<String> lines = Files.lines(Paths.get(branchAndNameCacheFileName.toURI()))) {
                 List<String> input = lines.collect(Collectors.toList());
-                if (!input.isEmpty()) branch = input.get(0);
+                if (!input.isEmpty()) {
+                    branch = input.get(0);
+                    name = input.get(1);
+                }
             } catch (IOException e) {
                 logger.info("Branch for " + isin + " not found in cache, loading...");
-                branch = loadBranchName();
-                try (PrintWriter savingImport = new PrintWriter(branchCacheFileName)) {
+                loadBranchAndDisplayName();
+                try (PrintWriter savingImport = new PrintWriter(branchAndNameCacheFileName)) {
                     savingImport.print(branch + "\n");
+                    savingImport.print(name + "\n");
                 } catch (FileNotFoundException fnfe) {
                     logger.warning("Error writing branch for " + isin + ": " + fnfe.getMessage());
                 }
@@ -118,16 +124,6 @@ public class SecurityDetails {
                 .getAsJsonObject("breakdowns");
     }
 
-    public String getBranchForSecurity() {
-        JsonObject branch = rootNode.getAsJsonObject("props")
-                .getAsJsonObject("pageProps")
-                .getAsJsonObject("data")
-                .getAsJsonObject("snapshot")
-                .getAsJsonObject("company")
-                .getAsJsonObject("branch");
-        return branch == null ? "" : branch.get("name").getAsString();
-    }
-
     public String getCountryForSecurity() {
         String country = rootNode.getAsJsonObject("props")
                 .getAsJsonObject("pageProps")
@@ -141,15 +137,6 @@ public class SecurityDetails {
         if ("Vereinigte Staaten".equalsIgnoreCase(country)) country = "USA";
 
         return country;
-    }
-
-    public String getCompanyNameForSecurity() {
-        return rootNode.getAsJsonObject("props")
-                .getAsJsonObject("pageProps")
-                .getAsJsonObject("data")
-                .getAsJsonObject("snapshot")
-                .getAsJsonObject("company")
-                .get("name").getAsString();
     }
 
     String extractJsonPartFromHtml(String htmlPageAnlageschwerpunkt) {
@@ -169,7 +156,7 @@ public class SecurityDetails {
         return rootNode;
     }
 
-    String loadBranchName() {
+    void loadBranchAndDisplayName() {
         try {
             String url = "https://app.parqet.com/wertpapiere/" + isin;
             Document doc = Jsoup.connect(url).get();
@@ -178,15 +165,24 @@ public class SecurityDetails {
             List<TextNode> textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
             String branch = textNodes.get(0).text().trim();
             logger.fine("found branch \"" + branch + "\" for " + isin);
-            return branch;
+            this.branch = branch;
+            elements = doc.selectXpath("//td[contains(text(), \"Name\")]");
+            td = elements.get(0);
+            textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
+            String name = textNodes.get(0).text().trim();
+            logger.fine("found name \"" + name + "\" for " + isin);
+            this.name = name;
         } catch (IOException e) {
             logger.warning("Error loading branch for " + isin + ": " + e.getMessage());
-            return getBranchForSecurity();
         }
     }
 
     public String getBranch() {
-        return this.branch;
+        return branch;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

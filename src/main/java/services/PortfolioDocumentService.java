@@ -219,13 +219,27 @@ public class PortfolioDocumentService {
     }
 
     TreeMap<String, List<String>> collectAllStockNames(List<Security> allSecurities) {
-        TreeSet<String> allStockNames = new TreeSet<>();
+        Set<String> allStockNames = new LinkedHashSet<>();
+        Set<String> fondStockNames = new HashSet<>();
+        Set<String> amundiStockNames = new HashSet<>();
         for (Security security : allSecurities) {
             if (security != null) {
-                Map<String, Double> holdings = security.getHoldings();
-                allStockNames.addAll(holdings.keySet());
+                if (!security.isFond()) {
+                    if (security.getName() != null && !security.getName().isEmpty()) {
+                        allStockNames.add(security.getName());
+                    }
+                } else {
+                    Map<String, Double> holdings = security.getHoldings();
+                    if (security.getName() != null && security.getName().toLowerCase().startsWith("amundi")) {
+                        amundiStockNames.addAll(holdings.keySet());
+                    } else {
+                        fondStockNames.addAll(holdings.keySet());
+                    }
+                }
             }
         }
+        allStockNames.addAll(fondStockNames);
+        allStockNames.addAll(amundiStockNames);
         logger.fine("All Stocknames:");
         for (String name : allStockNames) {
             logger.fine(name);
@@ -254,6 +268,7 @@ public class PortfolioDocumentService {
                     }
                 }
                 if (!found) {
+                    // maybe here we should check the spelling as the primary name later sets the name of the folder
                     result.put(inputName, new ArrayList<>());
                 }
             }
@@ -320,14 +335,6 @@ public class PortfolioDocumentService {
                 StringBuilder strMatchingStringForFile = new StringBuilder();
                 for (String branchNameFromSecurity : branchNamesFromSecurity) {
                     String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
-//                    if ("DE000TUAG505".equalsIgnoreCase(security.getIsin())) {
-//                        // Tui is classified as "Sonstige Branchen" ?!?
-//                        optimizedBranchNameFromSecurity = "Hotels, Urlaubsanlagen & Kreuzfahrtlinien";
-//                    }
-//                    if ("US04010L1035".equalsIgnoreCase(security.getIsin())) {
-//                        // Ares Capital Markets has no classification on Onvista ?!?
-//                        optimizedBranchNameFromSecurity = "Kapitalmärkte";
-//                    }
                     if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
                         // Hannover Rück is classified as "Versicherung" ?!?
                         optimizedBranchNameFromSecurity = "Rückversicherungen";

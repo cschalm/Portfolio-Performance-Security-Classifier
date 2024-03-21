@@ -48,7 +48,7 @@ public class SecurityService {
         if (!isin.isEmpty() && "false".equals(isRetired)) {
             security = createSecurity(isin);
             String name = xmlHelper.getTextContent(securitiesElement, "name");
-            if (!name.isEmpty()) {
+            if ((security.getName() == null || security.getName().isEmpty()) && !name.isEmpty()) {
                 security.setName(name);
             }
         }
@@ -56,13 +56,14 @@ public class SecurityService {
         return security;
     }
 
-    public Security createSecurity(String strIsin) {
+    Security createSecurity(String strIsin) {
         Security security = new Security(strIsin);
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
             boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFond();
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
+            security.setFond(isEftOrFond);
             if (isEftOrFond) {
                 JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
 
@@ -88,7 +89,8 @@ public class SecurityService {
                 countryMap.put(country, valueOf(100.0));
                 security.setCountries(countryMap);
 
-                String companyName = securityDetails.getCompanyNameForSecurity();
+                String companyName = securityDetails.getName();
+                security.setName(companyName);
                 Map<String, Double> holdingsMap = new HashMap<>();
                 holdingsMap.put(companyName, valueOf(100.0));
                 security.setHoldings(holdingsMap);

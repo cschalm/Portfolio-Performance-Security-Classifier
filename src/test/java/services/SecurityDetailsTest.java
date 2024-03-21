@@ -68,8 +68,9 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresPageFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        String branchName = securityDetails.loadBranchName();
-        assertEquals("Kapitalmärkte", branchName);
+        securityDetails.loadBranchAndDisplayName();
+        assertEquals("Kapitalmärkte", securityDetails.getBranch());
+        assertEquals("Ares Capital", securityDetails.getName());
     }
 
 }

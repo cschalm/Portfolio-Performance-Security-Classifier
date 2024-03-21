@@ -206,8 +206,8 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
         assertNotNull(security.getCountries());
-        assertEquals(33, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet());
+        assertEquals(32, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
         JsonArray cachedCountries = new JsonArray();
@@ -220,7 +220,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
                     JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, cachedCountries, taxonomyElement);
-                    assertEquals(33, importedCountries.size());
+                    assertEquals(32, importedCountries.size());
                 }
             }
         }

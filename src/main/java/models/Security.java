@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * One share or ETF with name and ISIN and branches, holdings and counties.
+ * One share from the portfolio in Portfolio Performance or ETF with name, ISIN and branches, holdings and counties.
  */
 public class Security {
     private final String isin;
     private String name;
+    private boolean fond;
     private Map<String, Double> branchesMap = new HashMap<>();
     private Map<String, Double> holdingsMap = new HashMap<>();
     private Map<String, Double> countriesMap = new HashMap<>();
@@ -113,4 +114,11 @@ public class Security {
         return isin;
     }
 
+    public boolean isFond() {
+        return fond;
+    }
+
+    public void setFond(boolean fond) {
+        this.fond = fond;
+    }
 }
