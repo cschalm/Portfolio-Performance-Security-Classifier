@@ -300,10 +300,8 @@ public class PortfolioDocumentService {
                 // real subsets of names are identical, e.g. "SAP" and "SAP SE"
                 return true;
             }
-            if (indexOfDifferenceLowerCase > 7) {
-                // names differ in later characters, so the beginning of both names are equal
-                return true;
-            }
+            // names differ in later characters, so the beginning of both names are equal
+            return indexOfDifferenceLowerCase > 7;
         }
         return false;
     }
@@ -339,27 +337,19 @@ public class PortfolioDocumentService {
                         // Hannover Rück is classified as "Versicherung" ?!?
                         optimizedBranchNameFromSecurity = "Rückversicherungen";
                     }
-                    // skip not matching branches
+                    // skip not matching branches, e.g. "diverse Branchen"
                     if (optimizedBranchNameFromSecurity.isEmpty()) continue;
-                    String bestMatchingBranchName = "";
-                    int currentLowestDistance = 1000;
-                    for (String branchNameFromPortfolio : branchNameFromPortfolioToNodeMap.keySet()) {
-                        int temp = levenshteinDistance(optimizedBranchNameFromSecurity, branchNameFromPortfolio);
-                        if (temp < currentLowestDistance) {
-                            bestMatchingBranchName = branchNameFromPortfolio;
-                            currentLowestDistance = temp;
-                        }
-                    }
+                    BestMatch bestMatch = getBestMatch(branchNameFromPortfolioToNodeMap.keySet(), optimizedBranchNameFromSecurity);
 
                     int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
 
-                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatchingBranchName + "\" zugeordnet. (Distanz: " + currentLowestDistance + ")");
+                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
 
-                    boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatchingBranchName, importedBranches);
+                    boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatch.bestMatchingBranchName, importedBranches);
 
                     if (nPercentage > 0 && !alreadyAddedBefore) {
                         Element assignment = portfolioDocument.createElement("assignment");
-                        PortfolioDocumentService.NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatchingBranchName);
+                        PortfolioDocumentService.NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingBranchName);
                         Node branchNode = oTuple.oNode;
 
                         Element assignments = portfolioDocument.createElement("assignments");
@@ -379,9 +369,9 @@ public class PortfolioDocumentService {
                         assignment.appendChild(rank);
 
                         assignments.appendChild(assignment);
-                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(currentLowestDistance).append(")\n");
+                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
 
-                        addNewJsonSecurity(importedBranches, bestMatchingBranchName, security.getIsin(), nPercentage);
+                        addNewJsonSecurity(importedBranches, bestMatch.bestMatchingBranchName, security.getIsin(), nPercentage);
                     }
                 }
                 if (strMatchingStringForFile.length() > 0) {
@@ -398,6 +388,30 @@ public class PortfolioDocumentService {
         logger.info(" - done!");
 
         return importedBranches;
+    }
+
+    BestMatch getBestMatch(Collection<String> branchNamesFromPortfolio, String branchNameFromSecurity) {
+        String bestMatchingBranchName = "";
+        int currentLowestDistance = 1000;
+        for (String branchNameFromPortfolio : branchNamesFromPortfolio) {
+            int temp = distance.apply(branchNameFromSecurity, branchNameFromPortfolio);
+
+            if (temp < currentLowestDistance) {
+                bestMatchingBranchName = branchNameFromPortfolio;
+                currentLowestDistance = temp;
+            }
+        }
+        return new BestMatch(bestMatchingBranchName, currentLowestDistance);
+    }
+
+    static class BestMatch {
+        public final String bestMatchingBranchName;
+        public final int lowestDistance;
+
+        public BestMatch(String bestMatchingBranchName, int lowestDistance) {
+            this.bestMatchingBranchName = bestMatchingBranchName;
+            this.lowestDistance = lowestDistance;
+        }
     }
 
     private Element linkAssignmentsToInvestmentVehicle(Node node, Element assignments, Element investmentVehicle, int indexEtf) {
@@ -451,11 +465,15 @@ public class PortfolioDocumentService {
                 result = "Informationstechnologie";
                 break;
             case "Telekomdienste":
+            case "Telekommunikation":
                 result = "Telekommunikationsdienste";
                 break;
             case "diverse Branchen":
             case "Sonstige Branchen":
                 result = "";
+                break;
+            case "Konsumgüter":
+                result = "Basiskonsumgüter";
                 break;
             case "Konsumgüter zyklisch":
                 result = "Nicht-Basiskonsumgüter";
@@ -464,6 +482,7 @@ public class PortfolioDocumentService {
                 result = "Roh-, Hilfs- & Betriebsstoffe";
                 break;
             case "Computerherstellung":
+            case "Hardware- Technologie, Speicherung und Peripheriegeräte":
                 result = "Hardware Technologie, Speicherung & Peripherie";
                 break;
             case "Fahrzeugbau":
@@ -472,11 +491,11 @@ public class PortfolioDocumentService {
             case "Halbleiterelektronik":
                 result = "Halbleiter";
                 break;
-            case "Baumaterialien/Baukomponenten":
-                result = "Baumaterialien";
-                break;
             case "Halbleiter Ausstattung":
                 result = "Geräte zur Halbleiterproduktion";
+                break;
+            case "Baumaterialien/Baukomponenten":
+                result = "Baumaterialien";
                 break;
             case "Vesorger/Strom konventionell/ Enegiefirmen":
             case "Versorger/Strom konventionell/ Enegiefirmen":
@@ -487,6 +506,9 @@ public class PortfolioDocumentService {
             case "Versorger/ erneuerbare Energie":
                 result = "Unabhängige Energie- und Erneuerbare Elektrizitätshersteller";
                 break;
+            case "Versorger":
+                result = "Versorgungsbetriebe";
+                break;
             case "Bauwesen":
                 result = "Bau- & Ingenieurswesen";
                 break;
@@ -496,8 +518,26 @@ public class PortfolioDocumentService {
             case "Finanzdienstleistungen":
                 result = "Private Finanzdienste";
                 break;
+            case "Finanzen":
+                result = "Finanzwesen";
+                break;
             case "Einzelhandel REITs":
                 result = "Handels-REITs";
+                break;
+            case "Diversifizierte REITs":
+                result = "Verschiedene REITs";
+                break;
+            case "Hypotheken-Immobilien-fonds (REITs)":
+                result = "Hypotheken-, Immobilien-, Investment-, Trusts (REITs)";
+                break;
+            case "Elektrokomponenten":
+                result = "Elektronische Komponenten";
+                break;
+            case "Elektrokomponenten & -geräte":
+                result = "Elektronische Geräte & Instrumente";
+                break;
+            case "Industriemaschinenbau":
+                result = "Industriemaschinen";
                 break;
             default:
                 break;
@@ -556,49 +596,6 @@ public class PortfolioDocumentService {
         } else {
             return 1 + returnRootSteps(node.getParentNode());
         }
-    }
-
-    private int levenshteinDistance(CharSequence lhs, CharSequence rhs) {
-        int len0 = lhs.length() + 1;
-        int len1 = rhs.length() + 1;
-        lhs = lhs.toString().toLowerCase();
-        rhs = rhs.toString().toLowerCase();
-        // the array of distances
-        int[] cost = new int[len0];
-        int[] newcost = new int[len0];
-
-        // initial cost of skipping prefix in String s0
-        for (int i = 0; i < len0; i++) cost[i] = i;
-
-        // dynamically computing the array of distances
-
-        // transformation cost for each letter in s1
-        for (int j = 1; j < len1; j++) {
-            // initial cost of skipping prefix in String s1
-            newcost[0] = j;
-
-            // transformation cost for each letter in s0
-            for (int i = 1; i < len0; i++) {
-                // matching current letters in both strings
-                int match = (lhs.charAt(i - 1) == rhs.charAt(j - 1)) ? 0 : 1;
-
-                // computing cost for each transformation
-                int cost_replace = cost[i - 1] + match;
-                int cost_insert = cost[i] + 1;
-                int cost_delete = newcost[i - 1] + 1;
-
-                // keep minimum cost
-                newcost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);
-            }
-
-            // swap cost/newcost arrays
-            int[] swap = cost;
-            cost = newcost;
-            newcost = swap;
-        }
-
-        // the distance is the cost for transforming all letters in both strings
-        return cost[len0 - 1];
     }
 
     public static class NodeRankTuple {

@@ -43,13 +43,13 @@ public class SecurityDetails {
         //noinspection ResultOfMethodCallIgnored
         cacheDir.mkdirs();
         File requestUrl = new File(cachePath + isin + ".txt");
-        try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()))) {
+        try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()), StandardCharsets.UTF_8)) {
             List<String> input = lines.collect(Collectors.toList());
             if (!input.isEmpty()) detailsRequestPath = input.get(0);
         } catch (IOException e) {
             logger.info("DetailsRequestPath for " + isin + " not found in cache, loading...");
             detailsRequestPath = readStringFromURL(ONVISTA_DETAILS_REQUEST_URL + isin);
-            try (PrintWriter savingImport = new PrintWriter(requestUrl)) {
+            try (PrintWriter savingImport = new PrintWriter(requestUrl, StandardCharsets.UTF_8)) {
                 savingImport.print(detailsRequestPath + "\n");
             } catch (FileNotFoundException fnfe) {
                 logger.warning("Error writing DetailsRequestPath for " + isin + ": " + fnfe.getMessage());
@@ -82,7 +82,7 @@ public class SecurityDetails {
             name = "";
         } else {
             File branchAndNameCacheFileName = new File(cachePath + isin + "-branch.txt");
-            try (Stream<String> lines = Files.lines(Paths.get(branchAndNameCacheFileName.toURI()))) {
+            try (Stream<String> lines = Files.lines(Paths.get(branchAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
                 List<String> input = lines.collect(Collectors.toList());
                 if (!input.isEmpty()) {
                     branch = input.get(0);
@@ -91,7 +91,7 @@ public class SecurityDetails {
             } catch (IOException e) {
                 logger.info("Branch for " + isin + " not found in cache, loading...");
                 loadBranchAndDisplayName();
-                try (PrintWriter savingImport = new PrintWriter(branchAndNameCacheFileName)) {
+                try (PrintWriter savingImport = new PrintWriter(branchAndNameCacheFileName, StandardCharsets.UTF_8)) {
                     savingImport.print(branch + "\n");
                     savingImport.print(name + "\n");
                 } catch (FileNotFoundException fnfe) {

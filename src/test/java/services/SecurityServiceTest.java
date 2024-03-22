@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 
+import static constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
 public class SecurityServiceTest extends AbstractTest {
@@ -72,6 +73,20 @@ public class SecurityServiceTest extends AbstractTest {
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
         assertEquals("IE000CNSFAR2", security.getIsin());
+        assertNotNull(security.getBranches());
+        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getCountries());
+        assertFalse(security.getCountries().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertFalse(security.getHoldings().isEmpty());
+    }
+
+    @Test
+    public void createSecurityStockAres() {
+        SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
+        Security security = service.createSecurity("US04010L1035");
+        assertNotNull(security);
+        assertEquals("US04010L1035", security.getIsin());
         assertNotNull(security.getBranches());
         assertFalse(security.getBranches().isEmpty());
         assertNotNull(security.getCountries());

@@ -98,7 +98,7 @@ public class SecurityService {
                 logger.fine("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
-            logger.warning("Error loading details for " + strIsin + ": " + e.getMessage());
+            logger.warning("Error loading details for " + strIsin + " from " + cachePath + ": " + e.getMessage());
         }
         return security;
     }
