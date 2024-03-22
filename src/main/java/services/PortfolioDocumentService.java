@@ -388,7 +388,7 @@ public class PortfolioDocumentService {
                     File logsDir = new File(LOGS_PATH);
                     //noinspection ResultOfMethodCallIgnored
                     logsDir.mkdirs();
-                    PrintWriter out = new PrintWriter(LOGS_PATH + security + ".txt");
+                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + ".txt");
                     out.print(strMatchingStringForFile);
                     out.close();
                 }
@@ -442,7 +442,7 @@ public class PortfolioDocumentService {
 
     /*
         Some names from the official data from a security might not fit well into the schema from
-        Portfolio Performance and should be "optimized" - some are misspelled
+        Portfolio Performance (or GICS) and should be "optimized" - some are even misspelled
      */
     String optimizeBranchNameFromSecurity(String branchNameFromSecurity) {
         String result = branchNameFromSecurity;

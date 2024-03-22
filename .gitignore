@@ -88,3 +88,14 @@ nb-configuration.xml
 /src/main/resources/portfolio_performance_file/backups/
 /src/main/resources/portfolio_performance_file/logs/
 /src/main/resources/portfolio_performance_file/cache/
+/src/main/resources/portfolio_performance_file/Portfolio Performance imported.backup.xml
+/src/main/resources/portfolio_performance_file/Portfolio Performance imported.backup-after-open.xml
+/src/main/resources/portfolio_performance_file/Portfolio Performance imported.settings
+/src/main/resources/portfolio_performance_file/Portfolio Performance imported.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance.backup.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance.backup-after-open.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.backup.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.xml
+/src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.settings
+/src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.backup-after-open.xml

@@ -44,11 +44,11 @@ public class Main {
 
         {
             // remove cache-file to force analysis
-            File cacheFile = new File(SAVE_FILE);
+            File cacheFile = new File(CACHE_FILE);
             if (cacheFile.exists())
                 logger.info("Cache-file deleted: " + cacheFile.delete());
         }
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(SAVE_FILE);
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(CACHE_FILE);
         portfolioDocumentService.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
 
         xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
