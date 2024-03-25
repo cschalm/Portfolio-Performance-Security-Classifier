@@ -65,7 +65,7 @@ public class PortfolioDocumentService {
         }
     }
 
-    JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedTopTen, Element taxonomyElement) {
+    JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedTopTen, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing Top Ten...");
         Element oRootOfTopTen = (Element) taxonomyElement.getElementsByTagName("root").item(0);
 
@@ -145,6 +145,24 @@ public class PortfolioDocumentService {
             // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
             if (assignments.hasChildNodes()) {
                 childrenNode.appendChild(classificationNodeForStock);
+            }
+        }
+        for (Security security : allSecurities) {
+            if (security != null) {
+                StringBuilder holdingAssignmentLog = new StringBuilder();
+                for (String holding : security.getHoldings().keySet()) {
+                    int nPercentage = (int) Math.ceil(security.getPercentageOfHolding(holding) * 100.0);
+                    if (nPercentage > 0)
+                        holdingAssignmentLog.append("Holding \"").append(holding).append("\" mit ").append((double) nPercentage / 100.0).append("% zugeordnet.\n");
+                }
+                if (holdingAssignmentLog.length() > 0) {
+                    File logsDir = new File(LOGS_PATH);
+                    //noinspection ResultOfMethodCallIgnored
+                    logsDir.mkdirs();
+                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-holding.txt");
+                    out.print(holdingAssignmentLog);
+                    out.close();
+                }
             }
         }
         logger.info(" - done!");
@@ -330,7 +348,7 @@ public class PortfolioDocumentService {
             String[] branchNamesFromSecurity = security.getAllBranches();
             if (branchNamesFromSecurity != null && branchNamesFromSecurity.length > 0) {
 
-                StringBuilder strMatchingStringForFile = new StringBuilder();
+                StringBuilder branchAssignmentLog = new StringBuilder();
                 for (String branchNameFromSecurity : branchNamesFromSecurity) {
                     String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
                     if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
@@ -343,7 +361,7 @@ public class PortfolioDocumentService {
 
                     int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
 
-                    logger.fine("-> Branche (ETF / Fond) \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
+                    logger.fine("Branche \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
 
                     boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatch.bestMatchingBranchName, importedBranches);
 
@@ -369,17 +387,17 @@ public class PortfolioDocumentService {
                         assignment.appendChild(rank);
 
                         assignments.appendChild(assignment);
-                        strMatchingStringForFile.append("-> Branche (ETF / Fond) \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
+                        branchAssignmentLog.append("Branche \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
 
                         addNewJsonSecurity(importedBranches, bestMatch.bestMatchingBranchName, security.getIsin(), nPercentage);
                     }
                 }
-                if (strMatchingStringForFile.length() > 0) {
+                if (branchAssignmentLog.length() > 0) {
                     File logsDir = new File(LOGS_PATH);
                     //noinspection ResultOfMethodCallIgnored
                     logsDir.mkdirs();
-                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + ".txt");
-                    out.print(strMatchingStringForFile);
+                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-branch.txt");
+                    out.print(branchAssignmentLog);
                     out.close();
                 }
             }
@@ -545,7 +563,7 @@ public class PortfolioDocumentService {
         return result;
     }
 
-    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedCountries, Element taxonomyElement) {
+    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedCountries, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing regions...");
         NodeList oListOfAllCountriesFromPortfolio = taxonomyElement.getElementsByTagName("classification");
 
@@ -569,7 +587,6 @@ public class PortfolioDocumentService {
                         boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountryFromPortfolio, importedRegions);
 
                         if (nPercentage > 0 && !alreadyAddedBefore) {
-                            //System.out.printf("Country: %s with more than 0.0 found in etf: %s\n", strCountryFromPortfolio, allSecurities[indexEtf].getName());
                             Element assignments = portfolioDocument.createElement("assignments");
                             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
 
@@ -582,6 +599,24 @@ public class PortfolioDocumentService {
                         }
                     }
                     indexEtf++;
+                }
+            }
+        }
+        for (Security security : allSecurities) {
+            if (security != null) {
+                StringBuilder countryAssignmentLog = new StringBuilder();
+                for (String country : security.getCountries().keySet()) {
+                    int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(country) * 100.0);
+                    if (nPercentage > 0)
+                        countryAssignmentLog.append("Country \"").append(country).append("\" mit ").append((double) nPercentage / 100.0).append("% zugeordnet.\n");
+                }
+                if (countryAssignmentLog.length() > 0) {
+                    File logsDir = new File(LOGS_PATH);
+                    //noinspection ResultOfMethodCallIgnored
+                    logsDir.mkdirs();
+                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-country.txt");
+                    out.print(countryAssignmentLog);
+                    out.close();
                 }
             }
         }
