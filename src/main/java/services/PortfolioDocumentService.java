@@ -345,61 +345,58 @@ public class PortfolioDocumentService {
                 continue;
             }
             logger.fine("Security: " + security);
-            String[] branchNamesFromSecurity = security.getAllBranches();
-            if (branchNamesFromSecurity != null && branchNamesFromSecurity.length > 0) {
 
-                StringBuilder branchAssignmentLog = new StringBuilder();
-                for (String branchNameFromSecurity : branchNamesFromSecurity) {
-                    String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
-                    if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
-                        // Hannover Rück is classified as "Versicherung" ?!?
-                        optimizedBranchNameFromSecurity = "Rückversicherungen";
-                    }
-                    // skip not matching branches, e.g. "diverse Branchen"
-                    if (optimizedBranchNameFromSecurity.isEmpty()) continue;
-                    BestMatch bestMatch = getBestMatch(branchNameFromPortfolioToNodeMap.keySet(), optimizedBranchNameFromSecurity);
-
-                    int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
-
-                    logger.fine("Branche \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
-
-                    boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatch.bestMatchingBranchName, importedBranches);
-
-                    if (nPercentage > 0 && !alreadyAddedBefore) {
-                        Element assignment = portfolioDocument.createElement("assignment");
-                        PortfolioDocumentService.NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingBranchName);
-                        Node branchNode = oTuple.oNode;
-
-                        Element assignments = portfolioDocument.createElement("assignments");
-                        Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-
-                        assignments = linkAssignmentsToInvestmentVehicle(branchNode, assignments, investmentVehicle, indexEtf);
-
-                        Element weight = portfolioDocument.createElement("weight");
-                        weight.setTextContent(Integer.toString(nPercentage));
-
-                        Element rank = portfolioDocument.createElement("rank");
-                        oTuple.nRank++;
-                        rank.setTextContent(Integer.toString(oTuple.nRank));
-
-                        assignment.appendChild(investmentVehicle);
-                        assignment.appendChild(weight);
-                        assignment.appendChild(rank);
-
-                        assignments.appendChild(assignment);
-                        branchAssignmentLog.append("Branche \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
-
-                        addNewJsonSecurity(importedBranches, bestMatch.bestMatchingBranchName, security.getIsin(), nPercentage);
-                    }
+            StringBuilder branchAssignmentLog = new StringBuilder();
+            for (String branchNameFromSecurity : security.getBranches().keySet()) {
+                String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
+                if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
+                    // Hannover Rück is classified as "Versicherung" ?!?
+                    optimizedBranchNameFromSecurity = "Rückversicherungen";
                 }
-                if (branchAssignmentLog.length() > 0) {
-                    File logsDir = new File(LOGS_PATH);
-                    //noinspection ResultOfMethodCallIgnored
-                    logsDir.mkdirs();
-                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-branch.txt");
-                    out.print(branchAssignmentLog);
-                    out.close();
+                // skip not matching branches, e.g. "diverse Branchen"
+                if (optimizedBranchNameFromSecurity.isEmpty()) continue;
+                BestMatch bestMatch = getBestMatch(branchNameFromPortfolioToNodeMap.keySet(), optimizedBranchNameFromSecurity);
+
+                int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
+
+                logger.fine("Branche \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
+
+                boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatch.bestMatchingBranchName, importedBranches);
+
+                if (nPercentage > 0 && !alreadyAddedBefore) {
+                    Element assignment = portfolioDocument.createElement("assignment");
+                    PortfolioDocumentService.NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingBranchName);
+                    Node branchNode = oTuple.oNode;
+
+                    Element assignments = portfolioDocument.createElement("assignments");
+                    Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+
+                    assignments = linkAssignmentsToInvestmentVehicle(branchNode, assignments, investmentVehicle, indexEtf);
+
+                    Element weight = portfolioDocument.createElement("weight");
+                    weight.setTextContent(Integer.toString(nPercentage));
+
+                    Element rank = portfolioDocument.createElement("rank");
+                    oTuple.nRank++;
+                    rank.setTextContent(Integer.toString(oTuple.nRank));
+
+                    assignment.appendChild(investmentVehicle);
+                    assignment.appendChild(weight);
+                    assignment.appendChild(rank);
+
+                    assignments.appendChild(assignment);
+                    branchAssignmentLog.append("Branche \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
+
+                    addNewJsonSecurity(importedBranches, bestMatch.bestMatchingBranchName, security.getIsin(), nPercentage);
                 }
+            }
+            if (branchAssignmentLog.length() > 0) {
+                File logsDir = new File(LOGS_PATH);
+                //noinspection ResultOfMethodCallIgnored
+                logsDir.mkdirs();
+                PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-branch.txt");
+                out.print(branchAssignmentLog);
+                out.close();
             }
             indexEtf++;
         }

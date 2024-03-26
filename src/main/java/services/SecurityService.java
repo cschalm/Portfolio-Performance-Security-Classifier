@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.CACHE_PATH;
-import static java.lang.Double.valueOf;
 
 public class SecurityService {
     private static final Logger logger = Logger.getLogger(SecurityService.class.getCanonicalName());
@@ -81,18 +80,18 @@ public class SecurityService {
             } else {
                 String branch = securityDetails.getBranch();
                 Map<String, Double> branchMap = new HashMap<>();
-                branchMap.put(branch, valueOf(100.0));
+                branchMap.put(branch, 100.0);
                 security.setBranches(branchMap);
 
                 String country = securityDetails.getCountryForSecurity();
                 Map<String, Double> countryMap = new HashMap<>();
-                countryMap.put(country, valueOf(100.0));
+                countryMap.put(country, 100.0);
                 security.setCountries(countryMap);
 
                 String companyName = securityDetails.getName();
                 security.setName(companyName);
                 Map<String, Double> holdingsMap = new HashMap<>();
-                holdingsMap.put(companyName, valueOf(100.0));
+                holdingsMap.put(companyName, 100.0);
                 security.setHoldings(holdingsMap);
 
                 logger.fine("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);

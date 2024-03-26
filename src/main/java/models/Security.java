@@ -103,10 +103,6 @@ public class Security {
         return this.holdingsMap.getOrDefault(holding, 0.0);
     }
 
-    public String[] getAllBranches() {
-        return this.branchesMap.keySet().toArray(new String[0]);
-    }
-
     @Override
     public String toString() {
         if (name != null)
@@ -121,4 +117,5 @@ public class Security {
     public void setFond(boolean fond) {
         this.fond = fond;
     }
+
 }
