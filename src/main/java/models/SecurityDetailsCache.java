@@ -26,7 +26,7 @@ public class SecurityDetailsCache {
         } catch (Exception e) {
             logger.warning("Cache of security details could not be read: " + e.getMessage());
             cacheFileJson = new JsonObject();
-            setCachedBranches(new JsonArray());
+            setCachedIndustries(new JsonArray());
             setCachedCountries(new JsonArray());
             setCachedTopTen(new JsonArray());
         }
@@ -40,8 +40,8 @@ public class SecurityDetailsCache {
         return cacheFileJson.get("countries").getAsJsonArray();
     }
 
-    public JsonArray getCachedBranches() {
-        return cacheFileJson.get("branches").getAsJsonArray();
+    public JsonArray getCachedIndustries() {
+        return cacheFileJson.get("industries").getAsJsonArray();
     }
 
     public JsonArray getCachedTopTen() {
@@ -52,8 +52,8 @@ public class SecurityDetailsCache {
         cacheFileJson.add("countries", cachedCountries);
     }
 
-    public void setCachedBranches(JsonArray cachedBranches) {
-        cacheFileJson.add("branches", cachedBranches);
+    public void setCachedIndustries(JsonArray cachedIndustries) {
+        cacheFileJson.add("industries", cachedIndustries);
     }
 
     public void setCachedTopTen(JsonArray cachedTopTen) {

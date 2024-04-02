@@ -47,8 +47,8 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals("Branchen (GICS)")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedBranches = importBranches(portfolioDocument, allSecurities, securityDetailsCache.getCachedBranches(), taxonomyElement);
-                        securityDetailsCache.setCachedBranches(importedBranches);
+                        JsonArray importedIndustries = importIndustries(portfolioDocument, allSecurities, securityDetailsCache.getCachedIndustries(), taxonomyElement);
+                        securityDetailsCache.setCachedIndustries(importedIndustries);
                     }
 
                     if (taxonomyName.equals("Top Ten")) {
@@ -153,16 +153,9 @@ public class PortfolioDocumentService {
                 for (String holding : security.getHoldings().keySet()) {
                     int nPercentage = (int) Math.ceil(security.getPercentageOfHolding(holding) * 100.0);
                     if (nPercentage > 0)
-                        holdingAssignmentLog.append("Holding \"").append(holding).append("\" mit ").append((double) nPercentage / 100.0).append("% zugeordnet.\n");
+                        holdingAssignmentLog.append("Holding \"").append(holding).append("\" assigned with ").append((double) nPercentage / 100.0).append("%\n");
                 }
-                if (holdingAssignmentLog.length() > 0) {
-                    File logsDir = new File(LOGS_PATH);
-                    //noinspection ResultOfMethodCallIgnored
-                    logsDir.mkdirs();
-                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-holding.txt");
-                    out.print(holdingAssignmentLog);
-                    out.close();
-                }
+                writeLogfile4Security(security, holdingAssignmentLog, "holding");
             }
         }
         logger.info(" - done!");
@@ -324,18 +317,18 @@ public class PortfolioDocumentService {
         return false;
     }
 
-    JsonArray importBranches(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedBranches, Element taxonomyElement) throws FileNotFoundException {
-        logger.info("Importing branches...");
-        NodeList allBranchesFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
+    JsonArray importIndustries(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedIndustries, Element taxonomyElement) throws FileNotFoundException {
+        logger.info("Importing industries...");
+        NodeList allIndustriesFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
 
-        JsonArray importedBranches = new JsonArray();
-        Map<String, PortfolioDocumentService.NodeRankTuple> branchNameFromPortfolioToNodeMap = new HashMap<>();
-        for (int indexBranch = 0; indexBranch < allBranchesFromPortfolioNodeList.getLength(); indexBranch++) {
-            Node branchFromPortfolioNode = allBranchesFromPortfolioNodeList.item(indexBranch);
-            if (branchFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
-                String branchNameFromPortfolio = xmlHelper.getTextContent((Element) branchFromPortfolioNode, "name");
-                logger.fine("Importing branch " + branchNameFromPortfolio);
-                branchNameFromPortfolioToNodeMap.put(branchNameFromPortfolio, new PortfolioDocumentService.NodeRankTuple(branchFromPortfolioNode, 0));
+        JsonArray importedIndustries = new JsonArray();
+        Map<String, PortfolioDocumentService.NodeRankTuple> industryNameFromPortfolioToNodeMap = new HashMap<>();
+        for (int indexIndustry = 0; indexIndustry < allIndustriesFromPortfolioNodeList.getLength(); indexIndustry++) {
+            Node industryFromPortfolioNode = allIndustriesFromPortfolioNodeList.item(indexIndustry);
+            if (industryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
+                logger.fine("Importing industry " + industryNameFromPortfolio);
+                industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new PortfolioDocumentService.NodeRankTuple(industryFromPortfolioNode, 0));
             }
         }
         int indexEtf = 0;
@@ -346,26 +339,23 @@ public class PortfolioDocumentService {
             }
             logger.fine("Security: " + security);
 
-            StringBuilder branchAssignmentLog = new StringBuilder();
-            for (String branchNameFromSecurity : security.getBranches().keySet()) {
-                String optimizedBranchNameFromSecurity = optimizeBranchNameFromSecurity(branchNameFromSecurity);
+            StringBuilder industryAssignmentLog = new StringBuilder();
+            for (String industryNameFromSecurity : security.getIndustries().keySet()) {
+                String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity);
                 if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
                     // Hannover Rück is classified as "Versicherung" ?!?
-                    optimizedBranchNameFromSecurity = "Rückversicherungen";
+                    optimizedIndustryNameFromSecurity = "Rückversicherungen";
                 }
-                // skip not matching branches, e.g. "diverse Branchen"
-                if (optimizedBranchNameFromSecurity.isEmpty()) continue;
-                BestMatch bestMatch = getBestMatch(branchNameFromPortfolioToNodeMap.keySet(), optimizedBranchNameFromSecurity);
+                // skip not matching industries, e.g. "diverse Branchen"
+                if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
+                BestMatch bestMatch = getBestMatch(industryNameFromPortfolioToNodeMap.keySet(), optimizedIndustryNameFromSecurity);
 
-                int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(branchNameFromSecurity) * 100.0);
-
-                logger.fine("Branche \"" + branchNameFromSecurity + "\" mit " + ((double) nPercentage / 100.0) + "% der Branche (PP) \"" + bestMatch.bestMatchingBranchName + "\" zugeordnet. (Distanz: " + bestMatch.lowestDistance + ")");
-
-                boolean alreadyAddedBefore = isContainedInCache(cachedBranches, security.getIsin(), nPercentage, bestMatch.bestMatchingBranchName, importedBranches);
+                int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(industryNameFromSecurity) * 100.0);
+                boolean alreadyAddedBefore = isContainedInCache(cachedIndustries, security.getIsin(), nPercentage, bestMatch.bestMatchingIndustryName, importedIndustries);
 
                 if (nPercentage > 0 && !alreadyAddedBefore) {
                     Element assignment = portfolioDocument.createElement("assignment");
-                    PortfolioDocumentService.NodeRankTuple oTuple = branchNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingBranchName);
+                    PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
                     Node branchNode = oTuple.oNode;
 
                     Element assignments = portfolioDocument.createElement("assignments");
@@ -385,24 +375,17 @@ public class PortfolioDocumentService {
                     assignment.appendChild(rank);
 
                     assignments.appendChild(assignment);
-                    branchAssignmentLog.append("Branche \"").append(branchNameFromSecurity).append("\" mit ").append((double) nPercentage / 100.0).append("% der Branche (PP) \"").append(bestMatch.bestMatchingBranchName).append("\" zugeordnet. Distanz: ").append(bestMatch.lowestDistance).append(")\n");
+                    industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) nPercentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
 
-                    addNewJsonSecurity(importedBranches, bestMatch.bestMatchingBranchName, security.getIsin(), nPercentage);
+                    addNewJsonSecurity(importedIndustries, bestMatch.bestMatchingIndustryName, security.getIsin(), nPercentage);
                 }
             }
-            if (branchAssignmentLog.length() > 0) {
-                File logsDir = new File(LOGS_PATH);
-                //noinspection ResultOfMethodCallIgnored
-                logsDir.mkdirs();
-                PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-branch.txt");
-                out.print(branchAssignmentLog);
-                out.close();
-            }
+            writeLogfile4Security(security, industryAssignmentLog, "industry");
             indexEtf++;
         }
         logger.info(" - done!");
 
-        return importedBranches;
+        return importedIndustries;
     }
 
     BestMatch getBestMatch(Collection<String> branchNamesFromPortfolio, String branchNameFromSecurity) {
@@ -420,11 +403,11 @@ public class PortfolioDocumentService {
     }
 
     static class BestMatch {
-        public final String bestMatchingBranchName;
+        public final String bestMatchingIndustryName;
         public final int lowestDistance;
 
-        public BestMatch(String bestMatchingBranchName, int lowestDistance) {
-            this.bestMatchingBranchName = bestMatchingBranchName;
+        public BestMatch(String bestMatchingIndustryName, int lowestDistance) {
+            this.bestMatchingIndustryName = bestMatchingIndustryName;
             this.lowestDistance = lowestDistance;
         }
     }
@@ -473,9 +456,9 @@ public class PortfolioDocumentService {
         Some names from the official data from a security might not fit well into the schema from
         Portfolio Performance (or GICS) and should be "optimized" - some are even misspelled
      */
-    String optimizeBranchNameFromSecurity(String branchNameFromSecurity) {
-        String result = branchNameFromSecurity;
-        switch (branchNameFromSecurity) {
+    String optimizeIndustryNameFromSecurity(String industryNameFromSecurity) {
+        String result = industryNameFromSecurity;
+        switch (industryNameFromSecurity) {
             case "IT/Telekommunikation":
                 result = "Informationstechnologie";
                 break;
@@ -605,16 +588,9 @@ public class PortfolioDocumentService {
                 for (String country : security.getCountries().keySet()) {
                     int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(country) * 100.0);
                     if (nPercentage > 0)
-                        countryAssignmentLog.append("Country \"").append(country).append("\" mit ").append((double) nPercentage / 100.0).append("% zugeordnet.\n");
+                        countryAssignmentLog.append("Country \"").append(country).append("\" assigned with ").append((double) nPercentage / 100.0).append("%\n");
                 }
-                if (countryAssignmentLog.length() > 0) {
-                    File logsDir = new File(LOGS_PATH);
-                    //noinspection ResultOfMethodCallIgnored
-                    logsDir.mkdirs();
-                    PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-country.txt");
-                    out.print(countryAssignmentLog);
-                    out.close();
-                }
+                writeLogfile4Security(security, countryAssignmentLog, "country");
             }
         }
         logger.info(" - done!");
@@ -637,6 +613,17 @@ public class PortfolioDocumentService {
         public NodeRankTuple(Node node, int b) {
             this.oNode = node;
             this.nRank = b;
+        }
+    }
+
+    void writeLogfile4Security(Security security, StringBuilder logLines, String fileSuffix) throws FileNotFoundException {
+        if (logLines.length() > 0) {
+            File logsDir = new File(LOGS_PATH);
+            //noinspection ResultOfMethodCallIgnored
+            logsDir.mkdirs();
+            PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-" + fileSuffix + ".txt");
+            out.print(logLines);
+            out.close();
         }
     }
 

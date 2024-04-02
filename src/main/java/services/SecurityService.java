@@ -72,16 +72,16 @@ public class SecurityService {
                     security.setHoldings(oListForHoldings);
 
                     // parsing branches
-                    security.setBranches(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
+                    security.setIndustries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
 
                     // parsing country
                     security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
             } else {
-                String branch = securityDetails.getBranch();
-                Map<String, Double> branchMap = new HashMap<>();
-                branchMap.put(branch, 100.0);
-                security.setBranches(branchMap);
+                String industry = securityDetails.getIndustry();
+                Map<String, Double> industriesMap = new HashMap<>();
+                industriesMap.put(industry, 100.0);
+                security.setIndustries(industriesMap);
 
                 String country = securityDetails.getCountryForSecurity();
                 Map<String, Double> countryMap = new HashMap<>();
@@ -94,7 +94,7 @@ public class SecurityService {
                 holdingsMap.put(companyName, 100.0);
                 security.setHoldings(holdingsMap);
 
-                logger.fine("Setting name \"" + companyName + "\" and branch \"" + branch + "\" and country \"" + country + "\" to security: " + security);
+                logger.fine("Setting name \"" + companyName + "\" and industry \"" + industry + "\" and country \"" + country + "\" to security: " + security);
             }
         } catch (Exception e) {
             logger.warning("Error loading details for " + strIsin + " from " + cachePath + ": " + e.getMessage());

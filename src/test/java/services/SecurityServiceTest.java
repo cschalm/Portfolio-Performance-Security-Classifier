@@ -37,8 +37,8 @@ public class SecurityServiceTest extends AbstractTest {
         Security security = service.createSecurity("IE00BYYHSM20");
         assertNotNull(security);
         assertEquals("IE00BYYHSM20", security.getIsin());
-        assertNotNull(security.getBranches());
-        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
         assertNotNull(security.getHoldings());
@@ -51,8 +51,8 @@ public class SecurityServiceTest extends AbstractTest {
         Security security = service.createSecurity("DE000TUAG505");
         assertNotNull(security);
         assertEquals("DE000TUAG505", security.getIsin());
-        assertNotNull(security.getBranches());
-        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
         assertNotNull(security.getHoldings());
@@ -73,8 +73,8 @@ public class SecurityServiceTest extends AbstractTest {
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);
         assertEquals("IE000CNSFAR2", security.getIsin());
-        assertNotNull(security.getBranches());
-        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
         assertNotNull(security.getHoldings());
@@ -87,8 +87,8 @@ public class SecurityServiceTest extends AbstractTest {
         Security security = service.createSecurity("US04010L1035");
         assertNotNull(security);
         assertEquals("US04010L1035", security.getIsin());
-        assertNotNull(security.getBranches());
-        assertFalse(security.getBranches().isEmpty());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
         assertFalse(security.getCountries().isEmpty());
         assertNotNull(security.getHoldings());

@@ -52,7 +52,7 @@ public class SecurityDetailsTest extends AbstractTest {
     public void loadFromCache_IE00BYYHSM20() {
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TEST_PATH + "XmlFileWriterTest/IE00BYYHSM20.json");
         assertEquals("Countries", 14, securityDetailsCache.getCachedCountries().asList().size());
-        assertEquals("Branches", 9, securityDetailsCache.getCachedBranches().asList().size());
+        assertEquals("Branches", 9, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 10, securityDetailsCache.getCachedTopTen().asList().size());
     }
 
@@ -60,7 +60,7 @@ public class SecurityDetailsTest extends AbstractTest {
     public void loadFromCache_IE000CNSFAR2() {
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TEST_PATH + "XmlFileWriterTest/IE000CNSFAR2.json");
         assertEquals("Countries", 33, securityDetailsCache.getCachedCountries().asList().size());
-        assertEquals("Branches", 11, securityDetailsCache.getCachedBranches().asList().size());
+        assertEquals("Branches", 11, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 9, securityDetailsCache.getCachedTopTen().asList().size());
     }
 
@@ -68,8 +68,8 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresPageFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        securityDetails.loadBranchAndDisplayName();
-        assertEquals("Kapitalmärkte", securityDetails.getBranch());
+        securityDetails.loadIndustryAndDisplayName();
+        assertEquals("Kapitalmärkte", securityDetails.getIndustry());
         assertEquals("Ares Capital", securityDetails.getName());
     }
 

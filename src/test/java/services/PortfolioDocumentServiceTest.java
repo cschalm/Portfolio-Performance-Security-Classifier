@@ -51,7 +51,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 14, securityDetailsCache.getCachedCountries().asList().size());
-        assertEquals("Branches", 9, securityDetailsCache.getCachedBranches().asList().size());
+        assertEquals("Branches", 9, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 10, securityDetailsCache.getCachedTopTen().asList().size());
     }
 
@@ -68,7 +68,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
         assertEquals("Countries", 32, securityDetailsCache.getCachedCountries().asList().size());
-        assertEquals("Branches", 11, securityDetailsCache.getCachedBranches().asList().size());
+        assertEquals("Branches", 11, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 9, securityDetailsCache.getCachedTopTen().asList().size());
     }
 
@@ -85,7 +85,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = portfolioDocumentService.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, cachedBranches, taxonomyElement);
                     assertEquals(9, importedBranches.size());
                 }
             }
@@ -109,7 +109,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = portfolioDocumentService.importBranches(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, cachedBranches, taxonomyElement);
                     assertEquals(11, importedBranches.size());
                 }
             }
@@ -281,41 +281,41 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
 
     @Test
     public void testOptimizeBranchNameFromSecurity() {
-        assertEquals("Banken", portfolioDocumentService.optimizeBranchNameFromSecurity("Banken"));
-        assertEquals("Basiskonsumgüter", portfolioDocumentService.optimizeBranchNameFromSecurity("Basiskonsumgüter"));
-        assertEquals("Baumaterialien", portfolioDocumentService.optimizeBranchNameFromSecurity("Baumaterialien/Baukomponenten"));
-        assertEquals("Chemikalien", portfolioDocumentService.optimizeBranchNameFromSecurity("Chemikalien"));
-        assertEquals("Hardware Technologie, Speicherung & Peripherie", portfolioDocumentService.optimizeBranchNameFromSecurity("Computerherstellung"));
-        assertEquals("Verschiedene REITs", portfolioDocumentService.optimizeBranchNameFromSecurity("Diversifizierte REITs"));
-        assertEquals("Drahtlose Telekommunikationsdienste", portfolioDocumentService.optimizeBranchNameFromSecurity("Drahtlose Telekommunikationsdienste"));
-        assertEquals("Handels-REITs", portfolioDocumentService.optimizeBranchNameFromSecurity("Einzelhandel REITs"));
-        assertEquals("Elektronische Komponenten", portfolioDocumentService.optimizeBranchNameFromSecurity("Elektrokomponenten"));
-        assertEquals("Elektronische Geräte & Instrumente", portfolioDocumentService.optimizeBranchNameFromSecurity("Elektrokomponenten & -geräte"));
-        assertEquals("Energie", portfolioDocumentService.optimizeBranchNameFromSecurity("Energie"));
-        assertEquals("Automobilbranche", portfolioDocumentService.optimizeBranchNameFromSecurity("Fahrzeugbau"));
-        assertEquals("Private Finanzdienste", portfolioDocumentService.optimizeBranchNameFromSecurity("Finanzdienstleistungen"));
-        assertEquals("Finanzwesen", portfolioDocumentService.optimizeBranchNameFromSecurity("Finanzen"));
-        assertEquals("Gesundheitswesen", portfolioDocumentService.optimizeBranchNameFromSecurity("Gesundheitswesen"));
-        assertEquals("Halbleiter", portfolioDocumentService.optimizeBranchNameFromSecurity("Halbleiterelektronik"));
-        assertEquals("Hardware Technologie, Speicherung & Peripherie", portfolioDocumentService.optimizeBranchNameFromSecurity("Hardware- Technologie, Speicherung und Peripheriegeräte"));
-        assertEquals("Hotels, Restaurants und Freizeit", portfolioDocumentService.optimizeBranchNameFromSecurity("Hotels, Restaurants und Freizeit"));
-        assertEquals("Hypotheken-, Immobilien-, Investment-, Trusts (REITs)", portfolioDocumentService.optimizeBranchNameFromSecurity("Hypotheken-Immobilien-fonds (REITs)"));
-        assertEquals("Informationstechnologie", portfolioDocumentService.optimizeBranchNameFromSecurity("IT/Telekommunikation"));
-        assertEquals("Immobilien", portfolioDocumentService.optimizeBranchNameFromSecurity("Immobilien"));
-        assertEquals("Industrie", portfolioDocumentService.optimizeBranchNameFromSecurity("Industrie"));
-        assertEquals("Industriemaschinen", portfolioDocumentService.optimizeBranchNameFromSecurity("Industriemaschinenbau"));
-        assertEquals("Informationstechnologie", portfolioDocumentService.optimizeBranchNameFromSecurity("Informationstechnologie"));
-        assertEquals("Basiskonsumgüter", portfolioDocumentService.optimizeBranchNameFromSecurity("Konsumgüter"));
-        assertEquals("Nicht-Basiskonsumgüter", portfolioDocumentService.optimizeBranchNameFromSecurity("Konsumgüter zyklisch"));
-        assertEquals("Roh-, Hilfs- & Betriebsstoffe", portfolioDocumentService.optimizeBranchNameFromSecurity("Rohstoffe"));
-        assertEquals("Rückversicherung", portfolioDocumentService.optimizeBranchNameFromSecurity("Rückversicherung"));
-        assertEquals("Software", portfolioDocumentService.optimizeBranchNameFromSecurity("Software"));
-        assertEquals("Telekommunikationsdienste", portfolioDocumentService.optimizeBranchNameFromSecurity("Telekomdienste"));
-        assertEquals("Telekommunikationsdienste", portfolioDocumentService.optimizeBranchNameFromSecurity("Telekommunikation"));
-        assertEquals("Verbraucherelektronik", portfolioDocumentService.optimizeBranchNameFromSecurity("Verbraucherelektronik"));
-        assertEquals("Versicherung", portfolioDocumentService.optimizeBranchNameFromSecurity("Versicherung"));
-        assertEquals("Versorgungsbetriebe", portfolioDocumentService.optimizeBranchNameFromSecurity("Versorger"));
-        assertEquals("", portfolioDocumentService.optimizeBranchNameFromSecurity("diverse Branchen"));
+        assertEquals("Banken", portfolioDocumentService.optimizeIndustryNameFromSecurity("Banken"));
+        assertEquals("Basiskonsumgüter", portfolioDocumentService.optimizeIndustryNameFromSecurity("Basiskonsumgüter"));
+        assertEquals("Baumaterialien", portfolioDocumentService.optimizeIndustryNameFromSecurity("Baumaterialien/Baukomponenten"));
+        assertEquals("Chemikalien", portfolioDocumentService.optimizeIndustryNameFromSecurity("Chemikalien"));
+        assertEquals("Hardware Technologie, Speicherung & Peripherie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Computerherstellung"));
+        assertEquals("Verschiedene REITs", portfolioDocumentService.optimizeIndustryNameFromSecurity("Diversifizierte REITs"));
+        assertEquals("Drahtlose Telekommunikationsdienste", portfolioDocumentService.optimizeIndustryNameFromSecurity("Drahtlose Telekommunikationsdienste"));
+        assertEquals("Handels-REITs", portfolioDocumentService.optimizeIndustryNameFromSecurity("Einzelhandel REITs"));
+        assertEquals("Elektronische Komponenten", portfolioDocumentService.optimizeIndustryNameFromSecurity("Elektrokomponenten"));
+        assertEquals("Elektronische Geräte & Instrumente", portfolioDocumentService.optimizeIndustryNameFromSecurity("Elektrokomponenten & -geräte"));
+        assertEquals("Energie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Energie"));
+        assertEquals("Automobilbranche", portfolioDocumentService.optimizeIndustryNameFromSecurity("Fahrzeugbau"));
+        assertEquals("Private Finanzdienste", portfolioDocumentService.optimizeIndustryNameFromSecurity("Finanzdienstleistungen"));
+        assertEquals("Finanzwesen", portfolioDocumentService.optimizeIndustryNameFromSecurity("Finanzen"));
+        assertEquals("Gesundheitswesen", portfolioDocumentService.optimizeIndustryNameFromSecurity("Gesundheitswesen"));
+        assertEquals("Halbleiter", portfolioDocumentService.optimizeIndustryNameFromSecurity("Halbleiterelektronik"));
+        assertEquals("Hardware Technologie, Speicherung & Peripherie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Hardware- Technologie, Speicherung und Peripheriegeräte"));
+        assertEquals("Hotels, Restaurants und Freizeit", portfolioDocumentService.optimizeIndustryNameFromSecurity("Hotels, Restaurants und Freizeit"));
+        assertEquals("Hypotheken-, Immobilien-, Investment-, Trusts (REITs)", portfolioDocumentService.optimizeIndustryNameFromSecurity("Hypotheken-Immobilien-fonds (REITs)"));
+        assertEquals("Informationstechnologie", portfolioDocumentService.optimizeIndustryNameFromSecurity("IT/Telekommunikation"));
+        assertEquals("Immobilien", portfolioDocumentService.optimizeIndustryNameFromSecurity("Immobilien"));
+        assertEquals("Industrie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Industrie"));
+        assertEquals("Industriemaschinen", portfolioDocumentService.optimizeIndustryNameFromSecurity("Industriemaschinenbau"));
+        assertEquals("Informationstechnologie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Informationstechnologie"));
+        assertEquals("Basiskonsumgüter", portfolioDocumentService.optimizeIndustryNameFromSecurity("Konsumgüter"));
+        assertEquals("Nicht-Basiskonsumgüter", portfolioDocumentService.optimizeIndustryNameFromSecurity("Konsumgüter zyklisch"));
+        assertEquals("Roh-, Hilfs- & Betriebsstoffe", portfolioDocumentService.optimizeIndustryNameFromSecurity("Rohstoffe"));
+        assertEquals("Rückversicherung", portfolioDocumentService.optimizeIndustryNameFromSecurity("Rückversicherung"));
+        assertEquals("Software", portfolioDocumentService.optimizeIndustryNameFromSecurity("Software"));
+        assertEquals("Telekommunikationsdienste", portfolioDocumentService.optimizeIndustryNameFromSecurity("Telekomdienste"));
+        assertEquals("Telekommunikationsdienste", portfolioDocumentService.optimizeIndustryNameFromSecurity("Telekommunikation"));
+        assertEquals("Verbraucherelektronik", portfolioDocumentService.optimizeIndustryNameFromSecurity("Verbraucherelektronik"));
+        assertEquals("Versicherung", portfolioDocumentService.optimizeIndustryNameFromSecurity("Versicherung"));
+        assertEquals("Versorgungsbetriebe", portfolioDocumentService.optimizeIndustryNameFromSecurity("Versorger"));
+        assertEquals("", portfolioDocumentService.optimizeIndustryNameFromSecurity("diverse Branchen"));
     }
 
     @Test
@@ -324,15 +324,15 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 "Büro-REITs", "Gesundheitswesen REITs", "Privater Wohnungsbau-REITs", "Spezialisierte REITs",
                 "Hypotheken-, Immobilien-, Investment-, Trusts (REITs)", "Hypotheken-REITs");
         PortfolioDocumentService.BestMatch bestMatch = portfolioDocumentService.getBestMatch(possibleBranches, "Einzelhandel REITs");
-        assertEquals("Handels-REITs", bestMatch.bestMatchingBranchName);
+        assertEquals("Handels-REITs", bestMatch.bestMatchingIndustryName);
         bestMatch = portfolioDocumentService.getBestMatch(possibleBranches, "Hypotheken-Immobilien-fonds (REITs)");
-        assertEquals("Hypotheken-REITs", bestMatch.bestMatchingBranchName);
+        assertEquals("Hypotheken-REITs", bestMatch.bestMatchingIndustryName);
 
         possibleBranches = Set.of("Versorgungsbetriebe", "Stromversorgungsbetriebe", "Multi-Versorger", "Gasversorgungsbetriebe",
                 "Wasserversorgungsbetriebe", "Unabhängige Energie- und Erneuerbare Elektrizitätshersteller",
                 "Unabhängige Energiehersteller und -händler", "Erneuerbare Elektrizität");
         bestMatch = portfolioDocumentService.getBestMatch(possibleBranches, "Versorger");
-        assertEquals("Multi-Versorger", bestMatch.bestMatchingBranchName);
+        assertEquals("Multi-Versorger", bestMatch.bestMatchingIndustryName);
     }
 
 }

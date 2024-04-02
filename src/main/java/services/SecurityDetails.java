@@ -35,7 +35,7 @@ public class SecurityDetails {
     private JsonObject rootNode;
     private final String isin;
     private String name;
-    private String branch;
+    private String industry;
 
     public SecurityDetails(String cachePath, String isin) throws IOException, InterruptedException {
         this.isin = isin;
@@ -78,21 +78,21 @@ public class SecurityDetails {
             }
         }
         if (isETF() || isFond()) {
-            branch = "";
+            industry = "";
             name = "";
         } else {
-            File branchAndNameCacheFileName = new File(cachePath + isin + "-branch.txt");
-            try (Stream<String> lines = Files.lines(Paths.get(branchAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
+            File industryAndNameCacheFileName = new File(cachePath + isin + "-industry.txt");
+            try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
                 List<String> input = lines.collect(Collectors.toList());
                 if (!input.isEmpty()) {
-                    branch = input.get(0);
+                    industry = input.get(0);
                     name = input.get(1);
                 }
             } catch (IOException e) {
                 logger.info("Branch for " + isin + " not found in cache, loading...");
-                loadBranchAndDisplayName();
-                try (PrintWriter savingImport = new PrintWriter(branchAndNameCacheFileName, StandardCharsets.UTF_8)) {
-                    savingImport.print(branch + "\n");
+                loadIndustryAndDisplayName();
+                try (PrintWriter savingImport = new PrintWriter(industryAndNameCacheFileName, StandardCharsets.UTF_8)) {
+                    savingImport.print(industry + "\n");
                     savingImport.print(name + "\n");
                 } catch (FileNotFoundException fnfe) {
                     logger.warning("Error writing branch for " + isin + ": " + fnfe.getMessage());
@@ -156,16 +156,16 @@ public class SecurityDetails {
         return rootNode;
     }
 
-    void loadBranchAndDisplayName() {
+    void loadIndustryAndDisplayName() {
         try {
             String url = "https://app.parqet.com/wertpapiere/" + isin;
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.selectXpath("//td[contains(text(), \"Industrie\")]");
             Element td = elements.get(0);
             List<TextNode> textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
-            String branch = textNodes.get(0).text().trim();
-            logger.fine("found branch \"" + branch + "\" for " + isin);
-            this.branch = branch;
+            String industry = textNodes.get(0).text().trim();
+            logger.fine("found industry \"" + industry + "\" for " + isin);
+            this.industry = industry;
             elements = doc.selectXpath("//td[contains(text(), \"Name\")]");
             td = elements.get(0);
             textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
@@ -177,8 +177,8 @@ public class SecurityDetails {
         }
     }
 
-    public String getBranch() {
-        return branch;
+    public String getIndustry() {
+        return industry;
     }
 
     public String getName() {

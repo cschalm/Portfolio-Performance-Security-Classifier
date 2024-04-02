@@ -14,7 +14,7 @@ public class Security {
     private final String isin;
     private String name;
     private boolean fond;
-    private Map<String, Double> branchesMap = new HashMap<>();
+    private Map<String, Double> industriesMap = new HashMap<>();
     private Map<String, Double> holdingsMap = new HashMap<>();
     private Map<String, Double> countriesMap = new HashMap<>();
 
@@ -34,14 +34,14 @@ public class Security {
         return this.isin;
     }
 
-    public Map<String, Double> getBranches() {
-        return this.branchesMap;
+    public Map<String, Double> getIndustries() {
+        return this.industriesMap;
     }
 
-    public void setBranches(Map<String, Double> branchesMap) {
+    public void setIndustries(Map<String, Double> industriesMap) {
         List<String> toRemove = new ArrayList<>();
         Map<String, Double> toAdd = new HashMap<>();
-        for (Map.Entry<String, Double> entry : branchesMap.entrySet()) {
+        for (Map.Entry<String, Double> entry : industriesMap.entrySet()) {
             String strKey = entry.getKey();
             if (StringUtils.containsIgnoreCase(strKey, "service")) {
                 toRemove.add(strKey);
@@ -51,10 +51,10 @@ public class Security {
             }
         }
         for (String strRemove : toRemove) {
-            branchesMap.remove(strRemove);
+            industriesMap.remove(strRemove);
         }
-        branchesMap.putAll(toAdd);
-        this.branchesMap = branchesMap;
+        industriesMap.putAll(toAdd);
+        this.industriesMap = industriesMap;
     }
 
     public Map<String, Double> getHoldings() {
@@ -90,7 +90,7 @@ public class Security {
      * @return Double
      */
     public Double getPercentageOfBranch(String branch) {
-        return this.branchesMap.getOrDefault(branch, 0.0);
+        return this.industriesMap.getOrDefault(branch, 0.0);
     }
 
     /**
