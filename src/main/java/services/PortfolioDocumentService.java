@@ -67,15 +67,16 @@ public class PortfolioDocumentService {
 
     JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedTopTen, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing Top Ten...");
-        Element oRootOfTopTen = (Element) taxonomyElement.getElementsByTagName("root").item(0);
-
         JsonArray importedTopTen = new JsonArray();
-        NodeList oAllChildren = oRootOfTopTen.getChildNodes();
-        Element childrenNode = portfolioDocument.createElement("children");
-        for (int nNodeIndex = 0; nNodeIndex < oAllChildren.getLength(); nNodeIndex++) {
-            Node item = oAllChildren.item(nNodeIndex);
+
+        // search for "children" element as direct child of "root"
+        Element rootOfTopTenElement = (Element) taxonomyElement.getElementsByTagName("root").item(0);
+        Element childrenElement = portfolioDocument.createElement("children");
+        NodeList allChildNodes = rootOfTopTenElement.getChildNodes();
+        for (int i = 0; i < allChildNodes.getLength(); i++) {
+            Node item = allChildNodes.item(i);
             if (item.getNodeType() == Node.ELEMENT_NODE && item.getNodeName().equals("children")) {
-                childrenNode = (Element) item;
+                childrenElement = (Element) item;
             }
         }
 
@@ -84,69 +85,70 @@ public class PortfolioDocumentService {
         for (String stockName : allStockNames.keySet()) {
             logger.fine("Stockname: " + stockName);
 
-            //setting each stock as own classification
+            // setting each stock as own "classification"
             Element classificationNodeForStock = portfolioDocument.createElement("classification");
-
-            Element id = portfolioDocument.createElement("id");
-            id.setTextContent(UUID.randomUUID().toString());
-
-            Element name = portfolioDocument.createElement("name");
-            name.setTextContent(stockName);
-
-            Element color = portfolioDocument.createElement("color");
-            // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-            int nextInt = random.nextInt(0xffffff + 1);
-            // format it as hexadecimal string (with hashtag and leading zeros)
-            String colorCode = String.format("#%06x", nextInt);
-            color.setTextContent(colorCode);
-
-            Element parent = portfolioDocument.createElement("parent");
-            parent.setAttribute("reference", "../../..");
-
-            Element children = portfolioDocument.createElement("children");
-
             Element assignments = portfolioDocument.createElement("assignments");
+            {
+                Element id = portfolioDocument.createElement("id");
+                id.setTextContent(UUID.randomUUID().toString());
 
-            Element weight = portfolioDocument.createElement("weight");
-            weight.setTextContent("10000");
+                Element name = portfolioDocument.createElement("name");
+                name.setTextContent(stockName);
 
-            Element rank = portfolioDocument.createElement("rank");
-            rank.setTextContent("0");
+                Element color = portfolioDocument.createElement("color");
+                // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+                int nextInt = random.nextInt(0xffffff + 1);
+                // format it as hexadecimal string (with hashtag and leading zeros)
+                String colorCode = String.format("#%06x", nextInt);
+                color.setTextContent(colorCode);
 
-            classificationNodeForStock.appendChild(id);
-            classificationNodeForStock.appendChild(name);
-            classificationNodeForStock.appendChild(color);
-            classificationNodeForStock.appendChild(parent);
-            classificationNodeForStock.appendChild(children);
-            classificationNodeForStock.appendChild(assignments);
-            classificationNodeForStock.appendChild(weight);
-            classificationNodeForStock.appendChild(rank);
+                Element parent = portfolioDocument.createElement("parent");
+                parent.setAttribute("reference", "../../..");
 
-            int nETFAppearance = 0;
-            int indexEtf = 0;
+                Element children = portfolioDocument.createElement("children");
+
+
+                Element weight = portfolioDocument.createElement("weight");
+                weight.setTextContent("10000");
+
+                Element rank = portfolioDocument.createElement("rank");
+                rank.setTextContent("0");
+
+                classificationNodeForStock.appendChild(id);
+                classificationNodeForStock.appendChild(name);
+                classificationNodeForStock.appendChild(color);
+                classificationNodeForStock.appendChild(parent);
+                classificationNodeForStock.appendChild(children);
+                classificationNodeForStock.appendChild(assignments);
+                classificationNodeForStock.appendChild(weight);
+                classificationNodeForStock.appendChild(rank);
+            }
+            int rank = 0;
+            int indexOfSecurity = 0;
             for (Security security : allSecurities) {
                 if (security != null) {
                     // find security that contains the current stock identified by any similar name
                     if (security.getHoldings().containsKey(stockName)) {
                         // primary name
-                        nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                        rank = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
                     } else {
                         // alternative names
                         List<String> alternativeNames = allStockNames.get(stockName);
                         for (String alternativeName : alternativeNames) {
                             if (security.getHoldings().containsKey(alternativeName)) {
-                                nETFAppearance = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexEtf, nETFAppearance, assignments, importedTopTen);
+                                rank = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
                             }
                         }
                     }
                 }
-                indexEtf++;
+                indexOfSecurity++;
             }
             // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
             if (assignments.hasChildNodes()) {
-                childrenNode.appendChild(classificationNodeForStock);
+                childrenElement.appendChild(classificationNodeForStock);
             }
         }
+        // write logfile
         for (Security security : allSecurities) {
             if (security != null) {
                 StringBuilder holdingAssignmentLog = new StringBuilder();
@@ -163,14 +165,11 @@ public class PortfolioDocumentService {
         return importedTopTen;
     }
 
-    private int addTopTenAssignment(Document portfolioDocument, JsonArray cachedTopTen, String stockName, Security security, int indexEtf, int nETFAppearance, Element assignments, JsonArray importedTopTen) {
-        Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-        investmentVehicle.setAttribute("class", "security");
-        investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexEtf + 1) + "]");
-
+    private int addTopTenAssignment(Document portfolioDocument, JsonArray cachedTopTen, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen) {
         int percentage = (int) Math.ceil(security.getPercentageOfHolding(stockName) * 100.0);
 
         boolean found = false;
+        // check if similar object already exists in top ten
         for (int i = 0; i < cachedTopTen.size(); i++) {
             JsonObject topTen = cachedTopTen.get(i).getAsJsonObject();
             if (jsonObjectEqualsInWeightAndIsinAndClassification(topTen, security.getIsin(), percentage, stockName)) {
@@ -190,32 +189,30 @@ public class PortfolioDocumentService {
             }
         }
         if (!found) {
-            createAssignmentAndJson(portfolioDocument, stockName, security.getIsin(), nETFAppearance, assignments, importedTopTen, percentage, investmentVehicle);
-            nETFAppearance++;
+            Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+            investmentVehicle.setAttribute("class", "security");
+            investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexOfSecurity + 1) + "]");
+
+            Element assignment = createAssignmentElement(portfolioDocument, rank, percentage);
+            assignment.appendChild(investmentVehicle);
+            assignments.appendChild(assignment);
+            JsonObject securityJsonObject = createSecurityJson(stockName, security.getIsin(), percentage);
+            importedTopTen.add(securityJsonObject);
+            rank++;
         }
-        return nETFAppearance;
+        return rank;
     }
 
-    private void createAssignmentAndJson(Document doc, String stockName, String isin, int rank, Element assignments, JsonArray importParent, int weight, Element investmentVehicle) {
-        appendNewAssignment(doc, rank, assignments, weight, investmentVehicle);
-        addNewJsonSecurity(importParent, stockName, isin, weight);
+    private JsonObject createSecurityJson(String classification, String isin, int weight) {
+        JsonObject security = new JsonObject();
+        security.addProperty("weight", weight);
+        security.addProperty("isin", isin);
+        security.addProperty("classification", classification);
+
+        return security;
     }
 
-    private void addNewJsonSecurity(JsonArray importParent, String classification, String isin, int weight) {
-        JsonObject imported = new JsonObject();
-        imported.addProperty("weight", weight);
-        imported.addProperty("isin", isin);
-        imported.addProperty("classification", classification);
-        importParent.add(imported);
-    }
-
-    private void appendNewAssignment(Document doc, int rank, Element assignments, int weight, Element investmentVehicle) {
-        Element assignment = createAssignment(doc, rank + 1, weight);
-        assignment.appendChild(investmentVehicle);
-        assignments.appendChild(assignment);
-    }
-
-    Element createAssignment(Document doc, int rank, int weight) {
+    private Element createAssignmentElement(Document doc, int rank, int weight) {
         Element weightOfETF = doc.createElement("weight");
         weightOfETF.setTextContent(Integer.toString(weight));
 
@@ -331,10 +328,10 @@ public class PortfolioDocumentService {
                 industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new PortfolioDocumentService.NodeRankTuple(industryFromPortfolioNode, 0));
             }
         }
-        int indexEtf = 0;
+        int indexOfSecurity = 0;
         for (Security security : allSecurities) {
             if (security == null) {
-                indexEtf++;
+                indexOfSecurity++;
                 continue;
             }
             logger.fine("Security: " + security);
@@ -354,34 +351,23 @@ public class PortfolioDocumentService {
                 boolean alreadyAddedBefore = isContainedInCache(cachedIndustries, security.getIsin(), nPercentage, bestMatch.bestMatchingIndustryName, importedIndustries);
 
                 if (nPercentage > 0 && !alreadyAddedBefore) {
-                    Element assignment = portfolioDocument.createElement("assignment");
                     PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
                     Node branchNode = oTuple.oNode;
 
-                    Element assignments = portfolioDocument.createElement("assignments");
                     Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+                    Element assignments = linkAssignmentsToInvestmentVehicle(branchNode, investmentVehicle, indexOfSecurity);
 
-                    assignments = linkAssignmentsToInvestmentVehicle(branchNode, assignments, investmentVehicle, indexEtf);
-
-                    Element weight = portfolioDocument.createElement("weight");
-                    weight.setTextContent(Integer.toString(nPercentage));
-
-                    Element rank = portfolioDocument.createElement("rank");
-                    oTuple.nRank++;
-                    rank.setTextContent(Integer.toString(oTuple.nRank));
-
+                    Element assignment = createAssignmentElement(portfolioDocument, ++oTuple.nRank, nPercentage);
                     assignment.appendChild(investmentVehicle);
-                    assignment.appendChild(weight);
-                    assignment.appendChild(rank);
-
                     assignments.appendChild(assignment);
-                    industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) nPercentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
+                    JsonObject securityJsonObject = createSecurityJson(bestMatch.bestMatchingIndustryName, security.getIsin(), nPercentage);
+                    importedIndustries.add(securityJsonObject);
 
-                    addNewJsonSecurity(importedIndustries, bestMatch.bestMatchingIndustryName, security.getIsin(), nPercentage);
+                    industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) nPercentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
                 }
             }
             writeLogfile4Security(security, industryAssignmentLog, "industry");
-            indexEtf++;
+            indexOfSecurity++;
         }
         logger.info(" - done!");
 
@@ -412,7 +398,9 @@ public class PortfolioDocumentService {
         }
     }
 
-    private Element linkAssignmentsToInvestmentVehicle(Node node, Element assignments, Element investmentVehicle, int indexEtf) {
+    private Element linkAssignmentsToInvestmentVehicle(Node node, Element investmentVehicle, int indexOfSecurity) {
+        Element assignments = null;
+        // find "assignments" element in children of given node
         NodeList children = node.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignments")) {
@@ -420,9 +408,10 @@ public class PortfolioDocumentService {
             }
         }
 
+        assert assignments != null;
         int stepsToRoot = returnRootSteps(assignments) + 3;
 
-        investmentVehicle.setAttribute("reference", "../".repeat(Math.max(0, stepsToRoot)) + "securities/security[" + (indexEtf + 1) + "]");
+        investmentVehicle.setAttribute("reference", "../".repeat(stepsToRoot) + "securities/security[" + (indexOfSecurity + 1) + "]");
         investmentVehicle.setAttribute("class", "security");
 
         return assignments;
@@ -545,12 +534,12 @@ public class PortfolioDocumentService {
 
     JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedCountries, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing regions...");
-        NodeList oListOfAllCountriesFromPortfolio = taxonomyElement.getElementsByTagName("classification");
+        NodeList allCountriesFromPortfolioList = taxonomyElement.getElementsByTagName("classification");
 
         JsonArray importedRegions = new JsonArray();
-        for (int indexCountry = 0; indexCountry < oListOfAllCountriesFromPortfolio.getLength(); indexCountry++) {
-            Node countryNodeFromPortfolio = oListOfAllCountriesFromPortfolio.item(indexCountry);
-            int nCountryAppearence = 0;
+        for (int indexCountry = 0; indexCountry < allCountriesFromPortfolioList.getLength(); indexCountry++) {
+            Node countryNodeFromPortfolio = allCountriesFromPortfolioList.item(indexCountry);
+            int rank = 0;
             if (countryNodeFromPortfolio.getNodeType() == Node.ELEMENT_NODE) {
                 String strCountryFromPortfolio = xmlHelper.getTextContent((Element) countryNodeFromPortfolio, "name");
                 if (strCountryFromPortfolio.equals("Vereinigte Staaten")) {
@@ -567,13 +556,17 @@ public class PortfolioDocumentService {
                         boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountryFromPortfolio, importedRegions);
 
                         if (nPercentage > 0 && !alreadyAddedBefore) {
-                            Element assignments = portfolioDocument.createElement("assignments");
                             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
 
-                            assignments = linkAssignmentsToInvestmentVehicle(countryNodeFromPortfolio, assignments, investmentVehicle, indexEtf);
+                            Element assignments = linkAssignmentsToInvestmentVehicle(countryNodeFromPortfolio, investmentVehicle, indexEtf);
 
-                            createAssignmentAndJson(portfolioDocument, strCountryFromPortfolio, security.getIsin(), nCountryAppearence, assignments, importedRegions, nPercentage, investmentVehicle);
-                            nCountryAppearence++;
+                            Element assignment = createAssignmentElement(portfolioDocument, rank, nPercentage);
+                            assignment.appendChild(investmentVehicle);
+                            assignments.appendChild(assignment);
+                            JsonObject securityJsonObject = createSecurityJson(strCountryFromPortfolio, security.getIsin(), nPercentage);
+                            importedRegions.add(securityJsonObject);
+
+                            rank++;
                         } else {
                             logger.fine("Skipping CountryFromPortfolio " + strCountryFromPortfolio + " as percentage is " + nPercentage);
                         }
@@ -582,6 +575,7 @@ public class PortfolioDocumentService {
                 }
             }
         }
+        // write logfile
         for (Security security : allSecurities) {
             if (security != null) {
                 StringBuilder countryAssignmentLog = new StringBuilder();
