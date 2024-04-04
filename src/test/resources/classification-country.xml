@@ -1,0 +1,59 @@
+<classification>
+    <id>05e2fa52-637e-47de-9d32-cae65406daae</id>
+    <name>Dänemark</name>
+    <color>#c8c383</color>
+    <parent reference="../../.."/>
+    <children/>
+    <assignments>
+        <assignment>
+            <investmentVehicle class="security" reference="../../../../../../../../../../../../securities/security[4]"/>
+            <weight>804</weight>
+            <rank>0</rank>
+        </assignment>
+        <assignment>
+            <investmentVehicle class="security" reference="../../../../../../../../../../../../securities/security[8]"/>
+            <weight>93</weight>
+            <rank>1</rank>
+        </assignment>
+        <assignment>
+            <investmentVehicle class="security"
+                               reference="../../../../../../../../../../../../securities/security[31]"/>
+            <weight>104</weight>
+            <rank>2</rank>
+        </assignment>
+        <assignment>
+            <investmentVehicle class="security"
+                               reference="../../../../../../../../../../../../securities/security[37]"/>
+            <weight>1054</weight>
+            <rank>3</rank>
+        </assignment>
+        <assignment>
+            <investmentVehicle class="security"
+                               reference="../../../../../../../../../../../../securities/security[49]"/>
+            <weight>510</weight>
+            <rank>4</rank>
+        </assignment>
+        <assignment>
+            <investmentVehicle class="security"
+                               reference="../../../../../../../../../../../../securities/security[52]"/>
+            <weight>92</weight>
+            <rank>5</rank>
+        </assignment>
+    </assignments>
+    <weight>10000</weight>
+    <rank>0</rank>
+    <data>
+        <entry>
+            <string>ISO3166-1-Alpha-2</string>
+            <string>DK</string>
+        </entry>
+        <entry>
+            <string>ISO3166-1-Alpha-3</string>
+            <string>DNK</string>
+        </entry>
+        <entry>
+            <string>portfolioClassificationKey</string>
+            <string>country_DK</string>
+        </entry>
+    </data>
+</classification>

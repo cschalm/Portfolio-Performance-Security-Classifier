@@ -41,7 +41,7 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals("Regionen")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, securityDetailsCache.getCachedCountries(), taxonomyElement);
+                        JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
 
@@ -70,15 +70,10 @@ public class PortfolioDocumentService {
         JsonArray importedTopTen = new JsonArray();
 
         // search for "children" element as direct child of "root"
-        Element rootOfTopTenElement = (Element) taxonomyElement.getElementsByTagName("root").item(0);
-        Element childrenElement = portfolioDocument.createElement("children");
-        NodeList allChildNodes = rootOfTopTenElement.getChildNodes();
-        for (int i = 0; i < allChildNodes.getLength(); i++) {
-            Node item = allChildNodes.item(i);
-            if (item.getNodeType() == Node.ELEMENT_NODE && item.getNodeName().equals("children")) {
-                childrenElement = (Element) item;
-            }
-        }
+        Node rootOfTopTenNode = taxonomyElement.getElementsByTagName("root").item(0);
+        Element childrenElement = xmlHelper.getFirstChildElementWithNodeName(rootOfTopTenNode, "children");
+        if (childrenElement == null)
+            childrenElement = portfolioDocument.createElement("children");
 
         TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
 
@@ -399,14 +394,7 @@ public class PortfolioDocumentService {
     }
 
     private Element linkAssignmentsToInvestmentVehicle(Node node, Element investmentVehicle, int indexOfSecurity) {
-        Element assignments = null;
-        // find "assignments" element in children of given node
-        NodeList children = node.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignments")) {
-                assignments = (Element) children.item(i);
-            }
-        }
+        Element assignments = xmlHelper.getFirstChildElementWithNodeName(node, "assignments");
 
         assert assignments != null;
         int stepsToRoot = returnRootSteps(assignments) + 3;
@@ -424,11 +412,11 @@ public class PortfolioDocumentService {
             JsonObject cachedJson = cache.get(index).getAsJsonObject();
             if (jsonObjectEqualsInWeightAndIsinAndClassification(cachedJson, isin, weight, classification)) {
                 found = true;
-                JsonObject oSavingTriple = new JsonObject();
-                oSavingTriple.addProperty("weight", weight);
-                oSavingTriple.addProperty("isin", isin);
-                oSavingTriple.addProperty("classification", classification);
-                parentArray.add(oSavingTriple);
+                JsonObject security = new JsonObject();
+                security.addProperty("weight", weight);
+                security.addProperty("isin", isin);
+                security.addProperty("classification", classification);
+                parentArray.add(security);
                 break;
             }
         }
@@ -532,46 +520,53 @@ public class PortfolioDocumentService {
         return result;
     }
 
-    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedCountries, Element taxonomyElement) throws FileNotFoundException {
+    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing regions...");
         NodeList allCountriesFromPortfolioList = taxonomyElement.getElementsByTagName("classification");
 
         JsonArray importedRegions = new JsonArray();
         for (int indexCountry = 0; indexCountry < allCountriesFromPortfolioList.getLength(); indexCountry++) {
-            Node countryNodeFromPortfolio = allCountriesFromPortfolioList.item(indexCountry);
+            Node countryFromPortfolioNode = allCountriesFromPortfolioList.item(indexCountry);
             int rank = 0;
-            if (countryNodeFromPortfolio.getNodeType() == Node.ELEMENT_NODE) {
-                String strCountryFromPortfolio = xmlHelper.getTextContent((Element) countryNodeFromPortfolio, "name");
-                if (strCountryFromPortfolio.equals("Vereinigte Staaten")) {
-                    strCountryFromPortfolio = "USA";
+            if (countryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String countryNameFromPortfolio = xmlHelper.getTextContent((Element) countryFromPortfolioNode, "name");
+                if (countryNameFromPortfolio.equals("Vereinigte Staaten")) {
+                    countryNameFromPortfolio = "USA";
                 }
-                logger.fine("CountryFromPortfolio " + strCountryFromPortfolio);
-                int indexEtf = 0;
+                logger.fine("CountryFromPortfolio " + countryNameFromPortfolio);
+                int indexOfSecurity = 0;
                 for (Security security : allSecurities) {
                     if (security != null) {
-                        // potentielles Umlautproblem!!!
-                        int nPercentage = (int) Math.ceil(security.getPercentageOfCountry(strCountryFromPortfolio) * 100.0);
+                        // potential problem with german umlauts due to different encodings!!!
+                        int percentage = (int) Math.ceil(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
 
-                        // cachedCountries is always empty in unit-test
-                        boolean alreadyAddedBefore = isContainedInCache(cachedCountries, security.getIsin(), nPercentage, strCountryFromPortfolio, importedRegions);
-
-                        if (nPercentage > 0 && !alreadyAddedBefore) {
-                            Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-
-                            Element assignments = linkAssignmentsToInvestmentVehicle(countryNodeFromPortfolio, investmentVehicle, indexEtf);
-
-                            Element assignment = createAssignmentElement(portfolioDocument, rank, nPercentage);
-                            assignment.appendChild(investmentVehicle);
-                            assignments.appendChild(assignment);
-                            JsonObject securityJsonObject = createSecurityJson(strCountryFromPortfolio, security.getIsin(), nPercentage);
-                            importedRegions.add(securityJsonObject);
-
-                            rank++;
+                        Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, indexOfSecurity + 1);
+                        if (percentage == 0) {
+                            // maybe this holding was contained before, so check if we have to remove it from this country
+                            if (assignment != null)
+                                assignment.getParentNode().removeChild(assignment);
                         } else {
-                            logger.fine("Skipping CountryFromPortfolio " + strCountryFromPortfolio + " as percentage is " + nPercentage);
+                            // check if assignment already exists and needs to be updated or added
+                            if (assignment != null) {
+                                // update
+                                updateWeightOfAssignment(assignment, Integer.toString(percentage));
+                            } else {
+                                // create and add new assignment
+                                assignment = createAssignmentElement(portfolioDocument, rank, percentage);
+
+                                Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+                                Element assignments = linkAssignmentsToInvestmentVehicle(countryFromPortfolioNode, investmentVehicle, indexOfSecurity);
+                                assignment.appendChild(investmentVehicle);
+                                assignments.appendChild(assignment);
+
+                                JsonObject securityJsonObject = createSecurityJson(countryNameFromPortfolio, security.getIsin(), percentage);
+                                importedRegions.add(securityJsonObject);
+
+                                rank++;
+                            }
                         }
                     }
-                    indexEtf++;
+                    indexOfSecurity++;
                 }
             }
         }
@@ -619,6 +614,32 @@ public class PortfolioDocumentService {
             out.print(logLines);
             out.close();
         }
+    }
+
+    Element findAssignmentBySecurityIndex(Node parent, int securityIndex) {
+        Element assignments = xmlHelper.getFirstChildElementWithNodeName(parent, "assignments");
+        if (assignments == null) return null;
+        NodeList children = assignments.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignment")) {
+                Element assignment = (Element) children.item(i);
+                Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
+                if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) continue;
+                String reference = investmentVehicle.getAttribute("reference");
+                if (reference == null) continue;
+                if (securityIndex == 1 && reference.endsWith("securities/security")) return assignment;
+                String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
+                if (Integer.parseInt(foundIndex) == securityIndex) return assignment;
+            }
+        }
+        return null;
+    }
+
+    Element updateWeightOfAssignment(Element assignment, String weight) {
+        Node weightNode = xmlHelper.getFirstChild(assignment, "weight");
+        weightNode.setTextContent(weight);
+
+        return assignment;
     }
 
 }

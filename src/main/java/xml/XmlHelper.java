@@ -3,6 +3,7 @@ package xml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,6 +34,18 @@ public class XmlHelper {
         Node firstChild = getFirstChild(node, tagName);
 
         return firstChild == null ? "" : firstChild.getTextContent();
+    }
+
+    public Element getFirstChildElementWithNodeName(Node node, String nodeName) {
+        Element result = null;
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals(nodeName)) {
+                result = (Element) children.item(i);
+            }
+        }
+
+        return result;
     }
 
 }

@@ -209,7 +209,6 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
-        JsonArray cachedCountries = new JsonArray();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -218,7 +217,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, cachedCountries, taxonomyElement);
+                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
                     assertEquals(32, importedCountries.size());
                 }
             }
@@ -333,6 +332,210 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 "Unabhängige Energiehersteller und -händler", "Erneuerbare Elektrizität");
         bestMatch = portfolioDocumentService.getBestMatch(possibleBranches, "Versorger");
         assertEquals("Multi-Versorger", bestMatch.bestMatchingIndustryName);
+    }
+
+    @Test
+    public void testFindAssignmentBySecurityIndex() throws IOException, ParserConfigurationException, SAXException {
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country.xml");
+        Node classification = document.getFirstChild();
+        Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 4);
+        assertNotNull(assessment);
+        String weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("804", weight);
+        String rank = xmlHelper.getTextContent(assessment, "rank");
+        assertNotNull(rank);
+        assertEquals("0", rank);
+
+        assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 49);
+        assertNotNull(assessment);
+        weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("510", weight);
+        rank = xmlHelper.getTextContent(assessment, "rank");
+        assertNotNull(rank);
+        assertEquals("4", rank);
+    }
+
+    @Test
+    public void testUpdateWeightOfAssignment() throws IOException, ParserConfigurationException, SAXException {
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country.xml");
+        Node classification = document.getFirstChild();
+        Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 4);
+        assertNotNull(assessment);
+        String weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("804", weight);
+
+        assessment = portfolioDocumentService.updateWeightOfAssignment(assessment, "408");
+        assertNotNull(assessment);
+        weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("408", weight);
+    }
+
+    @Test
+    public void testImportRegions_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+        // "Tschechien" to be removed by import
+        // "Ungarn" to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getCountries());
+        assertEquals(32, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Regionen")) {
+                    Element tschechien = findClassification4CountryName(taxonomyElement, "Tschechien");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tschechien, 1);
+                    assertNotNull(assignment);
+                    Element ungarn = findClassification4CountryName(taxonomyElement, "Ungarn");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(ungarn, 1);
+                    assertNotNull(assignment);
+                    Element finnland = findClassification4CountryName(taxonomyElement, "Finnland");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(2, importedCountries.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tschechien, 1);
+                    assertNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(ungarn, 1);
+                    assertNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
+                    assertNotNull(assignment);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportRegions_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+        // "Italien" to add
+        // "Portugal" to add
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getCountries());
+        assertEquals(32, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Regionen")) {
+                    Element grossbritannien = findClassification4CountryName(taxonomyElement, "Großbritannien");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
+                    assertNotNull(assignment);
+                    assertEquals("278", getWeightOfAssignment(assignment));
+                    Element italien = findClassification4CountryName(taxonomyElement, "Italien");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(italien, 1);
+                    assertNull(assignment);
+                    Element portugal = findClassification4CountryName(taxonomyElement, "Portugal");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(portugal, 1);
+                    assertNull(assignment);
+
+                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(2, importedCountries.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
+                    assertNotNull(assignment);
+                    assertEquals("278", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(italien, 1);
+                    assertNotNull(assignment);
+                    assertEquals("62", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(portugal, 1);
+                    assertNotNull(assignment);
+                    assertEquals("4", getWeightOfAssignment(assignment));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportRegions_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+        // "Dänemark" to update
+        // "Finnland" to update
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getCountries());
+        assertEquals(32, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Regionen")) {
+                    Element grossbritannien = findClassification4CountryName(taxonomyElement, "Großbritannien");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
+                    assertNotNull(assignment);
+                    assertEquals("278", getWeightOfAssignment(assignment));
+                    Element daenemark = findClassification4CountryName(taxonomyElement, "Dänemark");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(daenemark, 1);
+                    assertNotNull(assignment);
+                    assertEquals("5", getWeightOfAssignment(assignment));
+                    Element finnland = findClassification4CountryName(taxonomyElement, "Finnland");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
+                    assertNotNull(assignment);
+                    assertEquals("3", getWeightOfAssignment(assignment));
+
+                    JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(2, importedCountries.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
+                    assertNotNull(assignment);
+                    assertEquals("278", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(daenemark, 1);
+                    assertNotNull(assignment);
+                    assertEquals("92", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
+                    assertNotNull(assignment);
+                    assertEquals("27", getWeightOfAssignment(assignment));
+                }
+            }
+        }
+    }
+
+    private Element findClassification4CountryName(Element element, String countryName) {
+        NodeList allCountriesFromPortfolioList = element.getElementsByTagName("classification");
+        for (int indexCountry = 0; indexCountry < allCountriesFromPortfolioList.getLength(); indexCountry++) {
+            Node countryFromPortfolioNode = allCountriesFromPortfolioList.item(indexCountry);
+            if (countryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String countryNameFromPortfolio = xmlHelper.getTextContent((Element) countryFromPortfolioNode, "name");
+                if (countryNameFromPortfolio.equals("Vereinigte Staaten")) {
+                    countryNameFromPortfolio = "USA";
+                }
+                if (countryName.equals(countryNameFromPortfolio)) return (Element) countryFromPortfolioNode;
+            }
+        }
+        return null;
+    }
+
+    private String getWeightOfAssignment(Element assignment) {
+        return xmlHelper.getTextContent(assignment, "weight");
     }
 
 }
