@@ -76,7 +76,6 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void importBranches_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
-        JsonArray cachedBranches = new JsonArray();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -85,7 +84,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
                     assertEquals(9, importedBranches.size());
                 }
             }
@@ -100,7 +99,6 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
-        JsonArray cachedBranches = new JsonArray();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -109,7 +107,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, cachedBranches, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
                     assertEquals(11, importedBranches.size());
                 }
             }
@@ -358,7 +356,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateWeightOfAssignment() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateWeightOfAssignmentCountry() throws IOException, ParserConfigurationException, SAXException {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country.xml");
         Node classification = document.getFirstChild();
         Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 4);
@@ -395,13 +393,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element tschechien = findClassification4CountryName(taxonomyElement, "Tschechien");
+                    Element tschechien = findClassificationByName(taxonomyElement, "Tschechien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tschechien, 1);
                     assertNotNull(assignment);
-                    Element ungarn = findClassification4CountryName(taxonomyElement, "Ungarn");
+                    Element ungarn = findClassificationByName(taxonomyElement, "Ungarn");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(ungarn, 1);
                     assertNotNull(assignment);
-                    Element finnland = findClassification4CountryName(taxonomyElement, "Finnland");
+                    Element finnland = findClassificationByName(taxonomyElement, "Finnland");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
                     assertNotNull(assignment);
 
@@ -440,14 +438,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element grossbritannien = findClassification4CountryName(taxonomyElement, "Großbritannien");
+                    Element grossbritannien = findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
                     assertEquals("278", getWeightOfAssignment(assignment));
-                    Element italien = findClassification4CountryName(taxonomyElement, "Italien");
+                    Element italien = findClassificationByName(taxonomyElement, "Italien");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(italien, 1);
                     assertNull(assignment);
-                    Element portugal = findClassification4CountryName(taxonomyElement, "Portugal");
+                    Element portugal = findClassificationByName(taxonomyElement, "Portugal");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(portugal, 1);
                     assertNull(assignment);
 
@@ -489,15 +487,15 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element grossbritannien = findClassification4CountryName(taxonomyElement, "Großbritannien");
+                    Element grossbritannien = findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
                     assertEquals("278", getWeightOfAssignment(assignment));
-                    Element daenemark = findClassification4CountryName(taxonomyElement, "Dänemark");
+                    Element daenemark = findClassificationByName(taxonomyElement, "Dänemark");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(daenemark, 1);
                     assertNotNull(assignment);
                     assertEquals("5", getWeightOfAssignment(assignment));
-                    Element finnland = findClassification4CountryName(taxonomyElement, "Finnland");
+                    Element finnland = findClassificationByName(taxonomyElement, "Finnland");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
                     assertNotNull(assignment);
                     assertEquals("3", getWeightOfAssignment(assignment));
@@ -519,7 +517,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         }
     }
 
-    private Element findClassification4CountryName(Element element, String countryName) {
+    private Element findClassificationByName(Element element, String name) {
         NodeList allCountriesFromPortfolioList = element.getElementsByTagName("classification");
         for (int indexCountry = 0; indexCountry < allCountriesFromPortfolioList.getLength(); indexCountry++) {
             Node countryFromPortfolioNode = allCountriesFromPortfolioList.item(indexCountry);
@@ -528,7 +526,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 if (countryNameFromPortfolio.equals("Vereinigte Staaten")) {
                     countryNameFromPortfolio = "USA";
                 }
-                if (countryName.equals(countryNameFromPortfolio)) return (Element) countryFromPortfolioNode;
+                if (name.equals(countryNameFromPortfolio)) return (Element) countryFromPortfolioNode;
             }
         }
         return null;
@@ -536,6 +534,168 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
 
     private String getWeightOfAssignment(Element assignment) {
         return xmlHelper.getTextContent(assignment, "weight");
+    }
+
+    @Test
+    public void testUpdateWeightOfAssignmentIndustry() throws IOException, ParserConfigurationException, SAXException {
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry.xml");
+        Node classification = document.getFirstChild();
+        Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 38);
+        assertNotNull(assessment);
+        String weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("37", weight);
+
+        assessment = portfolioDocumentService.updateWeightOfAssignment(assessment, "408");
+        assertNotNull(assessment);
+        weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("408", weight);
+    }
+
+    @Test
+    public void testImportIndustries_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+        // "Kapitalmärkte" to be removed by import
+        // "Software" to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Branchen (GICS)")) {
+                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    Element kapitalmaerkte = findClassificationByName(taxonomyElement, "Kapitalmärkte");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(kapitalmaerkte, 1);
+                    assertNotNull(assignment);
+                    Element software = findClassificationByName(taxonomyElement, "Software");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(software, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedBranches.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(kapitalmaerkte, 1);
+                    assertNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(software, 1);
+                    assertNull(assignment);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportIndustries_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+        // "Nicht-Basiskonsumgüter" to add 1092
+        // "Basiskonsumgüter" to add 655
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Branchen (GICS)")) {
+                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    Element nichtBasisKonsumgueter = findClassificationByName(taxonomyElement, "Nicht-Basiskonsumgüter");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nichtBasisKonsumgueter, 1);
+                    assertNull(assignment);
+                    Element basiskonsumgueter = findClassificationByName(taxonomyElement, "Basiskonsumgüter");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(basiskonsumgueter, 1);
+                    assertNull(assignment);
+
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedBranches.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nichtBasisKonsumgueter, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1092", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(basiskonsumgueter, 1);
+                    assertNotNull(assignment);
+                    assertEquals("655", getWeightOfAssignment(assignment));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportIndustries_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+        // "Gesundheitswesen" to update 1205
+        // "Industrie" to update 1113
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Branchen (GICS)")) {
+                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    Element gesundheitswesen = findClassificationByName(taxonomyElement, "Gesundheitswesen");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(gesundheitswesen, 1);
+                    assertNotNull(assignment);
+                    assertEquals("100", getWeightOfAssignment(assignment));
+                    Element industrie = findClassificationByName(taxonomyElement, "Industrie");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(industrie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("200", getWeightOfAssignment(assignment));
+
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedBranches.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(gesundheitswesen, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1205", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(industrie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1113", getWeightOfAssignment(assignment));
+                }
+            }
+        }
     }
 
 }

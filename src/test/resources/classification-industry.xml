@@ -1,0 +1,33 @@
+<classification>
+	<id>1ee8ee30-89b4-4c8e-962e-2c0c35e9823d</id>
+	<name>Hardware Technologie, Speicherung &amp; Peripherie</name>
+	<description>Hersteller von Handies, PCs, Servern, elektronischen Computerkomponenten und Peripheriegeräten. Hierzu gehören auch Datenspeicherkomponenten, Mainboards, Audio- und Videokarten, Monitore, Tastaturen, Drucker und andere Peripheriegeräte. Ausgeschlossen sind Halbleiter, die der Branche „Halbleiter“ zugeordnet sind.</description>
+	<color>#c785d6</color>
+	<parent reference="../../.."/>
+	<children/>
+	<assignments>
+		<assignment>
+			<investmentVehicle class="security" reference="../../../../../../../../../../../../../../securities/security[32]"/>
+			<weight>10000</weight>
+			<rank>1</rank>
+		</assignment>
+		<assignment>
+			<investmentVehicle class="security" reference="../../../../../../../../../../../../../../securities/security[38]"/>
+			<weight>37</weight>
+			<rank>2</rank>
+		</assignment>
+		<assignment>
+			<investmentVehicle class="security" reference="../../../../../../../../../../../../../../securities/security[43]"/>
+			<weight>10000</weight>
+			<rank>3</rank>
+		</assignment>
+	</assignments>
+	<weight>10000</weight>
+	<rank>0</rank>
+	<data>
+		<entry>
+			<string>portfolioClassificationKey</string>
+			<string>45202030</string>
+		</entry>
+	</data>
+</classification>

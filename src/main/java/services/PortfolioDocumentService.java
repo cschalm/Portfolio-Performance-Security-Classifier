@@ -47,7 +47,7 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals("Branchen (GICS)")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedIndustries = importIndustries(portfolioDocument, allSecurities, securityDetailsCache.getCachedIndustries(), taxonomyElement);
+                        JsonArray importedIndustries = importIndustries(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedIndustries(importedIndustries);
                     }
 
@@ -309,7 +309,7 @@ public class PortfolioDocumentService {
         return false;
     }
 
-    JsonArray importIndustries(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedIndustries, Element taxonomyElement) throws FileNotFoundException {
+    JsonArray importIndustries(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing industries...");
         NodeList allIndustriesFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
 
@@ -321,6 +321,7 @@ public class PortfolioDocumentService {
                 String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
                 logger.fine("Importing industry " + industryNameFromPortfolio);
                 industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new PortfolioDocumentService.NodeRankTuple(industryFromPortfolioNode, 0));
+                removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
             }
         }
         int indexOfSecurity = 0;
@@ -342,23 +343,33 @@ public class PortfolioDocumentService {
                 if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
                 BestMatch bestMatch = getBestMatch(industryNameFromPortfolioToNodeMap.keySet(), optimizedIndustryNameFromSecurity);
 
-                int nPercentage = (int) Math.ceil(security.getPercentageOfBranch(industryNameFromSecurity) * 100.0);
-                boolean alreadyAddedBefore = isContainedInCache(cachedIndustries, security.getIsin(), nPercentage, bestMatch.bestMatchingIndustryName, importedIndustries);
+                int percentage = (int) Math.ceil(security.getPercentageOfBranch(industryNameFromSecurity) * 100.0);
 
-                if (nPercentage > 0 && !alreadyAddedBefore) {
-                    PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
-                    Node branchNode = oTuple.oNode;
+                PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
+                Node industryNode = oTuple.oNode;
+                Element assignment = findAssignmentBySecurityIndex(industryNode, indexOfSecurity + 1);
+                if (percentage == 0) {
+                    // maybe this holding was contained before, so check if we have to remove it from this country
+                    if (assignment != null)
+                        assignment.getParentNode().removeChild(assignment);
+                } else {
+                    // check if assignment already exists and needs to be updated or added
+                    if (assignment != null) {
+                        // update
+                        updateWeightOfAssignment(assignment, Integer.toString(percentage));
+                    } else {
+                        // create and add new assignment
+                        assignment = createAssignmentElement(portfolioDocument, ++oTuple.nRank, percentage);
+                        Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+                        Element assignments = linkAssignmentsToInvestmentVehicle(industryNode, investmentVehicle, indexOfSecurity);
+                        assignment.appendChild(investmentVehicle);
+                        assignments.appendChild(assignment);
 
-                    Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                    Element assignments = linkAssignmentsToInvestmentVehicle(branchNode, investmentVehicle, indexOfSecurity);
+                        JsonObject securityJsonObject = createSecurityJson(bestMatch.bestMatchingIndustryName, security.getIsin(), percentage);
+                        importedIndustries.add(securityJsonObject);
 
-                    Element assignment = createAssignmentElement(portfolioDocument, ++oTuple.nRank, nPercentage);
-                    assignment.appendChild(investmentVehicle);
-                    assignments.appendChild(assignment);
-                    JsonObject securityJsonObject = createSecurityJson(bestMatch.bestMatchingIndustryName, security.getIsin(), nPercentage);
-                    importedIndustries.add(securityJsonObject);
-
-                    industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) nPercentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
+                        industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) percentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
+                    }
                 }
             }
             writeLogfile4Security(security, industryAssignmentLog, "industry");
@@ -403,24 +414,6 @@ public class PortfolioDocumentService {
         investmentVehicle.setAttribute("class", "security");
 
         return assignments;
-    }
-
-    private boolean isContainedInCache(JsonArray cache, String isin, int weight, String classification, JsonArray parentArray) {
-        boolean found = false;
-        // checking if the triple was added in an earlier run of the tool (therefore skip it -> no double entry AND it may have been moved
-        for (int index = 0; index < cache.size(); index++) {
-            JsonObject cachedJson = cache.get(index).getAsJsonObject();
-            if (jsonObjectEqualsInWeightAndIsinAndClassification(cachedJson, isin, weight, classification)) {
-                found = true;
-                JsonObject security = new JsonObject();
-                security.addProperty("weight", weight);
-                security.addProperty("isin", isin);
-                security.addProperty("classification", classification);
-                parentArray.add(security);
-                break;
-            }
-        }
-        return found;
     }
 
     private boolean jsonObjectEqualsInWeightAndIsinAndClassification(JsonObject json, String isin, int weight, String classification) {
@@ -640,6 +633,41 @@ public class PortfolioDocumentService {
         weightNode.setTextContent(weight);
 
         return assignment;
+    }
+
+    void removeOrphanIndustryAssignment(Node industryFromPortfolio, String industryNameFromPortfolio, List<Security> allSecurities) {
+//        String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolio, "name");
+        int indexOfSecurity = 0;
+        for (Security security : allSecurities) {
+            if (security == null) {
+                indexOfSecurity++;
+                continue;
+            }
+            logger.fine("Security: " + security);
+            Element assignment = findAssignmentBySecurityIndex(industryFromPortfolio, indexOfSecurity + 1);
+            if (assignment != null) {
+                // there is an assignment from this security to the current industry-node, but should it be removed?
+                boolean found = false;
+                for (String industryNameFromSecurity : security.getIndustries().keySet()) {
+                    String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity);
+                    if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
+                        // Hannover Rück is classified as "Versicherung" ?!?
+                        optimizedIndustryNameFromSecurity = "Rückversicherungen";
+                    }
+                    // skip not matching industries, e.g. "diverse Branchen"
+                    if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
+
+                    if (isNameSimilar(industryNameFromPortfolio, optimizedIndustryNameFromSecurity)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    // maybe this holding was contained before, but now it isn't
+                    assignment.getParentNode().removeChild(assignment);
+                }
+            }
+        }
     }
 
 }
