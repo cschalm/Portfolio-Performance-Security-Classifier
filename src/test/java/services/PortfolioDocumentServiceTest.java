@@ -393,13 +393,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element tschechien = findClassificationByName(taxonomyElement, "Tschechien");
+                    Element tschechien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Tschechien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tschechien, 1);
                     assertNotNull(assignment);
-                    Element ungarn = findClassificationByName(taxonomyElement, "Ungarn");
+                    Element ungarn = portfolioDocumentService.findClassificationByName(taxonomyElement, "Ungarn");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(ungarn, 1);
                     assertNotNull(assignment);
-                    Element finnland = findClassificationByName(taxonomyElement, "Finnland");
+                    Element finnland = portfolioDocumentService.findClassificationByName(taxonomyElement, "Finnland");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
                     assertNotNull(assignment);
 
@@ -438,14 +438,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element grossbritannien = findClassificationByName(taxonomyElement, "Großbritannien");
+                    Element grossbritannien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
                     assertEquals("278", getWeightOfAssignment(assignment));
-                    Element italien = findClassificationByName(taxonomyElement, "Italien");
+                    Element italien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Italien");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(italien, 1);
                     assertNull(assignment);
-                    Element portugal = findClassificationByName(taxonomyElement, "Portugal");
+                    Element portugal = portfolioDocumentService.findClassificationByName(taxonomyElement, "Portugal");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(portugal, 1);
                     assertNull(assignment);
 
@@ -487,15 +487,15 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Regionen")) {
-                    Element grossbritannien = findClassificationByName(taxonomyElement, "Großbritannien");
+                    Element grossbritannien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
                     assertEquals("278", getWeightOfAssignment(assignment));
-                    Element daenemark = findClassificationByName(taxonomyElement, "Dänemark");
+                    Element daenemark = portfolioDocumentService.findClassificationByName(taxonomyElement, "Dänemark");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(daenemark, 1);
                     assertNotNull(assignment);
                     assertEquals("5", getWeightOfAssignment(assignment));
-                    Element finnland = findClassificationByName(taxonomyElement, "Finnland");
+                    Element finnland = portfolioDocumentService.findClassificationByName(taxonomyElement, "Finnland");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
                     assertNotNull(assignment);
                     assertEquals("3", getWeightOfAssignment(assignment));
@@ -517,20 +517,21 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         }
     }
 
-    private Element findClassificationByName(Element element, String name) {
-        NodeList allCountriesFromPortfolioList = element.getElementsByTagName("classification");
-        for (int indexCountry = 0; indexCountry < allCountriesFromPortfolioList.getLength(); indexCountry++) {
-            Node countryFromPortfolioNode = allCountriesFromPortfolioList.item(indexCountry);
-            if (countryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
-                String countryNameFromPortfolio = xmlHelper.getTextContent((Element) countryFromPortfolioNode, "name");
-                if (countryNameFromPortfolio.equals("Vereinigte Staaten")) {
-                    countryNameFromPortfolio = "USA";
-                }
-                if (name.equals(countryNameFromPortfolio)) return (Element) countryFromPortfolioNode;
-            }
-        }
-        return null;
-    }
+//    private Element findClassificationByName(Element element, String name) {
+//        NodeList allClassificationsFromPortfolioList = element.getElementsByTagName("classification");
+//        for (int indexClassification = 0; indexClassification < allClassificationsFromPortfolioList.getLength(); indexClassification++) {
+//            Node classificationFromPortfolioNode = allClassificationsFromPortfolioList.item(indexClassification);
+//            if (classificationFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+//                String classificationNameFromPortfolio = xmlHelper.getTextContent((Element) classificationFromPortfolioNode, "name");
+//                // adjust name for country "USA"
+//                if (classificationNameFromPortfolio.equals("Vereinigte Staaten")) {
+//                    classificationNameFromPortfolio = "USA";
+//                }
+//                if (name.equals(classificationNameFromPortfolio)) return (Element) classificationFromPortfolioNode;
+//            }
+//        }
+//        return null;
+//    }
 
     private String getWeightOfAssignment(Element assignment) {
         return xmlHelper.getTextContent(assignment, "weight");
@@ -574,13 +575,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
-                    Element kapitalmaerkte = findClassificationByName(taxonomyElement, "Kapitalmärkte");
+                    Element kapitalmaerkte = portfolioDocumentService.findClassificationByName(taxonomyElement, "Kapitalmärkte");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(kapitalmaerkte, 1);
                     assertNotNull(assignment);
-                    Element software = findClassificationByName(taxonomyElement, "Software");
+                    Element software = portfolioDocumentService.findClassificationByName(taxonomyElement, "Software");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(software, 1);
                     assertNotNull(assignment);
 
@@ -619,14 +620,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
                     assertEquals("2411", getWeightOfAssignment(assignment));
-                    Element nichtBasisKonsumgueter = findClassificationByName(taxonomyElement, "Nicht-Basiskonsumgüter");
+                    Element nichtBasisKonsumgueter = portfolioDocumentService.findClassificationByName(taxonomyElement, "Nicht-Basiskonsumgüter");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nichtBasisKonsumgueter, 1);
                     assertNull(assignment);
-                    Element basiskonsumgueter = findClassificationByName(taxonomyElement, "Basiskonsumgüter");
+                    Element basiskonsumgueter = portfolioDocumentService.findClassificationByName(taxonomyElement, "Basiskonsumgüter");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(basiskonsumgueter, 1);
                     assertNull(assignment);
 
@@ -668,15 +669,15 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals("Branchen (GICS)")) {
-                    Element informationstechnologie = findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
                     assertEquals("2411", getWeightOfAssignment(assignment));
-                    Element gesundheitswesen = findClassificationByName(taxonomyElement, "Gesundheitswesen");
+                    Element gesundheitswesen = portfolioDocumentService.findClassificationByName(taxonomyElement, "Gesundheitswesen");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(gesundheitswesen, 1);
                     assertNotNull(assignment);
                     assertEquals("100", getWeightOfAssignment(assignment));
-                    Element industrie = findClassificationByName(taxonomyElement, "Industrie");
+                    Element industrie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Industrie");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(industrie, 1);
                     assertNotNull(assignment);
                     assertEquals("200", getWeightOfAssignment(assignment));

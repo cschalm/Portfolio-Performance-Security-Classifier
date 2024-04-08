@@ -24,7 +24,6 @@ import static constants.PathConstants.LOGS_PATH;
 
 public class PortfolioDocumentService {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentService.class.getCanonicalName());
-    // create random object - reuse this as often as possible
     Random random = new Random();
     XmlHelper xmlHelper = new XmlHelper();
     LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
@@ -80,67 +79,101 @@ public class PortfolioDocumentService {
         for (String stockName : allStockNames.keySet()) {
             logger.fine("Stockname: " + stockName);
 
-            // setting each stock as own "classification"
-            Element classificationNodeForStock = portfolioDocument.createElement("classification");
-            Element assignments = portfolioDocument.createElement("assignments");
-            {
-                Element id = portfolioDocument.createElement("id");
-                id.setTextContent(UUID.randomUUID().toString());
+            Element existingClassification = findClassificationByName(childrenElement, stockName);
+            if (existingClassification != null) {
+                int indexOfSecurity = 0;
+                Security existingSecurity = null;
+                int percentage = 0;
+                for (Security security : allSecurities) {
+                    if (security != null) {
+                        // find security that contains the current stock identified by any similar name
+                        if (security.getHoldings().containsKey(stockName)) {
+                            // primary name
+                            percentage = (int) Math.ceil(security.getPercentageOfHolding(stockName) * 100.0);
+                            existingSecurity = security;
+                        } else {
+                            // alternative names
+                            List<String> alternativeNames = allStockNames.get(stockName);
+                            for (String alternativeName : alternativeNames) {
+                                if (security.getHoldings().containsKey(alternativeName)) {
+                                    existingSecurity = security;
+                                    percentage = (int) Math.ceil(security.getPercentageOfHolding(alternativeName) * 100.0);
+                                }
+                            }
+                        }
+                        if (existingSecurity != null) {
+                            // update
+                            Element existingAssignment = findAssignmentBySecurityIndex(existingClassification, indexOfSecurity);
+                            if (existingAssignment != null)
+                                updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
 
-                Element name = portfolioDocument.createElement("name");
-                name.setTextContent(stockName);
-
-                Element color = portfolioDocument.createElement("color");
-                // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-                int nextInt = random.nextInt(0xffffff + 1);
-                // format it as hexadecimal string (with hashtag and leading zeros)
-                String colorCode = String.format("#%06x", nextInt);
-                color.setTextContent(colorCode);
-
-                Element parent = portfolioDocument.createElement("parent");
-                parent.setAttribute("reference", "../../..");
-
-                Element children = portfolioDocument.createElement("children");
-
-
-                Element weight = portfolioDocument.createElement("weight");
-                weight.setTextContent("10000");
-
-                Element rank = portfolioDocument.createElement("rank");
-                rank.setTextContent("0");
-
-                classificationNodeForStock.appendChild(id);
-                classificationNodeForStock.appendChild(name);
-                classificationNodeForStock.appendChild(color);
-                classificationNodeForStock.appendChild(parent);
-                classificationNodeForStock.appendChild(children);
-                classificationNodeForStock.appendChild(assignments);
-                classificationNodeForStock.appendChild(weight);
-                classificationNodeForStock.appendChild(rank);
-            }
-            int rank = 0;
-            int indexOfSecurity = 0;
-            for (Security security : allSecurities) {
-                if (security != null) {
-                    // find security that contains the current stock identified by any similar name
-                    if (security.getHoldings().containsKey(stockName)) {
-                        // primary name
-                        rank = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
-                    } else {
-                        // alternative names
-                        List<String> alternativeNames = allStockNames.get(stockName);
-                        for (String alternativeName : alternativeNames) {
-                            if (security.getHoldings().containsKey(alternativeName)) {
-                                rank = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                            // maybe there is another security with holdings for this stock
+                            existingSecurity = null;
+                            percentage = 0;
+                        }
+                    }
+                    indexOfSecurity++;
+                }
+            } else {
+                Element assignments = portfolioDocument.createElement("assignments");
+                int rank = 0;
+                int indexOfSecurity = 0;
+                for (Security security : allSecurities) {
+                    if (security != null) {
+                        // find security that contains the current stock identified by any similar name
+                        if (security.getHoldings().containsKey(stockName)) {
+                            // primary name
+                            rank = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                        } else {
+                            // alternative names
+                            List<String> alternativeNames = allStockNames.get(stockName);
+                            for (String alternativeName : alternativeNames) {
+                                if (security.getHoldings().containsKey(alternativeName)) {
+                                    rank = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                                }
                             }
                         }
                     }
+                    indexOfSecurity++;
                 }
-                indexOfSecurity++;
-            }
-            // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
-            if (assignments.hasChildNodes()) {
-                childrenElement.appendChild(classificationNodeForStock);
+                // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
+                if (assignments.hasChildNodes()) {
+                    // setting each stock as own "classification"
+                    Element classificationNodeForStock = portfolioDocument.createElement("classification");
+                    Element id = portfolioDocument.createElement("id");
+                    id.setTextContent(UUID.randomUUID().toString());
+
+                    Element name = portfolioDocument.createElement("name");
+                    name.setTextContent(stockName);
+
+                    Element color = portfolioDocument.createElement("color");
+                    // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+                    int nextInt = random.nextInt(0xffffff + 1);
+                    // format it as hexadecimal string (with hashtag and leading zeros)
+                    String colorCode = String.format("#%06x", nextInt);
+                    color.setTextContent(colorCode);
+
+                    Element parent = portfolioDocument.createElement("parent");
+                    parent.setAttribute("reference", "../../..");
+
+                    Element children = portfolioDocument.createElement("children");
+
+                    Element weight = portfolioDocument.createElement("weight");
+                    weight.setTextContent("10000");
+
+                    Element rankElement = portfolioDocument.createElement("rank");
+                    rankElement.setTextContent("0");
+
+                    classificationNodeForStock.appendChild(id);
+                    classificationNodeForStock.appendChild(name);
+                    classificationNodeForStock.appendChild(color);
+                    classificationNodeForStock.appendChild(parent);
+                    classificationNodeForStock.appendChild(children);
+                    classificationNodeForStock.appendChild(assignments);
+                    classificationNodeForStock.appendChild(weight);
+                    classificationNodeForStock.appendChild(rankElement);
+                    childrenElement.appendChild(classificationNodeForStock);
+                }
             }
         }
         // write logfile
@@ -348,11 +381,7 @@ public class PortfolioDocumentService {
                 PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
                 Node industryNode = oTuple.oNode;
                 Element assignment = findAssignmentBySecurityIndex(industryNode, indexOfSecurity + 1);
-                if (percentage == 0) {
-                    // maybe this holding was contained before, so check if we have to remove it from this country
-                    if (assignment != null)
-                        assignment.getParentNode().removeChild(assignment);
-                } else {
+                if (percentage > 0) {
                     // check if assignment already exists and needs to be updated or added
                     if (assignment != null) {
                         // update
@@ -636,7 +665,6 @@ public class PortfolioDocumentService {
     }
 
     void removeOrphanIndustryAssignment(Node industryFromPortfolio, String industryNameFromPortfolio, List<Security> allSecurities) {
-//        String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolio, "name");
         int indexOfSecurity = 0;
         for (Security security : allSecurities) {
             if (security == null) {
@@ -668,6 +696,22 @@ public class PortfolioDocumentService {
                 }
             }
         }
+    }
+
+    Element findClassificationByName(Element parent, String name) {
+        NodeList allClassificationsFromPortfolioList = parent.getElementsByTagName("classification");
+        for (int indexClassification = 0; indexClassification < allClassificationsFromPortfolioList.getLength(); indexClassification++) {
+            Node classificationFromPortfolioNode = allClassificationsFromPortfolioList.item(indexClassification);
+            if (classificationFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String classificationNameFromPortfolio = xmlHelper.getTextContent((Element) classificationFromPortfolioNode, "name");
+                // adjust name for country "USA"
+                if (classificationNameFromPortfolio.equals("Vereinigte Staaten")) {
+                    classificationNameFromPortfolio = "USA";
+                }
+                if (name.equals(classificationNameFromPortfolio)) return (Element) classificationFromPortfolioNode;
+            }
+        }
+        return null;
     }
 
 }
