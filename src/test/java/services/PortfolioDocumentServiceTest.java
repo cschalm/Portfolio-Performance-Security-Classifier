@@ -517,22 +517,6 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         }
     }
 
-//    private Element findClassificationByName(Element element, String name) {
-//        NodeList allClassificationsFromPortfolioList = element.getElementsByTagName("classification");
-//        for (int indexClassification = 0; indexClassification < allClassificationsFromPortfolioList.getLength(); indexClassification++) {
-//            Node classificationFromPortfolioNode = allClassificationsFromPortfolioList.item(indexClassification);
-//            if (classificationFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
-//                String classificationNameFromPortfolio = xmlHelper.getTextContent((Element) classificationFromPortfolioNode, "name");
-//                // adjust name for country "USA"
-//                if (classificationNameFromPortfolio.equals("Vereinigte Staaten")) {
-//                    classificationNameFromPortfolio = "USA";
-//                }
-//                if (name.equals(classificationNameFromPortfolio)) return (Element) classificationFromPortfolioNode;
-//            }
-//        }
-//        return null;
-//    }
-
     private String getWeightOfAssignment(Element assignment) {
         return xmlHelper.getTextContent(assignment, "weight");
     }
@@ -653,6 +637,168 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Gesundheitswesen" to update 1205
         // "Industrie" to update 1113
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Branchen (GICS)")) {
+                    Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    Element gesundheitswesen = portfolioDocumentService.findClassificationByName(taxonomyElement, "Gesundheitswesen");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(gesundheitswesen, 1);
+                    assertNotNull(assignment);
+                    assertEquals("100", getWeightOfAssignment(assignment));
+                    Element industrie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Industrie");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(industrie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("200", getWeightOfAssignment(assignment));
+
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedBranches.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(gesundheitswesen, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1205", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(industrie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1113", getWeightOfAssignment(assignment));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testUpdateWeightOfAssignmentTopTen() throws IOException, ParserConfigurationException, SAXException {
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten.xml");
+        Node classification = document.getFirstChild();
+        Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 20);
+        assertNotNull(assessment);
+        String weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("213", weight);
+
+        assessment = portfolioDocumentService.updateWeightOfAssignment(assessment, "312");
+        assertNotNull(assessment);
+        weight = xmlHelper.getTextContent(assessment, "weight");
+        assertNotNull(weight);
+        assertEquals("312", weight);
+    }
+
+    @Test
+    public void testImportTopTen_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+        // "ABB" to be removed by import
+        // "Saia" to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(10, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Top Ten")) {
+                    Element abb = portfolioDocumentService.findClassificationByName(taxonomyElement, "ABB");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(abb, 1);
+                    assertNotNull(assignment);
+                    Element saia = portfolioDocumentService.findClassificationByName(taxonomyElement, "Saia");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(saia, 1);
+                    assertNotNull(assignment);
+                    Element nvidia = portfolioDocumentService.findClassificationByName(taxonomyElement, "NVIDIA Corp.");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, new JsonArray(), taxonomyElement);
+                    assertEquals(3, importedTopTen.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
+                    assertNotNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(saia, 1);
+                    assertNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(abb, 1);
+                    assertNull(assignment);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportTopTen_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+        // "Alphabet A (Google)" to add 130
+        // "Eli Lilly & Co." to add 96
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Branchen (GICS)")) {
+                    Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    Element nichtBasisKonsumgueter = portfolioDocumentService.findClassificationByName(taxonomyElement, "Nicht-Basiskonsumgüter");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nichtBasisKonsumgueter, 1);
+                    assertNull(assignment);
+                    Element basiskonsumgueter = portfolioDocumentService.findClassificationByName(taxonomyElement, "Basiskonsumgüter");
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(basiskonsumgueter, 1);
+                    assertNull(assignment);
+
+                    JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedBranches.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
+                    assertNotNull(assignment);
+                    assertEquals("2411", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nichtBasisKonsumgueter, 1);
+                    assertNotNull(assignment);
+                    assertEquals("1092", getWeightOfAssignment(assignment));
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(basiskonsumgueter, 1);
+                    assertNotNull(assignment);
+                    assertEquals("655", getWeightOfAssignment(assignment));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportTopTen_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+        // "Meta Platforms Inc." to update 172
+        // "Microsoft" to update 462
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE000CNSFAR2");
         assertNotNull(security);

@@ -65,6 +65,12 @@
                             </assignment>
                             <assignment>
                                 <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>130</weight>
+                                <rank>4</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
                                                    reference="../../../../../../../../securities/security[38]"/>
                                 <weight>266</weight>
                                 <rank>1</rank>
@@ -1329,7 +1335,7 @@
                             <assignment>
                                 <investmentVehicle class="security"
                                                    reference="../../../../../../../../securities/security"/>
-                                <weight>172</weight>
+                                <weight>100</weight>
                                 <rank>3</rank>
                             </assignment>
                         </assignments>
@@ -1387,7 +1393,7 @@
                             <assignment>
                                 <investmentVehicle class="security"
                                                    reference="../../../../../../../../securities/security"/>
-                                <weight>462</weight>
+                                <weight>200</weight>
                                 <rank>4</rank>
                             </assignment>
                         </assignments>
@@ -2000,6 +2006,12 @@
                                                    reference="../../../../../../../../securities/security[47]"/>
                                 <weight>21</weight>
                                 <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>130</weight>
+                                <rank>4</rank>
                             </assignment>
                         </assignments>
                         <weight>10000</weight>
