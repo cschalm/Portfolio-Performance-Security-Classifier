@@ -9,9 +9,15 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.nio.file.Files;
 
 public class XmlHelper {
@@ -46,6 +52,19 @@ public class XmlHelper {
         }
 
         return result;
+    }
+
+    public String domNode2String(Node node, boolean indent) throws Exception {
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
+
+        StreamResult result = new StreamResult(new StringWriter());
+        DOMSource source = new DOMSource(node);
+        transformer.transform(source, result);
+
+        String xmlString = result.getWriter().toString();
+
+        return xmlString;
     }
 
 }

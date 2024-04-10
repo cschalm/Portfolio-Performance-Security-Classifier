@@ -1487,7 +1487,7 @@
                     </classification>
                     <classification>
                         <id>ea92a9de-5ef8-46bb-ae17-4d5063dff38a</id>
-                        <name>NVIDIA Corp.</name>
+                        <name>Nvidia</name>
                         <color>#073b98</color>
                         <parent reference="../../.."/>
                         <children/>

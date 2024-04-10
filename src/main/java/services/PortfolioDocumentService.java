@@ -78,15 +78,33 @@ public class PortfolioDocumentService {
         } else {
             // remove orphan top ten assignments
             NodeList allTopTenFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
-
             for (int indexTopTen = 0; indexTopTen < allTopTenFromPortfolioNodeList.getLength(); indexTopTen++) {
                 Node topTenFromPortfolioNode = allTopTenFromPortfolioNodeList.item(indexTopTen);
                 if (topTenFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                     String topTenNameFromPortfolio = xmlHelper.getTextContent((Element) topTenFromPortfolioNode, "name");
-                    Security existingSecurity = findSecurityByHolding(allSecurities, allStockNames, topTenNameFromPortfolio);
-                    if (existingSecurity == null) {
-                        logger.fine("Removing TopTen " + topTenNameFromPortfolio);
-                        topTenFromPortfolioNode.getParentNode().removeChild(topTenFromPortfolioNode);
+                    // check for each assignment if the corresponding stock still exists in portfolio
+                    NodeList assignments = ((Element) topTenFromPortfolioNode).getElementsByTagName("assignment");
+                    int indexSecurityToCheck = -1;
+                    for (int indexAssignments = 0; indexAssignments < assignments.getLength(); indexAssignments++) {
+                        Node assignment = assignments.item(indexAssignments);
+                        if (assignment.getNodeType() == Node.ELEMENT_NODE) {
+                            Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
+                            if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security"))
+                                continue;
+                            String reference = investmentVehicle.getAttribute("reference");
+                            if (reference.isEmpty()) continue;
+                            if (reference.endsWith("securities/security")) {
+                                indexSecurityToCheck = 0;
+                            } else {
+                                String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
+                                indexSecurityToCheck = Integer.parseInt(foundIndex) - 1;
+                            }
+                            if (indexSecurityToCheck < 0 || indexSecurityToCheck > allSecurities.size()) continue;
+                            if (!hasSecurityHolding(allSecurities.get(indexSecurityToCheck), allStockNames, topTenNameFromPortfolio)) {
+                                logger.fine("Removing " + allSecurities.get(indexSecurityToCheck) + " from TopTen " + topTenNameFromPortfolio);
+                                assignment.getParentNode().removeChild(assignment);
+                            }
+                        }
                     }
                 }
             }
@@ -726,6 +744,27 @@ public class PortfolioDocumentService {
             }
         }
         return null;
+    }
+
+    boolean hasSecurityHolding(Security security, TreeMap<String, List<String>> allStockNames, String holdingName) {
+        if (security != null) {
+            // find security that contains the current stock identified by any similar name
+            if (security.getHoldings().containsKey(holdingName)) {
+                // primary name
+                return true;
+            } else {
+                // alternative names
+                List<String> alternativeNames = allStockNames.get(holdingName);
+                if (alternativeNames != null) {
+                    for (String alternativeName : alternativeNames) {
+                        if (security.getHoldings().containsKey(alternativeName)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

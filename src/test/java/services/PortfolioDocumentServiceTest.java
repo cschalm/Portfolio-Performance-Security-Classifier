@@ -117,7 +117,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void importTopTen() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
+        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
         JsonArray cachedBranches = new JsonArray();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
@@ -226,7 +226,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void collectAllStockNames() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
 //        Document portfolioDocument = xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
-        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(XmlFileReader.getAllSecurities(portfolioDocument)));
+        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
         TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
         assertNotNull(allStockNames);
         assertEquals(10, allStockNames.size());
@@ -727,12 +727,12 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     Element saia = portfolioDocumentService.findClassificationByName(taxonomyElement, "Saia");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(saia, 1);
                     assertNotNull(assignment);
-                    Element nvidia = portfolioDocumentService.findClassificationByName(taxonomyElement, "NVIDIA Corp.");
+                    Element nvidia = portfolioDocumentService.findClassificationByName(taxonomyElement, "Nvidia");
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
                     assertNotNull(assignment);
 
                     JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, new JsonArray(), taxonomyElement);
-                    assertEquals(3, importedTopTen.size());
+                    assertEquals(2, importedTopTen.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
                     assertNotNull(assignment);
@@ -740,6 +740,40 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNull(assignment);
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(abb, 1);
                     assertNull(assignment);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntry() throws IOException, ParserConfigurationException, SAXException {
+        // nothing to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(10, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Top Ten")) {
+                    Element tesla = portfolioDocumentService.findClassificationByName(taxonomyElement, "Tesla");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, new JsonArray(), taxonomyElement);
+                    assertEquals(2, importedTopTen.size());
+
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
+                    assertNotNull(assignment);
                 }
             }
         }

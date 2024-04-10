@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class XmlFileReader {
     private static final Logger logger = Logger.getLogger(XmlFileReader.class.getCanonicalName());
 
-    public static NodeList getAllSecurities(Document doc) {
+    public NodeList getAllSecurities(Document doc) {
         try {
             // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();

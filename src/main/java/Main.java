@@ -5,6 +5,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import services.PortfolioDocumentService;
 import services.SecurityService;
+import xml.XmlFileReader;
 import xml.XmlFileWriter;
 import xml.XmlHelper;
 
@@ -18,7 +19,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import static constants.PathConstants.*;
-import static xml.XmlFileReader.getAllSecurities;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
@@ -59,7 +59,7 @@ public class Main {
     }
 
     NodeList getAllSecuritiesFromPortfolio(Document portfolioDoc) {
-        return getAllSecurities(portfolioDoc);
+        return new XmlFileReader().getAllSecurities(portfolioDoc);
     }
 
     Document loadPortfolioDocumentFromFile() throws IOException, ParserConfigurationException, SAXException {
