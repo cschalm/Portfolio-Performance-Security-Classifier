@@ -1,0 +1,3909 @@
+{
+  "props": {
+    "pageProps": {
+      "data": {
+        "snapshot": {
+          "expires": 1712846595853,
+          "type": "FundsSnapshot",
+          "instrument": {
+            "type": "Instrument",
+            "entityType": "FUND",
+            "entitySubType": "ETF",
+            "entityAttributes": [
+              "INSTRUMENT",
+              "HAS_SAVINGS_PLAN",
+              "BROKER_LIST"
+            ],
+            "entityValue": "3578269",
+            "name": "Lyxor CAC 40 DR UCITS ETF EUR Dis.",
+            "urls": {
+              "WEBSITE": "https://www.onvista.de/etf/Lyxor-CAC-40-DR-UCITS-ETF-EUR-Dis-ETF-FR0007052782"
+            },
+            "instrumentType": "Instrument",
+            "isin": "FR0007052782",
+            "wkn": "626678",
+            "symbol": "LYY",
+            "displayType": "ETF",
+            "urlName": "Lyxor-CAC-40-DR-UCITS-ETF-EUR-Dis",
+            "tinyName": "Lyxor CAC 40 DR UCITS ETF EUR Dis."
+          },
+          "quote": {
+            "expires": 1712846590847,
+            "idInstrument": "3578269",
+            "entityType": "FUND",
+            "entityValue": "3578269",
+            "market": {
+              "name": "Stuttgart",
+              "codeMarket": "_STU",
+              "nameExchange": "Stuttgart",
+              "codeExchange": "STU",
+              "idNotation": 283041755,
+              "isoCountry": "DE"
+            },
+            "isoCurrency": "EUR",
+            "idTradingSchedule": 335,
+            "volumeBid": 3811,
+            "highPrice1Year": 81.38,
+            "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+            "datetimeBid": "2024-04-11T14:43:00.017+00:00",
+            "ask": 78.79,
+            "performance1YearPct": 9.0051,
+            "open": 79.11,
+            "datetimeHighPrice1Year": "2024-03-28T12:00:00.000+00:00",
+            "lowPrice1Year": 68.31,
+            "totalMoney": 10315.5,
+            "low": 78.56,
+            "performance": -0.56,
+            "previousLast": 79.12,
+            "volumeAsk": 3808,
+            "money": 0,
+            "datetimeAsk": "2024-04-11T14:43:00.017+00:00",
+            "performance1Year": 6.49,
+            "performancePct": -0.7078,
+            "datetimeOpen": "2024-04-11T06:01:10.756+00:00",
+            "idTypePrice": 100,
+            "last": 78.56,
+            "codeQualityPrice": "RLT",
+            "addendum": "G",
+            "datetimeHigh": "2024-04-11T07:30:39.535+00:00",
+            "datetimeLow": "2024-04-11T14:30:26.191+00:00",
+            "high": 79.65,
+            "totalVolume": 130,
+            "bid": 78.74,
+            "volume4Weeks": 446,
+            "codeQualityPriceBidAsk": "RLT",
+            "datetimeLast": "2024-04-11T14:30:26.191+00:00",
+            "datetimePreviousLast": "2024-04-10T19:56:44.572+00:00",
+            "volume": 0,
+            "unitType": "STK",
+            "displayUnit": "EUR"
+          },
+          "quoteList": {
+            "expires": 1712846590847,
+            "list": [
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Paris",
+                  "codeMarket": "_PAR",
+                  "nameExchange": "Paris",
+                  "codeExchange": "PAR",
+                  "idNotation": 2072314,
+                  "isoCountry": "FR"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 143,
+                "volumeBid": 5140,
+                "highPrice1Year": 81.4,
+                "datetimeLowPrice1Year": "2023-10-23T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:28:05.341+00:00",
+                "ask": 78.61,
+                "performance1YearPct": 8.9422,
+                "open": 79.38,
+                "datetimeHighPrice1Year": "2024-03-28T12:00:00.000+00:00",
+                "lowPrice1Year": 68.4,
+                "totalMoney": 590052,
+                "low": 78.58,
+                "performance": -0.68,
+                "previousLast": 79.26,
+                "volumeAsk": 4080,
+                "money": 78.58,
+                "datetimeAsk": "2024-04-11T14:28:05.232+00:00",
+                "performance1Year": 6.45,
+                "performancePct": -0.8579,
+                "datetimeOpen": "2024-04-11T07:04:10.471+00:00",
+                "idTypePrice": 1,
+                "last": 78.58,
+                "codeQualityPrice": "DLY",
+                "addendum": "",
+                "datetimeHigh": "2024-04-11T07:35:15.970+00:00",
+                "datetimeLow": "2024-04-11T14:27:41.332+00:00",
+                "high": 79.72,
+                "totalVolume": 7454,
+                "bid": 78.55,
+                "volume4Weeks": 1094394,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2024-04-11T14:27:41.332+00:00",
+                "datetimePreviousLast": "2024-04-10T15:35:14.982+00:00",
+                "volume": 1,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "gettex",
+                  "codeMarket": "_TRO",
+                  "nameExchange": "gettex",
+                  "codeExchange": "TRO",
+                  "idNotation": 253163087,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 455,
+                "volumeBid": 150,
+                "highPrice1Year": 81.35,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:01.614+00:00",
+                "ask": 78.84,
+                "performance1YearPct": 9.1879,
+                "open": 79.14,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 68.4,
+                "totalMoney": 0,
+                "low": 78.79,
+                "performance": -0.34,
+                "previousLast": 79.13,
+                "volumeAsk": 150,
+                "money": 0,
+                "datetimeAsk": "2024-04-11T14:43:01.614+00:00",
+                "performance1Year": 6.63,
+                "performancePct": -0.4297,
+                "datetimeOpen": "2024-04-11T06:05:10.813+00:00",
+                "idTypePrice": 1,
+                "last": 78.79,
+                "codeQualityPrice": "RLT",
+                "addendum": "TB-",
+                "datetimeHigh": "2024-04-11T07:47:14.184+00:00",
+                "datetimeLow": "2024-04-11T14:17:05.407+00:00",
+                "high": 79.61,
+                "totalVolume": 0,
+                "bid": 78.69,
+                "volume4Weeks": 360059,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:17:05.407+00:00",
+                "datetimePreviousLast": "2024-04-10T19:47:21.353+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "London",
+                  "codeMarket": "_LSE",
+                  "nameExchange": "London",
+                  "codeExchange": "LSE",
+                  "idNotation": 107741300,
+                  "isoCountry": "GB"
+                },
+                "isoCurrency": "GBp",
+                "idTradingSchedule": 101,
+                "volumeBid": 5200,
+                "highPrice1Year": 6958,
+                "datetimeLowPrice1Year": "2023-10-23T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:28:05.325+00:00",
+                "ask": 6722,
+                "performance1YearPct": 7.0927,
+                "open": 6822.6,
+                "datetimeHighPrice1Year": "2024-03-27T12:00:00.000+00:00",
+                "lowPrice1Year": 5968,
+                "totalMoney": 765060.7,
+                "low": 6722,
+                "performance": -7,
+                "previousLast": 6794,
+                "volumeAsk": 637,
+                "datetimeAsk": "2024-04-11T14:28:05.717+00:00",
+                "performance1Year": 449.5,
+                "performancePct": -0.103,
+                "datetimeOpen": "2024-04-10T07:27:44.621+00:00",
+                "idTypePrice": 9,
+                "last": 6787,
+                "codeQualityPrice": "DLY",
+                "addendum": "",
+                "datetimeHigh": "2024-04-10T08:58:14.870+00:00",
+                "datetimeLow": "2024-04-10T13:20:37.284+00:00",
+                "high": 6825.95,
+                "totalVolume": 113,
+                "bid": 6717,
+                "volume4Weeks": 74358,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2024-04-10T15:35:06.188+00:00",
+                "datetimePreviousLast": "2024-04-09T15:35:14.436+00:00",
+                "unitType": "STK",
+                "displayUnit": "GBp"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Tradegate",
+                  "codeMarket": "_GAT",
+                  "nameExchange": "Tradegate",
+                  "codeExchange": "GAT",
+                  "idNotation": 404734314,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 299,
+                "volumeBid": 400,
+                "highPrice1Year": 81.68,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:02.286+00:00",
+                "ask": 78.84,
+                "performance1YearPct": 9.8644,
+                "open": 79.55,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 68.45,
+                "totalMoney": 554.76,
+                "low": 79.1,
+                "performance": 0.17,
+                "previousLast": 79.24,
+                "volumeAsk": 400,
+                "money": 79.41,
+                "datetimeAsk": "2024-04-11T14:43:02.286+00:00",
+                "performance1Year": 7.13,
+                "performancePct": 0.2145,
+                "datetimeOpen": "2024-04-11T07:01:09.069+00:00",
+                "idTypePrice": 1,
+                "last": 79.41,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-11T07:01:09.069+00:00",
+                "datetimeLow": "2024-04-11T07:01:53.951+00:00",
+                "high": 79.55,
+                "totalVolume": 7,
+                "bid": 78.69,
+                "volume4Weeks": 6358,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T13:24:49.618+00:00",
+                "datetimePreviousLast": "2024-04-10T20:26:17.704+00:00",
+                "volume": 1,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Lang & Schwarz",
+                  "codeMarket": "@_LUSG",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "Lang & Schwarz",
+                  "codeContributor": "LUSG",
+                  "idNotation": 323736510,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 250,
+                "volumeBid": 627,
+                "highPrice1Year": 81.43,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:05.510+00:00",
+                "ask": 78.8,
+                "performance1YearPct": 9.3472,
+                "open": 79.07,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 67.53,
+                "low": 78.55,
+                "performance": -0.25,
+                "previousLast": 78.98,
+                "volumeAsk": 627,
+                "datetimeAsk": "2024-04-11T14:43:05.510+00:00",
+                "performance1Year": 6.73,
+                "performancePct": -0.3165,
+                "datetimeOpen": "2024-04-11T05:30:57.656+00:00",
+                "idTypePrice": 128,
+                "last": 78.73,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-11T07:33:51.795+00:00",
+                "datetimeLow": "2024-04-11T14:27:45.407+00:00",
+                "high": 79.72,
+                "bid": 78.73,
+                "volume4Weeks": 2458,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:43:05.510+00:00",
+                "datetimePreviousLast": "2024-04-10T20:05:24.272+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "LS Exchange",
+                  "codeMarket": "_LSX",
+                  "nameExchange": "LS Exchange",
+                  "codeExchange": "LSX",
+                  "idNotation": 323713680,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 626,
+                "volumeBid": 627,
+                "highPrice1Year": 81.43,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:05.642+00:00",
+                "ask": 78.8,
+                "performance1YearPct": 9.3472,
+                "open": 79.07,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 67.53,
+                "totalMoney": 159.06,
+                "low": 78.55,
+                "performance": -0.25,
+                "previousLast": 78.98,
+                "volumeAsk": 627,
+                "datetimeAsk": "2024-04-11T14:43:05.642+00:00",
+                "performance1Year": 6.73,
+                "performancePct": -0.3165,
+                "datetimeOpen": "2024-04-11T05:30:57.657+00:00",
+                "idTypePrice": 128,
+                "last": 78.73,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-11T07:33:51.795+00:00",
+                "datetimeLow": "2024-04-11T14:27:45.406+00:00",
+                "high": 79.72,
+                "totalVolume": 2,
+                "bid": 78.73,
+                "volume4Weeks": 1754,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:43:05.641+00:00",
+                "datetimePreviousLast": "2024-04-10T20:05:24.270+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Quotrix",
+                  "codeMarket": "_QUO",
+                  "nameExchange": "Quotrix",
+                  "codeExchange": "QUO",
+                  "idNotation": 450804690,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 511,
+                "volumeBid": 640,
+                "datetimeBid": "2024-04-11T14:43:05.675+00:00",
+                "ask": 78.99,
+                "open": 79.26,
+                "totalMoney": 0,
+                "low": 79.26,
+                "performance": -0.06,
+                "previousLast": 79.32,
+                "volumeAsk": 640,
+                "money": 0,
+                "datetimeAsk": "2024-04-11T14:43:05.675+00:00",
+                "performancePct": -0.0756,
+                "datetimeOpen": "2024-04-11T05:57:33.313+00:00",
+                "idTypePrice": 1,
+                "last": 79.26,
+                "codeQualityPrice": "RLT",
+                "addendum": "M",
+                "datetimeHigh": "2024-04-11T05:57:33.313+00:00",
+                "datetimeLow": "2024-04-11T05:57:33.313+00:00",
+                "high": 79.26,
+                "totalVolume": 0,
+                "bid": 78.54,
+                "volume4Weeks": 492,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T05:57:33.313+00:00",
+                "datetimePreviousLast": "2024-04-10T05:57:32.945+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Stuttgart",
+                  "codeMarket": "_STU",
+                  "nameExchange": "Stuttgart",
+                  "codeExchange": "STU",
+                  "idNotation": 283041755,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 335,
+                "volumeBid": 3811,
+                "highPrice1Year": 81.38,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:00.017+00:00",
+                "ask": 78.79,
+                "performance1YearPct": 9.0051,
+                "open": 79.11,
+                "datetimeHighPrice1Year": "2024-03-28T12:00:00.000+00:00",
+                "lowPrice1Year": 68.31,
+                "totalMoney": 10315.5,
+                "low": 78.56,
+                "performance": -0.56,
+                "previousLast": 79.12,
+                "volumeAsk": 3808,
+                "money": 0,
+                "datetimeAsk": "2024-04-11T14:43:00.017+00:00",
+                "performance1Year": 6.49,
+                "performancePct": -0.7078,
+                "datetimeOpen": "2024-04-11T06:01:10.756+00:00",
+                "idTypePrice": 100,
+                "last": 78.56,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2024-04-11T07:30:39.535+00:00",
+                "datetimeLow": "2024-04-11T14:30:26.191+00:00",
+                "high": 79.65,
+                "totalVolume": 130,
+                "bid": 78.74,
+                "volume4Weeks": 446,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:30:26.191+00:00",
+                "datetimePreviousLast": "2024-04-10T19:56:44.572+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "KVG",
+                  "codeMarket": "@_WM",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "KVG",
+                  "codeContributor": "WM",
+                  "idNotation": 8414897,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 288,
+                "highPrice1Year": 80.7972,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-10T06:00:00.000+00:00",
+                "ask": 79.2121,
+                "performance1YearPct": 9.8398,
+                "open": 79.2121,
+                "datetimeHighPrice1Year": "2024-03-28T12:00:00.000+00:00",
+                "lowPrice1Year": 68.5774,
+                "low": 79.2121,
+                "performance": -0.038,
+                "previousLast": 79.2501,
+                "datetimeAsk": "2024-04-10T06:00:00.000+00:00",
+                "performance1Year": 7.0961,
+                "performancePct": -0.0479,
+                "datetimeOpen": "2024-04-10T06:00:00.000+00:00",
+                "idTypePrice": 1,
+                "last": 79.2121,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-10T06:00:00.000+00:00",
+                "datetimeLow": "2024-04-10T06:00:00.000+00:00",
+                "high": 79.2121,
+                "bid": 79.2121,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-10T06:00:00.000+00:00",
+                "datetimePreviousLast": "2024-04-09T06:00:00.000+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "München",
+                  "codeMarket": "_MUN",
+                  "nameExchange": "München",
+                  "codeExchange": "MUN",
+                  "idNotation": 107153708,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 118,
+                "volumeBid": 21673,
+                "highPrice1Year": 79.97,
+                "datetimeLowPrice1Year": "2023-10-30T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:04.520+00:00",
+                "ask": 79.45,
+                "performance1YearPct": 10.1943,
+                "open": 78.26,
+                "datetimeHighPrice1Year": "2024-04-02T12:00:00.000+00:00",
+                "lowPrice1Year": 67.72,
+                "totalMoney": 0,
+                "low": 78.26,
+                "performance": -0.06,
+                "previousLast": 78.32,
+                "volumeAsk": 12587,
+                "money": 0,
+                "datetimeAsk": "2024-04-11T14:43:04.520+00:00",
+                "performance1Year": 7.24,
+                "performancePct": -0.0766,
+                "datetimeOpen": "2024-04-11T06:00:24.230+00:00",
+                "idTypePrice": 1,
+                "last": 78.26,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2024-04-11T06:00:24.230+00:00",
+                "datetimeLow": "2024-04-11T06:00:24.230+00:00",
+                "high": 78.26,
+                "totalVolume": 0,
+                "bid": 78.43,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T06:00:24.230+00:00",
+                "datetimePreviousLast": "2024-04-10T06:00:51.380+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Düsseldorf",
+                  "codeMarket": "_DUS",
+                  "nameExchange": "Düsseldorf",
+                  "codeExchange": "DUS",
+                  "idNotation": 197380970,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 60,
+                "volumeBid": 6400,
+                "highPrice1Year": 81.38,
+                "datetimeLowPrice1Year": "2023-10-23T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:05.670+00:00",
+                "ask": 79,
+                "performance1YearPct": 8.8941,
+                "open": 79.17,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 68.17,
+                "totalMoney": 0,
+                "low": 78.48,
+                "performance": -0.64,
+                "previousLast": 79.12,
+                "volumeAsk": 6400,
+                "money": 0,
+                "datetimeAsk": "2024-04-11T14:43:05.670+00:00",
+                "performance1Year": 6.41,
+                "performancePct": -0.8089,
+                "datetimeOpen": "2024-04-11T06:46:31.460+00:00",
+                "idTypePrice": 1,
+                "last": 78.48,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2024-04-11T08:17:04.130+00:00",
+                "datetimeLow": "2024-04-11T14:17:00.800+00:00",
+                "high": 79.4,
+                "totalVolume": 0,
+                "bid": 78.53,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:17:00.800+00:00",
+                "datetimePreviousLast": "2024-04-10T19:47:04.960+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "KVG",
+                  "codeMarket": "@_WM",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "KVG",
+                  "codeContributor": "WM",
+                  "idNotation": 235978627,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "GBP",
+                "idTradingSchedule": 288,
+                "highPrice1Year": 69.219,
+                "datetimeLowPrice1Year": "2023-10-31T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-10T06:00:00.000+00:00",
+                "ask": 67.7897,
+                "performance1YearPct": 7.0138,
+                "open": 67.7897,
+                "datetimeHighPrice1Year": "2024-03-27T12:00:00.000+00:00",
+                "lowPrice1Year": 60.5263,
+                "low": 67.7897,
+                "performance": -0.0959,
+                "previousLast": 67.8856,
+                "datetimeAsk": "2024-04-10T06:00:00.000+00:00",
+                "performance1Year": 4.443,
+                "performancePct": -0.1413,
+                "datetimeOpen": "2024-04-10T06:00:00.000+00:00",
+                "idTypePrice": 1,
+                "last": 67.7897,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-10T06:00:00.000+00:00",
+                "datetimeLow": "2024-04-10T06:00:00.000+00:00",
+                "high": 67.7897,
+                "bid": 67.7897,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-10T06:00:00.000+00:00",
+                "datetimePreviousLast": "2024-04-09T06:00:00.000+00:00",
+                "unitType": "STK",
+                "displayUnit": "GBP"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Baader Bank",
+                  "codeMarket": "@_BBF",
+                  "nameExchange": "außerbörslich Deutschland",
+                  "codeExchange": "@DE",
+                  "nameContributor": "Baader Bank",
+                  "codeContributor": "BBF",
+                  "idNotation": 253162402,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 459,
+                "volumeBid": 382,
+                "highPrice1Year": 81.46625,
+                "datetimeLowPrice1Year": "2023-10-27T12:00:00.000+00:00",
+                "datetimeBid": "2024-04-11T14:43:02.138+00:00",
+                "ask": 78.8435,
+                "performance1YearPct": 9.1835,
+                "open": 79.186,
+                "datetimeHighPrice1Year": "2024-03-21T12:00:00.000+00:00",
+                "lowPrice1Year": 68.37675,
+                "low": 78.56475,
+                "performance": -0.4015,
+                "previousLast": 79.1665,
+                "volumeAsk": 382,
+                "datetimeAsk": "2024-04-11T14:43:02.138+00:00",
+                "performance1Year": 6.625,
+                "performancePct": -0.5072,
+                "datetimeOpen": "2024-04-11T06:05:15.374+00:00",
+                "idTypePrice": 1,
+                "last": 78.765,
+                "codeQualityPrice": "RLT",
+                "addendum": "",
+                "datetimeHigh": "2024-04-11T07:33:49.422+00:00",
+                "datetimeLow": "2024-04-11T14:27:57.219+00:00",
+                "high": 79.735,
+                "bid": 78.6865,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T14:43:02.138+00:00",
+                "datetimePreviousLast": "2024-04-10T19:59:57.098+00:00",
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Stuttgart FXplus",
+                  "codeMarket": "_BTP",
+                  "nameExchange": "Stuttgart FXplus",
+                  "codeExchange": "BTP",
+                  "idNotation": 302905316,
+                  "isoCountry": "DE"
+                },
+                "isoCurrency": "EUR",
+                "idTradingSchedule": 609,
+                "volumeBid": 0,
+                "highPrice1Year": 81.29,
+                "datetimeLowPrice1Year": "2023-10-23T12:00:00.000+00:00",
+                "performance1YearPct": 10.0264,
+                "open": 79.23,
+                "datetimeHighPrice1Year": "2024-03-28T12:00:00.000+00:00",
+                "lowPrice1Year": 68.45,
+                "totalMoney": 0,
+                "low": 79.23,
+                "performance": -0.43,
+                "previousLast": 79.66,
+                "volumeAsk": 0,
+                "money": 0,
+                "performance1Year": 7.22,
+                "performancePct": -0.5398,
+                "datetimeOpen": "2024-04-11T09:58:09.567+00:00",
+                "idTypePrice": 100,
+                "last": 79.23,
+                "codeQualityPrice": "RLT",
+                "addendum": "G",
+                "datetimeHigh": "2024-04-11T09:58:09.567+00:00",
+                "datetimeLow": "2024-04-11T09:58:09.567+00:00",
+                "high": 79.23,
+                "totalVolume": 0,
+                "volume4Weeks": 0,
+                "codeQualityPriceBidAsk": "RLT",
+                "datetimeLast": "2024-04-11T09:58:09.567+00:00",
+                "datetimePreviousLast": "2024-04-10T09:58:08.228+00:00",
+                "volume": 0,
+                "unitType": "STK",
+                "displayUnit": "EUR"
+              },
+              {
+                "expires": 1712846590847,
+                "idInstrument": "3578269",
+                "entityType": "FUND",
+                "entityValue": "3578269",
+                "market": {
+                  "name": "Nasdaq OTC",
+                  "codeMarket": "_PNK",
+                  "nameExchange": "Nasdaq OTC",
+                  "codeExchange": "PNK",
+                  "idNotation": 286139834,
+                  "isoCountry": "US"
+                },
+                "isoCurrency": "USD",
+                "idTradingSchedule": 184,
+                "open": 71.65,
+                "totalMoney": 7165,
+                "low": 71.65,
+                "performance": -3.412401,
+                "previousLast": 75.062401,
+                "money": 7165,
+                "performancePct": -4.5461,
+                "datetimeOpen": "2022-03-16T15:00:29.674+00:00",
+                "idTypePrice": 1,
+                "last": 71.65,
+                "codeQualityPrice": "DLY",
+                "addendum": "",
+                "datetimeHigh": "2022-03-16T15:00:29.674+00:00",
+                "datetimeLow": "2022-03-16T15:00:29.674+00:00",
+                "high": 71.65,
+                "totalVolume": 100,
+                "codeQualityPriceBidAsk": "DLY",
+                "datetimeLast": "2022-03-16T15:00:29.674+00:00",
+                "datetimePreviousLast": "2021-10-13T14:00:43.874+00:00",
+                "volume": 100,
+                "unitType": "STK",
+                "displayUnit": "USD"
+              }
+            ]
+          },
+          "chart": {
+            "idNotation": 283041755,
+            "selectedRange": "W1",
+            "ranges": [
+              "D1",
+              "W1",
+              "M1",
+              "M3",
+              "M6",
+              "Y1",
+              "Y3",
+              "Y5",
+              "Y10",
+              "MAX"
+            ],
+            "codeMarket": "_STU",
+            "isoCurrency": "EUR"
+          },
+          "cnPerformance": {
+            "expires": 1712850185886,
+            "idNotation": 283041755,
+            "averageMoneyD5": 158,
+            "averageMoneyD30": 62868,
+            "averageMoneyD100": 1318803,
+            "averageMoneyD250": 1835771,
+            "averageMoneyCy": 11578.2285714,
+            "averagePriceD5": 79.424,
+            "averagePriceD30": 79.65,
+            "averagePriceD100": 76.0804,
+            "averagePriceD250": 74.10316,
+            "averagePriceCy": 76.8521428571,
+            "averageVolumeD5": 0.4,
+            "averageVolumeD30": 26.3333333333,
+            "averageVolumeD100": 176.28,
+            "averageVolumeD250": 98.944,
+            "moneyD5": 158,
+            "moneyD30": 62868,
+            "moneyD100": 1318803,
+            "moneyD250": 1835771,
+            "performanceAbsCm": -1.88,
+            "performanceAbsCy": 4.71,
+            "performanceAbsW1": -1.07,
+            "performanceAbsW4": 0.31,
+            "performanceAbsM3": 5.91,
+            "performanceAbsM6": 7.35,
+            "performanceAbsW52": 7.05,
+            "performanceAbsY3": 18.54,
+            "performanceRelCm": -2.32098765432,
+            "performanceRelCy": 6.32979438248,
+            "performanceRelD1": -0.352644836272,
+            "performanceRelW1": -1.33433096396,
+            "performanceRelW4": 0.393351097576,
+            "performanceRelM2": 4.64224308954,
+            "performanceRelM3": 8.07266766835,
+            "performanceRelM6": 10.2410477916,
+            "performanceRelW52": 9.78215623699,
+            "performanceRelY2": 23.8572323106,
+            "performanceRelY3": 30.6041597887,
+            "performanceRelY4": 87.4881516588,
+            "volaW1": 7.92331213338,
+            "vola30": 8.789177943,
+            "volaM1": 9.45795869465,
+            "volaM3": 9.59815678247,
+            "volaM6": 10.8022520666,
+            "vola250": 11.8268723392,
+            "volaY1": 11.7510260539,
+            "volaY3": 16.9051868693,
+            "volaCy": 9.68078181156,
+            "volumeAvgW1": 0.4,
+            "volumeAvgW4": 21.2380952381,
+            "volumeAvgW52": 97.796875,
+            "volumeW1": 2,
+            "volumeW4": 446,
+            "volumeW52": 25036,
+            "dateM1High": "2024-03-28T12:00:00.000+00:00",
+            "dateM1Low": "2024-03-11T12:00:00.000+00:00",
+            "dateM3High": "2024-03-28T12:00:00.000+00:00",
+            "dateM3Low": "2024-01-17T12:00:00.000+00:00",
+            "dateM6High": "2024-03-28T12:00:00.000+00:00",
+            "dateM6Low": "2023-10-27T12:00:00.000+00:00",
+            "dateW1High": "2024-04-04T12:00:00.000+00:00",
+            "dateW1Low": "2024-04-10T12:00:00.000+00:00",
+            "dateW52High": "2024-03-28T12:00:00.000+00:00",
+            "dateW52Low": "2023-10-27T12:00:00.000+00:00",
+            "dateY3High": "2024-03-28T12:00:00.000+00:00",
+            "dateY3Low": "2022-09-29T12:00:00.000+00:00",
+            "dateYearHigh": "2024-03-28T12:00:00.000+00:00",
+            "dateYearLow": "2024-01-17T12:00:00.000+00:00",
+            "dateW1Last": "2024-04-03",
+            "dateW4Last": "2024-03-08",
+            "dateM3Last": "2024-01-10",
+            "dateM6Last": "2023-10-10",
+            "dateW52Last": "2023-04-06",
+            "dateY3Last": "2021-04-09",
+            "dateY5Last": "",
+            "dateY7Last": "",
+            "dateY10Last": "",
+            "dateCyLast": "2023-12-29",
+            "highPriceW1": 80.61,
+            "highPriceM1": 81.38,
+            "highPriceM3": 81.38,
+            "highPriceM6": 81.38,
+            "highPriceW52": 81.38,
+            "highPriceY3": 81.38,
+            "highPriceYear": 81.38,
+            "lowPriceW1": 78.62,
+            "lowPriceM1": 78.58,
+            "lowPriceM3": 71.79,
+            "lowPriceM6": 68.31,
+            "lowPriceW52": 68.31,
+            "lowPriceY3": 55.4,
+            "lowPriceYear": 71.79,
+            "lastPriceCy": 74.41,
+            "lastPriceW1": 80.19,
+            "lastPriceW4": 78.81,
+            "lastPriceM3": 73.21,
+            "lastPriceM6": 71.77,
+            "lastPriceW52": 72.07,
+            "lastPriceY3": 60.58
+          },
+          "profile": [],
+          "relatedInstrumentItemList": [],
+          "keywords": {
+            "entityType": "FUND",
+            "entitySubType": "ETF",
+            "entityValue": "3578269",
+            "wkn": "626678",
+            "isin": "FR0007052782",
+            "idGroupIssuerFund": "63084",
+            "idIssuerFund": "2164448",
+            "idInvestmentFocus": "5458",
+            "idTypeFund": "71"
+          },
+          "fundsIssuer": {
+            "id": 2164448,
+            "name": "Amundi Asset Management S.A.",
+            "idGroupIssuer": 63084,
+            "nameGroupIssuer": "Amundi",
+            "photoId": "ov/wour1noaavxafvsgzuqy",
+            "customerId": 199,
+            "urls": {
+              "WEBSITE": "https://www.onvista.de/fonds/kvgs/amundi-asset-management-s-a-2164448"
+            }
+          },
+          "fundsDetails": {
+            "shortName": "Lyxor CAC 40 DR UCITS ETF EUR Dis.",
+            "officialName": "Amundi CAC 40 UCITS ETF - EUR DIS",
+            "idTypeFund": 71,
+            "nameTypeFund": "Aktienfonds",
+            "idInvestmentFocus": 5458,
+            "nameInvestmentFocus": "Aktien Frankreich",
+            "categories": [],
+            "fundsInvestmentFocus": {
+              "id": 5458,
+              "name": "Aktien Frankreich",
+              "fundsType": {
+                "id": 71,
+                "name": "Aktienfonds"
+              }
+            },
+            "fundsInvestmentRegion": {
+              "id": 1,
+              "name": "Euroland"
+            },
+            "fundsTypeCapitalisation": {
+              "id": 2,
+              "name": "Ausschüttend"
+            },
+            "fundsTypeReplication": {
+              "id": 2,
+              "name": "vollreplizierend"
+            },
+            "etfType": {
+              "id": 2,
+              "name": "Aktien"
+            }
+          },
+          "fundsBaseData": {
+            "dateEmission": "2000-12-13T00:00:00.000+00:00",
+            "isoCurrencyFund": "EUR",
+            "isoCountry": "FR",
+            "nameCountry": "Frankreich",
+            "volumeFundEuro": 3797459200,
+            "isoCurrencyVolume": "EUR",
+            "volumeFund": 3782342912,
+            "dateVolume": "2024-04-08T00:00:00.000+00:00",
+            "managementFeeExPostMifid": 0.25,
+            "ongoingCharges": 0.24999999441206455,
+            "idCustodianBank": 4597,
+            "nameCustodianBank": "Société Générale",
+            "maxPctInitialFee": 5,
+            "isoCurrencyFees": "",
+            "maxPctRedemptionFee": 5,
+            "isoCurrInvestmentInitial": "",
+            "isoCurrInvestmentFollow": "",
+            "hasSavingsPlan": true,
+            "dayStartFiscalYear": 1,
+            "monthStartFiscalYear": 11,
+            "listCountriesRegistered": "DE",
+            "fundAge": 23,
+            "hasOvbSavingsPlan": false,
+            "hasOvbPromotion": false,
+            "hasOvbNoInitialFee": false,
+            "hasScalableSavingsPlan": true,
+            "hasComdirectSavingsPlan": false,
+            "institutional": false
+          },
+          "background": [
+            {
+              "type": "NewsParagraph",
+              "ignoreIfUnknown": false,
+              "value": "Der Fonds ist ein passiv verwalteter, indexgebundener OGAW. Das Anlageziel des Fonds besteht darin, die Entwicklung des auf Euro (EUR) lautenden CAC 40 Gross Total Return Index (mit Wiederanlage der Bruttodividenden) ('die Benchmark'), der die an der Euronext Paris notierten, 40 größten Unternehmen abbildet, sowohl nach oben als auch nach unten nachzubilden und gleichzeitig den Tracking Error zwischen der Wertentwicklung des Fonds und derjenigen der Benchmark soweit wie möglich zu minimieren. Der Fonds ist bestrebt, sein Ziel durch direkte Nachbildung zu erreichen, d. h. er investiert hauptsächlich in einen Korb von Vermögenswerten, der aus den Wertpapieren besteht, die die Benchmark bilden, und/oder in Finanzinstrumente, die alle oder einen Teil der in der Benchmark enthaltenen Wertpapiere abbilden. Um die Nachbildung der Benchmark zu optimieren, kann der Fonds auf eine Stichprobentechnik sowie auf garantierte vorübergehende Verkäufe von Wertpapieren zurückgreifen."
+            }
+          ],
+          "fundsPerformanceList": {
+            "list": [
+              {
+                "timeSpan": "1M",
+                "nameTimeSpan": "1 Monat",
+                "performanceTimeSpanPct": 0.34439998865127563
+              },
+              {
+                "timeSpan": "3M",
+                "nameTimeSpan": "3 Monate",
+                "performanceTimeSpanPct": 8.46030044555664
+              },
+              {
+                "timeSpan": "1Y",
+                "nameTimeSpan": "1 Jahr",
+                "performanceTimeSpanPct": 9.892499923706055
+              },
+              {
+                "timeSpan": "3Y",
+                "nameTimeSpan": "3 Jahre",
+                "performanceTimeSpanPct": 32.80339813232422
+              },
+              {
+                "timeSpan": "5Y",
+                "nameTimeSpan": "5 Jahre",
+                "performanceTimeSpanPct": 58.70399856567383
+              },
+              {
+                "timeSpan": "10Y",
+                "nameTimeSpan": "10 Jahre",
+                "performanceTimeSpanPct": 126.47000122070312
+              },
+              {
+                "timeSpan": "CY",
+                "nameTimeSpan": "2024",
+                "performanceTimeSpanPct": 6.889900207519531
+              },
+              {
+                "timeSpan": "1PA",
+                "nameTimeSpan": "2023",
+                "performanceTimeSpanPct": 16.590900421142578
+              },
+              {
+                "timeSpan": "2PA",
+                "nameTimeSpan": "2022",
+                "performanceTimeSpanPct": -9.51669979095459
+              },
+              {
+                "timeSpan": "3PA",
+                "nameTimeSpan": "2021",
+                "performanceTimeSpanPct": 31.147499084472656
+              },
+              {
+                "timeSpan": "4PA",
+                "nameTimeSpan": "2020",
+                "performanceTimeSpanPct": -5.108099937438965
+              },
+              {
+                "timeSpan": "5PA",
+                "nameTimeSpan": "2019",
+                "performanceTimeSpanPct": 30.20319938659668
+              },
+              {
+                "timeSpan": "SE",
+                "nameTimeSpan": "Seit Emission",
+                "performanceTimeSpanPct": 123.96099853515625
+              }
+            ]
+          },
+          "fundsRiskList": {
+            "list": [
+              {
+                "timeSpan": "1M",
+                "nameTimeSpan": "1 Monat",
+                "sharpeRatioAnnualised": 1.4032000303268433,
+                "sharpeRatio": 0.11010000109672546,
+                "excessReturn": 0.8992999792098999,
+                "volatility": 8.166899681091309,
+                "maxDrawdown": -1.7647000551223755,
+                "countMonthsPositivePerformance": 100,
+                "oneMonthHigh": 1.2193000316619873,
+                "oneMonthLow": 1.2193000316619873,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 78.89510345458984,
+                "avgPrice": 80.12000274658203
+              },
+              {
+                "timeSpan": "3M",
+                "nameTimeSpan": "3 Monate",
+                "sharpeRatioAnnualised": 3.945199966430664,
+                "sharpeRatio": 0.847100019454956,
+                "excessReturn": 8.088199615478516,
+                "volatility": 9.548199653625488,
+                "maxDrawdown": -1.9453999996185303,
+                "countMonthsPositivePerformance": 100,
+                "oneMonthHigh": 4.718500137329102,
+                "oneMonthLow": 1.2193000316619873,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 72.0165023803711,
+                "avgPrice": 76.8499984741211
+              },
+              {
+                "timeSpan": "1Y",
+                "nameTimeSpan": "1 Jahr",
+                "sharpeRatioAnnualised": 0.5924000144004822,
+                "sharpeRatio": 0.6003000140190125,
+                "excessReturn": 7.270699977874756,
+                "volatility": 12.112700462341309,
+                "maxDrawdown": -9.31820011138916,
+                "countMonthsPositivePerformance": 58.33330154418945,
+                "oneMonthHigh": 7.1859002113342285,
+                "oneMonthLow": -3.6552999019622803,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 68.57740020751953,
+                "avgPrice": 74.0199966430664
+              },
+              {
+                "timeSpan": "2Y",
+                "nameTimeSpan": "2 Jahre",
+                "sharpeRatioAnnualised": 0.7591000199317932,
+                "sharpeRatio": 1.6038000583648682,
+                "excessReturn": 24.913000106811523,
+                "volatility": 15.534099578857422,
+                "maxDrawdown": -15.618800163269043,
+                "countMonthsPositivePerformance": 62.5,
+                "oneMonthHigh": 10.266200065612793,
+                "oneMonthLow": -8.589400291442871,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 55.85089874267578,
+                "avgPrice": 69.16000366210938
+              },
+              {
+                "timeSpan": "3Y",
+                "nameTimeSpan": "3 Jahre",
+                "sharpeRatioAnnualised": 0.631600022315979,
+                "sharpeRatio": 2.0885000228881836,
+                "excessReturn": 35.4807014465332,
+                "volatility": 16.98889923095703,
+                "maxDrawdown": -23.010299682617188,
+                "countMonthsPositivePerformance": 58.33330154418945,
+                "oneMonthHigh": 10.266200065612793,
+                "oneMonthLow": -15.170900344848633,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 55.85089874267578,
+                "avgPrice": 68.08000183105469
+              },
+              {
+                "timeSpan": "4Y",
+                "nameTimeSpan": "4 Jahre",
+                "sharpeRatioAnnualised": 0.964900016784668,
+                "sharpeRatio": 4.964200019836426,
+                "excessReturn": 91.28140258789062,
+                "volatility": 18.38800048828125,
+                "maxDrawdown": -23.010299682617188,
+                "countMonthsPositivePerformance": 60.41669845581055,
+                "oneMonthHigh": 14.040800094604492,
+                "oneMonthLow": -15.170900344848633,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 42.26729965209961,
+                "avgPrice": 63.869998931884766
+              },
+              {
+                "timeSpan": "5Y",
+                "nameTimeSpan": "5 Jahre",
+                "sharpeRatioAnnualised": 0.48919999599456787,
+                "sharpeRatio": 2.9577999114990234,
+                "excessReturn": 60.552101135253906,
+                "volatility": 20.472299575805664,
+                "maxDrawdown": -38.52669906616211,
+                "countMonthsPositivePerformance": 56.66669845581055,
+                "oneMonthHigh": 14.040800094604492,
+                "oneMonthLow": -15.170900344848633,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 36.80039978027344,
+                "avgPrice": 61.959999084472656
+              },
+              {
+                "timeSpan": "10Y",
+                "nameTimeSpan": "10 Jahre",
+                "sharpeRatioAnnualised": 0.4462999999523163,
+                "sharpeRatio": 6.730000019073486,
+                "excessReturn": 127.21499633789062,
+                "volatility": 18.902700424194336,
+                "maxDrawdown": -38.52669906616211,
+                "countMonthsPositivePerformance": 57.5,
+                "oneMonthHigh": 14.040800094604492,
+                "oneMonthLow": -15.170900344848633,
+                "highQuote": 80.79720306396484,
+                "lowQuote": 36.80039978027344,
+                "avgPrice": 54.97999954223633
+              }
+            ]
+          },
+          "fundsHoldingList": {
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "LVMH MOET HENNESSY LOUIS VUI",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "LVMH MOET HENNESSY LOUIS VUI"
+                },
+                "investmentPct": 11.54,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "TOTALENERGIES SE PARIS",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "TOTALENERGIES SE PARIS"
+                },
+                "investmentPct": 8.04,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SCHNEIDER ELECT SE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SCHNEIDER ELECT SE"
+                },
+                "investmentPct": 6.55,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "L OREAL PRIME FIDELITE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "L OREAL PRIME FIDELITE"
+                },
+                "investmentPct": 5.58,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SANOFI",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SANOFI"
+                },
+                "investmentPct": 5.45,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "AIR LIQUIDE PRIME FIDELITE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "AIR LIQUIDE PRIME FIDELITE"
+                },
+                "investmentPct": 5.15,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "AIRBUS SE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "AIRBUS SE"
+                },
+                "investmentPct": 4.95,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "HERMES INTERNATIONAL",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "HERMES INTERNATIONAL"
+                },
+                "investmentPct": 4,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SAFRAN SA",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SAFRAN SA"
+                },
+                "investmentPct": 3.84,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "BNP PARIBAS",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "BNP PARIBAS"
+                },
+                "investmentPct": 3.54,
+                "isoCurrencyMarketValue": ""
+              }
+            ]
+          },
+          "branchFundsBreakdownList": {
+            "typeFundsBreakdown": "BRANCH",
+            "nameFundsBreakdown": "Branchen",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515957,
+                "nameBreakdown": "Industrie",
+                "investmentPct": 23.88
+              },
+              {
+                "idBreakdown": 207515986,
+                "nameBreakdown": "Konsumgüter zyklisch",
+                "investmentPct": 22.36
+              },
+              {
+                "idBreakdown": 207515878,
+                "nameBreakdown": "Basiskonsumgüter",
+                "investmentPct": 10.19
+              },
+              {
+                "idBreakdown": 207515926,
+                "nameBreakdown": "Finanzen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515936,
+                "nameBreakdown": "Gesundheitswesen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515910,
+                "nameBreakdown": "Energie",
+                "investmentPct": 8.11
+              },
+              {
+                "idBreakdown": 207516016,
+                "nameBreakdown": "Rohstoffe",
+                "investmentPct": 6.1
+              },
+              {
+                "idBreakdown": 207515954,
+                "nameBreakdown": "IT/Telekommunikation",
+                "investmentPct": 5.1
+              },
+              {
+                "idBreakdown": 207516031,
+                "nameBreakdown": "Telekomdienste",
+                "investmentPct": 2.73
+              },
+              {
+                "idBreakdown": 207516047,
+                "nameBreakdown": "Versorger",
+                "investmentPct": 2.45
+              },
+              {
+                "idBreakdown": 207515955,
+                "nameBreakdown": "Immobilien",
+                "investmentPct": 0.44
+              }
+            ]
+          },
+          "fundsIssuerReports": [
+            {
+              "codeTypeFundsReport": "PROSPECTUS_XX",
+              "nameTypeFundsReport": "Verkaufsprospekt",
+              "url": "https://mediaproxy.mdgms.com/download.html?docId=b3dfb815-92a5-41d3-b398-42760b872f8b&expiration=1712978921&check=KOzgzi4y%2F0%2B%2FAZOQUHKpEPj%2BGlQaDTXb%2BUFkPGszr7WO91XA6IVMUdt9inR4ggKrja5GvpSkIrxAvbhQBW395A%3D%3D&IDMS=1"
+            },
+            {
+              "codeTypeFundsReport": "SEMI_ANUAL_REPORT_XX",
+              "nameTypeFundsReport": "Halbjahresbericht",
+              "url": "https://mediaproxy.mdgms.com/download.html?docId=b2c95b54-f4d6-4a96-8017-e2cb7b1cb80e&expiration=1712978921&check=e8Kx9eyp5nYd9ncevQpxKHqCasXbybqKLAJYkl%2F0L0X5L8rAe9%2BhsPM8y8LiIH2HVGxtlKWVt2TpKAssFACIcw%3D%3D&IDMS=1"
+            },
+            {
+              "codeTypeFundsReport": "PRIIP_KID_DE",
+              "nameTypeFundsReport": "Wesentliche Informationen für den Anleger (PRIIB-KID) (de)",
+              "url": "https://mediaproxy.mdgms.com/download.html?docId=2b7bcd99-aa6f-54b2-a9bc-fc80a6a60479&expiration=1712978921&check=HTsJDJ7wskxIYmCtwtFeOXr%2BEr6ZtBoKOR7H5vO0t7p91A53dvz9nQUVV3DIzRiLetH1LunazZMHO1w7FZd8Nw%3D%3D&IDMS=1"
+            },
+            {
+              "codeTypeFundsReport": "ANUAL_REPORT_XX",
+              "nameTypeFundsReport": "Rechenschaftsbericht",
+              "url": "https://mediaproxy.mdgms.com/download.html?docId=a57add8b-d7d4-4ed5-aa8a-218414fac2f1&expiration=1712978921&check=PGYiJkmDQKegfDruTEcaXn2Iqn%2F%2FAzgKq3BOokmNWHG8dEwY%2FoPZIql8JlIlgFvmhv6pEs6S8rhlSihcpfWsjQ%3D%3D&IDMS=1"
+            }
+          ],
+          "fundsBenchmarkList": {
+            "list": [
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "324965",
+                  "name": "CAC 40",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/CAC-40-Index-324965"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "FR0003500008",
+                  "wkn": "969400",
+                  "symbol": "C40",
+                  "displayType": "Index",
+                  "tinyName": "CAC 40"
+                },
+                "codeTypeFundsBenchmark": "ONVISTA_BENCHMARK",
+                "nameTypeFundsBenchmark": "Benchmark von onvista",
+                "idInstrumentBenchmark": 376380,
+                "idNotationBenchmark": 324965
+              }
+            ]
+          },
+          "fundsFigureBenchmarkList": {
+            "list": [
+              {
+                "timeSpan": "1M",
+                "nameTimeSpan": "1 Monat",
+                "relativeReturnPct": 0.12950000166893005,
+                "relativeMonthlyReturnPct": 0.12950000166893005
+              },
+              {
+                "timeSpan": "3M",
+                "nameTimeSpan": "3 Monate",
+                "relativeReturnPct": 0.5705000162124634,
+                "relativeMonthlyReturnPct": 0.18979999423027039
+              },
+              {
+                "timeSpan": "1Y",
+                "nameTimeSpan": "1 Jahr",
+                "relativeReturnPct": -1.2304999828338623,
+                "relativeMonthlyReturnPct": -0.1031000018119812
+              },
+              {
+                "timeSpan": "3Y",
+                "nameTimeSpan": "3 Jahre",
+                "relativeReturnPct": -2.8998000621795654,
+                "relativeMonthlyReturnPct": -0.08169999718666077
+              },
+              {
+                "timeSpan": "5Y",
+                "nameTimeSpan": "5 Jahre",
+                "relativeReturnPct": -3.363800048828125,
+                "relativeMonthlyReturnPct": -0.05700000002980232
+              },
+              {
+                "timeSpan": "10Y",
+                "nameTimeSpan": "10 Jahre",
+                "relativeReturnPct": -6.804599761962891,
+                "relativeMonthlyReturnPct": -0.05869999900460243
+              }
+            ]
+          },
+          "manager": "Raphaël Dieterlen, Christophe Neves",
+          "fundsEvaluation": {
+            "nameMorningstarCategory": "Aktien Frankreich Standardwerte",
+            "labelMorningstarStyleboxEquity": "Morningstar Style-Box™ (Aktien)",
+            "morningstarStyleboxEquity": "2",
+            "dateMorningstarStyleboxEquity": "2024-04-02T00:00:00.000+00:00",
+            "labelMorningstarRating": "Morningstar Rating™",
+            "morningstarRating": "5",
+            "morningstarRating3y": "5",
+            "morningstarRating5y": "5",
+            "morningstarRating10y": "5",
+            "dateMorningstarRating": "2024-02-29T00:00:00.000+00:00",
+            "riskClass": 3,
+            "ratingDescriptionId": 896
+          },
+          "fundsShareClassList": [
+            {
+              "instrument": {
+                "type": "Instrument",
+                "entityType": "FUND",
+                "entitySubType": "ETF",
+                "entityAttributes": [
+                  "INSTRUMENT",
+                  "HAS_SAVINGS_PLAN",
+                  "BROKER_LIST"
+                ],
+                "entityValue": "149454994",
+                "name": "Lyxor CAC 40 DR UCITS ETF EUR Acc.",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/etf/Lyxor-CAC-40-DR-UCITS-ETF-EUR-Acc-ETF-FR0013380607"
+                },
+                "instrumentType": "Instrument",
+                "isin": "FR0013380607",
+                "wkn": "LYX0ZC",
+                "symbol": "VOOP",
+                "displayType": "ETF",
+                "urlName": "Lyxor-CAC-40-DR-UCITS-ETF-EUR-Acc",
+                "tinyName": "Lyxor CAC 40 DR UCITS ETF EUR Acc."
+              },
+              "issuer": {
+                "id": 2164448,
+                "name": "Amundi Asset Management S.A.",
+                "idGroupIssuer": 63084,
+                "nameGroupIssuer": "Amundi",
+                "photoId": "ov/wour1noaavxafvsgzuqy",
+                "customerId": 199,
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/fonds/kvgs/amundi-asset-management-s-a-2164448"
+                }
+              },
+              "fundsDetails": {
+                "shortName": "Amundi CAC 40 UCITS ETF - EUR ACC",
+                "officialName": "Amundi CAC 40 UCITS ETF - EUR ACC",
+                "idTypeFund": 71,
+                "nameTypeFund": "Aktienfonds",
+                "idInvestmentFocus": 5458,
+                "nameInvestmentFocus": "Aktien Frankreich",
+                "categories": [],
+                "fundsInvestmentFocus": {
+                  "id": 5458,
+                  "name": "Aktien Frankreich",
+                  "fundsType": {
+                    "id": 71,
+                    "name": "Aktienfonds"
+                  }
+                },
+                "fundsInvestmentRegion": {
+                  "id": 1,
+                  "name": "Euroland"
+                },
+                "fundsTypeCapitalisation": {
+                  "id": 1,
+                  "name": "Thesaurierend"
+                },
+                "fundsTypeReplication": {
+                  "id": 2,
+                  "name": "vollreplizierend"
+                },
+                "etfType": {
+                  "id": 2,
+                  "name": "Aktien"
+                }
+              },
+              "fundsPerformanceList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "performanceTimeSpanPct": 1.2194000482559204
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "performanceTimeSpanPct": 9.058300018310547
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "performanceTimeSpanPct": 13.989500045776367
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "performanceTimeSpanPct": 42.333099365234375
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "performanceTimeSpanPct": 68.8915023803711
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "performanceTimeSpanPct": null
+                  },
+                  {
+                    "timeSpan": "CY",
+                    "nameTimeSpan": "2024",
+                    "performanceTimeSpanPct": 7.821800231933594
+                  },
+                  {
+                    "timeSpan": "1PA",
+                    "nameTimeSpan": "2023",
+                    "performanceTimeSpanPct": 19.903400421142578
+                  },
+                  {
+                    "timeSpan": "2PA",
+                    "nameTimeSpan": "2022",
+                    "performanceTimeSpanPct": -6.883800029754639
+                  },
+                  {
+                    "timeSpan": "3PA",
+                    "nameTimeSpan": "2021",
+                    "performanceTimeSpanPct": 31.584800720214844
+                  },
+                  {
+                    "timeSpan": "4PA",
+                    "nameTimeSpan": "2020",
+                    "performanceTimeSpanPct": -5.107500076293945
+                  },
+                  {
+                    "timeSpan": "5PA",
+                    "nameTimeSpan": "2019",
+                    "performanceTimeSpanPct": 30.201900482177734
+                  },
+                  {
+                    "timeSpan": "SE",
+                    "nameTimeSpan": "Seit Emission",
+                    "performanceTimeSpanPct": 95.71240234375
+                  }
+                ]
+              },
+              "benchmark": {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "324965",
+                  "name": "CAC 40",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/CAC-40-Index-324965"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "FR0003500008",
+                  "wkn": "969400",
+                  "symbol": "C40",
+                  "displayType": "Index",
+                  "tinyName": "CAC 40"
+                },
+                "codeTypeFundsBenchmark": "ONVISTA_BENCHMARK",
+                "nameTypeFundsBenchmark": "Benchmark von onvista",
+                "idInstrumentBenchmark": 376380,
+                "idNotationBenchmark": 324965
+              },
+              "fundsFigureBenchmarkList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "relativeReturnPct": 0.12960000336170197,
+                    "relativeMonthlyReturnPct": 0.12960000336170197
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "relativeReturnPct": 0.5705999732017517,
+                    "relativeMonthlyReturnPct": 0.18979999423027039
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "relativeReturnPct": 1.5662000179290771,
+                    "relativeMonthlyReturnPct": 0.12960000336170197
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "relativeReturnPct": 3.107300043106079,
+                    "relativeMonthlyReturnPct": 0.08500000089406967
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "relativeReturnPct": 2.6143999099731445,
+                    "relativeMonthlyReturnPct": 0.0430000014603138
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "relativeReturnPct": null,
+                    "relativeMonthlyReturnPct": null
+                  }
+                ]
+              },
+              "fundsRiskList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "sharpeRatioAnnualised": 1.403499960899353,
+                    "sharpeRatio": 0.11010000109672546,
+                    "excessReturn": 0.899399995803833,
+                    "volatility": 8.166299819946289,
+                    "maxDrawdown": -1.7647000551223755,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 1.2194000482559204,
+                    "oneMonthLow": 1.2194000482559204,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 37.372501373291016,
+                    "avgPrice": 37.95000076293945
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "sharpeRatioAnnualised": 3.945499897003174,
+                    "sharpeRatio": 0.847100019454956,
+                    "excessReturn": 8.088299751281738,
+                    "volatility": 9.547800064086914,
+                    "maxDrawdown": -1.9452999830245972,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 4.718699932098389,
+                    "oneMonthLow": 1.2194000482559204,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 34.11410140991211,
+                    "avgPrice": 36.400001525878906
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "sharpeRatioAnnualised": 0.8751000165939331,
+                    "sharpeRatio": 0.8855999708175659,
+                    "excessReturn": 10.409500122070312,
+                    "volatility": 11.754300117492676,
+                    "maxDrawdown": -9.317999839782715,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 7.185100078582764,
+                    "oneMonthLow": -2.406100034713745,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 31.590599060058594,
+                    "avgPrice": 34.40999984741211
+                  },
+                  {
+                    "timeSpan": "2Y",
+                    "nameTimeSpan": "2 Jahre",
+                    "sharpeRatioAnnualised": 0.9703999757766724,
+                    "sharpeRatio": 2.0813000202178955,
+                    "excessReturn": 32.149600982666016,
+                    "volatility": 15.447199821472168,
+                    "maxDrawdown": -13.808799743652344,
+                    "countMonthsPositivePerformance": 62.5,
+                    "oneMonthHigh": 10.266400337219238,
+                    "oneMonthLow": -6.230500221252441,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 25.651199340820312,
+                    "avgPrice": 31.899999618530273
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "sharpeRatioAnnualised": 0.7652000188827515,
+                    "sharpeRatio": 2.585400104522705,
+                    "excessReturn": 43.773101806640625,
+                    "volatility": 16.931100845336914,
+                    "maxDrawdown": -20.999300003051758,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 10.266400337219238,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 25.651199340820312,
+                    "avgPrice": 31.040000915527344
+                  },
+                  {
+                    "timeSpan": "4Y",
+                    "nameTimeSpan": "4 Jahre",
+                    "sharpeRatioAnnualised": 1.0160000324249268,
+                    "sharpeRatio": 5.36299991607666,
+                    "excessReturn": 103.01899719238281,
+                    "volatility": 19.209199905395508,
+                    "maxDrawdown": -20.999300003051758,
+                    "countMonthsPositivePerformance": 60.41669845581055,
+                    "oneMonthHigh": 14.041399955749512,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 18.20709991455078,
+                    "avgPrice": 28.860000610351562
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "sharpeRatioAnnualised": 0.5382999777793884,
+                    "sharpeRatio": 3.3417000770568848,
+                    "excessReturn": 70.3915023803711,
+                    "volatility": 21.064300537109375,
+                    "maxDrawdown": -38.526798248291016,
+                    "countMonthsPositivePerformance": 56.66669845581055,
+                    "oneMonthHigh": 14.041399955749512,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 38.27349853515625,
+                    "lowQuote": 15.852100372314453,
+                    "avgPrice": 27.729999542236328
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre"
+                  }
+                ]
+              },
+              "fundsBaseData": {
+                "dateEmission": "2018-12-13T00:00:00.000+00:00",
+                "isoCurrencyFund": "EUR",
+                "isoCountry": "FR",
+                "nameCountry": "Frankreich",
+                "volumeFundEuro": 3797459200,
+                "isoCurrencyVolume": "EUR",
+                "volumeFund": 3782342912,
+                "dateVolume": "2024-04-08T00:00:00.000+00:00",
+                "managementFeeExAnteMifid": 0.25,
+                "managementFeeExPostMifid": 0.25,
+                "ongoingCharges": 0.24999999441206455,
+                "idCustodianBank": 4597,
+                "nameCustodianBank": "Société Générale",
+                "maxPctInitialFee": 5,
+                "isoCurrencyFees": "",
+                "maxPctRedemptionFee": 5,
+                "isoCurrInvestmentInitial": "",
+                "isoCurrInvestmentFollow": "",
+                "hasSavingsPlan": true,
+                "dayStartFiscalYear": 1,
+                "monthStartFiscalYear": 11,
+                "listCountriesRegistered": "DE",
+                "fundAge": 5,
+                "hasOvbSavingsPlan": false,
+                "hasOvbPromotion": false,
+                "hasOvbNoInitialFee": false,
+                "hasScalableSavingsPlan": true,
+                "hasComdirectSavingsPlan": false,
+                "institutional": false
+              },
+              "fundsEvaluation": {
+                "nameMorningstarCategory": "Aktien Frankreich Standardwerte",
+                "labelMorningstarStyleboxEquity": "Morningstar Style-Box™ (Aktien)",
+                "morningstarStyleboxEquity": "2",
+                "dateMorningstarStyleboxEquity": "2024-03-22T00:00:00.000+00:00",
+                "labelMorningstarRating": "Morningstar Rating™",
+                "morningstarRating": "5",
+                "morningstarRating3y": "5",
+                "morningstarRating5y": "5",
+                "dateMorningstarRating": "2024-02-29T00:00:00.000+00:00",
+                "riskClass": 3,
+                "ratingDescriptionId": 896
+              },
+              "savingsPlanBroker": [
+                {
+                  "id": 8458,
+                  "name": "Scalable Capital"
+                },
+                {
+                  "id": 8459,
+                  "name": "Finanzen.net Zero"
+                }
+              ]
+            },
+            {
+              "instrument": {
+                "type": "Instrument",
+                "entityType": "FUND",
+                "entitySubType": "ETF",
+                "entityAttributes": [
+                  "INSTRUMENT",
+                  "HAS_SAVINGS_PLAN",
+                  "BROKER_LIST"
+                ],
+                "entityValue": "3578269",
+                "name": "Lyxor CAC 40 DR UCITS ETF EUR Dis.",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/etf/Lyxor-CAC-40-DR-UCITS-ETF-EUR-Dis-ETF-FR0007052782"
+                },
+                "instrumentType": "Instrument",
+                "isin": "FR0007052782",
+                "wkn": "626678",
+                "symbol": "LYY",
+                "displayType": "ETF",
+                "urlName": "Lyxor-CAC-40-DR-UCITS-ETF-EUR-Dis",
+                "tinyName": "Lyxor CAC 40 DR UCITS ETF EUR Dis."
+              },
+              "issuer": {
+                "id": 2164448,
+                "name": "Amundi Asset Management S.A.",
+                "idGroupIssuer": 63084,
+                "nameGroupIssuer": "Amundi",
+                "photoId": "ov/wour1noaavxafvsgzuqy",
+                "customerId": 199,
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/fonds/kvgs/amundi-asset-management-s-a-2164448"
+                }
+              },
+              "fundsDetails": {
+                "shortName": "Amundi CAC 40 UCITS ETF - EUR DIS",
+                "officialName": "Amundi CAC 40 UCITS ETF - EUR DIS",
+                "idTypeFund": 71,
+                "nameTypeFund": "Aktienfonds",
+                "idInvestmentFocus": 5458,
+                "nameInvestmentFocus": "Aktien Frankreich",
+                "categories": [],
+                "fundsInvestmentFocus": {
+                  "id": 5458,
+                  "name": "Aktien Frankreich",
+                  "fundsType": {
+                    "id": 71,
+                    "name": "Aktienfonds"
+                  }
+                },
+                "fundsInvestmentRegion": {
+                  "id": 1,
+                  "name": "Euroland"
+                },
+                "fundsTypeCapitalisation": {
+                  "id": 2,
+                  "name": "Ausschüttend"
+                },
+                "fundsTypeReplication": {
+                  "id": 2,
+                  "name": "vollreplizierend"
+                },
+                "etfType": {
+                  "id": 2,
+                  "name": "Aktien"
+                }
+              },
+              "fundsPerformanceList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "performanceTimeSpanPct": 0.34439998865127563
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "performanceTimeSpanPct": 8.46030044555664
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "performanceTimeSpanPct": 9.892499923706055
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "performanceTimeSpanPct": 32.80339813232422
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "performanceTimeSpanPct": 58.70399856567383
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "performanceTimeSpanPct": 126.47000122070312
+                  },
+                  {
+                    "timeSpan": "CY",
+                    "nameTimeSpan": "2024",
+                    "performanceTimeSpanPct": 6.889900207519531
+                  },
+                  {
+                    "timeSpan": "1PA",
+                    "nameTimeSpan": "2023",
+                    "performanceTimeSpanPct": 16.590900421142578
+                  },
+                  {
+                    "timeSpan": "2PA",
+                    "nameTimeSpan": "2022",
+                    "performanceTimeSpanPct": -9.51669979095459
+                  },
+                  {
+                    "timeSpan": "3PA",
+                    "nameTimeSpan": "2021",
+                    "performanceTimeSpanPct": 31.147499084472656
+                  },
+                  {
+                    "timeSpan": "4PA",
+                    "nameTimeSpan": "2020",
+                    "performanceTimeSpanPct": -5.108099937438965
+                  },
+                  {
+                    "timeSpan": "5PA",
+                    "nameTimeSpan": "2019",
+                    "performanceTimeSpanPct": 30.20319938659668
+                  },
+                  {
+                    "timeSpan": "SE",
+                    "nameTimeSpan": "Seit Emission",
+                    "performanceTimeSpanPct": 123.96099853515625
+                  }
+                ]
+              },
+              "benchmark": {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "324965",
+                  "name": "CAC 40",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/CAC-40-Index-324965"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "FR0003500008",
+                  "wkn": "969400",
+                  "symbol": "C40",
+                  "displayType": "Index",
+                  "tinyName": "CAC 40"
+                },
+                "codeTypeFundsBenchmark": "ONVISTA_BENCHMARK",
+                "nameTypeFundsBenchmark": "Benchmark von onvista",
+                "idInstrumentBenchmark": 376380,
+                "idNotationBenchmark": 324965
+              },
+              "fundsFigureBenchmarkList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "relativeReturnPct": 0.12950000166893005,
+                    "relativeMonthlyReturnPct": 0.12950000166893005
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "relativeReturnPct": 0.5705000162124634,
+                    "relativeMonthlyReturnPct": 0.18979999423027039
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "relativeReturnPct": -1.2304999828338623,
+                    "relativeMonthlyReturnPct": -0.1031000018119812
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "relativeReturnPct": -2.8998000621795654,
+                    "relativeMonthlyReturnPct": -0.08169999718666077
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "relativeReturnPct": -3.363800048828125,
+                    "relativeMonthlyReturnPct": -0.05700000002980232
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "relativeReturnPct": -6.804599761962891,
+                    "relativeMonthlyReturnPct": -0.05869999900460243
+                  }
+                ]
+              },
+              "fundsRiskList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "sharpeRatioAnnualised": 1.4032000303268433,
+                    "sharpeRatio": 0.11010000109672546,
+                    "excessReturn": 0.8992999792098999,
+                    "volatility": 8.166899681091309,
+                    "maxDrawdown": -1.7647000551223755,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 1.2193000316619873,
+                    "oneMonthLow": 1.2193000316619873,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 78.89510345458984,
+                    "avgPrice": 80.12000274658203
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "sharpeRatioAnnualised": 3.945199966430664,
+                    "sharpeRatio": 0.847100019454956,
+                    "excessReturn": 8.088199615478516,
+                    "volatility": 9.548199653625488,
+                    "maxDrawdown": -1.9453999996185303,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 4.718500137329102,
+                    "oneMonthLow": 1.2193000316619873,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 72.0165023803711,
+                    "avgPrice": 76.8499984741211
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "sharpeRatioAnnualised": 0.5924000144004822,
+                    "sharpeRatio": 0.6003000140190125,
+                    "excessReturn": 7.270699977874756,
+                    "volatility": 12.112700462341309,
+                    "maxDrawdown": -9.31820011138916,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 7.1859002113342285,
+                    "oneMonthLow": -3.6552999019622803,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 68.57740020751953,
+                    "avgPrice": 74.0199966430664
+                  },
+                  {
+                    "timeSpan": "2Y",
+                    "nameTimeSpan": "2 Jahre",
+                    "sharpeRatioAnnualised": 0.7591000199317932,
+                    "sharpeRatio": 1.6038000583648682,
+                    "excessReturn": 24.913000106811523,
+                    "volatility": 15.534099578857422,
+                    "maxDrawdown": -15.618800163269043,
+                    "countMonthsPositivePerformance": 62.5,
+                    "oneMonthHigh": 10.266200065612793,
+                    "oneMonthLow": -8.589400291442871,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 55.85089874267578,
+                    "avgPrice": 69.16000366210938
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "sharpeRatioAnnualised": 0.631600022315979,
+                    "sharpeRatio": 2.0885000228881836,
+                    "excessReturn": 35.4807014465332,
+                    "volatility": 16.98889923095703,
+                    "maxDrawdown": -23.010299682617188,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 10.266200065612793,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 55.85089874267578,
+                    "avgPrice": 68.08000183105469
+                  },
+                  {
+                    "timeSpan": "4Y",
+                    "nameTimeSpan": "4 Jahre",
+                    "sharpeRatioAnnualised": 0.964900016784668,
+                    "sharpeRatio": 4.964200019836426,
+                    "excessReturn": 91.28140258789062,
+                    "volatility": 18.38800048828125,
+                    "maxDrawdown": -23.010299682617188,
+                    "countMonthsPositivePerformance": 60.41669845581055,
+                    "oneMonthHigh": 14.040800094604492,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 42.26729965209961,
+                    "avgPrice": 63.869998931884766
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "sharpeRatioAnnualised": 0.48919999599456787,
+                    "sharpeRatio": 2.9577999114990234,
+                    "excessReturn": 60.552101135253906,
+                    "volatility": 20.472299575805664,
+                    "maxDrawdown": -38.52669906616211,
+                    "countMonthsPositivePerformance": 56.66669845581055,
+                    "oneMonthHigh": 14.040800094604492,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 36.80039978027344,
+                    "avgPrice": 61.959999084472656
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "sharpeRatioAnnualised": 0.4462999999523163,
+                    "sharpeRatio": 6.730000019073486,
+                    "excessReturn": 127.21499633789062,
+                    "volatility": 18.902700424194336,
+                    "maxDrawdown": -38.52669906616211,
+                    "countMonthsPositivePerformance": 57.5,
+                    "oneMonthHigh": 14.040800094604492,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 80.79720306396484,
+                    "lowQuote": 36.80039978027344,
+                    "avgPrice": 54.97999954223633
+                  }
+                ]
+              },
+              "fundsBaseData": {
+                "dateEmission": "2000-12-13T00:00:00.000+00:00",
+                "isoCurrencyFund": "EUR",
+                "isoCountry": "FR",
+                "nameCountry": "Frankreich",
+                "volumeFundEuro": 3797459200,
+                "isoCurrencyVolume": "EUR",
+                "volumeFund": 3782342912,
+                "dateVolume": "2024-04-08T00:00:00.000+00:00",
+                "managementFeeExAnteMifid": 0.25,
+                "managementFeeExPostMifid": 0.25,
+                "ongoingCharges": 0.24999999441206455,
+                "idCustodianBank": 4597,
+                "nameCustodianBank": "Société Générale",
+                "maxPctInitialFee": 5,
+                "isoCurrencyFees": "",
+                "maxPctRedemptionFee": 5,
+                "isoCurrInvestmentInitial": "",
+                "isoCurrInvestmentFollow": "",
+                "hasSavingsPlan": true,
+                "dayStartFiscalYear": 1,
+                "monthStartFiscalYear": 11,
+                "listCountriesRegistered": "DE",
+                "fundAge": 23,
+                "hasOvbSavingsPlan": false,
+                "hasOvbPromotion": false,
+                "hasOvbNoInitialFee": false,
+                "hasScalableSavingsPlan": true,
+                "hasComdirectSavingsPlan": false,
+                "institutional": false
+              },
+              "fundsEvaluation": {
+                "nameMorningstarCategory": "Aktien Frankreich Standardwerte",
+                "labelMorningstarStyleboxEquity": "Morningstar Style-Box™ (Aktien)",
+                "morningstarStyleboxEquity": "2",
+                "dateMorningstarStyleboxEquity": "2024-04-02T00:00:00.000+00:00",
+                "labelMorningstarRating": "Morningstar Rating™",
+                "morningstarRating": "5",
+                "morningstarRating3y": "5",
+                "morningstarRating5y": "5",
+                "morningstarRating10y": "5",
+                "dateMorningstarRating": "2024-02-29T00:00:00.000+00:00",
+                "riskClass": 3,
+                "ratingDescriptionId": 896
+              },
+              "savingsPlanBroker": [
+                {
+                  "id": 100,
+                  "name": "XTB"
+                },
+                {
+                  "id": 3,
+                  "name": "Flatex"
+                },
+                {
+                  "id": 8458,
+                  "name": "Scalable Capital"
+                },
+                {
+                  "id": 8459,
+                  "name": "Finanzen.net Zero"
+                }
+              ]
+            },
+            {
+              "instrument": {
+                "type": "Instrument",
+                "entityType": "FUND",
+                "entitySubType": "ETF",
+                "entityAttributes": [
+                  "INSTRUMENT",
+                  "BROKER_LIST"
+                ],
+                "entityValue": "44985980",
+                "name": "Lyxor CAC 40 DR UCITS ETF J EUR Dis.",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/etf/Lyxor-CAC-40-DR-UCITS-ETF-J-EUR-Dis-ETF-FR0011122233"
+                },
+                "instrumentType": "Instrument",
+                "isin": "FR0011122233",
+                "wkn": "LYX0MX",
+                "displayType": "ETF",
+                "urlName": "Lyxor-CAC-40-DR-UCITS-ETF-J-EUR-Dis",
+                "tinyName": "Lyxor CAC 40 DR UCITS ETF J EUR Dis."
+              },
+              "issuer": {
+                "id": 2164448,
+                "name": "Amundi Asset Management S.A.",
+                "idGroupIssuer": 63084,
+                "nameGroupIssuer": "Amundi",
+                "photoId": "ov/wour1noaavxafvsgzuqy",
+                "customerId": 199,
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/fonds/kvgs/amundi-asset-management-s-a-2164448"
+                }
+              },
+              "fundsDetails": {
+                "shortName": "Amundi CAC 40 UCITS ETF - J EUR DIS",
+                "officialName": "Amundi CAC 40 UCITS ETF - J EUR DIS",
+                "idTypeFund": 71,
+                "nameTypeFund": "Aktienfonds",
+                "idInvestmentFocus": 5458,
+                "nameInvestmentFocus": "Aktien Frankreich",
+                "categories": [],
+                "fundsInvestmentFocus": {
+                  "id": 5458,
+                  "name": "Aktien Frankreich",
+                  "fundsType": {
+                    "id": 71,
+                    "name": "Aktienfonds"
+                  }
+                },
+                "fundsInvestmentRegion": {
+                  "id": 1,
+                  "name": "Euroland"
+                },
+                "fundsTypeCapitalisation": {
+                  "id": 2,
+                  "name": "Ausschüttend"
+                },
+                "fundsTypeReplication": {
+                  "id": 2,
+                  "name": "vollreplizierend"
+                },
+                "etfType": {
+                  "id": 2,
+                  "name": "Aktien"
+                }
+              },
+              "fundsPerformanceList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "performanceTimeSpanPct": 1.2193000316619873
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "performanceTimeSpanPct": 9.058300018310547
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "performanceTimeSpanPct": 13.989899635314941
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "performanceTimeSpanPct": 42.27840042114258
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "performanceTimeSpanPct": 68.82679748535156
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "performanceTimeSpanPct": null
+                  },
+                  {
+                    "timeSpan": "CY",
+                    "nameTimeSpan": "2024",
+                    "performanceTimeSpanPct": 7.821899890899658
+                  },
+                  {
+                    "timeSpan": "1PA",
+                    "nameTimeSpan": "2023",
+                    "performanceTimeSpanPct": 19.8927001953125
+                  },
+                  {
+                    "timeSpan": "2PA",
+                    "nameTimeSpan": "2022",
+                    "performanceTimeSpanPct": -6.911499977111816
+                  },
+                  {
+                    "timeSpan": "3PA",
+                    "nameTimeSpan": "2021",
+                    "performanceTimeSpanPct": 31.585100173950195
+                  },
+                  {
+                    "timeSpan": "4PA",
+                    "nameTimeSpan": "2020",
+                    "performanceTimeSpanPct": -5.107999801635742
+                  },
+                  {
+                    "timeSpan": "5PA",
+                    "nameTimeSpan": "2019",
+                    "performanceTimeSpanPct": 30.202999114990234
+                  },
+                  {
+                    "timeSpan": "SE",
+                    "nameTimeSpan": "Seit Emission",
+                    "performanceTimeSpanPct": 138.02000427246094
+                  }
+                ]
+              },
+              "benchmark": {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "INDEX",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "324965",
+                  "name": "CAC 40",
+                  "urls": {
+                    "WEBSITE": "https://www.onvista.de/index/CAC-40-Index-324965"
+                  },
+                  "instrumentType": "Instrument",
+                  "isin": "FR0003500008",
+                  "wkn": "969400",
+                  "symbol": "C40",
+                  "displayType": "Index",
+                  "tinyName": "CAC 40"
+                },
+                "codeTypeFundsBenchmark": "ONVISTA_BENCHMARK",
+                "nameTypeFundsBenchmark": "Benchmark von onvista",
+                "idInstrumentBenchmark": 376380,
+                "idNotationBenchmark": 324965
+              },
+              "fundsFigureBenchmarkList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "relativeReturnPct": 0.12950000166893005,
+                    "relativeMonthlyReturnPct": 0.12950000166893005
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "relativeReturnPct": 0.5705999732017517,
+                    "relativeMonthlyReturnPct": 0.18979999423027039
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "relativeReturnPct": 1.566499948501587,
+                    "relativeMonthlyReturnPct": 0.12960000336170197
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "relativeReturnPct": 3.0676000118255615,
+                    "relativeMonthlyReturnPct": 0.08399999886751175
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "relativeReturnPct": 2.5750999450683594,
+                    "relativeMonthlyReturnPct": 0.042399998754262924
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre",
+                    "relativeReturnPct": null,
+                    "relativeMonthlyReturnPct": null
+                  }
+                ]
+              },
+              "fundsRiskList": {
+                "list": [
+                  {
+                    "timeSpan": "1M",
+                    "nameTimeSpan": "1 Monat",
+                    "sharpeRatioAnnualised": 1.4032000303268433,
+                    "sharpeRatio": 0.11010000109672546,
+                    "excessReturn": 0.8992999792098999,
+                    "volatility": 8.166600227355957,
+                    "maxDrawdown": -1.7647000551223755,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 1.2193000316619873,
+                    "oneMonthLow": 1.2193000316619873,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 6693.419921875,
+                    "avgPrice": 6797.5
+                  },
+                  {
+                    "timeSpan": "3M",
+                    "nameTimeSpan": "3 Monate",
+                    "sharpeRatioAnnualised": 3.9453001022338867,
+                    "sharpeRatio": 0.847100019454956,
+                    "excessReturn": 8.088299751281738,
+                    "volatility": 9.548100471496582,
+                    "maxDrawdown": -1.9453999996185303,
+                    "countMonthsPositivePerformance": 100,
+                    "oneMonthHigh": 4.718599796295166,
+                    "oneMonthLow": 1.2193000316619873,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 6109.83984375,
+                    "avgPrice": 6520.009765625
+                  },
+                  {
+                    "timeSpan": "1Y",
+                    "nameTimeSpan": "1 Jahr",
+                    "sharpeRatioAnnualised": 0.8751000165939331,
+                    "sharpeRatio": 0.8855999708175659,
+                    "excessReturn": 10.409899711608887,
+                    "volatility": 11.754300117492676,
+                    "maxDrawdown": -9.318099975585938,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 7.1859002113342285,
+                    "oneMonthLow": -2.405900001525879,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 5818.6201171875,
+                    "avgPrice": 6280.10986328125
+                  },
+                  {
+                    "timeSpan": "2Y",
+                    "nameTimeSpan": "2 Jahre",
+                    "sharpeRatioAnnualised": 0.9689000248908997,
+                    "sharpeRatio": 2.0778000354766846,
+                    "excessReturn": 32.098899841308594,
+                    "volatility": 15.4483003616333,
+                    "maxDrawdown": -13.808899879455566,
+                    "countMonthsPositivePerformance": 62.5,
+                    "oneMonthHigh": 10.266300201416016,
+                    "oneMonthLow": -6.230400085449219,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 4739.4501953125,
+                    "avgPrice": 5868.14990234375
+                  },
+                  {
+                    "timeSpan": "3Y",
+                    "nameTimeSpan": "3 Jahre",
+                    "sharpeRatioAnnualised": 0.7642999887466431,
+                    "sharpeRatio": 2.5820000171661377,
+                    "excessReturn": 43.71839904785156,
+                    "volatility": 16.931800842285156,
+                    "maxDrawdown": -21.022899627685547,
+                    "countMonthsPositivePerformance": 58.33330154418945,
+                    "oneMonthHigh": 10.266300201416016,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 4739.4501953125,
+                    "avgPrice": 5777.14013671875
+                  },
+                  {
+                    "timeSpan": "4Y",
+                    "nameTimeSpan": "4 Jahre",
+                    "sharpeRatioAnnualised": 1.063099980354309,
+                    "sharpeRatio": 5.610799789428711,
+                    "excessReturn": 102.94000244140625,
+                    "volatility": 18.34670066833496,
+                    "maxDrawdown": -21.022899627685547,
+                    "countMonthsPositivePerformance": 60.41669845581055,
+                    "oneMonthHigh": 14.040800094604492,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 3586.72998046875,
+                    "avgPrice": 5419.169921875
+                  },
+                  {
+                    "timeSpan": "5Y",
+                    "nameTimeSpan": "5 Jahre",
+                    "sharpeRatioAnnualised": 0.5543000102043152,
+                    "sharpeRatio": 3.4403998851776123,
+                    "excessReturn": 70.32679748535156,
+                    "volatility": 20.4414005279541,
+                    "maxDrawdown": -38.5265007019043,
+                    "countMonthsPositivePerformance": 56.66669845581055,
+                    "oneMonthHigh": 14.040800094604492,
+                    "oneMonthLow": -15.170900344848633,
+                    "highQuote": 6854.7900390625,
+                    "lowQuote": 3122.820068359375,
+                    "avgPrice": 5257.7900390625
+                  },
+                  {
+                    "timeSpan": "10Y",
+                    "nameTimeSpan": "10 Jahre"
+                  }
+                ]
+              },
+              "fundsBaseData": {
+                "dateEmission": "2000-12-13T00:00:00.000+00:00",
+                "isoCurrencyFund": "EUR",
+                "isoCountry": "FR",
+                "nameCountry": "Frankreich",
+                "volumeFundEuro": 3797459200,
+                "isoCurrencyVolume": "EUR",
+                "volumeFund": 3782342912,
+                "dateVolume": "2024-04-08T00:00:00.000+00:00",
+                "managementFeeExAnteMifid": 0.25,
+                "managementFeeExPostMifid": 0.25,
+                "ongoingCharges": 0.24999999441206455,
+                "idCustodianBank": 4597,
+                "nameCustodianBank": "Société Générale",
+                "maxPctInitialFee": 5,
+                "isoCurrencyFees": "",
+                "maxPctRedemptionFee": 5,
+                "isoCurrInvestmentInitial": "",
+                "isoCurrInvestmentFollow": "",
+                "hasSavingsPlan": true,
+                "dayStartFiscalYear": 1,
+                "monthStartFiscalYear": 11,
+                "listCountriesRegistered": "DE",
+                "fundAge": 23,
+                "hasOvbSavingsPlan": false,
+                "hasOvbPromotion": false,
+                "hasOvbNoInitialFee": false,
+                "hasScalableSavingsPlan": false,
+                "hasComdirectSavingsPlan": false,
+                "institutional": false
+              },
+              "fundsEvaluation": {
+                "nameMorningstarCategory": "Aktien Frankreich Standardwerte",
+                "labelMorningstarStyleboxEquity": "Morningstar Style-Box™ (Aktien)",
+                "morningstarStyleboxEquity": "2",
+                "dateMorningstarStyleboxEquity": "2024-04-03T00:00:00.000+00:00",
+                "labelMorningstarRating": "Morningstar Rating™",
+                "morningstarRating": "5",
+                "morningstarRating3y": "5",
+                "morningstarRating5y": "5",
+                "morningstarRating10y": "5",
+                "dateMorningstarRating": "2024-03-31T00:00:00.000+00:00",
+                "morningstarSustainabilityRating": "AVERAGE",
+                "dateMorningstarSustainabilityRating": "2024-04-05T00:00:00.000+00:00",
+                "riskClass": 3,
+                "ratingDescriptionId": 896
+              }
+            }
+          ],
+          "savingsPlanList": {
+            "expires": 1712850185805,
+            "list": [
+              {
+                "broker": {
+                  "id": 8459,
+                  "name": "Finanzen.net Zero",
+                  "urlBuy": "https://mein.finanzen-zero.net/",
+                  "urlSell": "https://mein.finanzen-zero.net/",
+                  "urlWebsite": "https://www.financeads.net/tc.php?t=27795C372273516T&subid=website-snapshot-sparplan",
+                  "urlPricing": "https://www.financeads.net/tc.php?t=27795C372273516T&subid=website-snapshot-sparplan",
+                  "logoPhotoId": "article/uqfjm5ldmbcpzjwtmvh4",
+                  "depotFee": 0,
+                  "depotFeeUnit": "EUR",
+                  "depotFeeInfo": ""
+                },
+                "savingsRateFee": 0,
+                "savingsRateFeeUnit": "EUR",
+                "minSavingsRate": 1,
+                "minSavingsRateUnit": "EUR",
+                "promotionText": ""
+              },
+              {
+                "broker": {
+                  "id": 8458,
+                  "name": "Scalable Capital",
+                  "urlBuy": "https://de.scalable.capital/etf-sparplan",
+                  "urlSell": "https://de.scalable.capital/etf-sparplan",
+                  "urlWebsite": "https://partner.scalable-capital.de/go.cgi?pid=360&wmid=58&cpid=1&prid=9&subid=ETFSparplan&target=Trading",
+                  "urlPricing": "https://partner.scalable-capital.de/go.cgi?pid=360&wmid=58&cpid=1&prid=9&subid=ETFSparplan&target=Trading",
+                  "logoPhotoId": "article/fkechhsue2s4rdhabwuf",
+                  "depotFee": 0,
+                  "depotFeeUnit": "EUR",
+                  "depotFeeInfo": ""
+                },
+                "savingsRateFee": 0,
+                "savingsRateFeeUnit": "EUR",
+                "minSavingsRate": 1,
+                "minSavingsRateUnit": "EUR",
+                "promotionText": ""
+              },
+              {
+                "broker": {
+                  "id": 100,
+                  "name": "XTB",
+                  "urlBuy": "https://www.xtb.com/de/etf",
+                  "urlSell": "https://www.xtb.com/de/etf",
+                  "urlWebsite": "https://www.financeads.net/tc.php?t=27795C4458102016T&subid=website-snapshot-sparplan",
+                  "urlPricing": "https://www.financeads.net/tc.php?t=27795C4458102016T&subid=website-snapshot-sparplan",
+                  "logoPhotoId": "article/dtsvd259rfxwtbwknvni",
+                  "depotFee": 0,
+                  "depotFeeUnit": "EUR"
+                },
+                "savingsRateFee": 0,
+                "savingsRateFeeUnit": "EUR",
+                "minSavingsRate": 15,
+                "minSavingsRateUnit": "EUR",
+                "promotionText": ""
+              }
+            ]
+          }
+        },
+        "breakdowns": {
+          "expires": 1712850186012,
+          "fundsHoldingList": {
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "LVMH MOET HENNESSY LOUIS VUI",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "LVMH MOET HENNESSY LOUIS VUI"
+                },
+                "investmentPct": 11.54,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "TOTALENERGIES SE PARIS",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "TOTALENERGIES SE PARIS"
+                },
+                "investmentPct": 8.04,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SCHNEIDER ELECT SE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SCHNEIDER ELECT SE"
+                },
+                "investmentPct": 6.55,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "L OREAL PRIME FIDELITE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "L OREAL PRIME FIDELITE"
+                },
+                "investmentPct": 5.58,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SANOFI",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SANOFI"
+                },
+                "investmentPct": 5.45,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "AIR LIQUIDE PRIME FIDELITE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "AIR LIQUIDE PRIME FIDELITE"
+                },
+                "investmentPct": 5.15,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "AIRBUS SE",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "AIRBUS SE"
+                },
+                "investmentPct": 4.95,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "HERMES INTERNATIONAL",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "HERMES INTERNATIONAL"
+                },
+                "investmentPct": 4,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "SAFRAN SA",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "SAFRAN SA"
+                },
+                "investmentPct": 3.84,
+                "isoCurrencyMarketValue": ""
+              },
+              {
+                "instrument": {
+                  "type": "Instrument",
+                  "entityType": "UNKNOWN",
+                  "entityAttributes": [
+                    "INSTRUMENT"
+                  ],
+                  "entityValue": "0",
+                  "name": "BNP PARIBAS",
+                  "urls": {},
+                  "instrumentType": "Instrument",
+                  "isin": "",
+                  "wkn": "",
+                  "symbol": "",
+                  "displayType": "Unbekannt",
+                  "tinyName": "BNP PARIBAS"
+                },
+                "investmentPct": 3.54,
+                "isoCurrencyMarketValue": ""
+              }
+            ]
+          },
+          "branchBreakdown": {
+            "typeFundsBreakdown": "BRANCH",
+            "nameFundsBreakdown": "Branchen",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515957,
+                "nameBreakdown": "Industrie",
+                "investmentPct": 23.88
+              },
+              {
+                "idBreakdown": 207515986,
+                "nameBreakdown": "Konsumgüter zyklisch",
+                "investmentPct": 22.36
+              },
+              {
+                "idBreakdown": 207515878,
+                "nameBreakdown": "Basiskonsumgüter",
+                "investmentPct": 10.19
+              },
+              {
+                "idBreakdown": 207515926,
+                "nameBreakdown": "Finanzen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515936,
+                "nameBreakdown": "Gesundheitswesen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515910,
+                "nameBreakdown": "Energie",
+                "investmentPct": 8.11
+              },
+              {
+                "idBreakdown": 207516016,
+                "nameBreakdown": "Rohstoffe",
+                "investmentPct": 6.1
+              },
+              {
+                "idBreakdown": 207515954,
+                "nameBreakdown": "IT/Telekommunikation",
+                "investmentPct": 5.1
+              },
+              {
+                "idBreakdown": 207516031,
+                "nameBreakdown": "Telekomdienste",
+                "investmentPct": 2.73
+              },
+              {
+                "idBreakdown": 207516047,
+                "nameBreakdown": "Versorger",
+                "investmentPct": 2.45
+              },
+              {
+                "idBreakdown": 207515955,
+                "nameBreakdown": "Immobilien",
+                "investmentPct": 0.44
+              }
+            ]
+          },
+          "currencyBreakdown": {
+            "typeFundsBreakdown": "CURRENCY",
+            "nameFundsBreakdown": "Währung",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515408,
+                "nameBreakdown": "Euro",
+                "investmentPct": 99.99
+              }
+            ]
+          },
+          "instrumentBreakdown": {
+            "typeFundsBreakdown": "INSTRUMENT",
+            "nameFundsBreakdown": "Instrument",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515840,
+                "nameBreakdown": "Aktien",
+                "investmentPct": 100
+              }
+            ]
+          },
+          "countryBreakdown": {
+            "typeFundsBreakdown": "COUNTRY",
+            "nameFundsBreakdown": "Land",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515631,
+                "nameBreakdown": "Frankreich",
+                "investmentPct": 82.19
+              },
+              {
+                "idBreakdown": 207515812,
+                "nameBreakdown": "USA",
+                "investmentPct": 12.12
+              },
+              {
+                "idBreakdown": 207515732,
+                "nameBreakdown": "Niederlande",
+                "investmentPct": 3.15
+              },
+              {
+                "idBreakdown": 207515776,
+                "nameBreakdown": "Singapur",
+                "investmentPct": 1.47
+              },
+              {
+                "idBreakdown": 207515698,
+                "nameBreakdown": "Luxemburg",
+                "investmentPct": 1.06
+              }
+            ]
+          },
+          "branchBreackdown": {
+            "typeFundsBreakdown": "BRANCH",
+            "nameFundsBreakdown": "Branchen",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515957,
+                "nameBreakdown": "Industrie",
+                "investmentPct": 23.88
+              },
+              {
+                "idBreakdown": 207515986,
+                "nameBreakdown": "Konsumgüter zyklisch",
+                "investmentPct": 22.36
+              },
+              {
+                "idBreakdown": 207515878,
+                "nameBreakdown": "Basiskonsumgüter",
+                "investmentPct": 10.19
+              },
+              {
+                "idBreakdown": 207515926,
+                "nameBreakdown": "Finanzen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515936,
+                "nameBreakdown": "Gesundheitswesen",
+                "investmentPct": 9.32
+              },
+              {
+                "idBreakdown": 207515910,
+                "nameBreakdown": "Energie",
+                "investmentPct": 8.11
+              },
+              {
+                "idBreakdown": 207516016,
+                "nameBreakdown": "Rohstoffe",
+                "investmentPct": 6.1
+              },
+              {
+                "idBreakdown": 207515954,
+                "nameBreakdown": "IT/Telekommunikation",
+                "investmentPct": 5.1
+              },
+              {
+                "idBreakdown": 207516031,
+                "nameBreakdown": "Telekomdienste",
+                "investmentPct": 2.73
+              },
+              {
+                "idBreakdown": 207516047,
+                "nameBreakdown": "Versorger",
+                "investmentPct": 2.45
+              },
+              {
+                "idBreakdown": 207515955,
+                "nameBreakdown": "Immobilien",
+                "investmentPct": 0.44
+              }
+            ]
+          },
+          "currencyBreackdown": {
+            "typeFundsBreakdown": "CURRENCY",
+            "nameFundsBreakdown": "Währung",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515408,
+                "nameBreakdown": "Euro",
+                "investmentPct": 99.99
+              }
+            ]
+          },
+          "instrumentBreackdown": {
+            "typeFundsBreakdown": "INSTRUMENT",
+            "nameFundsBreakdown": "Instrument",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515840,
+                "nameBreakdown": "Aktien",
+                "investmentPct": 100
+              }
+            ]
+          },
+          "countryBreackdown": {
+            "typeFundsBreakdown": "COUNTRY",
+            "nameFundsBreakdown": "Land",
+            "dateMaintenance": "2024-02-29T12:00:00.000+00:00",
+            "list": [
+              {
+                "idBreakdown": 207515631,
+                "nameBreakdown": "Frankreich",
+                "investmentPct": 82.19
+              },
+              {
+                "idBreakdown": 207515812,
+                "nameBreakdown": "USA",
+                "investmentPct": 12.12
+              },
+              {
+                "idBreakdown": 207515732,
+                "nameBreakdown": "Niederlande",
+                "investmentPct": 3.15
+              },
+              {
+                "idBreakdown": 207515776,
+                "nameBreakdown": "Singapur",
+                "investmentPct": 1.47
+              },
+              {
+                "idBreakdown": 207515698,
+                "nameBreakdown": "Luxemburg",
+                "investmentPct": 1.06
+              }
+            ]
+          }
+        },
+        "savingsPlans": [
+          {
+            "broker": {
+              "id": 8459,
+              "name": "Finanzen.net Zero",
+              "urlBuy": "https://mein.finanzen-zero.net/",
+              "urlSell": "https://mein.finanzen-zero.net/",
+              "urlWebsite": "https://www.financeads.net/tc.php?t=27795C372273516T&subid=website-snapshot-sparplan",
+              "urlPricing": "https://www.financeads.net/tc.php?t=27795C372273516T&subid=website-snapshot-sparplan",
+              "logoPhotoId": "article/uqfjm5ldmbcpzjwtmvh4",
+              "depotFee": 0,
+              "depotFeeUnit": "EUR",
+              "depotFeeInfo": ""
+            },
+            "savingsRateFee": 0,
+            "savingsRateFeeUnit": "EUR",
+            "minSavingsRate": 1,
+            "minSavingsRateUnit": "EUR",
+            "promotionText": ""
+          },
+          {
+            "broker": {
+              "id": 8458,
+              "name": "Scalable Capital",
+              "urlBuy": "https://de.scalable.capital/etf-sparplan",
+              "urlSell": "https://de.scalable.capital/etf-sparplan",
+              "urlWebsite": "https://partner.scalable-capital.de/go.cgi?pid=360&wmid=58&cpid=1&prid=9&subid=ETFSparplan&target=Trading",
+              "urlPricing": "https://partner.scalable-capital.de/go.cgi?pid=360&wmid=58&cpid=1&prid=9&subid=ETFSparplan&target=Trading",
+              "logoPhotoId": "article/fkechhsue2s4rdhabwuf",
+              "depotFee": 0,
+              "depotFeeUnit": "EUR",
+              "depotFeeInfo": ""
+            },
+            "savingsRateFee": 0,
+            "savingsRateFeeUnit": "EUR",
+            "minSavingsRate": 1,
+            "minSavingsRateUnit": "EUR",
+            "promotionText": ""
+          },
+          {
+            "broker": {
+              "id": 100,
+              "name": "XTB",
+              "urlBuy": "https://www.xtb.com/de/etf",
+              "urlSell": "https://www.xtb.com/de/etf",
+              "urlWebsite": "https://www.financeads.net/tc.php?t=27795C4458102016T&subid=website-snapshot-sparplan",
+              "urlPricing": "https://www.financeads.net/tc.php?t=27795C4458102016T&subid=website-snapshot-sparplan",
+              "logoPhotoId": "article/dtsvd259rfxwtbwknvni",
+              "depotFee": 0,
+              "depotFeeUnit": "EUR"
+            },
+            "savingsRateFee": 0,
+            "savingsRateFeeUnit": "EUR",
+            "minSavingsRate": 15,
+            "minSavingsRateUnit": "EUR",
+            "promotionText": ""
+          },
+          {
+            "broker": {
+              "id": 3,
+              "name": "Flatex",
+              "urlBuy": "https://konto.flatex.de/banking-flatex/loginFormAction.do?method=order&isin=FR0007052782&tradingPlace=STU&tradeType=buy",
+              "urlSell": "https://konto.flatex.de/banking-flatex/loginFormAction.do?method=order&isin=FR0007052782&tradingPlace=STU&tradeType=sell",
+              "urlWebsite": "https://www.financeads.net/tc.php?t=27795C13010749T&subid=website-snapshot-sparplan",
+              "urlPricing": "https://www.financeads.net/tc.php?t=27795C13010749T&subid=website-snapshot-sparplan",
+              "logoPhotoId": "article/qladewq7af2pmokxqrho",
+              "depotFee": 0,
+              "depotFeeUnit": "EUR",
+              "depotFeeInfo": ""
+            },
+            "savingsRateFee": 0,
+            "savingsRateFeeUnit": "EUR",
+            "minSavingsRate": 25,
+            "minSavingsRateUnit": "EUR",
+            "promotionText": ""
+          }
+        ],
+        "news": [
+          {
+            "type": "INVESTMENT_TOPICS_OTHER",
+            "name": "Andere Anlagethemen",
+            "urlDescription": "INVESTMENT_TOPICS_OTHER",
+            "url": "https://www.onvista.de/anlagethemen",
+            "list": [
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138428",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/dividenden-aristokraten-26138428"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Dividenden-Aristokraten",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Rendite-Potenzial durch Dividenden-Aristokraten: Marktchancen, historische Kursentwicklung und passende Aktien, ETFs und Fonds mit starken Dividenden.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:32:44.295+00:00",
+                "datetimePublicationVersion": "2024-04-03T09:57:13.865+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "jittawit21/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/uj3qdwwtpyz4cxawvlfh.jpg",
+                  "ratio": 1.5,
+                  "cloudinaryId": "article/uj3qdwwtpyz4cxawvlfh",
+                  "width": 6000,
+                  "height": 4000,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/uj3qdwwtpyz4cxawvlfh.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138444",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/wasserstoff-26138444"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Wasserstoff",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Anlagetrend Wasserstoff: Entdecke die Zukunftspotenziale und informiere dich über aktuelle Daten, News und Analysen für eine fundierte Investitionsplanung.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:38:58.475+00:00",
+                "datetimePublicationVersion": "2024-04-09T06:55:05.004+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "petrmalinak/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/bfzkgngzz8qgthwseff1.jpg",
+                  "ratio": 1.5001500150015001,
+                  "cloudinaryId": "article/bfzkgngzz8qgthwseff1",
+                  "width": 5000,
+                  "height": 3333,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/bfzkgngzz8qgthwseff1.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138439",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/e-mobilitaet-26138439"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "E-Mobilität",
+                "kicker": "Anlagethema",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Steige ein ins Anlagethema E-Mobilität: Informiere dich über Kursentwicklung, Marktdaten, News und Analysen für fundierte Investitionsentscheidungen.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:36:57.468+00:00",
+                "datetimePublicationVersion": "2024-04-09T07:08:14.759+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Smile Fight/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/article/z2wkpcuwv71i3iflrwug.jpg",
+                  "ratio": 1.568,
+                  "cloudinaryId": "article/z2wkpcuwv71i3iflrwug",
+                  "width": 6272,
+                  "height": 4000,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/article/z2wkpcuwv71i3iflrwug.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138436",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/cybersecurity-26138436"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Cybersecurity",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Bleib im Bilde über die dynamische Marktentwicklung der Cybersecurity. Hole die neuesten Daten, News und Analysen für eine fundierte Investmentstrategie.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:35:08.520+00:00",
+                "datetimePublicationVersion": "2024-04-09T06:59:26.708+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Thapana_Studio/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/bfhvime43tyhrcaxdzjo.jpg",
+                  "ratio": 1.4997862334330911,
+                  "cloudinaryId": "article/bfhvime43tyhrcaxdzjo",
+                  "width": 7016,
+                  "height": 4678,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/bfhvime43tyhrcaxdzjo.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138432",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/luxusgueter-26138432"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Luxusgüter",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investieren in Luxusgüter: Chancen erkennen und profitabel anlegen. Marktentwicklung, Echtzeitübersicht und Anlagemöglichkeiten in Aktien, ETFs und Fonds.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:34:11.887+00:00",
+                "datetimePublicationVersion": "2024-04-09T06:56:36.548+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Hadrian/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/kyzearuvhkcag2d5hunx.jpg",
+                  "ratio": 1.8110716099542916,
+                  "cloudinaryId": "article/kyzearuvhkcag2d5hunx",
+                  "width": 3566,
+                  "height": 1969,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/kyzearuvhkcag2d5hunx.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138438",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/infrastruktur-26138438"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Infrastruktur",
+                "kicker": "Anlagethema",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Schaffe ein solides Fundament für deine Investitionsentscheidungen im Bereich Infrastruktur mit den neuesten Daten, News und Analysen.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:35:52.061+00:00",
+                "datetimePublicationVersion": "2024-04-03T10:03:07.607+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "tonton/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/heufb6dxcx4myjk5h0wt.jpg",
+                  "ratio": 1.4978299719172836,
+                  "cloudinaryId": "article/heufb6dxcx4myjk5h0wt",
+                  "width": 5867,
+                  "height": 3917,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/heufb6dxcx4myjk5h0wt.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138445",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/erneuerbare-energien-26138445"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Erneuerbare Energien",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investieren in Erneuerbare Energien: Bleibe bestens informiert über den Markttrend und profitiere mit Aktien, ETFs und Fonds. Realtime Marktübersicht, Kursentwicklung, Daten & News.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:39:37.658+00:00",
+                "datetimePublicationVersion": "2024-04-09T06:58:11.313+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Mr. Kosal/Shutterstock.com",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/tuzelqlqcsppcgplr1hw.jpg",
+                  "ratio": 1.5600954369221594,
+                  "cloudinaryId": "article/tuzelqlqcsppcgplr1hw",
+                  "width": 5231,
+                  "height": 3353,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/tuzelqlqcsppcgplr1hw.jpg"
+                },
+                "premium": false
+              },
+              {
+                "type": "V1ArticleTeaser",
+                "entityType": "ARTICLE",
+                "entitySubType": "NATIVE_ARTICLE",
+                "entityAttributes": [
+                  "ARTICLE"
+                ],
+                "entityValue": "26138443",
+                "urls": {
+                  "WEBSITE": "https://www.onvista.de/anlagethemen/batterien-26138443"
+                },
+                "articleTypeId": 4,
+                "articleSubTypeId": 200,
+                "articleSubTypeName": "Thema",
+                "headline": "Batterien",
+                "publisher": {
+                  "id": 19,
+                  "name": "onvista"
+                },
+                "displayType": "NATIVE",
+                "socialTitle": "Investment-Trend Batterien: Finanzieller Erfolg durch informiertes Investieren. Marktzahlen, Entwicklung und Anlagemöglichkeiten mit Aktien, ETFs und Fonds.",
+                "language": "de",
+                "datetimePublication": "2023-05-30T07:38:05.691+00:00",
+                "datetimePublicationVersion": "2024-04-09T07:00:51.854+00:00",
+                "image": {
+                  "type": "NewsPhoto",
+                  "ignoreIfUnknown": false,
+                  "credit": "Shutterstock",
+                  "photoUrl": "https://images.onvista.com/onvista-media/image/upload/w_400/v1/article/qyizpkxxfkdavi9cdcur.jpg",
+                  "ratio": 2.1555555555555554,
+                  "cloudinaryId": "article/qyizpkxxfkdavi9cdcur",
+                  "width": 388,
+                  "height": 180,
+                  "cloudinaryUrlTemplate": "https://images.onvista.com/onvista-media/image/upload/{$transformation}/v1/article/qyizpkxxfkdavi9cdcur.jpg"
+                },
+                "premium": false
+              }
+            ]
+          }
+        ],
+        "earnings": [
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2002-09-09T12:00:00.000+00:00",
+            "valueEarning": 0.57,
+            "valueEarningAdjusted": 0.57,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2003-09-08T12:00:00.000+00:00",
+            "valueEarning": 0.5,
+            "valueEarningAdjusted": 0.5,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2004-09-13T12:00:00.000+00:00",
+            "valueEarning": 0.64,
+            "valueEarningAdjusted": 0.64,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2005-09-12T12:00:00.000+00:00",
+            "valueEarning": 0.86,
+            "valueEarningAdjusted": 0.86,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2006-09-11T12:00:00.000+00:00",
+            "valueEarning": 1.27,
+            "valueEarningAdjusted": 1.27,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2007-09-10T12:00:00.000+00:00",
+            "valueEarning": 1.47,
+            "valueEarningAdjusted": 1.47,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2008-09-08T12:00:00.000+00:00",
+            "valueEarning": 1.17,
+            "valueEarningAdjusted": 1.17,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2009-09-14T12:00:00.000+00:00",
+            "valueEarning": 1.4,
+            "valueEarningAdjusted": 1.4,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2010-09-13T12:00:00.000+00:00",
+            "valueEarning": 1.33,
+            "valueEarningAdjusted": 1.33,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2011-07-06T12:00:00.000+00:00",
+            "valueEarning": 1.54,
+            "valueEarningAdjusted": 1.54,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2011-12-07T12:00:00.000+00:00",
+            "valueEarning": 0.21,
+            "valueEarningAdjusted": 0.21,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2012-07-11T12:00:00.000+00:00",
+            "valueEarning": 1.2,
+            "valueEarningAdjusted": 1.2,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2012-12-12T12:00:00.000+00:00",
+            "valueEarning": 0.2,
+            "valueEarningAdjusted": 0.2,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2013-07-10T12:00:00.000+00:00",
+            "valueEarning": 1.14,
+            "valueEarningAdjusted": 1.14,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2013-12-11T12:00:00.000+00:00",
+            "valueEarning": 0.19,
+            "valueEarningAdjusted": 0.19,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2014-07-09T12:00:00.000+00:00",
+            "valueEarning": 1.28,
+            "valueEarningAdjusted": 1.28,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2014-12-10T12:00:00.000+00:00",
+            "valueEarning": 0.17,
+            "valueEarningAdjusted": 0.17,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2015-07-08T12:00:00.000+00:00",
+            "valueEarning": 1.4,
+            "valueEarningAdjusted": 1.4,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2015-12-09T12:00:00.000+00:00",
+            "valueEarning": 0.22,
+            "valueEarningAdjusted": 0.22,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2016-07-06T12:00:00.000+00:00",
+            "valueEarning": 1.5,
+            "valueEarningAdjusted": 1.5,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2016-12-14T12:00:00.000+00:00",
+            "valueEarning": 0.16,
+            "valueEarningAdjusted": 0.16,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2017-07-12T12:00:00.000+00:00",
+            "valueEarning": 1.43,
+            "valueEarningAdjusted": 1.43,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2017-12-13T12:00:00.000+00:00",
+            "valueEarning": 0.11,
+            "valueEarningAdjusted": 0.11,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2018-07-11T12:00:00.000+00:00",
+            "valueEarning": 1.59,
+            "valueEarningAdjusted": 1.59,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2018-12-12T12:00:00.000+00:00",
+            "valueEarning": 0.14,
+            "valueEarningAdjusted": 0.14,
+            "isoCurrency": "EUR",
+            "taxCode": "GRS"
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2019-07-10T12:00:00.000+00:00",
+            "valueEarning": 1.57,
+            "valueEarningAdjusted": 1.57,
+            "isoCurrency": "EUR",
+            "taxCode": ""
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2019-12-11T12:00:00.000+00:00",
+            "valueEarning": 0.11,
+            "valueEarningAdjusted": 0.11,
+            "isoCurrency": "EUR",
+            "taxCode": ""
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2020-07-08T12:00:00.000+00:00",
+            "valueEarning": 0.6,
+            "valueEarningAdjusted": 0.6,
+            "isoCurrency": "EUR",
+            "taxCode": ""
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2020-12-09T12:00:00.000+00:00",
+            "valueEarning": 0.31,
+            "valueEarningAdjusted": 0.31,
+            "isoCurrency": "EUR",
+            "taxCode": ""
+          },
+          {
+            "idTypeEarning": "1",
+            "nameTypeEarning": "Ausschüttend",
+            "dateEarning": "2021-07-07T12:00:00.000+00:00",
+            "valueEarning": 1.11,
+            "valueEarningAdjusted": 1.11,
+            "isoCurrency": "EUR",
+            "taxCode": ""
+          }
+        ],
+        "topPeers": [],
+        "siteConfig": {
+          "TOPIC_TEXT_TEASER": {
+            "type": "CONTENT_ITEM_LIST",
+            "name": "TOPIC_TEXT_TEASER",
+            "newsContentItemValue": [
+              {
+                "type": "NewsParagraph",
+                "ignoreIfUnknown": false,
+                "value": "Schaffe ein solides Fundament für deine Investments in Märkte und Trends: Neueste Daten, News und Analysen findest du auf den onvista-Themenseiten. Dazu übersichtliche Listen der wichtigsten Anlage-Assets zu jedem Investment-Thema."
+              }
+            ]
+          }
+        }
+      },
+      "entityValue": "ISIN:FR0007052782",
+      "idNotation": null
+    },
+    "__N_SSP": true
+  },
+  "page": "/etf/[...snapshot]",
+  "query": {
+    "snapshot": [
+      "anlageschwerpunkt",
+      "Lyxor-CAC-40-DR-UCITS-ETF-EUR-Dis-ETF-FR0007052782"
+    ]
+  },
+  "buildId": "esj9jKIcsoVmuOk6Asnvf",
+  "isFallback": false,
+  "dynamicIds": [
+    26099,
+    59501,
+    91918,
+    7446,
+    26597
+  ],
+  "gssp": true,
+  "scriptLoader": []
+}

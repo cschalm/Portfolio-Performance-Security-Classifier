@@ -247,12 +247,6 @@
                                 <weight>350</weight>
                                 <rank>3</rank>
                             </assignment>
-                            <assignment>
-                                <investmentVehicle class="security"
-                                                   reference="../../../../../../../../securities/security"/>
-                                <weight>130</weight>
-                                <rank>4</rank>
-                            </assignment>
                         </assignments>
                         <weight>10000</weight>
                         <rank>0</rank>
@@ -716,12 +710,6 @@
                                                    reference="../../../../../../../../securities/security[50]"/>
                                 <weight>120</weight>
                                 <rank>1</rank>
-                            </assignment>
-                            <assignment>
-                                <investmentVehicle class="security"
-                                                   reference="../../../../../../../../securities/security"/>
-                                <weight>96</weight>
-                                <rank>2</rank>
                             </assignment>
                         </assignments>
                         <weight>10000</weight>
@@ -1487,7 +1475,7 @@
                     </classification>
                     <classification>
                         <id>ea92a9de-5ef8-46bb-ae17-4d5063dff38a</id>
-                        <name>Nvidia</name>
+                        <name>NVIDIA Corp.</name>
                         <color>#073b98</color>
                         <parent reference="../../.."/>
                         <children/>

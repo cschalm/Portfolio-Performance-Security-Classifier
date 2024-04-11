@@ -52,7 +52,7 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals("Top Ten")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedTopTen = importTopTen(portfolioDocument, allSecurities, securityDetailsCache.getCachedTopTen(), taxonomyElement);
+                        JsonArray importedTopTen = importTopTen(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedTopTen(importedTopTen);
                     }
                 }
@@ -64,7 +64,7 @@ public class PortfolioDocumentService {
         }
     }
 
-    JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, JsonArray cachedTopTen, Element taxonomyElement) throws FileNotFoundException {
+    JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing Top Ten...");
         JsonArray importedTopTen = new JsonArray();
 
@@ -112,6 +112,9 @@ public class PortfolioDocumentService {
         // add or update top ten
         for (String stockName : allStockNames.keySet()) {
             logger.fine("Stockname: " + stockName);
+            if (stockName.startsWith("LVMH")) {
+                logger.info("Stockname: " + stockName);
+            }
 
             Element existingClassification = findClassificationByName(childrenElement, stockName);
             Security existingSecurity = findSecurityByHolding(allSecurities, allStockNames, stockName);
@@ -132,13 +135,13 @@ public class PortfolioDocumentService {
                         // find security that contains the current stock identified by any similar name
                         if (security.getHoldings().containsKey(stockName)) {
                             // primary name
-                            rank = addTopTenAssignment(portfolioDocument, cachedTopTen, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                            rank = addTopTenAssignment(portfolioDocument, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
                         } else {
                             // alternative names
                             List<String> alternativeNames = allStockNames.get(stockName);
                             for (String alternativeName : alternativeNames) {
                                 if (security.getHoldings().containsKey(alternativeName)) {
-                                    rank = addTopTenAssignment(portfolioDocument, cachedTopTen, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                                    rank = addTopTenAssignment(portfolioDocument, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
                                 }
                             }
                         }
@@ -202,27 +205,16 @@ public class PortfolioDocumentService {
         return importedTopTen;
     }
 
-    private int addTopTenAssignment(Document portfolioDocument, JsonArray cachedTopTen, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen) {
+    private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen) {
         int percentage = (int) Math.ceil(security.getPercentageOfHolding(stockName) * 100.0);
 
         boolean found = false;
-        // check if similar object already exists in top ten
-        for (int i = 0; i < cachedTopTen.size(); i++) {
-            JsonObject topTen = cachedTopTen.get(i).getAsJsonObject();
+        // verify that this stock was not imported by an alternative name before
+        for (int i = 0; i < importedTopTen.size(); i++) {
+            JsonObject topTen = importedTopTen.get(i).getAsJsonObject();
             if (jsonObjectEqualsInWeightAndIsinAndClassification(topTen, security.getIsin(), percentage, stockName)) {
                 found = true;
                 break;
-            }
-        }
-
-        if (!found) {
-            // verify that this stock was not imported by an alternative name before
-            for (int i = 0; i < importedTopTen.size(); i++) {
-                JsonObject topTen = importedTopTen.get(i).getAsJsonObject();
-                if (jsonObjectEqualsInWeightAndIsinAndClassification(topTen, security.getIsin(), percentage, stockName)) {
-                    found = true;
-                    break;
-                }
             }
         }
         if (!found) {
@@ -762,6 +754,10 @@ public class PortfolioDocumentService {
                         }
                     }
                 }
+            }
+            // maybe name is written only similar?
+            for (String existingName : security.getHoldings().keySet()) {
+                if (isNameSimilar(holdingName, existingName)) return true;
             }
         }
         return false;
