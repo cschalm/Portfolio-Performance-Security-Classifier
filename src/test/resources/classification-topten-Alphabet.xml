@@ -1,0 +1,3046 @@
+<client>
+    <version>59</version>
+    <baseCurrency>EUR</baseCurrency>
+    <securities>
+        <security>
+            <uuid>2429f614-0358-440e-8c35-76a3f3c471b3</uuid>
+            <name>Amundi MSCI World UCITS ETF EUR (C)</name>
+            <currencyCode>EUR</currencyCode>
+            <isin>LU1681043599</isin>
+            <tickerSymbol>AMEW.DE</tickerSymbol>
+            <wkn>A2H59Q</wkn>
+            <feed>YAHOO</feed>
+            <prices>
+                <price t="2024-04-02" v="49705000000"/>
+                <price t="2024-04-03" v="49735000000"/>
+            </prices>
+            <latest t="2024-04-03" v="49735000000">
+                <high>-1</high>
+                <low>-1</low>
+                <volume>-1</volume>
+            </latest>
+            <attributes>
+            </attributes>
+            <events/>
+            <isRetired>false</isRetired>
+            <updatedAt>2024-02-29T19:42:38.552405600Z</updatedAt>
+        </security>
+        <security>
+            <uuid>19ac302a-6e30-455c-abe7-81bb119b61ee</uuid>
+            <name>Amundi MSCI World UCITS ETF DR - USD (D)</name>
+            <currencyCode>EUR</currencyCode>
+            <isin>IE000CNSFAR2</isin>
+            <tickerSymbol>MWOE.DE</tickerSymbol>
+            <wkn>A3DH0A</wkn>
+            <feed>YAHOO</feed>
+            <prices>
+                <price t="2024-04-02" v="1167800000"/>
+                <price t="2024-04-03" v="1169800000"/>
+            </prices>
+            <latest t="2024-04-03" v="1169800000">
+                <high>-1</high>
+                <low>-1</low>
+                <volume>-1</volume>
+            </latest>
+            <attributes>
+            </attributes>
+            <events>
+                <dividendEvent>
+                    <date>2024-02-14</date>
+                    <type>DIVIDEND_PAYMENT</type>
+                    <paymentDate>2024-02-16</paymentDate>
+                    <amount currency="USD" amount="18"/>
+                    <source>divvydiary.com</source>
+                </dividendEvent>
+                <dividendEvent>
+                    <date>2023-02-15</date>
+                    <type>DIVIDEND_PAYMENT</type>
+                    <paymentDate>2023-02-17</paymentDate>
+                    <amount currency="USD" amount="7"/>
+                    <source>divvydiary.com</source>
+                </dividendEvent>
+            </events>
+            <isRetired>false</isRetired>
+            <updatedAt>2024-02-29T19:43:29.531423900Z</updatedAt>
+        </security>
+    </securities>
+    <watchlists/>
+    <accounts>
+    </accounts>
+    <portfolios>
+    </portfolios>
+    <plans>
+    </plans>
+    <taxonomies>
+        <taxonomy>
+            <id>d1d32dd6-09dc-447e-b43a-a235d5e362b0</id>
+            <name>Top Ten</name>
+            <root>
+                <id>543c55d1-e3ac-4f2c-b382-e2d7ac0b45c3</id>
+                <name>topten</name>
+                <color>#a4c4f5</color>
+                <children>
+                    <classification>
+                        <id>aa52c09b-cee3-416f-bb39-b2bcf1cf5d55</id>
+                        <name>ABB</name>
+                        <color>#6442e5</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>288</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>266</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>60e7346f-ca0a-4c13-a002-8e93a20947bb</id>
+                        <name>AIA Group Ltd.</name>
+                        <color>#bc8493</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>310</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a1905dbf-cc72-4f49-8bff-125558466bd5</id>
+                        <name>AMD</name>
+                        <color>#07ce5a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>229</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>889f0f30-e25c-437a-a65a-5e592e887b9f</id>
+                        <name>ANZ Group Holdings Ltd.</name>
+                        <color>#bceb81</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>190</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a0ba8b6c-0960-4559-a895-ef67876c373a</id>
+                        <name>ASML Holding NV</name>
+                        <color>#ed783c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>429</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>310</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>70bc750f-53ae-41d8-b29f-a286580b8a6d</id>
+                        <name>AXA</name>
+                        <color>#a6d23d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>267</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>71f470ac-8481-4c9e-86eb-550ec2b4efe1</id>
+                        <name>AXIS BANK LTD IR 2</name>
+                        <color>#25da04</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>195</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>122d17fb-4d31-45f0-a4c1-765db25c9701</id>
+                        <name>Alibaba Group Holding Ltd.</name>
+                        <color>#80a6bc</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>215</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>213</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>240</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a8456f30-e2c2-4a89-8eb7-ef9ca1e858bd</id>
+                        <name>Alphabet A (Google)</name>
+                        <color>#2cc5d8</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>130</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>115</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>234</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>350</weight>
+                                <rank>3</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>130</weight>
+                                <rank>4</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>e8cb0b6a-de7a-4951-8460-836f3e169cdc</id>
+                        <name>Amazon</name>
+                        <color>#4e9ec7</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>259</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>521</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>320</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>260</weight>
+                                <rank>3</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>f0dbd406-bc94-47f3-8fe3-fc8cfde215d0</id>
+                        <name>Annaly Capital Management</name>
+                        <color>#13833d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[40]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ad1fe801-ec1b-4410-bf5e-feed29b0ed91</id>
+                        <name>Apple</name>
+                        <color>#83f33e</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>446</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>802</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[43]"/>
+                                <weight>10000</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>620</weight>
+                                <rank>3</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>420</weight>
+                                <rank>4</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>99247d20-7ffa-44aa-8449-4f210a95a8e9</id>
+                        <name>Ares Capital</name>
+                        <color>#1c6b82</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[42]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3124d910-4295-4aec-8038-c538fc56bc9c</id>
+                        <name>AstraZeneca plc</name>
+                        <color>#ffc5d2</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>763</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>180</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3ffd0683-f776-41d2-afec-a968dc2f4a8b</id>
+                        <name>BHARTI AIRTEL IR 5</name>
+                        <color>#2d9ea7</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>208</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d50e5050-9364-4b04-88d0-623013bcf9af</id>
+                        <name>BHP Group Ltd.</name>
+                        <color>#88f838</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>550</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a1ea4019-a557-48df-bed8-c96d6534dbe3</id>
+                        <name>BP</name>
+                        <color>#19a68c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>397</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>1da3d5c8-f135-4cad-8bb6-da772e4686f6</id>
+                        <name>Berkshire Hathaway Inc.</name>
+                        <color>#bacf88</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>160</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bea7a08f-5b81-429b-ba1b-8125020611ee</id>
+                        <name>British American Tobacco</name>
+                        <color>#c56658</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>270</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ce086172-68d6-477b-a611-eed88c6ee3bd</id>
+                        <name>Broadcom</name>
+                        <color>#bb2d03</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>91</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>447</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>120</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>91</weight>
+                                <rank>3</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>badb16c9-5c96-486e-8e2c-24137928f3c8</id>
+                        <name>CSL Ltd.</name>
+                        <color>#da9359</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>330</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>731776d7-4d59-4049-a57f-2c025366eb2f</id>
+                        <name>China Construction Bank Corp.</name>
+                        <color>#9387ee</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>85</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>84</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>90</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a3a78ac9-84e5-4533-a0c6-16b3bc45b4d5</id>
+                        <name>China Yangtze Power A YC1</name>
+                        <color>#e2d295</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>451</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>52f2b8cc-9f86-4b2e-96ae-f096ddfe09af</id>
+                        <name>Chubu Electric Power</name>
+                        <color>#402cdd</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>300</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d7c60403-c120-4730-af38-97ad73bab2e7</id>
+                        <name>Commonwealth Bank of Australia</name>
+                        <color>#11982c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>460</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0e7d03b9-c03a-4617-81a4-f635bc2cecb4</id>
+                        <name>Costco Wholesale</name>
+                        <color>#64f37a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>244</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2639586a-a4ae-4a1f-a891-520dfc043aad</id>
+                        <name>Diageo</name>
+                        <color>#a913b8</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>271</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>339</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>5db82147-3b49-4250-85b3-0eb7f27aad9d</id>
+                        <name>EDP - Energias de Portugal</name>
+                        <color>#a86bc2</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>269</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d9eff2e8-9e66-49a5-8de1-62a152dbe397</id>
+                        <name>EMCOR Group</name>
+                        <color>#b3bd8a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>20</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>f38076d7-d970-46fc-a3a9-7542688378fb</id>
+                        <name>Eaton Corp.</name>
+                        <color>#1b69e5</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>337</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bff53341-5afd-4484-a40f-75b238419dd5</id>
+                        <name>Eli Lilly &amp; Co.</name>
+                        <color>#6df519</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>96</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>120</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>96</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>f62cd5bb-bb3b-4f0f-85f7-a4a88d705c65</id>
+                        <name>Enel</name>
+                        <color>#2bc072</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>941</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>626bd5a9-a4ec-4957-876e-946ab4fd4c62</id>
+                        <name>Eni</name>
+                        <color>#12d8a3</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>628</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>188e439a-281b-45dc-9541-9ade15c10ef6</id>
+                        <name>Enphase Energy</name>
+                        <color>#64bb62</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>916</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fb08da9e-d7b0-4356-b690-a118a4deb548</id>
+                        <name>Ferrari N.V.</name>
+                        <color>#ff0b1f</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>950</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>aa66c613-a9cb-45c5-a3a1-6c9dcfb5b603</id>
+                        <name>First Solar</name>
+                        <color>#6064e6</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>804</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fe3bfb28-537b-4d4b-b8e0-70e3fc8a742f</id>
+                        <name>Flextronics</name>
+                        <color>#87b095</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>17</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ae828378-ef56-4f16-8a29-60a174ba8359</id>
+                        <name>Fortescue Metals Group</name>
+                        <color>#33d3b3</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>202</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0f337aad-0572-46c3-bfcd-30b3e9914e48</id>
+                        <name>Garmin</name>
+                        <color>#590ce4</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>285</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>1b79f8f8-fdf6-4615-a92f-ad5e1d0bb43c</id>
+                        <name>Generali</name>
+                        <color>#534fe9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>561</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>604c28a9-35df-4eb1-9c7a-761d0be93a85</id>
+                        <name>GlaxoSmithKline</name>
+                        <color>#fb8f88</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>346</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a728dab2-c8ab-4f29-8f58-792172490198</id>
+                        <name>HCL TECHS LTD DEMAT. IR 2</name>
+                        <color>#2491db</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>140</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>b5239138-e956-4dd6-94a8-59f885948c80</id>
+                        <name>HDFC BANK LTD IR 1</name>
+                        <color>#50dc05</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>130</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>526</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2a5d34e4-34e3-4950-80ee-d08556a1e0c1</id>
+                        <name>HINDUST.UNILEV.DEMAT.IR 1</name>
+                        <color>#dbdf87</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>170</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>84319a68-e0f3-4e5e-8e38-a0419f8e00d0</id>
+                        <name>HSBC Holdings plc</name>
+                        <color>#383ce1</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>619</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>140</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2dd699ef-f3ef-446d-abec-e4a6c0bf0088</id>
+                        <name>Hannover Rück</name>
+                        <color>#54c24c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[27]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>717ab417-e7ae-42cb-8bac-d2a633d0ae46</id>
+                        <name>Harvey Norman</name>
+                        <color>#50c391</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>191</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>145d6306-43c7-4552-946e-638fea112969</id>
+                        <name>Hitachi Ltd.</name>
+                        <color>#0bf57d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>160</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bab4b2c7-4f81-4f33-a38f-b511de8166d7</id>
+                        <name>Honda</name>
+                        <color>#016e1a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>262</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a61e059d-2df7-466f-b4cb-7e47c021813d</id>
+                        <name>ICICI BANK LTD</name>
+                        <color>#d394d9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>93</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>92</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>6569d8f3-aeea-46a9-ba4e-a494e1d16f80</id>
+                        <name>INFOSYS LTD. DEMAT. IR 5</name>
+                        <color>#71a128</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>95</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>94</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>111</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>468</weight>
+                                <rank>3</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>1a5a379a-7f17-4e34-8a86-f0c827ad1be0</id>
+                        <name>ING Group</name>
+                        <color>#6623f3</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[23]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>deed77a1-a533-4083-ba0e-1687c89d9d58</id>
+                        <name>ITOCHU Corp.</name>
+                        <color>#df9000</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>140</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d158cd5f-4156-43eb-a5e8-893d543b56dd</id>
+                        <name>Intesa Sanpaolo</name>
+                        <color>#e8c6cf</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>939</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>6761cb4f-cf72-4303-8bd4-95236ac4f0d6</id>
+                        <name>JB HI-FI</name>
+                        <color>#5d39c0</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>221</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d0b3f45a-1695-44e2-8ca2-d81d66e5fe01</id>
+                        <name>Keyence Corp.</name>
+                        <color>#4e9a1c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>200</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>336e137d-ae23-4ba6-80ad-24c37becae4a</id>
+                        <name>Kia</name>
+                        <color>#79a24f</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>328</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>92272836-7ec8-409d-b0a9-77da7129952a</id>
+                        <name>LARSEN+TOUBRO DEMAT. IR 2</name>
+                        <color>#6b4cf9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>187</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>e3c06f16-1bbf-4b40-b774-342aff8a316e</id>
+                        <name>LVMH Moet Hennessy Louis Vuitton SE</name>
+                        <color>#af2dab</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>190</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2e158ddd-8a6d-43f3-9a88-c8c345ec73b6</id>
+                        <name>Lincoln Electric</name>
+                        <color>#0e6584</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>20</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>7be65abb-4401-40ab-bb85-9e7cb469cd7f</id>
+                        <name>Lonza Group</name>
+                        <color>#eefc08</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>272</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>26f45f4c-0e03-4278-824f-8d2ef931ae2d</id>
+                        <name>MAHINDRA+MAHI.DEMAT. IR 5</name>
+                        <color>#63d07a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>145</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ee12fbdd-485d-464b-ab27-dddfe27b16d8</id>
+                        <name>Macquarie Group Ltd.</name>
+                        <color>#fb15be</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>160</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>c8921ce9-fd26-4032-98e4-6f2ed5a11664</id>
+                        <name>Meta Platforms Inc.</name>
+                        <color>#e4962d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>172</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>495</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>200</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>172</weight>
+                                <rank>3</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>24e7c093-91c0-4501-b5a9-4af28c126918</id>
+                        <name>MicroStrategy A</name>
+                        <color>#e26eec</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>17</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>74dc8da0-a385-4b78-b6bf-eab3a705ed56</id>
+                        <name>Microsoft</name>
+                        <color>#b50ca9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>460</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>877</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[36]"/>
+                                <weight>10000</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>680</weight>
+                                <rank>3</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>462</weight>
+                                <rank>4</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>e93921de-ebee-464d-bdae-6c6cf1a74bb5</id>
+                        <name>Mitsubishi UFJ Financial Group Inc.</name>
+                        <color>#628dcb</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>250</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3ae8db00-5db2-42fe-b3b7-8ffd0f62b76e</id>
+                        <name>Mitsui &amp; Co. Ltd.</name>
+                        <color>#8320c7</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>140</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d30bf91c-4320-43ca-bfc3-5cdab795546c</id>
+                        <name>Mitsui O.S.K. Lines</name>
+                        <color>#aaa4f3</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>307</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>a1073724-ef61-4a7e-b3e3-afd941b98151</id>
+                        <name>Moncler</name>
+                        <color>#5a4b7a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>280</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>c13e4663-400c-46f0-82c6-22f7fa18b9bd</id>
+                        <name>Mutares</name>
+                        <color>#4b8ebe</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[30]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ea92a9de-5ef8-46bb-ae17-4d5063dff38a</id>
+                        <name>NVIDIA Corp.</name>
+                        <color>#073b98</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>308</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>557</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>450</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>330</weight>
+                                <rank>3</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>309</weight>
+                                <rank>4</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>61a676a6-050b-4e9e-9057-26fec1288d5a</id>
+                        <name>National Australia Bank Ltd.</name>
+                        <color>#37fab5</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>240</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>658265a9-b8d8-4645-bd8a-e19929eb86cd</id>
+                        <name>Nestle SA</name>
+                        <color>#8e2112</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>280</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>b1bf9e02-a10c-4096-86e2-e6da7c96ee30</id>
+                        <name>New Hope Co.</name>
+                        <color>#80bd1a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>177</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>1f089fa2-ccbb-436c-8c21-969255a2cf8b</id>
+                        <name>Nextracker</name>
+                        <color>#e3a7f0</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>456</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ce86f6bc-b999-4148-9f3c-2b78aae6c87a</id>
+                        <name>Novartis AG</name>
+                        <color>#d2c615</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>200</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>285bb89e-6b25-476a-8185-488d5194150b</id>
+                        <name>Novo Nordisk A/S</name>
+                        <color>#605e82</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>483</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>320</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>cdb99d0c-63e9-4e6b-a919-3af33ee5555a</id>
+                        <name>Nutanix</name>
+                        <color>#e8769f</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>21</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>997c3ae8-41bf-4212-9a99-40fe4f804168</id>
+                        <name>Omega Healthcare Invest.</name>
+                        <color>#482329</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[41]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3ac8c1dd-dbc6-48a8-817c-a9a26cc65ed7</id>
+                        <name>PDD Holdings Inc.</name>
+                        <color>#7e28a9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>106</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>105</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>120</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0086aebc-dfaa-4b2c-9761-5ce5f44e753b</id>
+                        <name>Pacific Basin Shipping</name>
+                        <color>#a53ee2</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>229</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fcabe2b1-0345-4e6c-9fa2-561f3e346894</id>
+                        <name>Petroleo Brasileiro SA</name>
+                        <color>#46b454</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>120</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>5c46a5cc-9c65-4a99-bd6f-c66558200ef1</id>
+                        <name>Prysmian</name>
+                        <color>#a157a3</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>259</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>00684695-5ab0-4278-84b8-4819760feeb3</id>
+                        <name>Pure Storage</name>
+                        <color>#ef81a4</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>21</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2e6b2bf1-b6c6-49b4-84da-27e8c6e98839</id>
+                        <name>Qualcomm</name>
+                        <color>#e85136</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>297</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fabf5725-1a1c-42c0-af19-3497952a424e</id>
+                        <name>Realty Income</name>
+                        <color>#c78449</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[51]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>513d4987-7de3-415c-a6fc-0a5979486ce8</id>
+                        <name>Reliance Industries Ltd.</name>
+                        <color>#b9573a</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>152</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>151</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>180</weight>
+                                <rank>3</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>782</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>36fc193f-4be7-46be-a8f6-765f2b4ef161</id>
+                        <name>Relx Plc</name>
+                        <color>#118b4e</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>289</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>339</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>6ee0f415-507a-499a-9ff4-7f6c6e60fba3</id>
+                        <name>Rio Tinto</name>
+                        <color>#0ed4db</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>286</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3e1eb631-9f48-4aed-bef3-623afe54ac65</id>
+                        <name>Roche Holding AG</name>
+                        <color>#9e30bd</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>190</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fffaaad3-c2d9-4fe5-90a8-d793f2ed6c0d</id>
+                        <name>SAP SE</name>
+                        <color>#7f2e0c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>400</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>180</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d2837ef8-1c43-4ab9-ba13-b9c947bb4289</id>
+                        <name>SITC International</name>
+                        <color>#a06c45</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>328</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>41613e51-1c31-4598-987f-918e2a9c6820</id>
+                        <name>SK Hynix Inc.</name>
+                        <color>#6e6567</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>91</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>90</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>190</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>6014fa09-819f-4750-96a3-e7bbe769bfc0</id>
+                        <name>STMicroelectronics</name>
+                        <color>#fe6090</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>560</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>8c1b7e0b-620b-44b7-bec6-68ddb2f9d2e5</id>
+                        <name>SUZLON ENERGY (DEM) IR 2</name>
+                        <color>#55b5b6</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>272</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>82951aa9-740f-4441-8f2e-8c59e9028228</id>
+                        <name>Saia</name>
+                        <color>#c1c50c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>21</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bf29f4b9-093d-4e63-8d2a-7d84718a5b94</id>
+                        <name>Samsung Electronics Co. Ltd.</name>
+                        <color>#592e37</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>373</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>370</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>1030</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>f01a1b08-ba89-4714-823a-18381c7bbe1c</id>
+                        <name>Schneider Electric</name>
+                        <color>#62d713</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>343</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>281</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bf4e1d5c-1e4c-4918-962b-1b75bae756e9</id>
+                        <name>Shell plc</name>
+                        <color>#1bbe41</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>840</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[49]"/>
+                                <weight>190</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>ce3d5922-1227-449e-8480-f065b2a2ec75</id>
+                        <name>Shin-Etsu Chemical Co. Ltd.</name>
+                        <color>#8546b6</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>170</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>8ad087d0-808b-4dca-80ae-5b1127b83ac8</id>
+                        <name>SolarEdge Technologies</name>
+                        <color>#ffad1b</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>253</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>8fe574e4-6682-40d1-8f78-c94641964f37</id>
+                        <name>Sony Group Corp.</name>
+                        <color>#2737b2</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>280</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>b3f12761-a305-45bc-a05a-0c36ed066f4f</id>
+                        <name>Stellantis</name>
+                        <color>#9b2366</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>1060</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>350</weight>
+                                <rank>1</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>bcbb6d20-6ab0-4c99-955b-efabd23ca7ac</id>
+                        <name>Sumitomo Mitsui Financial Group Inc.</name>
+                        <color>#efe79e</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>150</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0990df95-5a7b-4247-be0a-32b8d978199c</id>
+                        <name>Suzuki Motor Co.</name>
+                        <color>#3c8ed8</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[38]"/>
+                                <weight>270</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>064ae3a7-67d6-4736-b8ee-295abdcde5ae</id>
+                        <name>TATA CONSULTANCY IR 1</name>
+                        <color>#41940b</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[53]"/>
+                                <weight>333</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>3c2d6126-d586-4d39-aff6-65399b9497fa</id>
+                        <name>TOPBUILD CORP. DL -,01</name>
+                        <color>#36b9fb</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>17</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>1b2d6c76-c6c8-47cc-bc93-03cbebefe619</id>
+                        <name>TUI</name>
+                        <color>#d19784</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[25]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>41fe26f2-8706-4b93-8b67-5c8c52295059</id>
+                        <name>Taiwan Semiconductor Manufacturing Co. Ltd.</name>
+                        <color>#90a76b</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>763</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>755</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>750</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>5feff94f-0818-45d7-a799-51d1bb1b50a8</id>
+                        <name>Taylor Wimpey</name>
+                        <color>#9bd15b</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>173</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>fca22ecf-5115-45ff-b690-b3bae60c9342</id>
+                        <name>Telefónica Deutschland</name>
+                        <color>#216a8e</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[33]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>89739ff2-9e85-487f-9832-3291ccff4572</id>
+                        <name>Tencent Holdings Ltd.</name>
+                        <color>#eba488</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[9]"/>
+                                <weight>335</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[20]"/>
+                                <weight>332</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>340</weight>
+                                <rank>2</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>b308ddb0-179f-431b-b052-b0565db385d8</id>
+                        <name>Tesla</name>
+                        <color>#9eb34d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>91</weight>
+                                <rank>0</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[24]"/>
+                                <weight>277</weight>
+                                <rank>1</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[50]"/>
+                                <weight>120</weight>
+                                <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[2]"/>
+                                <weight>91</weight>
+                                <rank>3</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0f312203-f01c-4e8a-8597-5115dad74ef1</id>
+                        <name>Tokyo Electron Ltd.</name>
+                        <color>#865c67</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>190</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>23f0f85b-7800-406c-8765-e506cd616a25</id>
+                        <name>Toyota Motor Corp.</name>
+                        <color>#108b9c</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[48]"/>
+                                <weight>550</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>6aec84c6-61c3-4259-9894-01da5acd5b18</id>
+                        <name>UniCredit</name>
+                        <color>#6116c9</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[28]"/>
+                                <weight>1101</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>c0d8aa79-78af-45d9-8c9b-4387174de021</id>
+                        <name>Unilever</name>
+                        <color>#a7ae28</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[26]"/>
+                                <weight>501</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>55234df9-b374-44c5-8d8f-4a9328c5f27c</id>
+                        <name>Vale SA</name>
+                        <color>#bb7141</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[45]"/>
+                                <weight>80</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>25f8298a-ae90-4936-8dce-109c233c09a2</id>
+                        <name>Vestas Wind Systems</name>
+                        <color>#b9dedd</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>558</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>2e713e6e-6b0e-4e4e-b7c9-89747918bbfb</id>
+                        <name>Westpac Banking Corp.</name>
+                        <color>#9260aa</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[46]"/>
+                                <weight>190</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>00a40307-35c7-4e78-a432-1b68fa97ebd6</id>
+                        <name>Williams-Sonoma</name>
+                        <color>#645ea5</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>20</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>b62729ef-5211-4cd8-ae31-92ffd9a110d8</id>
+                        <name>Woodside Energy Group</name>
+                        <color>#ceae92</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>194</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>d6b6c31b-fb45-405f-ae64-4dc6e8ddd810</id>
+                        <name>XPO Inc.</name>
+                        <color>#d7ba88</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[47]"/>
+                                <weight>19</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>f8b76d0b-56b8-43c0-8dba-68aed42bfa99</id>
+                        <name>Xiaomi</name>
+                        <color>#2f1e07</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[32]"/>
+                                <weight>10000</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>0d982ca4-b48d-4e45-98fb-3bb8cc64bc5b</id>
+                        <name>Yancoal Australia</name>
+                        <color>#967e5d</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[31]"/>
+                                <weight>306</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>427f19d5-b6c1-4527-9e15-a1dcd3ab1fb3</id>
+                        <name>Zurich Insurance Group</name>
+                        <color>#f60249</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security"/>
+                                <weight>268</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                    <classification>
+                        <id>708fad77-9dc5-4568-9683-a3ba99778f0c</id>
+                        <name>Ørsted</name>
+                        <color>#4d20aa</color>
+                        <parent reference="../../.."/>
+                        <children/>
+                        <assignments>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[37]"/>
+                                <weight>496</weight>
+                                <rank>0</rank>
+                            </assignment>
+                        </assignments>
+                        <weight>10000</weight>
+                        <rank>0</rank>
+                    </classification>
+                </children>
+                <assignments/>
+                <weight>10000</weight>
+                <rank>0</rank>
+            </root>
+        </taxonomy>
+    </taxonomies>
+    <dashboards>
+    </dashboards>
+    <properties>
+        <entry>
+            <string>security-chart-details</string>
+            <string>
+                SCALING_LINEAR,INVESTMENT,DIVIDENDS,EVENTS,FLOATINGAVGPURCHASE,SMA_50DAYS,SMA_200DAYS,SHOW_MAIN_HORIZONTAL_LINES
+            </string>
+        </entry>
+    </properties>
+    <settings>
+        <bookmarks>
+            <bookmark>
+                <label>Finanzfluss</label>
+                <pattern>https://www.finanzfluss.de/informer/etf/{isin}/</pattern>
+            </bookmark>
+            <bookmark>
+                <label>Yahoo Finance</label>
+                <pattern>http://de.finance.yahoo.com/q?s={tickerSymbol}</pattern>
+            </bookmark>
+            <bookmark>
+                <label>OnVista</label>
+                <pattern>http://www.onvista.de/suche.html?SEARCH_VALUE={isin}&amp;SELECTED_TOOL=ALL_TOOLS</pattern>
+            </bookmark>
+            <bookmark>
+                <label>Finanzen.net</label>
+                <pattern>http://www.finanzen.net/suchergebnis.asp?frmAktiensucheTextfeld={isin}</pattern>
+            </bookmark>
+            <bookmark>
+                <label>Ariva.de Fundamentaldaten</label>
+                <pattern>http://www.ariva.de/{isin}/bilanz-guv</pattern>
+            </bookmark>
+            <bookmark>
+                <label>justETF</label>
+                <pattern>https://www.justetf.com/de/etf-profile.html?isin={isin}</pattern>
+            </bookmark>
+            <bookmark>
+                <label>fondsweb.de</label>
+                <pattern>http://www.fondsweb.de/{isin}</pattern>
+            </bookmark>
+            <bookmark>
+                <label>Morningstar.de</label>
+                <pattern>http://www.morningstar.de/de/funds/SecuritySearchResults.aspx?type=ALL&amp;search={isin}
+                </pattern>
+            </bookmark>
+            <bookmark>
+                <label>maxblue Kauforder</label>
+                <pattern>https://meine.deutsche-bank.de/trxm/db/init.do?style=mb&amp;style=mb&amp;login=br24order&amp;action=PurchaseSecurity2And3Steps&amp;wknOrIsin={isin}</pattern>
+            </bookmark>
+            <bookmark>
+                <label>extraETF.com</label>
+                <pattern>https://extraetf.com/etf-profile/{isin}</pattern>
+            </bookmark>
+        </bookmarks>
+        <attributeTypes>
+            <attribute-type>
+                <id>ter</id>
+                <name>Gesamtkostenquote (TER)</name>
+                <columnLabel>TER</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.Double</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>aum</id>
+                <name>Fondsgröße</name>
+                <columnLabel>Fondsgröße</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.Long</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$AmountPlainConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>vendor</id>
+                <name>Anbieter</name>
+                <columnLabel>Anbieter</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.String</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$StringConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>acquisitionFee</id>
+                <name>Kaufgebühr (prozentual)</name>
+                <columnLabel>Kaufgebühr</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.Double</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>managementFee</id>
+                <name>Verwaltungsgebühr (prozentual)</name>
+                <columnLabel>Verwaltungsgebühr</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.Double</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>logo</id>
+                <name>Logo</name>
+                <columnLabel>Logo</columnLabel>
+                <target>name.abuchen.portfolio.model.Security</target>
+                <type>java.lang.String</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>logo</id>
+                <name>Logo</name>
+                <columnLabel>Logo</columnLabel>
+                <target>name.abuchen.portfolio.model.Account</target>
+                <type>java.lang.String</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>logo</id>
+                <name>Logo</name>
+                <columnLabel>Logo</columnLabel>
+                <target>name.abuchen.portfolio.model.Portfolio</target>
+                <type>java.lang.String</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
+            </attribute-type>
+            <attribute-type>
+                <id>logo</id>
+                <name>Logo</name>
+                <columnLabel>Logo</columnLabel>
+                <target>name.abuchen.portfolio.model.InvestmentPlan</target>
+                <type>java.lang.String</type>
+                <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
+            </attribute-type>
+        </attributeTypes>
+        <configurationSets>
+            <entry>
+                <string>StatementOfAssetsHistoryView-PICKER</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>72cad49a-97bb-47c3-b74c-c799bdd8a805</uuid>
+                            <name>Gesamt</name>
+                            <data>
+                                ClientFilter2eb3c2d1-428f-42de-af40-891a4372a00d;#80ff80;SOLID;true;2,Client-absolute_delta_all_records;#ff0000;SOLID;false;2,Client-absolute_invested_capital;#c0c0c0;SOLID;true;2,Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;false;2,Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;false;2,Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff8040;SOLID;false;2,Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#ff00ff;SOLID;false;2,Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>f20912de-02b2-475d-96b7-d155c6d38525</uuid>
+                            <name>DKB</name>
+                            <data>
+                                Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0000ff;SOLID;true;2,Security55a7d7fd-6d70-4814-802f-cdd35037e73b;#80ff80;SOLID;false;2,Security8b5d3c4c-7e32-4b48-9db0-27d624495d7c;#80ffff;SOLID;false;2,Security6777031c-7b0a-4a92-832a-1cbb384b15e0;#ff80c0;SOLID;false;2,Security2429f614-0358-440e-8c35-76a3f3c471b3;#ff0000;SOLID;false;2,Securityc039e0ca-4e40-4fda-8a30-ae56cf93f0e9;#0080ff;SOLID;false;2,Securityca41cf3f-fb90-4291-98b3-3d39830b18f3;#7991e2;SOLID;false;2,Security19ac302a-6e30-455c-abe7-81bb119b61ee;#000000;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>18c59e83-c21d-4ddd-8394-68b3350e5ee4</uuid>
+                            <name>WeltSparen</name>
+                            <data>
+                                Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff0000;SOLID;true;2,Securitye4f17bb6-8ead-4fa7-9fd0-69c181654a94;#ffff00;SOLID;false;2,Security14971bd6-46ed-46af-9920-a21d96165fbd;#7ce279;SOLID;false;2,Securityee56b095-889b-4c58-8c8f-8ae81cadc2f2;#0080ff;SOLID;false;2,Securityaf9e0be8-21b0-4c4a-96b4-54cfe70bde53;#ff00ff;SOLID;false;2,Securityb25dae77-b5a4-4a4d-aab7-851eb0106b9a;#000000;SOLID;false;2,Security1ddc9b96-8269-4a59-81ab-be6b8a0e402c;#ff8000;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>c837641e-dacf-46ce-b8de-e8ded4514053</uuid>
+                            <name>Trade Republic</name>
+                            <data>
+                                Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;true;2,Security1dfdbf1f-0b89-4de2-8384-24ee76f019ce;#e28b79;SOLID;false;2,Security9fbdac56-b087-4ab0-a92b-5ef53d0101e4;#e2b579;SOLID;false;2,Securityb8a5958b-ad8d-4ba0-8906-3e8feaa6cf5b;#ffff80;SOLID;false;2,Security38f1fc15-2ade-4e5b-b8cf-254a39a506a1;#8b79e2;SOLID;false;2,Security39c2efc9-d40f-4d66-8f63-f242c06e6d4e;#0080ff;SOLID;false;2,Securityff601225-2862-4cb6-b2b3-3492d29b9c60;#e2a079;SOLID;false;2,Security1f7fc942-36ff-496d-875a-83e35e81da1c;#ca79e2;SOLID;false;2,Securitya469ff89-6f29-41e0-a3cd-fbfc15f182c3;#80ffff;SOLID;false;2,Security01a460d8-c4d7-41d5-9516-3a0eab213f7a;#b579e2;SOLID;false;2,Securitydd51535c-23a7-4c34-9c28-4697329f42e7;#ff0000;SOLID;false;2,Security26bfdca2-53cc-494c-ad83-aa5c77476c39;#e27991;SOLID;false;2,Securityb76957cd-ae27-4dab-bf92-1f6338747f98;#e279a6;SOLID;false;2,Securityae646cc4-06c2-4e5c-a2f7-edb0de1a724a;#e2df79;SOLID;false;2,Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff80;SOLID;false;2,Securityabc56d40-232b-4a82-a05f-b1b1dcc164d8;#ff8080;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>6ddfb866-1207-42f5-bcb3-e27c98a28389</uuid>
+                            <name>Finanzen.net Zero</name>
+                            <data>
+                                Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;true;2,Security19b59beb-3536-412d-ac5c-c82fdc4b3957;#000000;SOLID;false;2,Securitydcca00f9-e46d-4413-bb70-fcf8139b67b1;#a079e2;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>2443a83c-d12b-46a1-9bdb-124ef2f7eb94</uuid>
+                            <name>Vanguard</name>
+                            <data>
+                                Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;true;2,Security1f3232e2-6b44-499d-bb4c-4427ff9b9f19;#008040;SOLID;false;2,Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2
+                            </data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>ReturnsVolatilityChartView-PICKER</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>2ccb6a50-5025-4ad4-99fb-4a421999f7c8</uuid>
+                            <name>Standard</name>
+                            <data>
+                                Client-totals;#000000;SOLID;false;2,Classification2d2ced2f-e21f-444a-906e-38184bfd9219;#0000ff;SOLID;false;2,Classificationf5f27ecf-5d49-4396-a840-df0a63b737a8;#ff0000;SOLID;false;2,Classificationa7396834-be78-4d72-be42-ffe7ee4b3ffd;#00ff40;SOLID;false;2
+                            </data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>name.abuchen.portfolio.ui.views.SecuritiesPerformanceView</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>37bf955d-4864-496d-baae-d055d71a25ad</uuid>
+                            <name>Gesamt</name>
+                            <data>{&quot;items&quot;:[{&quot;id&quot;:&quot;shares&quot;,&quot;width&quot;:56},{&quot;id&quot;:&quot;name&quot;,&quot;sortDirection&quot;:128,&quot;width&quot;:433},{&quot;id&quot;:&quot;pv&quot;,&quot;width&quot;:116},{&quot;id&quot;:&quot;pp&quot;,&quot;width&quot;:115},{&quot;id&quot;:&quot;quote&quot;,&quot;width&quot;:58},{&quot;id&quot;:&quot;mv&quot;,&quot;width&quot;:66},{&quot;id&quot;:&quot;capitalgainsmvavg&quot;,&quot;width&quot;:114},{&quot;id&quot;:&quot;capitalgainsmvavg%&quot;,&quot;width&quot;:126},{&quot;id&quot;:&quot;dcount&quot;,&quot;width&quot;:36},{&quot;id&quot;:&quot;sumdiv&quot;,&quot;width&quot;:62},{&quot;id&quot;:&quot;d%mvavg&quot;,&quot;width&quot;:72},{&quot;id&quot;:&quot;delta&quot;,&quot;width&quot;:83},{&quot;id&quot;:&quot;izf&quot;,&quot;width&quot;:77},{&quot;id&quot;:&quot;delta%&quot;,&quot;width&quot;:80},{&quot;id&quot;:&quot;dperiod&quot;,&quot;width&quot;:85}]}</data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>PerformanceChartView-PICKER</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>2855ce6c-2a23-4036-b0e8-3eff67ed6dbf</uuid>
+                            <name>Gesamt</name>
+                            <data>
+                                Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;false;2,Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;false;2,Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff8000;SOLID;false;2,Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;false;2,Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#ff0000;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>b653a510-e7e9-474b-8736-da827fa31e97</uuid>
+                            <name>Benchmarks</name>
+                            <data>
+                                [b]Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2,[b]Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff00;SOLID;false;2,Client-totals;#000000;SOLID;false;2,[b]Security2429f614-0358-440e-8c35-76a3f3c471b3;#0080ff;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>ff73f902-afed-409c-b7ef-cf4dbb3b546a</uuid>
+                            <name>Wertpapierart</name>
+                            <data>
+                                Classification2d2ced2f-e21f-444a-906e-38184bfd9219;#0000ff;SOLID;false;2,Classificationf5f27ecf-5d49-4396-a840-df0a63b737a8;#ff0000;SOLID;false;2,Classificationa7396834-be78-4d72-be42-ffe7ee4b3ffd;#ffff00;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>8b66a708-3590-4c1e-98f0-dc9c99af70d3</uuid>
+                            <name>DKB</name>
+                            <data>
+                                Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;true;2,Security55a7d7fd-6d70-4814-802f-cdd35037e73b;#80ff80;SOLID;false;2,Security8b5d3c4c-7e32-4b48-9db0-27d624495d7c;#80ffff;SOLID;false;2,Security6777031c-7b0a-4a92-832a-1cbb384b15e0;#ff80c0;SOLID;false;2,Security2429f614-0358-440e-8c35-76a3f3c471b3;#ff0000;SOLID;false;2,Securityc039e0ca-4e40-4fda-8a30-ae56cf93f0e9;#0080ff;SOLID;false;2,Securityca41cf3f-fb90-4291-98b3-3d39830b18f3;#7991e2;SOLID;false;2,Security19ac302a-6e30-455c-abe7-81bb119b61ee;#000000;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>eddc3c31-c680-492b-9a8c-8a464d18b462</uuid>
+                            <name>Trade Republic</name>
+                            <data>
+                                Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;true;2,Security1dfdbf1f-0b89-4de2-8384-24ee76f019ce;#e27991;SOLID;false;2,Security9fbdac56-b087-4ab0-a92b-5ef53d0101e4;#e2b579;SOLID;false;2,Securityb8a5958b-ad8d-4ba0-8906-3e8feaa6cf5b;#ffff80;SOLID;false;2,Security39c2efc9-d40f-4d66-8f63-f242c06e6d4e;#0080ff;SOLID;false;2,Security38f1fc15-2ade-4e5b-b8cf-254a39a506a1;#c0c0c0;SOLID;false;2,Securityff601225-2862-4cb6-b2b3-3492d29b9c60;#e28b79;SOLID;false;2,Securityabc56d40-232b-4a82-a05f-b1b1dcc164d8;#ff8000;SOLID;false;2,Securitya469ff89-6f29-41e0-a3cd-fbfc15f182c3;#80ffff;SOLID;false;2,Security1f7fc942-36ff-496d-875a-83e35e81da1c;#8b79e2;SOLID;false;2,Security01a460d8-c4d7-41d5-9516-3a0eab213f7a;#b579e2;SOLID;false;2,Securitydd51535c-23a7-4c34-9c28-4697329f42e7;#ff0000;SOLID;false;2,Security26bfdca2-53cc-494c-ad83-aa5c77476c39;#e279d0;SOLID;false;2,Securityb76957cd-ae27-4dab-bf92-1f6338747f98;#ca79e2;SOLID;false;2,Securityae646cc4-06c2-4e5c-a2f7-edb0de1a724a;#e2df79;SOLID;false;2,Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff80;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>04dbf88a-038a-45fd-ba01-12796cdf5497</uuid>
+                            <name>WeltSparen</name>
+                            <data>
+                                Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff0000;SOLID;true;2,Securitye4f17bb6-8ead-4fa7-9fd0-69c181654a94;#79bbe2;SOLID;false;2,Security14971bd6-46ed-46af-9920-a21d96165fbd;#797ce2;SOLID;false;2,Securityee56b095-889b-4c58-8c8f-8ae81cadc2f2;#79d0e2;SOLID;false;2,Securityaf9e0be8-21b0-4c4a-96b4-54cfe70bde53;#7991e2;SOLID;false;2,Securityb25dae77-b5a4-4a4d-aab7-851eb0106b9a;#8b79e2;SOLID;false;2,Security1ddc9b96-8269-4a59-81ab-be6b8a0e402c;#79a6e2;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>a2cb172c-ffe5-43b0-91cb-5179da621425</uuid>
+                            <name>Finanzen.net Zero</name>
+                            <data>
+                                Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;true;2,Security19b59beb-3536-412d-ac5c-c82fdc4b3957;#000000;SOLID;false;2,Securitydcca00f9-e46d-4413-bb70-fcf8139b67b1;#e2a079;SOLID;false;2
+                            </data>
+                        </config>
+                        <config>
+                            <uuid>18411762-cb6d-4152-8a32-48878128a21d</uuid>
+                            <name>Vanguard</name>
+                            <data>
+                                Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;true;2,Security1f3232e2-6b44-499d-bb4c-4427ff9b9f19;#91e279;SOLID;false;2,Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2
+                            </data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>name.abuchen.portfolio.ui.views.SecuritiesTable</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>0fe3f231-f834-437d-bf1f-7825cfe6a746</uuid>
+                            <name>alle</name>
+                            <data>{&quot;items&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;sortDirection&quot;:128,&quot;width&quot;:445},{&quot;id&quot;:&quot;1&quot;,&quot;width&quot;:100},{&quot;id&quot;:&quot;7&quot;,&quot;width&quot;:80},{&quot;id&quot;:&quot;2&quot;,&quot;width&quot;:109},{&quot;id&quot;:&quot;4&quot;,&quot;width&quot;:83},{&quot;id&quot;:&quot;currency&quot;,&quot;width&quot;:68},{&quot;id&quot;:&quot;5&quot;,&quot;width&quot;:75},{&quot;id&quot;:&quot;changeonpreviousamount&quot;,&quot;width&quot;:80},{&quot;id&quot;:&quot;9&quot;,&quot;width&quot;:106},{&quot;id&quot;:&quot;delta-w-period&quot;,&quot;option&quot;:&quot;Z&quot;,&quot;width&quot;:95},{&quot;id&quot;:&quot;note&quot;,&quot;width&quot;:454}]}</data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>reporting-periods</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>L1Y0</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>L2Y0</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>L3Y0</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>L4Y0</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>X</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>B</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>E</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>S2019-07-01</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>T1</data>
+                        </config>
+                        <config>
+                            <uuid></uuid>
+                            <name></name>
+                            <data>Z</data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>name.abuchen.portfolio.ui.views.StatementOfAssetsViewer</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>e43dcb0c-02dd-42a0-ae2e-5f29bad2b47c</uuid>
+                            <name>Gesamt</name>
+                            <data>{&quot;items&quot;:[{&quot;id&quot;:&quot;0&quot;,&quot;width&quot;:57},{&quot;id&quot;:&quot;1&quot;,&quot;sortDirection&quot;:128,&quot;width&quot;:432},{&quot;id&quot;:&quot;3&quot;,&quot;width&quot;:97},{&quot;id&quot;:&quot;2&quot;,&quot;width&quot;:92},{&quot;id&quot;:&quot;6&quot;,&quot;width&quot;:69},{&quot;id&quot;:&quot;ppmvavg&quot;,&quot;width&quot;:118},{&quot;id&quot;:&quot;4&quot;,&quot;width&quot;:56},{&quot;id&quot;:&quot;baseCurrency&quot;,&quot;width&quot;:61},{&quot;id&quot;:&quot;pvmvavg&quot;,&quot;width&quot;:120},{&quot;id&quot;:&quot;5&quot;,&quot;width&quot;:80},{&quot;id&quot;:&quot;9&quot;,&quot;width&quot;:99},{&quot;id&quot;:&quot;sumdiv&quot;,&quot;option&quot;:&quot;X&quot;,&quot;width&quot;:144},{&quot;id&quot;:&quot;sumdiv&quot;,&quot;option&quot;:&quot;L4Y0&quot;,&quot;width&quot;:75},{&quot;id&quot;:&quot;d%mvavg&quot;,&quot;option&quot;:&quot;L4Y0&quot;,&quot;width&quot;:75},{&quot;id&quot;:&quot;d%mvavg&quot;,&quot;option&quot;:&quot;X&quot;,&quot;width&quot;:72},{&quot;id&quot;:&quot;d%mvavg&quot;,&quot;option&quot;:&quot;L1Y0&quot;,&quot;width&quot;:80}]}
+                            </data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>client-filter-definitions</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>2eb3c2d1-428f-42de-af40-891a4372a00d</uuid>
+                            <name>Alle Depots</name>
+                            <data>
+                                9470d992-4896-4ac9-b930-a360a89ddb51,c49f7988-be89-48aa-8471-07c166be52b2,7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e,bb7a86a0-6a7a-4d92-8e57-f71026bee171,e87bcf88-6d35-4a3d-adf8-39691c73adaf
+                            </data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+            <entry>
+                <string>client-filter-selection</string>
+                <config-set>
+                    <configurations>
+                        <config>
+                            <uuid>PaymentsViewModel</uuid>
+                            <name></name>
+                            <data></data>
+                        </config>
+                        <config>
+                            <uuid>StatementOfAssetsView</uuid>
+                            <name></name>
+                            <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
+                        </config>
+                        <config>
+                            <uuid>HoldingsPieChartView</uuid>
+                            <name></name>
+                            <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
+                        </config>
+                        <config>
+                            <uuid>TaxonomyView-75e0d985-afeb-4c96-809c-4c590fedeb25</uuid>
+                            <name></name>
+                            <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
+                        </config>
+                        <config>
+                            <uuid>TaxonomyView-dd795aed-d551-4207-8c53-7e66c33e41a9</uuid>
+                            <name></name>
+                            <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
+                        </config>
+                        <config>
+                            <uuid>PerformanceView</uuid>
+                            <name></name>
+                            <data></data>
+                        </config>
+                    </configurations>
+                </config-set>
+            </entry>
+        </configurationSets>
+    </settings>
+</client>

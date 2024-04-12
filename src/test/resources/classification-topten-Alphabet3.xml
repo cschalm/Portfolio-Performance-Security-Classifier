@@ -1,0 +1,102 @@
+<client>
+    <version>59</version>
+    <baseCurrency>EUR</baseCurrency>
+    <securities>
+        <security>
+            <uuid>2429f614-0358-440e-8c35-76a3f3c471b3</uuid>
+            <name>Amundi MSCI World UCITS ETF EUR (C)</name>
+            <currencyCode>EUR</currencyCode>
+            <isin>LU1681043599</isin>
+            <tickerSymbol>AMEW.DE</tickerSymbol>
+            <wkn>A2H59Q</wkn>
+            <feed>YAHOO</feed>
+            <prices>
+                <price t="2024-04-02" v="49705000000"/>
+                <price t="2024-04-03" v="49735000000"/>
+            </prices>
+            <latest t="2024-04-03" v="49735000000">
+                <high>-1</high>
+                <low>-1</low>
+                <volume>-1</volume>
+            </latest>
+            <attributes>
+            </attributes>
+            <events/>
+            <isRetired>false</isRetired>
+            <updatedAt>2024-02-29T19:42:38.552405600Z</updatedAt>
+        </security>
+        <security>
+            <uuid>19ac302a-6e30-455c-abe7-81bb119b61ee</uuid>
+            <name>Amundi MSCI World UCITS ETF DR - USD (D)</name>
+            <currencyCode>EUR</currencyCode>
+            <isin>IE000CNSFAR2</isin>
+            <tickerSymbol>MWOE.DE</tickerSymbol>
+            <wkn>A3DH0A</wkn>
+            <feed>YAHOO</feed>
+            <prices>
+                <price t="2024-04-02" v="1167800000"/>
+                <price t="2024-04-03" v="1169800000"/>
+            </prices>
+            <latest t="2024-04-03" v="1169800000">
+                <high>-1</high>
+                <low>-1</low>
+                <volume>-1</volume>
+            </latest>
+            <attributes>
+            </attributes>
+            <events>
+                <dividendEvent>
+                    <date>2024-02-14</date>
+                    <type>DIVIDEND_PAYMENT</type>
+                    <paymentDate>2024-02-16</paymentDate>
+                    <amount currency="USD" amount="18"/>
+                    <source>divvydiary.com</source>
+                </dividendEvent>
+                <dividendEvent>
+                    <date>2023-02-15</date>
+                    <type>DIVIDEND_PAYMENT</type>
+                    <paymentDate>2023-02-17</paymentDate>
+                    <amount currency="USD" amount="7"/>
+                    <source>divvydiary.com</source>
+                </dividendEvent>
+            </events>
+            <isRetired>false</isRetired>
+            <updatedAt>2024-02-29T19:43:29.531423900Z</updatedAt>
+        </security>
+    </securities>
+    <watchlists/>
+    <accounts>
+    </accounts>
+    <portfolios>
+    </portfolios>
+    <plans>
+    </plans>
+    <taxonomies>
+        <taxonomy>
+            <id>d1d32dd6-09dc-447e-b43a-a235d5e362b0</id>
+            <name>Top Ten</name>
+            <root>
+                <id>543c55d1-e3ac-4f2c-b382-e2d7ac0b45c3</id>
+                <name>topten</name>
+                <color>#a4c4f5</color>
+                <children>
+                </children>
+                <assignments/>
+                <weight>10000</weight>
+                <rank>0</rank>
+            </root>
+        </taxonomy>
+    </taxonomies>
+    <dashboards>
+    </dashboards>
+    <properties>
+        <entry>
+            <string>security-chart-details</string>
+            <string>
+                SCALING_LINEAR,INVESTMENT,DIVIDENDS,EVENTS,FLOATINGAVGPURCHASE,SMA_50DAYS,SMA_200DAYS,SHOW_MAIN_HORIZONTAL_LINES
+            </string>
+        </entry>
+    </properties>
+    <settings>
+    </settings>
+</client>

@@ -99,7 +99,7 @@ public class PortfolioDocumentService {
                                 String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
                                 indexSecurityToCheck = Integer.parseInt(foundIndex) - 1;
                             }
-                            if (indexSecurityToCheck < 0 || indexSecurityToCheck > allSecurities.size()) continue;
+                            if (indexSecurityToCheck < 0 || indexSecurityToCheck >= allSecurities.size()) continue;
                             if (!hasSecurityHolding(allSecurities.get(indexSecurityToCheck), allStockNames, topTenNameFromPortfolio)) {
                                 logger.fine("Removing " + allSecurities.get(indexSecurityToCheck) + " from TopTen " + topTenNameFromPortfolio);
                                 assignment.getParentNode().removeChild(assignment);
@@ -112,78 +112,39 @@ public class PortfolioDocumentService {
         // add or update top ten
         for (String stockName : allStockNames.keySet()) {
             logger.fine("Stockname: " + stockName);
-            if (stockName.startsWith("LVMH")) {
-                logger.info("Stockname: " + stockName);
-            }
 
-            Element existingClassification = findClassificationByName(childrenElement, stockName);
-            Security existingSecurity = findSecurityByHolding(allSecurities, allStockNames, stockName);
-            if (existingClassification != null && existingSecurity != null) {
-                logger.fine("Updating TopTen " + stockName + " with " + existingSecurity);
-                int indexOfExistingSecurity = allSecurities.indexOf(existingSecurity);
-                Element existingAssignment = findAssignmentBySecurityIndex(existingClassification, indexOfExistingSecurity + 1);
-                if (existingAssignment != null) {
-                    int percentage = (int) Math.ceil(existingSecurity.getPercentageOfHolding(stockName) * 100.0);
-                    updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
+            Element existingClassification = findClassificationBySimilarName(childrenElement, stockName);
+            List<Security> existingSecurities = findSecuritiesByHolding(allSecurities, allStockNames, stockName);
+            if (existingClassification != null && !existingSecurities.isEmpty()) {
+                for (Security existingSecurity : existingSecurities) {
+                    int indexOfExistingSecurity = allSecurities.indexOf(existingSecurity);
+                    Element existingAssignment = findAssignmentBySecurityIndex(existingClassification, indexOfExistingSecurity + 1);
+                    if (existingAssignment != null) {
+                        int percentage = getPercentageForHolding(existingSecurity, allStockNames, stockName);
+                        if (percentage > 0) {
+                            logger.fine("Updating TopTen " + stockName + " with " + existingSecurity + ": " + percentage);
+                            updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
+                        }
+                    } else {
+                        // add new assignment to EXISTING classification!
+                        Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
+                        if (assignments == null) {
+                            assignments = portfolioDocument.createElement("assignments");
+                            childrenElement.appendChild(assignments);
+                        }
+                        logger.fine("Adding " + existingSecurity + " to TopTen for " + stockName);
+                        addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, indexOfExistingSecurity, 0);
+                    }
                 }
             } else {
+                // add new assignment to NEW classification!
+                logger.fine("Adding all holdings to TopTen for " + stockName);
                 Element assignments = portfolioDocument.createElement("assignments");
-                int indexOfSecurity = 0;
-                int rank = 0;
-                for (Security security : allSecurities) {
-                    if (security != null) {
-                        // find security that contains the current stock identified by any similar name
-                        if (security.getHoldings().containsKey(stockName)) {
-                            // primary name
-                            rank = addTopTenAssignment(portfolioDocument, stockName, security, indexOfSecurity, rank, assignments, importedTopTen);
-                        } else {
-                            // alternative names
-                            List<String> alternativeNames = allStockNames.get(stockName);
-                            for (String alternativeName : alternativeNames) {
-                                if (security.getHoldings().containsKey(alternativeName)) {
-                                    rank = addTopTenAssignment(portfolioDocument, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
-                                }
-                            }
-                        }
-                    }
-                    indexOfSecurity++;
-                }
+                childrenElement.appendChild(assignments);
+                addAssignmentsToAssignments(portfolioDocument, allSecurities, stockName, importedTopTen, allStockNames, assignments);
                 // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
                 if (assignments.hasChildNodes()) {
-                    // setting each stock as own "classification"
-                    Element classificationNodeForStock = portfolioDocument.createElement("classification");
-                    Element id = portfolioDocument.createElement("id");
-                    id.setTextContent(UUID.randomUUID().toString());
-
-                    Element name = portfolioDocument.createElement("name");
-                    name.setTextContent(stockName);
-
-                    Element color = portfolioDocument.createElement("color");
-                    // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
-                    int nextInt = random.nextInt(0xffffff + 1);
-                    // format it as hexadecimal string (with hashtag and leading zeros)
-                    String colorCode = String.format("#%06x", nextInt);
-                    color.setTextContent(colorCode);
-
-                    Element parent = portfolioDocument.createElement("parent");
-                    parent.setAttribute("reference", "../../..");
-
-                    Element children = portfolioDocument.createElement("children");
-
-                    Element weight = portfolioDocument.createElement("weight");
-                    weight.setTextContent("10000");
-
-                    Element rankElement = portfolioDocument.createElement("rank");
-                    rankElement.setTextContent("0");
-
-                    classificationNodeForStock.appendChild(id);
-                    classificationNodeForStock.appendChild(name);
-                    classificationNodeForStock.appendChild(color);
-                    classificationNodeForStock.appendChild(parent);
-                    classificationNodeForStock.appendChild(children);
-                    classificationNodeForStock.appendChild(assignments);
-                    classificationNodeForStock.appendChild(weight);
-                    classificationNodeForStock.appendChild(rankElement);
+                    Element classificationNodeForStock = createNewClassification(portfolioDocument, stockName, assignments);
                     childrenElement.appendChild(classificationNodeForStock);
                 }
             }
@@ -203,6 +164,71 @@ public class PortfolioDocumentService {
         logger.info(" - done!");
 
         return importedTopTen;
+    }
+
+    private Element createNewClassification(Document portfolioDocument, String stockName, Element assignments) {
+        // setting each stock as own "classification"
+        Element classificationNodeForStock = portfolioDocument.createElement("classification");
+        Element id = portfolioDocument.createElement("id");
+        id.setTextContent(UUID.randomUUID().toString());
+
+        Element name = portfolioDocument.createElement("name");
+        name.setTextContent(stockName);
+
+        Element color = portfolioDocument.createElement("color");
+        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+        int nextInt = random.nextInt(0xffffff + 1);
+        // format it as hexadecimal string (with hashtag and leading zeros)
+        String colorCode = String.format("#%06x", nextInt);
+        color.setTextContent(colorCode);
+
+        Element parent = portfolioDocument.createElement("parent");
+        parent.setAttribute("reference", "../../..");
+
+        Element children = portfolioDocument.createElement("children");
+
+        Element weight = portfolioDocument.createElement("weight");
+        weight.setTextContent("10000");
+
+        Element rankElement = portfolioDocument.createElement("rank");
+        rankElement.setTextContent("0");
+
+        classificationNodeForStock.appendChild(id);
+        classificationNodeForStock.appendChild(name);
+        classificationNodeForStock.appendChild(color);
+        classificationNodeForStock.appendChild(parent);
+        classificationNodeForStock.appendChild(children);
+        classificationNodeForStock.appendChild(assignments);
+        classificationNodeForStock.appendChild(weight);
+        classificationNodeForStock.appendChild(rankElement);
+        return classificationNodeForStock;
+    }
+
+    private void addAssignmentsToAssignments(Document portfolioDocument, List<Security> allSecurities, String stockName, JsonArray importedTopTen, TreeMap<String, List<String>> allStockNames, Element assignments) {
+        int indexOfSecurity = 0;
+        int rank = 0;
+        for (Security security : allSecurities) {
+            rank = addAssignmentToAssignments(portfolioDocument, security, stockName, importedTopTen, allStockNames, assignments, indexOfSecurity, rank);
+            indexOfSecurity++;
+        }
+    }
+
+    private int addAssignmentToAssignments(Document portfolioDocument, Security security, String stockName, JsonArray importedTopTen, TreeMap<String, List<String>> allStockNames, Element assignments, int indexOfSecurity, int rank) {
+        if (security != null) {
+            // find security that contains the current stock identified by any similar name
+            if (security.getHoldings().containsKey(stockName)) {
+                // primary name
+                rank = addTopTenAssignment(portfolioDocument, stockName, security, indexOfSecurity, 0, assignments, importedTopTen);
+            }
+            // alternative names
+            List<String> alternativeNames = allStockNames.get(stockName);
+            for (String alternativeName : alternativeNames) {
+                if (security.getHoldings().containsKey(alternativeName)) {
+                    rank = addTopTenAssignment(portfolioDocument, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
+                }
+            }
+        }
+        return rank;
     }
 
     private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen) {
@@ -651,11 +677,36 @@ public class PortfolioDocumentService {
                 String reference = investmentVehicle.getAttribute("reference");
                 if (reference.isEmpty()) continue;
                 if (securityIndex == 1 && reference.endsWith("securities/security")) return assignment;
+                if (!(reference.contains("[") && reference.contains("]"))) continue;
                 String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
                 if (Integer.parseInt(foundIndex) == securityIndex) return assignment;
             }
         }
         return null;
+    }
+
+    List<Element> findAssignmentsBySecurityIndex(Node parent, int securityIndex) {
+        List<Element> foundAssignments = new ArrayList<>();
+        Element assignments = xmlHelper.getFirstChildElementWithNodeName(parent, "assignments");
+        if (assignments == null) return foundAssignments;
+        NodeList children = assignments.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignment")) {
+                Element assignment = (Element) children.item(i);
+                Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
+                if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) continue;
+                String reference = investmentVehicle.getAttribute("reference");
+                if (reference.isEmpty()) continue;
+                if (securityIndex == 1 && reference.endsWith("securities/security")) {
+                    foundAssignments.add(assignment);
+                    continue;
+                }
+                if (!(reference.contains("[") && reference.contains("]"))) continue;
+                String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
+                if (Integer.parseInt(foundIndex) == securityIndex) foundAssignments.add(assignment);
+            }
+        }
+        return foundAssignments;
     }
 
     Element updateWeightOfAssignment(Element assignment, String weight) {
@@ -715,27 +766,44 @@ public class PortfolioDocumentService {
         return null;
     }
 
-    Security findSecurityByHolding(List<Security> allSecurities, TreeMap<String, List<String>> allStockNames, String holdingName) {
+    Element findClassificationBySimilarName(Element parent, String name) {
+        NodeList allClassificationsFromPortfolioList = parent.getElementsByTagName("classification");
+        for (int indexClassification = 0; indexClassification < allClassificationsFromPortfolioList.getLength(); indexClassification++) {
+            Node classificationFromPortfolioNode = allClassificationsFromPortfolioList.item(indexClassification);
+            if (classificationFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String classificationNameFromPortfolio = xmlHelper.getTextContent((Element) classificationFromPortfolioNode, "name");
+                // adjust name for country "USA"
+                if (classificationNameFromPortfolio.equals("Vereinigte Staaten")) {
+                    classificationNameFromPortfolio = "USA";
+                }
+                if (isNameSimilar(name, classificationNameFromPortfolio))
+                    return (Element) classificationFromPortfolioNode;
+            }
+        }
+        return null;
+    }
+
+    List<Security> findSecuritiesByHolding(List<Security> allSecurities, TreeMap<String, List<String>> allStockNames, String holdingName) {
+        List<Security> foundSecurities = new ArrayList<>();
         for (Security security : allSecurities) {
             if (security != null) {
                 // find security that contains the current stock identified by any similar name
                 if (security.getHoldings().containsKey(holdingName)) {
                     // primary name
-                    return security;
-                } else {
-                    // alternative names
-                    List<String> alternativeNames = allStockNames.get(holdingName);
-                    if (alternativeNames != null) {
-                        for (String alternativeName : alternativeNames) {
-                            if (security.getHoldings().containsKey(alternativeName)) {
-                                return security;
-                            }
+                    foundSecurities.add(security);
+                }
+                // alternative names
+                List<String> alternativeNames = allStockNames.get(holdingName);
+                if (alternativeNames != null) {
+                    for (String alternativeName : alternativeNames) {
+                        if (security.getHoldings().containsKey(alternativeName)) {
+                            foundSecurities.add(security);
                         }
                     }
                 }
             }
         }
-        return null;
+        return foundSecurities;
     }
 
     boolean hasSecurityHolding(Security security, TreeMap<String, List<String>> allStockNames, String holdingName) {
@@ -761,6 +829,27 @@ public class PortfolioDocumentService {
             }
         }
         return false;
+    }
+
+    int getPercentageForHolding(Security security, TreeMap<String, List<String>> allStockNames, String holdingName) {
+        if (security != null) {
+            // find security that contains the current stock identified by any similar name
+            if (security.getHoldings().containsKey(holdingName)) {
+                // primary name
+                return (int) Math.ceil(security.getPercentageOfHolding(holdingName) * 100.0);
+            } else {
+                // alternative names
+                List<String> alternativeNames = allStockNames.get(holdingName);
+                if (alternativeNames != null) {
+                    for (String alternativeName : alternativeNames) {
+                        if (security.getHoldings().containsKey(alternativeName)) {
+                            return (int) Math.ceil(security.getPercentageOfHolding(alternativeName) * 100.0);
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 
 }
