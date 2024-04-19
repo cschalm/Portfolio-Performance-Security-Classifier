@@ -272,6 +272,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         assertTrue(portfolioDocumentService.isNameSimilar("SAMSUNG ELECTRONIC CO LTD", "Samsung Electronics Co. Ltd."));
         assertFalse(portfolioDocumentService.isNameSimilar("Mitsui & Co. Ltd.", "Mitsui O.S.K. Lines"));
         assertTrue(portfolioDocumentService.isNameSimilar("Nvidia", "NVIDIA Corp."));
+        assertTrue(portfolioDocumentService.isNameSimilar("ING Groep", "ING Group"));
     }
 
     @Test
@@ -778,6 +779,40 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
+    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntryAndClassificationFolder() throws IOException, ParserConfigurationException, SAXException {
+        // nothing to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("IE000CNSFAR2");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(10, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Top Ten")) {
+                    Element amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedTopTen.size());
+
+                    amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
+                    assertNull(amd);
+                }
+            }
+        }
+    }
+
+    @Test
     public void testImportTopTen_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
         // "Alphabet A (Google)" to add 130
         // "Eli Lilly & Co." to add 96
@@ -983,7 +1018,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_AlphabetAdd2Classification() throws Exception {
+    public void testImportTopTen_AlphabetAdd2ExistingClassification() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
@@ -1067,6 +1102,67 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertFalse(foundAssignments.isEmpty());
                     assertEquals(2, foundAssignments.size());
                     logger.info(xmlHelper.domNode2String(alphabet, true));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testImportTopTen_AlphabetAdd2ExistingClassificationSecondHolding() throws Exception {
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet4.xml");
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        List<Security> securities = new ArrayList<>(2);
+        Security security = service.createSecurity("LU1681043599-Alphabet");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(2, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        securities.add(security);
+        security = service.createSecurity("IE000CNSFAR2-Alphabet");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(2, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        securities.add(security);
+        security = service.createSecurity("DE000A0F5UF5-Alphabet");
+        assertNotNull(security);
+        assertNotNull(security.getHoldings());
+        assertEquals(2, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        securities.add(security);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals("Top Ten")) {
+                    Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 1);
+                    assertNotNull(assignment);
+                    assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 2);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(4, importedTopTen.size());
+                    logger.info(xmlHelper.domNode2String(alphabet, true));
+
+                    List<Element> foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 1);
+                    assertFalse(foundAssignments.isEmpty());
+                    assertEquals(2, foundAssignments.size());
+                    assertEquals("311", getWeightOfAssignment(foundAssignments.get(1)));
+                    assertEquals("322", getWeightOfAssignment(foundAssignments.get(0)));
+                    foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 3);
+                    assertFalse(foundAssignments.isEmpty());
+                    assertEquals(2, foundAssignments.size());
+                    assertEquals("211", getWeightOfAssignment(foundAssignments.get(0)));
+                    assertEquals("222", getWeightOfAssignment(foundAssignments.get(1)));
+                    foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 2);
+                    assertFalse(foundAssignments.isEmpty());
+                    assertEquals(2, foundAssignments.size());
+                    assertEquals("111", getWeightOfAssignment(foundAssignments.get(0)));
+                    assertEquals("122", getWeightOfAssignment(foundAssignments.get(1)));
                 }
             }
         }
