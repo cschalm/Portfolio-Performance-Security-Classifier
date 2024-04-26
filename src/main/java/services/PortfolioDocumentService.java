@@ -386,6 +386,19 @@ public class PortfolioDocumentService {
                 return true;
             }
             // names differ in later characters, so the beginning of both names are equal
+            if (one.toLowerCase().startsWith("alphabet") && two.toLowerCase().startsWith("alphabet")) {
+                return true;
+            }
+            if (one.contains(" ") && two.contains(" ")) {
+                // both names contain a blank and therefore consist of multiple parts
+                int oneIndexOfBlank = one.indexOf(" ");
+                int twoIndexOfBlank = two.indexOf(" ");
+                if (oneIndexOfBlank + 1 == indexOfDifferenceLowerCase && twoIndexOfBlank + 1 == indexOfDifferenceLowerCase) {
+                    String[] oneParts = one.toLowerCase().split("\\h");
+                    String[] twoParts = two.toLowerCase().split("\\h");
+                    return isNameSimilar(oneParts[1], twoParts[1]);
+                }
+            }
             return indexOfDifferenceLowerCase > 7;
         }
         return false;

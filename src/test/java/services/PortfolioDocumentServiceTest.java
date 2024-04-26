@@ -273,6 +273,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         assertFalse(portfolioDocumentService.isNameSimilar("Mitsui & Co. Ltd.", "Mitsui O.S.K. Lines"));
         assertTrue(portfolioDocumentService.isNameSimilar("Nvidia", "NVIDIA Corp."));
         assertTrue(portfolioDocumentService.isNameSimilar("ING Groep", "ING Group"));
+        assertFalse(portfolioDocumentService.isNameSimilar("Deutsche Bank", "Deutsche Telekom"));
+        assertFalse(portfolioDocumentService.isNameSimilar("Deutsche Bank", "Deutsche Post"));
+        assertFalse(portfolioDocumentService.isNameSimilar("Deutsche Post", "Deutsche Telekom"));
     }
 
     @Test
