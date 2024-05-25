@@ -11,10 +11,12 @@ import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -29,29 +31,57 @@ public class Main {
 
     public static void main(String[] args) throws IOException, TransformerException, ParserConfigurationException, SAXException {
         Main main = new Main();
-        main.run();
+        main.initializeLogging();
+        String inputFileName = Optional.ofNullable(System.getProperty("input")).orElse(BASE_PATH + INPUT_FILE_NAME);
+        String outputFileName = Optional.ofNullable(System.getProperty("output")).orElse(BASE_PATH + OUTPUT_FILE_NAME);
+        String cacheDir = main.initializeCacheDir();
+        main.run(inputFileName, outputFileName, cacheDir);
     }
 
-    private void run() throws IOException, TransformerException, ParserConfigurationException, SAXException {
-        LogManager logManager = LogManager.getLogManager();
-        logManager.readConfiguration(new FileInputStream("src/main/resources/logging.properties"));
-        logger.info("Working Directory = " + BASE_PATH);
+    private String initializeCacheDir() throws IOException {
+        Optional<String> cacheDirName = Optional.ofNullable(System.getProperty("cachedir"));
+        String cacheDir;
+        if (cacheDirName.isPresent()) {
+            cacheDir = cacheDirName.get();
+        } else {
+            cacheDir = Files.createTempDirectory("-cache").toFile().getAbsolutePath();
+        }
 
-        Document portfolioDocument = loadPortfolioDocumentFromFile();
+        return cacheDir;
+    }
+
+    private void initializeLogging() throws IOException {
+        Optional<String> logConfigFileName = Optional.ofNullable(System.getProperty("logconfig"));
+        InputStream logConfig;
+        String location = "default logging.properties";
+        if (logConfigFileName.isPresent()) {
+            logConfig = this.getClass().getResourceAsStream(logConfigFileName.get());
+            location = logConfigFileName.get();
+        } else {
+            logConfig = this.getClass().getResourceAsStream("logging.properties");
+        }
+        LogManager logManager = LogManager.getLogManager();
+        logManager.readConfiguration(logConfig);
+
+        logger.info("logConfig: " + location);
+    }
+
+    private void run(String inputFileName, String outputFileName, String cacheDir) throws IOException, TransformerException, ParserConfigurationException, SAXException {
+        logger.info("inputFileName = " + inputFileName);
+        logger.info("outputFileName = " + outputFileName);
+        logger.info("cacheDir = " + cacheDir);
+
+        securityService = new SecurityService(cacheDir);
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(cacheDir + FileSystems.getDefault().getSeparator() + CACHE_FILE_NAME);
+
+        Document portfolioDocument = loadPortfolioDocumentFromFile(inputFileName);
 
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
-        {
-            // remove cache-file to force analysis
-            File cacheFile = new File(CACHE_FILE);
-            if (cacheFile.exists())
-                logger.info("Cache-file deleted: " + cacheFile.delete());
-        }
-        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(CACHE_FILE);
         portfolioDocumentService.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
 
-        xmlFileWriter.writeXml(portfolioDocument, BASE_PATH + OUTPUT_FILE_NAME);
+        xmlFileWriter.writeXml(portfolioDocument, outputFileName);
     }
 
     List<Security> addClassificationData(NodeList allSecurities) {
@@ -62,8 +92,8 @@ public class Main {
         return new XmlFileReader().getAllSecurities(portfolioDoc);
     }
 
-    Document loadPortfolioDocumentFromFile() throws IOException, ParserConfigurationException, SAXException {
-        return xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
+    Document loadPortfolioDocumentFromFile(String inputFileName) throws IOException, ParserConfigurationException, SAXException {
+        return xmlHelper.readXmlStream(inputFileName);
     }
 
 }

@@ -42,7 +42,7 @@ public class SecurityDetails {
         File cacheDir = new File(cachePath);
         //noinspection ResultOfMethodCallIgnored
         cacheDir.mkdirs();
-        File requestUrl = new File(cachePath + isin + ".txt");
+        File requestUrl = new File(cachePath, isin + ".txt");
         try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()), StandardCharsets.UTF_8)) {
             List<String> input = lines.collect(Collectors.toList());
             if (!input.isEmpty()) detailsRequestPath = input.get(0);
@@ -55,7 +55,7 @@ public class SecurityDetails {
                 logger.warning("Error writing DetailsRequestPath for " + isin + ": " + fnfe.getMessage());
             }
         }
-        File jsonUrl = new File(cachePath + isin + ".json");
+        File jsonUrl = new File(cachePath, isin + ".json");
         try {
             rootNode = JsonParser.parseReader(new FileReader(jsonUrl, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class SecurityDetails {
             industry = "";
             name = "";
         } else {
-            File industryAndNameCacheFileName = new File(cachePath + isin + "-industry.txt");
+            File industryAndNameCacheFileName = new File(cachePath, isin + "-industry.txt");
             try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
                 List<String> input = lines.collect(Collectors.toList());
                 if (!input.isEmpty()) {
