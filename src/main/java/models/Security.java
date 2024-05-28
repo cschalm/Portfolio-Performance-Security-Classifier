@@ -2,10 +2,7 @@ package models;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * One share from the portfolio in Portfolio Performance or ETF with name, ISIN and branches, holdings and counties.
@@ -14,12 +11,14 @@ public class Security {
     private final String isin;
     private String name;
     private boolean fond;
+    private final int indexInPortfolio;
     private Map<String, Double> industriesMap = new HashMap<>();
     private Map<String, Double> holdingsMap = new HashMap<>();
     private Map<String, Double> countriesMap = new HashMap<>();
 
-    public Security(String isin) {
+    public Security(String isin, int indexInPortfolio) {
         this.isin = isin;
+        this.indexInPortfolio = indexInPortfolio;
     }
 
     public String getName() {
@@ -116,6 +115,19 @@ public class Security {
 
     public void setFond(boolean fond) {
         this.fond = fond;
+    }
+
+    public int getIndexInPortfolio() {
+        return indexInPortfolio;
+    }
+
+    public static class SecurityComparator implements Comparator<Security> {
+
+        @Override
+        public int compare(Security one, Security two) {
+            return one.name.compareToIgnoreCase(two.name);
+        }
+
     }
 
 }

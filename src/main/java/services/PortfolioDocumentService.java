@@ -100,9 +100,10 @@ public class PortfolioDocumentService {
                                 indexSecurityToCheck = Integer.parseInt(foundIndex) - 1;
                             }
                             if (indexSecurityToCheck < 0 || indexSecurityToCheck >= allSecurities.size()) continue;
-                            Security security = allSecurities.get(indexSecurityToCheck);
-                            if (!hasSecurityHolding(security, allStockNames, topTenNameFromPortfolio)) {
-                                logger.fine("Removing " + security + " from TopTen " + topTenNameFromPortfolio);
+                            int finalIndexSecurityToCheck = indexSecurityToCheck;
+                            Optional<Security> security = allSecurities.stream().filter(s -> s.getIndexInPortfolio() == finalIndexSecurityToCheck).findFirst();
+                            if (security.isPresent() && !hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio)) {
+                                logger.fine("Removing " + security.get() + " from TopTen " + topTenNameFromPortfolio);
                                 Node assignmentsNode = assignment.getParentNode();
                                 assignmentsNode.removeChild(assignment);
                                 if (((Element) assignmentsNode).getElementsByTagName("assignment").getLength() == 0) {
@@ -124,7 +125,7 @@ public class PortfolioDocumentService {
             List<Security> existingSecurities = findSecuritiesByHolding(allSecurities, allStockNames, stockName);
             if (existingClassification != null && !existingSecurities.isEmpty()) {
                 for (Security existingSecurity : existingSecurities) {
-                    int indexOfExistingSecurity = allSecurities.indexOf(existingSecurity);
+                    int indexOfExistingSecurity = existingSecurity.getIndexInPortfolio();
                     List<Element> existingAssignmentsList = findAssignmentsBySecurityIndex(existingClassification, indexOfExistingSecurity + 1);
                     if (!existingAssignmentsList.isEmpty()) {
                         // update existing or add additional assignments
@@ -140,7 +141,7 @@ public class PortfolioDocumentService {
                                 // add NEW assignment
                                 logger.fine("Adding " + existingSecurity + " to TopTen " + stockName + ": " + percentage);
                                 Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
-                                addTopTenAssignment(portfolioDocument, stockName, existingSecurity, indexOfExistingSecurity, 0, assignments, importedTopTen, percentage);
+                                addTopTenAssignment(portfolioDocument, stockName, existingSecurity, 0, assignments, importedTopTen, percentage);
                             }
                         }
                     } else {
@@ -151,7 +152,7 @@ public class PortfolioDocumentService {
                             childrenElement.appendChild(assignments);
                         }
                         logger.fine("Adding " + existingSecurity + " to TopTen for " + stockName);
-                        addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, indexOfExistingSecurity, 0);
+                        addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, 0);
                     }
                 }
             } else {
@@ -169,15 +170,13 @@ public class PortfolioDocumentService {
         }
         // write logfile
         for (Security security : allSecurities) {
-            if (security != null) {
-                StringBuilder holdingAssignmentLog = new StringBuilder();
-                for (String holding : security.getHoldings().keySet()) {
-                    int nPercentage = getPercentageOfHolding(security, holding);
-                    if (nPercentage > 0)
-                        holdingAssignmentLog.append("Holding \"").append(holding).append("\" assigned with ").append((double) nPercentage / 100.0).append("%\n");
-                }
-                writeLogfile4Security(security, holdingAssignmentLog, "holding");
+            StringBuilder holdingAssignmentLog = new StringBuilder();
+            for (String holding : security.getHoldings().keySet()) {
+                int nPercentage = getPercentageOfHolding(security, holding);
+                if (nPercentage > 0)
+                    holdingAssignmentLog.append("Holding \"").append(holding).append("\" assigned with ").append((double) nPercentage / 100.0).append("%\n");
             }
+            writeLogfile4Security(security, holdingAssignmentLog, "holding");
         }
         logger.info(" - done!");
 
@@ -223,39 +222,36 @@ public class PortfolioDocumentService {
     }
 
     private void addAssignmentsToAssignments(Document portfolioDocument, List<Security> allSecurities, String stockName, JsonArray importedTopTen, TreeMap<String, List<String>> allStockNames, Element assignments) {
-        int indexOfSecurity = 0;
         int rank = 0;
         for (Security security : allSecurities) {
-            rank = addAssignmentToAssignments(portfolioDocument, security, stockName, importedTopTen, allStockNames, assignments, indexOfSecurity, rank);
-            indexOfSecurity++;
+            rank = addAssignmentToAssignments(portfolioDocument, security, stockName, importedTopTen, allStockNames, assignments, rank);
         }
     }
 
-    private int addAssignmentToAssignments(Document portfolioDocument, Security security, String stockName, JsonArray importedTopTen, TreeMap<String, List<String>> allStockNames, Element assignments, int indexOfSecurity, int rank) {
-        if (security != null) {
-            // find security that contains the current stock identified by any similar name
-            if (security.getHoldings().containsKey(stockName)) {
-                // primary name
-                rank = addTopTenAssignment(portfolioDocument, stockName, security, indexOfSecurity, 0, assignments, importedTopTen);
-            }
-            // alternative names
-            List<String> alternativeNames = allStockNames.get(stockName);
-            for (String alternativeName : alternativeNames) {
-                if (security.getHoldings().containsKey(alternativeName)) {
-                    rank = addTopTenAssignment(portfolioDocument, alternativeName, security, indexOfSecurity, rank, assignments, importedTopTen);
-                }
+    private int addAssignmentToAssignments(Document portfolioDocument, Security security, String stockName, JsonArray importedTopTen, TreeMap<String, List<String>> allStockNames, Element assignments, int rank) {
+        // find security that contains the current stock identified by any similar name
+        if (security.getHoldings().containsKey(stockName)) {
+            // primary name
+            rank = addTopTenAssignment(portfolioDocument, stockName, security, 0, assignments, importedTopTen);
+        }
+        // alternative names
+        List<String> alternativeNames = allStockNames.get(stockName);
+        for (String alternativeName : alternativeNames) {
+            if (security.getHoldings().containsKey(alternativeName)) {
+                rank = addTopTenAssignment(portfolioDocument, alternativeName, security, rank, assignments, importedTopTen);
             }
         }
+
         return rank;
     }
 
-    private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen) {
+    private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int rank, Element assignments, JsonArray importedTopTen) {
         int percentage = getPercentageOfHolding(security, stockName);
 
-        return addTopTenAssignment(portfolioDocument, stockName, security, indexOfSecurity, rank, assignments, importedTopTen, percentage);
+        return addTopTenAssignment(portfolioDocument, stockName, security, rank, assignments, importedTopTen, percentage);
     }
 
-    private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int indexOfSecurity, int rank, Element assignments, JsonArray importedTopTen, int percentage) {
+    private int addTopTenAssignment(Document portfolioDocument, String stockName, Security security, int rank, Element assignments, JsonArray importedTopTen, int percentage) {
         boolean found = false;
         // verify that this stock was not imported by an alternative name before
         for (int i = 0; i < importedTopTen.size(); i++) {
@@ -268,7 +264,7 @@ public class PortfolioDocumentService {
         if (!found) {
             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
             investmentVehicle.setAttribute("class", "security");
-            investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (indexOfSecurity + 1) + "]");
+            investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (security.getIndexInPortfolio() + 1) + "]");
 
             Element assignment = createAssignmentElement(portfolioDocument, rank, percentage);
             assignment.appendChild(investmentVehicle);
@@ -308,18 +304,16 @@ public class PortfolioDocumentService {
         Set<String> fondStockNames = new HashSet<>();
         Set<String> amundiStockNames = new HashSet<>();
         for (Security security : allSecurities) {
-            if (security != null) {
-                if (!security.isFond()) {
-                    if (security.getName() != null && !security.getName().isEmpty()) {
-                        allStockNames.add(security.getName());
-                    }
+            if (!security.isFond()) {
+                if (security.getName() != null && !security.getName().isEmpty()) {
+                    allStockNames.add(security.getName());
+                }
+            } else {
+                Map<String, Double> holdings = security.getHoldings();
+                if (security.getName() != null && security.getName().toLowerCase().startsWith("amundi")) {
+                    amundiStockNames.addAll(holdings.keySet());
                 } else {
-                    Map<String, Double> holdings = security.getHoldings();
-                    if (security.getName() != null && security.getName().toLowerCase().startsWith("amundi")) {
-                        amundiStockNames.addAll(holdings.keySet());
-                    } else {
-                        fondStockNames.addAll(holdings.keySet());
-                    }
+                    fondStockNames.addAll(holdings.keySet());
                 }
             }
         }
@@ -419,12 +413,7 @@ public class PortfolioDocumentService {
                 removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
             }
         }
-        int indexOfSecurity = 0;
         for (Security security : allSecurities) {
-            if (security == null) {
-                indexOfSecurity++;
-                continue;
-            }
             logger.fine("Security: " + security);
 
             StringBuilder industryAssignmentLog = new StringBuilder();
@@ -442,7 +431,7 @@ public class PortfolioDocumentService {
 
                 PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
                 Node industryNode = oTuple.oNode;
-                Element assignment = findAssignmentBySecurityIndex(industryNode, indexOfSecurity + 1);
+                Element assignment = findAssignmentBySecurityIndex(industryNode, security.getIndexInPortfolio() + 1);
                 if (percentage > 0) {
                     // check if assignment already exists and needs to be updated or added
                     if (assignment != null) {
@@ -452,7 +441,7 @@ public class PortfolioDocumentService {
                         // create and add new assignment
                         assignment = createAssignmentElement(portfolioDocument, ++oTuple.nRank, percentage);
                         Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                        Element assignments = linkAssignmentsToInvestmentVehicle(industryNode, investmentVehicle, indexOfSecurity);
+                        Element assignments = linkAssignmentsToInvestmentVehicle(industryNode, investmentVehicle, security.getIndexInPortfolio());
                         assignment.appendChild(investmentVehicle);
                         assignments.appendChild(assignment);
 
@@ -464,7 +453,6 @@ public class PortfolioDocumentService {
                 }
             }
             writeLogfile4Security(security, industryAssignmentLog, "industry");
-            indexOfSecurity++;
         }
         logger.info(" - done!");
 
@@ -618,39 +606,35 @@ public class PortfolioDocumentService {
                     countryNameFromPortfolio = "USA";
                 }
                 logger.fine("CountryFromPortfolio " + countryNameFromPortfolio);
-                int indexOfSecurity = 0;
                 for (Security security : allSecurities) {
-                    if (security != null) {
-                        // potential problem with german umlauts due to different encodings!!!
-                        int percentage = (int) Math.round(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
+                    // potential problem with german umlauts due to different encodings!!!
+                    int percentage = (int) Math.round(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
 
-                        Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, indexOfSecurity + 1);
-                        if (percentage == 0) {
-                            // maybe this holding was contained before, so check if we have to remove it from this country
-                            if (assignment != null)
-                                assignment.getParentNode().removeChild(assignment);
+                    Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, security.getIndexInPortfolio() + 1);
+                    if (percentage == 0) {
+                        // maybe this holding was contained before, so check if we have to remove it from this country
+                        if (assignment != null)
+                            assignment.getParentNode().removeChild(assignment);
+                    } else {
+                        // check if assignment already exists and needs to be updated or added
+                        if (assignment != null) {
+                            // update
+                            updateWeightOfAssignment(assignment, Integer.toString(percentage));
                         } else {
-                            // check if assignment already exists and needs to be updated or added
-                            if (assignment != null) {
-                                // update
-                                updateWeightOfAssignment(assignment, Integer.toString(percentage));
-                            } else {
-                                // create and add new assignment
-                                assignment = createAssignmentElement(portfolioDocument, rank, percentage);
+                            // create and add new assignment
+                            assignment = createAssignmentElement(portfolioDocument, rank, percentage);
 
-                                Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                                Element assignments = linkAssignmentsToInvestmentVehicle(countryFromPortfolioNode, investmentVehicle, indexOfSecurity);
-                                assignment.appendChild(investmentVehicle);
-                                assignments.appendChild(assignment);
+                            Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+                            Element assignments = linkAssignmentsToInvestmentVehicle(countryFromPortfolioNode, investmentVehicle, security.getIndexInPortfolio());
+                            assignment.appendChild(investmentVehicle);
+                            assignments.appendChild(assignment);
 
-                                JsonObject securityJsonObject = createSecurityJson(countryNameFromPortfolio, security.getIsin(), percentage);
-                                importedRegions.add(securityJsonObject);
+                            JsonObject securityJsonObject = createSecurityJson(countryNameFromPortfolio, security.getIsin(), percentage);
+                            importedRegions.add(securityJsonObject);
 
-                                rank++;
-                            }
+                            rank++;
                         }
                     }
-                    indexOfSecurity++;
                 }
             }
         }
@@ -752,14 +736,9 @@ public class PortfolioDocumentService {
     }
 
     void removeOrphanIndustryAssignment(Node industryFromPortfolio, String industryNameFromPortfolio, List<Security> allSecurities) {
-        int indexOfSecurity = 0;
         for (Security security : allSecurities) {
-            if (security == null) {
-                indexOfSecurity++;
-                continue;
-            }
             logger.fine("Security: " + security);
-            Element assignment = findAssignmentBySecurityIndex(industryFromPortfolio, indexOfSecurity + 1);
+            Element assignment = findAssignmentBySecurityIndex(industryFromPortfolio, security.getIndexInPortfolio() + 1);
             if (assignment != null) {
                 // there is an assignment from this security to the current industry-node, but should it be removed?
                 boolean found = false;
@@ -821,19 +800,17 @@ public class PortfolioDocumentService {
     List<Security> findSecuritiesByHolding(List<Security> allSecurities, TreeMap<String, List<String>> allStockNames, String holdingName) {
         Set<Security> foundSecurities = new HashSet<>();
         for (Security security : allSecurities) {
-            if (security != null) {
-                // find security that contains the current stock identified by any similar name
-                if (security.getHoldings().containsKey(holdingName)) {
-                    // primary name
-                    foundSecurities.add(security);
-                }
-                // alternative names
-                List<String> alternativeNames = allStockNames.get(holdingName);
-                if (alternativeNames != null) {
-                    for (String alternativeName : alternativeNames) {
-                        if (security.getHoldings().containsKey(alternativeName)) {
-                            foundSecurities.add(security);
-                        }
+            // find security that contains the current stock identified by any similar name
+            if (security.getHoldings().containsKey(holdingName)) {
+                // primary name
+                foundSecurities.add(security);
+            }
+            // alternative names
+            List<String> alternativeNames = allStockNames.get(holdingName);
+            if (alternativeNames != null) {
+                for (String alternativeName : alternativeNames) {
+                    if (security.getHoldings().containsKey(alternativeName)) {
+                        foundSecurities.add(security);
                     }
                 }
             }

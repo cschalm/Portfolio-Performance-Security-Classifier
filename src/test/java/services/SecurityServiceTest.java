@@ -34,7 +34,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityEtf() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE00BYYHSM20");
+        Security security = service.createSecurity("IE00BYYHSM20", 0);
         assertNotNull(security);
         assertEquals("IE00BYYHSM20", security.getIsin());
         assertNotNull(security.getIndustries());
@@ -48,7 +48,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityStock() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("DE000TUAG505");
+        Security security = service.createSecurity("DE000TUAG505", 0);
         assertNotNull(security);
         assertEquals("DE000TUAG505", security.getIsin());
         assertNotNull(security.getIndustries());
@@ -70,7 +70,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityEtfMsciWorld() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2");
+        Security security = service.createSecurity("IE000CNSFAR2", 0);
         assertNotNull(security);
         assertEquals("IE000CNSFAR2", security.getIsin());
         assertNotNull(security.getIndustries());
@@ -84,7 +84,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityStockAres() {
         SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
-        Security security = service.createSecurity("US04010L1035");
+        Security security = service.createSecurity("US04010L1035", 0);
         assertNotNull(security);
         assertEquals("US04010L1035", security.getIsin());
         assertNotNull(security.getIndustries());

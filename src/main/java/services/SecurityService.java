@@ -32,31 +32,32 @@ public class SecurityService {
     public List<Security> processSecurities(NodeList oAllSecurities) {
         List<Security> securities = new ArrayList<>();
         for (int i = 0; i < oAllSecurities.getLength(); i++) {
-            Security security = processSecurity((Element) oAllSecurities.item(i));
-            securities.add(security);
+            Security security = processSecurity((Element) oAllSecurities.item(i), i);
+            if (security != null) securities.add(security);
         }
+        securities.sort(new Security.SecurityComparator());
 
         return securities;
     }
 
-    Security processSecurity(Element securitiesElement) {
-        Security security = null;
+    Security processSecurity(Element securitiesElement, int indexInPortfolio) {
         String isin = xmlHelper.getTextContent(securitiesElement, "isin");
         String isRetired = xmlHelper.getTextContent(securitiesElement, "isRetired");
 
         if (!isin.isEmpty() && "false".equals(isRetired)) {
-            security = createSecurity(isin);
+            Security security = createSecurity(isin, indexInPortfolio);
             String name = xmlHelper.getTextContent(securitiesElement, "name");
             if ((security.getName() == null || security.getName().isEmpty()) && !name.isEmpty()) {
                 security.setName(name);
             }
+            return security;
         }
 
-        return security;
+        return null;
     }
 
-    Security createSecurity(String strIsin) {
-        Security security = new Security(strIsin);
+    Security createSecurity(String strIsin, int indexInPortfolio) {
+        Security security = new Security(strIsin, indexInPortfolio);
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
