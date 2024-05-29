@@ -50,7 +50,7 @@ public class PortfolioDocumentService {
                         securityDetailsCache.setCachedIndustries(importedIndustries);
                     }
 
-                    if (taxonomyName.equals("Top Ten")) {
+                    if (taxonomyName.equals("Aktiengewichtung")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedTopTen = importTopTen(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedTopTen(importedTopTen);
@@ -65,7 +65,7 @@ public class PortfolioDocumentService {
     }
 
     JsonArray importTopTen(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
-        logger.info("Importing Top Ten...");
+        logger.info("Importing Aktiengewichtung..");
         JsonArray importedTopTen = new JsonArray();
 
         TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
@@ -76,7 +76,7 @@ public class PortfolioDocumentService {
         if (childrenElement == null) {
             childrenElement = portfolioDocument.createElement("children");
         } else {
-            // remove orphan top ten assignments
+            // remove orphan Aktiengewichtung assignments
             NodeList allTopTenFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
             for (int indexTopTen = 0; indexTopTen < allTopTenFromPortfolioNodeList.getLength(); indexTopTen++) {
                 Node topTenFromPortfolioNode = allTopTenFromPortfolioNodeList.item(indexTopTen);
@@ -103,12 +103,12 @@ public class PortfolioDocumentService {
                             int finalIndexSecurityToCheck = indexSecurityToCheck;
                             Optional<Security> security = allSecurities.stream().filter(s -> s.getIndexInPortfolio() == finalIndexSecurityToCheck).findFirst();
                             if (security.isPresent() && !hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio)) {
-                                logger.fine("Removing " + security.get() + " from TopTen " + topTenNameFromPortfolio);
+                                logger.fine("Removing " + security.get() + " from Aktiengewichtung " + topTenNameFromPortfolio);
                                 Node assignmentsNode = assignment.getParentNode();
                                 assignmentsNode.removeChild(assignment);
                                 if (((Element) assignmentsNode).getElementsByTagName("assignment").getLength() == 0) {
                                     // no assignments left, so we remove this classification
-                                    logger.fine("Removing TopTen " + topTenNameFromPortfolio);
+                                    logger.fine("Removing Aktiengewichtung " + topTenNameFromPortfolio);
                                     topTenFromPortfolioNode.getParentNode().removeChild(topTenFromPortfolioNode);
                                 }
                             }
@@ -117,7 +117,7 @@ public class PortfolioDocumentService {
                 }
             }
         }
-        // add or update top ten
+        // add or update Aktiengewichtung
         for (String stockName : allStockNames.keySet()) {
             logger.fine("Stockname: " + stockName);
 
@@ -139,7 +139,7 @@ public class PortfolioDocumentService {
                                 updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
                             } else {
                                 // add NEW assignment
-                                logger.fine("Adding " + existingSecurity + " to TopTen " + stockName + ": " + percentage);
+                                logger.fine("Adding " + existingSecurity + " to Aktiengewichtung " + stockName + ": " + percentage);
                                 Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
                                 addTopTenAssignment(portfolioDocument, stockName, existingSecurity, 0, assignments, importedTopTen, percentage);
                             }
@@ -151,13 +151,13 @@ public class PortfolioDocumentService {
                             assignments = portfolioDocument.createElement("assignments");
                             childrenElement.appendChild(assignments);
                         }
-                        logger.fine("Adding " + existingSecurity + " to TopTen for " + stockName);
+                        logger.fine("Adding " + existingSecurity + " to Aktiengewichtung for " + stockName);
                         addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, 0);
                     }
                 }
             } else {
                 // add new assignment to NEW classification!
-                logger.fine("Adding all holdings to TopTen for " + stockName);
+                logger.fine("Adding all holdings to Aktiengewichtung for " + stockName);
                 Element assignments = portfolioDocument.createElement("assignments");
                 childrenElement.appendChild(assignments);
                 addAssignmentsToAssignments(portfolioDocument, allSecurities, stockName, importedTopTen, allStockNames, assignments);
