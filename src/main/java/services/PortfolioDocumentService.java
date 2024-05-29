@@ -84,7 +84,7 @@ public class PortfolioDocumentService {
                     String topTenNameFromPortfolio = xmlHelper.getTextContent((Element) topTenFromPortfolioNode, "name");
                     // check for each assignment if the corresponding stock still exists in portfolio
                     NodeList assignments = ((Element) topTenFromPortfolioNode).getElementsByTagName("assignment");
-                    int indexSecurityToCheck = -1;
+                    int indexSecurityToCheck;
                     for (int indexAssignments = 0; indexAssignments < assignments.getLength(); indexAssignments++) {
                         Node assignment = assignments.item(indexAssignments);
                         if (assignment.getNodeType() == Node.ELEMENT_NODE) {
@@ -691,10 +691,8 @@ public class PortfolioDocumentService {
         for (int i = 0; i < children.getLength(); i++) {
             if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignment")) {
                 Element assignment = (Element) children.item(i);
-                Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
-                if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) continue;
-                String reference = investmentVehicle.getAttribute("reference");
-                if (reference.isEmpty()) continue;
+                String reference = getReference(assignment);
+                if (reference == null || reference.isEmpty()) continue;
                 if (securityIndex == 1 && reference.endsWith("securities/security")) return assignment;
                 if (!(reference.contains("[") && reference.contains("]"))) continue;
                 String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
@@ -702,6 +700,13 @@ public class PortfolioDocumentService {
             }
         }
         return null;
+    }
+
+    private String getReference(Element assignment) {
+        Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
+        if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) return null;
+        String reference = investmentVehicle.getAttribute("reference");
+        return reference;
     }
 
     List<Element> findAssignmentsBySecurityIndex(Node parent, int securityIndex) {
@@ -712,10 +717,8 @@ public class PortfolioDocumentService {
         for (int i = 0; i < children.getLength(); i++) {
             if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("assignment")) {
                 Element assignment = (Element) children.item(i);
-                Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
-                if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) continue;
-                String reference = investmentVehicle.getAttribute("reference");
-                if (reference.isEmpty()) continue;
+                String reference = getReference(assignment);
+                if (reference == null || reference.isEmpty()) continue;
                 if (securityIndex == 1 && reference.endsWith("securities/security")) {
                     foundAssignments.add(assignment);
                     continue;
