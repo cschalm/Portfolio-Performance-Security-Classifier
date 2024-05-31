@@ -91,17 +91,22 @@ public class Main {
                 }
                 String inputFileName = line.getOptionValue(inputFile);
                 if (inputFileName == null) {
-                    System.err.println("Missing required parameter " + inputFile.getArgName());
+                    System.err.println("Missing required parameter " + inputFile.getKey());
                     HelpFormatter formatter = new HelpFormatter();
                     formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
+                } else {
+                    String outputFileName = line.getOptionValue(outputFile);
+                    if (outputFileName == null) {
+                        System.err.println("Missing required parameter " + outputFile.getKey());
+                        HelpFormatter formatter = new HelpFormatter();
+                        formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
+                    }
+                    if (outputFileName != null) {
+                        if (inputFileName.equalsIgnoreCase(outputFileName))
+                            System.err.println(inputFile.getKey() + " and " + outputFile.getKey() + " must not be the same, you could lose data!");
+                        main.run(inputFileName, outputFileName, cacheDirFile);
+                    }
                 }
-                String outputFileName = line.getOptionValue(outputFile);
-                if (outputFileName == null) {
-                    System.err.println("Missing required parameter " + outputFile.getArgName());
-                    HelpFormatter formatter = new HelpFormatter();
-                    formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
-                }
-                main.run(inputFileName, outputFileName, cacheDirFile);
             }
         } catch (ParseException exp) {
             // oops, something went wrong
