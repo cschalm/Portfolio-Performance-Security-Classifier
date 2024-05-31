@@ -125,8 +125,8 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -148,8 +148,8 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -171,8 +171,8 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -722,7 +722,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element abb = portfolioDocumentService.findClassificationByName(taxonomyElement, "ABB");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(abb, 1);
                     assertNotNull(assignment);
@@ -733,7 +733,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
@@ -766,12 +766,12 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element tesla = portfolioDocumentService.findClassificationByName(taxonomyElement, "Tesla");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
@@ -800,12 +800,12 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
@@ -835,7 +835,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element amazon = portfolioDocumentService.findClassificationByName(taxonomyElement, "Amazon");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
                     assertNotNull(assignment);
@@ -847,7 +847,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(eliLilly, 1);
                     assertNull(assignment);
 
-                    JsonArray importedBranches = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(3, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
@@ -889,7 +889,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element lvmh = portfolioDocumentService.findClassificationByName(taxonomyElement, "LVMH Moet Hennessy Louis Vuitton SE");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
                     assertNull(assignment);
@@ -899,7 +899,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNotNull(assignment);
                     assertEquals("190", getWeightOfAssignment(assignment));
 
-                    JsonArray importedBranches = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -940,7 +940,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     // existing
                     Element lvmh = portfolioDocumentService.findClassificationByName(taxonomyElement, "LVMH Moet Hennessy Louis Vuitton SE");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -952,7 +952,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 2);
                     assertNull(assignment);
 
-                    JsonArray importedBranches = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -989,7 +989,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element amazon = portfolioDocumentService.findClassificationByName(taxonomyElement, "Amazon");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
                     assertNotNull(assignment);
@@ -1003,7 +1003,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNotNull(assignment);
                     assertEquals("200", getWeightOfAssignment(assignment));
 
-                    JsonArray importedBranches = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(3, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
@@ -1044,14 +1044,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 1);
                     assertNull(assignment);
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 2);
                     assertNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
 
                     List<Element> foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 1);
@@ -1090,11 +1090,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     assertNull(alphabet);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
 
                     alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
@@ -1140,14 +1140,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Aktiengewichtung")) {
+                if (taxonomyName.equals("Unternehmensgewichtung")) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 1);
                     assertNotNull(assignment);
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 2);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importTopTen(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
                     logger.info(xmlHelper.domNode2String(alphabet, true));
 

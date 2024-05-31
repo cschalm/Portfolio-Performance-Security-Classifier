@@ -13333,7 +13333,7 @@ Dazu gehören u.a. gewerbliche Finanzunternehmen, Zentralbanken, Leasing-Gesells
     </taxonomy>
     <taxonomy>
       <id>bdb8ab29-17d6-4bea-a119-0c848d716491</id>
-      <name>Aktiengewichtung</name>
+      <name>Unternehmensgewichtung</name>
       <root>
         <id>c370f2bf-814f-40fc-841a-6fda5ec2c429</id>
         <name>topten</name>

@@ -1,5 +1,6 @@
 import models.Security;
 import models.SecurityDetailsCache;
+import org.apache.commons.cli.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -16,11 +17,10 @@ import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.*;
+import static constants.PathConstants.CACHE_FILE_NAME;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
@@ -31,39 +31,82 @@ public class Main {
 
     public static void main(String[] args) throws IOException, TransformerException, ParserConfigurationException, SAXException {
         Main main = new Main();
-        main.initializeLogging();
-        String inputFileName = Optional.ofNullable(System.getProperty("input")).orElse(BASE_PATH + INPUT_FILE_NAME);
-        String outputFileName = Optional.ofNullable(System.getProperty("output")).orElse(BASE_PATH + OUTPUT_FILE_NAME);
-        String cacheDir = main.initializeCacheDir();
-        main.run(inputFileName, outputFileName, cacheDir);
-    }
 
-    private String initializeCacheDir() throws IOException {
-        Optional<String> cacheDirName = Optional.ofNullable(System.getProperty("cachedir"));
-        String cacheDir;
-        if (cacheDirName.isPresent()) {
-            cacheDir = cacheDirName.get();
-        } else {
-            cacheDir = Files.createTempDirectory("-cache").toFile().getAbsolutePath();
+        Options options = new Options();
+        Option help = new Option("help", "print this message");
+        options.addOption(help);
+        Option inputFile = Option.builder("inputfile")
+                .argName("file")
+                .hasArg()
+                .desc("source Portfolio Performance xml-file")
+                .build();
+        options.addOption(inputFile);
+        Option outputFile = Option.builder("outputfile")
+                .argName("file")
+                .hasArg()
+                .desc("destination Portfolio Performance xml-file (will be overridden!!!)")
+                .build();
+        options.addOption(outputFile);
+        Option cacheDir = Option.builder("cachedir")
+                .argName("directory")
+                .hasArg()
+                .desc("directory (re-) used for caching information for each security")
+                .build();
+        options.addOption(cacheDir);
+        Option logConfigFile = Option.builder("logconfig")
+                .argName("file")
+                .hasArg()
+                .desc("java.util.logging logging.properties")
+                .build();
+        options.addOption(logConfigFile);
+
+        CommandLineParser parser = new DefaultParser();
+        try {
+            // parse the command line arguments
+            CommandLine line = parser.parse(options, args);
+            if (line.hasOption(help)) {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
+            } else {
+                {
+                    InputStream logConfig;
+                    String location = "default logging.properties";
+                    if (line.hasOption(logConfigFile)) {
+                        location = line.getOptionValue(logConfigFile);
+                        logConfig = main.getClass().getResourceAsStream(location);
+                    } else {
+                        logConfig = main.getClass().getResourceAsStream("logging.properties");
+                    }
+                    LogManager logManager = LogManager.getLogManager();
+                    logManager.readConfiguration(logConfig);
+                    logger.info("logConfig: " + location);
+                }
+                String cacheDirFile;
+                {
+                    if (line.hasOption(cacheDir)) {
+                        cacheDirFile = line.getOptionValue(cacheDir);
+                    } else {
+                        cacheDirFile = Files.createTempDirectory("-cache").toFile().getAbsolutePath();
+                    }
+                }
+                String inputFileName = line.getOptionValue(inputFile);
+                if (inputFileName == null) {
+                    System.err.println("Missing required parameter " + inputFile.getArgName());
+                    HelpFormatter formatter = new HelpFormatter();
+                    formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
+                }
+                String outputFileName = line.getOptionValue(outputFile);
+                if (outputFileName == null) {
+                    System.err.println("Missing required parameter " + outputFile.getArgName());
+                    HelpFormatter formatter = new HelpFormatter();
+                    formatter.printHelp("PortfolioPerformanceSecurityClassifier", options);
+                }
+                main.run(inputFileName, outputFileName, cacheDirFile);
+            }
+        } catch (ParseException exp) {
+            // oops, something went wrong
+            System.err.println("Parsing of parameters failed. Reason: " + exp.getMessage());
         }
-
-        return cacheDir;
-    }
-
-    private void initializeLogging() throws IOException {
-        Optional<String> logConfigFileName = Optional.ofNullable(System.getProperty("logconfig"));
-        InputStream logConfig;
-        String location = "default logging.properties";
-        if (logConfigFileName.isPresent()) {
-            logConfig = this.getClass().getResourceAsStream(logConfigFileName.get());
-            location = logConfigFileName.get();
-        } else {
-            logConfig = this.getClass().getResourceAsStream("logging.properties");
-        }
-        LogManager logManager = LogManager.getLogManager();
-        logManager.readConfiguration(logConfig);
-
-        logger.info("logConfig: " + location);
     }
 
     private void run(String inputFileName, String outputFileName, String cacheDir) throws IOException, TransformerException, ParserConfigurationException, SAXException {
