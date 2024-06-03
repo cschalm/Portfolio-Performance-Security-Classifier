@@ -16,17 +16,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.LOGS_PATH;
+import static constants.PathConstants.CACHE_PATH;
 
 public class PortfolioDocumentService {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentService.class.getCanonicalName());
     Random random = new Random();
     XmlHelper xmlHelper = new XmlHelper();
     LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
+    private String logsPath = CACHE_PATH;
+
+    public PortfolioDocumentService() {
+    }
+
+    public PortfolioDocumentService(String logsPath) {
+        this.logsPath = logsPath;
+    }
 
     public void updateXml(Document portfolioDocument, List<Security> allSecurities, SecurityDetailsCache securityDetailsCache) {
         try {
@@ -675,10 +684,10 @@ public class PortfolioDocumentService {
 
     void writeLogfile4Security(Security security, StringBuilder logLines, String fileSuffix) throws FileNotFoundException {
         if (logLines.length() > 0) {
-            File logsDir = new File(LOGS_PATH);
+            File logsDir = new File(logsPath);
             //noinspection ResultOfMethodCallIgnored
             logsDir.mkdirs();
-            PrintWriter out = new PrintWriter(LOGS_PATH + security.getIsin() + "-" + fileSuffix + ".txt");
+            PrintWriter out = new PrintWriter(logsPath + FileSystems.getDefault().getSeparator() + security.getIsin() + "-" + fileSuffix + ".txt");
             out.print(logLines);
             out.close();
         }

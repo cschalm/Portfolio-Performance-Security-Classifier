@@ -89,6 +89,7 @@ public class Main {
                         cacheDirFile = Files.createTempDirectory("-cache").toFile().getAbsolutePath();
                     }
                 }
+                String logsDir = cacheDirFile + FileSystems.getDefault().getSeparator() + "logs";
                 String inputFileName = line.getOptionValue(inputFile);
                 if (inputFileName == null) {
                     System.err.println("Missing required parameter " + inputFile.getKey());
@@ -104,7 +105,7 @@ public class Main {
                     if (outputFileName != null) {
                         if (inputFileName.equalsIgnoreCase(outputFileName))
                             System.err.println(inputFile.getKey() + " and " + outputFile.getKey() + " must not be the same, you could lose data!");
-                        main.run(inputFileName, outputFileName, cacheDirFile);
+                        main.run(inputFileName, outputFileName, cacheDirFile, logsDir);
                     }
                 }
             }
@@ -114,10 +115,11 @@ public class Main {
         }
     }
 
-    private void run(String inputFileName, String outputFileName, String cacheDir) throws IOException, TransformerException, ParserConfigurationException, SAXException {
+    private void run(String inputFileName, String outputFileName, String cacheDir, String logsDir) throws IOException, TransformerException, ParserConfigurationException, SAXException {
         logger.info("inputFileName = " + inputFileName);
         logger.info("outputFileName = " + outputFileName);
         logger.info("cacheDir = " + cacheDir);
+        logger.info("logsDir = " + logsDir);
 
         securityService = new SecurityService(cacheDir);
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(cacheDir + FileSystems.getDefault().getSeparator() + CACHE_FILE_NAME);
@@ -127,6 +129,7 @@ public class Main {
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
+        portfolioDocumentService = new PortfolioDocumentService(logsDir);
         portfolioDocumentService.updateXml(portfolioDocument, updatedSecurities, securityDetailsCache);
 
         xmlFileWriter.writeXml(portfolioDocument, outputFileName);
