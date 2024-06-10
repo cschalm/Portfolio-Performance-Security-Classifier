@@ -61,7 +61,7 @@ public class SecurityService {
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
-            boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFond();
+            boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFonds();
             logger.fine(" - is ETF or Fond: " + isEftOrFond);
             security.setFond(isEftOrFond);
             if (isEftOrFond) {

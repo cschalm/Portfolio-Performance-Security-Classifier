@@ -68,9 +68,34 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresPageFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        securityDetails.loadIndustryAndDisplayName();
+        securityDetails.loadSecurityMetaData();
         assertEquals("Kapitalmärkte", securityDetails.getIndustry());
         assertEquals("Ares Capital", securityDetails.getName());
+        assertEquals("USA", securityDetails.getCountry());
+    }
+
+    @Test
+    public void readAresSecurityTypeShareFromParquet() throws IOException, InterruptedException {
+        String isin = "US04010L1035";
+        SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
+        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityDetails.SecurityType.SHARE, securityType);
+    }
+
+    @Test
+    public void readMsciWorldSecurityTypeEtfFromParquet() throws IOException, InterruptedException {
+        String isin = "IE000CNSFAR2";
+        SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
+        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityDetails.SecurityType.ETF, securityType);
+    }
+
+    @Test
+    public void readGlobalSmallCapSecurityTypeFondsFromParquet() throws IOException, InterruptedException {
+        String isin = "IE00B42W4L06";
+        SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
+        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityDetails.SecurityType.FONDS, securityType);
     }
 
 }

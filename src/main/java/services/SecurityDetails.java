@@ -36,32 +36,54 @@ public class SecurityDetails {
     private final String isin;
     private String name;
     private String industry;
+    private String country;
+    private SecurityType securityType;
 
     public SecurityDetails(String cachePath, String isin) throws IOException, InterruptedException {
         this.isin = isin;
-        File cacheDir = new File(cachePath);
-        //noinspection ResultOfMethodCallIgnored
-        cacheDir.mkdirs();
-        File requestUrl = new File(cachePath, isin + ".txt");
-        try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()), StandardCharsets.UTF_8)) {
-            List<String> input = lines.collect(Collectors.toList());
-            if (!input.isEmpty()) detailsRequestPath = input.get(0);
-        } catch (IOException e) {
-            logger.info("DetailsRequestPath for " + isin + " not found in cache, loading...");
-            detailsRequestPath = readStringFromURL(ONVISTA_DETAILS_REQUEST_URL + isin);
-            try (PrintWriter savingImport = new PrintWriter(requestUrl, StandardCharsets.UTF_8)) {
-                savingImport.print(detailsRequestPath + "\n");
-            } catch (FileNotFoundException fnfe) {
-                logger.warning("Error writing DetailsRequestPath for " + isin + ": " + fnfe.getMessage());
+        initializeCache(cachePath);
+        initializeSecurityType(cachePath, isin);
+        initializeDetailsRequestUrl(cachePath, isin);
+        initializeJsonRootNode(cachePath, isin);
+        initializeMetaData(cachePath, isin);
+    }
+
+    private void initializeMetaData(String cachePath, String isin) {
+        if (isETF() || isFonds()) {
+            industry = "";
+            country = "";
+            name = "";
+        } else {
+            File industryAndNameCacheFileName = new File(cachePath, isin + "-metadata.txt");
+            try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
+                List<String> input = lines.collect(Collectors.toList());
+                if (!input.isEmpty()) {
+                    industry = input.get(0);
+                    country = input.get(1);
+                    name = input.get(2);
+                }
+            } catch (IOException e) {
+                logger.info("Branch for " + isin + " not found in cache, loading...");
+                loadSecurityMetaData();
+                try (PrintWriter savingImport = new PrintWriter(industryAndNameCacheFileName, StandardCharsets.UTF_8)) {
+                    savingImport.print(industry + "\n");
+                    savingImport.print(country + "\n");
+                    savingImport.print(name + "\n");
+                } catch (IOException fnfe) {
+                    logger.warning("Error writing branch for " + isin + ": " + fnfe.getMessage());
+                }
             }
         }
+    }
+
+    private void initializeJsonRootNode(String cachePath, String isin) throws IOException, InterruptedException {
         File jsonUrl = new File(cachePath, isin + ".json");
         try {
             rootNode = JsonParser.parseReader(new FileReader(jsonUrl, StandardCharsets.UTF_8)).getAsJsonObject();
         } catch (Exception e) {
             logger.info("JSON for " + isin + " not found in cache, loading...");
             String jsonResponsePart;
-            if (isETF() || isFond()) {
+            if (isETF() || isFonds()) {
                 String htmlPageAnlageschwerpunkt = readStringFromURL(ONVISTA_URL + detailsRequestPath);
                 jsonResponsePart = extractJsonPartFromHtml(htmlPageAnlageschwerpunkt);
             } else {
@@ -73,32 +95,32 @@ public class SecurityDetails {
             rootNode = JsonParser.parseString(jsonResponsePart).getAsJsonObject();
             try (PrintWriter savingImport = new PrintWriter(jsonUrl, StandardCharsets.UTF_8)) {
                 savingImport.print(rootNode + "\n");
-            } catch (FileNotFoundException fnfe) {
+            } catch (IOException fnfe) {
                 logger.warning("Error writing JSON for " + isin + ": " + fnfe.getMessage());
             }
         }
-        if (isETF() || isFond()) {
-            industry = "";
-            name = "";
-        } else {
-            File industryAndNameCacheFileName = new File(cachePath, isin + "-industry.txt");
-            try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
-                List<String> input = lines.collect(Collectors.toList());
-                if (!input.isEmpty()) {
-                    industry = input.get(0);
-                    name = input.get(1);
-                }
-            } catch (IOException e) {
-                logger.info("Branch for " + isin + " not found in cache, loading...");
-                loadIndustryAndDisplayName();
-                try (PrintWriter savingImport = new PrintWriter(industryAndNameCacheFileName, StandardCharsets.UTF_8)) {
-                    savingImport.print(industry + "\n");
-                    savingImport.print(name + "\n");
-                } catch (FileNotFoundException fnfe) {
-                    logger.warning("Error writing branch for " + isin + ": " + fnfe.getMessage());
-                }
+    }
+
+    private void initializeDetailsRequestUrl(String cachePath, String isin) {
+        File requestUrl = new File(cachePath, isin + ".txt");
+        try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()), StandardCharsets.UTF_8)) {
+            List<String> input = lines.collect(Collectors.toList());
+            if (!input.isEmpty()) detailsRequestPath = input.get(0);
+        } catch (IOException e) {
+            logger.info("DetailsRequestPath for " + isin + " not found in cache, loading...");
+            detailsRequestPath = readStringFromURL(ONVISTA_DETAILS_REQUEST_URL + isin);
+            try (PrintWriter savingImport = new PrintWriter(requestUrl, StandardCharsets.UTF_8)) {
+                savingImport.print(detailsRequestPath + "\n");
+            } catch (IOException fnfe) {
+                logger.warning("Error writing DetailsRequestPath for " + isin + ": " + fnfe.getMessage());
             }
         }
+    }
+
+    private void initializeCache(String cachePath) {
+        File cacheDir = new File(cachePath);
+        //noinspection ResultOfMethodCallIgnored
+        cacheDir.mkdirs();
     }
 
     String readStringFromURL(String requestURL) {
@@ -145,18 +167,18 @@ public class SecurityDetails {
     }
 
     public boolean isETF() {
-        return detailsRequestPath.startsWith("/etf/anlageschwerpunkt");
+        return SecurityType.ETF.equals(securityType);
     }
 
-    public boolean isFond() {
-        return detailsRequestPath.startsWith("/fonds/anlageschwerpunkt");
+    public boolean isFonds() {
+        return SecurityType.FONDS.equals(securityType);
     }
 
     JsonObject getRootNode() {
         return rootNode;
     }
 
-    void loadIndustryAndDisplayName() {
+    void loadSecurityMetaData() {
         try {
             String url = "https://app.parqet.com/wertpapiere/" + isin;
             Document doc = Jsoup.connect(url).get();
@@ -166,12 +188,20 @@ public class SecurityDetails {
             String industry = textNodes.get(0).text().trim();
             logger.fine("found industry \"" + industry + "\" for " + isin);
             this.industry = industry;
+
             elements = doc.selectXpath("//td[contains(text(), \"Name\")]");
             td = elements.get(0);
             textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
             String name = textNodes.get(0).text().trim();
             logger.fine("found name \"" + name + "\" for " + isin);
             this.name = name;
+
+            elements = doc.selectXpath("//td[contains(text(), \"Sitz\")]");
+            td = elements.get(0);
+            textNodes = td.selectXpath("..//td[2]/div/div/span/text()", TextNode.class);
+            String country = textNodes.get(0).text().trim();
+            logger.fine("found country \"" + country + "\" for " + isin);
+            this.country = country;
         } catch (IOException e) {
             logger.warning("Error loading branch for " + isin + ": " + e.getMessage());
         }
@@ -185,4 +215,47 @@ public class SecurityDetails {
         return name;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    enum SecurityType {
+        SHARE,
+        ETF,
+        FONDS
+    }
+
+    SecurityType loadSecurityType() throws IOException, InterruptedException {
+        String url = "https://app.parqet.com/wertpapiere/" + isin;
+        HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.uri().getPath().startsWith("/etf/")) {
+            return SecurityType.ETF;
+        }
+        if (response.uri().getPath().startsWith("/fonds/")) {
+            return SecurityType.FONDS;
+        }
+        return SecurityType.SHARE;
+    }
+
+    void initializeSecurityType(String cachePath, String isin) throws IOException, InterruptedException {
+        File securityTypeCacheFileName = new File(cachePath, isin + "-type.txt");
+        try (Stream<String> lines = Files.lines(Paths.get(securityTypeCacheFileName.toURI()), StandardCharsets.UTF_8)) {
+            List<String> input = lines.collect(Collectors.toList());
+            if (!input.isEmpty()) {
+                String type = input.get(0);
+                securityType = SecurityType.valueOf(type);
+            }
+        } catch (IOException e) {
+            logger.info("SecurityType for " + isin + " not found in cache, loading...");
+            securityType = loadSecurityType();
+            try (PrintWriter savingCache = new PrintWriter(securityTypeCacheFileName, StandardCharsets.UTF_8)) {
+                savingCache.print(securityType + "\n");
+            } catch (IOException fnfe) {
+                logger.warning("Error writing SecurityType for " + isin + ": " + fnfe.getMessage());
+            }
+        }
+
+    }
 }
