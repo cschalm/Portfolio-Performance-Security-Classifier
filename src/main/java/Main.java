@@ -127,6 +127,7 @@ public class Main {
         Document portfolioDocument = loadPortfolioDocumentFromFile(inputFileName);
 
         NodeList allSecurities = getAllSecuritiesFromPortfolio(portfolioDocument);
+//        securityService.removeOldPrices(allSecurities);
         List<Security> updatedSecurities = addClassificationData(allSecurities);
 
         portfolioDocumentService = new PortfolioDocumentService(logsDir);

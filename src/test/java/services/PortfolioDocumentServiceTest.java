@@ -67,7 +67,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
-        assertEquals("Countries", 32, securityDetailsCache.getCachedCountries().asList().size());
+        assertEquals("Countries", 24, securityDetailsCache.getCachedCountries().asList().size());
         assertEquals("Branches", 11, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 10, securityDetailsCache.getCachedTopTen().asList().size());
     }
@@ -292,6 +292,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         assertEquals("Elektronische Geräte & Instrumente", portfolioDocumentService.optimizeIndustryNameFromSecurity("Elektrokomponenten & -geräte"));
         assertEquals("Energie", portfolioDocumentService.optimizeIndustryNameFromSecurity("Energie"));
         assertEquals("Automobilbranche", portfolioDocumentService.optimizeIndustryNameFromSecurity("Fahrzeugbau"));
+        assertEquals("Automobilbranche", portfolioDocumentService.optimizeIndustryNameFromSecurity("Kraftfahrzeuge"));
         assertEquals("Private Finanzdienste", portfolioDocumentService.optimizeIndustryNameFromSecurity("Finanzdienstleistungen"));
         assertEquals("Finanzwesen", portfolioDocumentService.optimizeIndustryNameFromSecurity("Finanzen"));
         assertEquals("Gesundheitswesen", portfolioDocumentService.optimizeIndustryNameFromSecurity("Gesundheitswesen"));

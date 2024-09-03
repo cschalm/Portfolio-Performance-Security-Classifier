@@ -4,10 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import models.Security;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import xml.XmlHelper;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +32,10 @@ public class SecurityService {
         this.cachePath = cachePath;
     }
 
-    public List<Security> processSecurities(NodeList oAllSecurities) {
+    public List<Security> processSecurities(NodeList allSecurities) {
         List<Security> securities = new ArrayList<>();
-        for (int i = 0; i < oAllSecurities.getLength(); i++) {
-            Security security = processSecurity((Element) oAllSecurities.item(i), i);
+        for (int i = 0; i < allSecurities.getLength(); i++) {
+            Security security = processSecurity((Element) allSecurities.item(i), i);
             if (security != null) securities.add(security);
         }
         securities.sort(new Security.SecurityComparator());
@@ -135,6 +138,48 @@ public class SecurityService {
             oListForHoldings.put(strHoldingName, nHoldingPercent);
         }
         return oListForHoldings;
+    }
+
+    public void removeOldPrices(NodeList allSecurities) {
+        int removedCount = 0;
+        LocalDate olderThan = LocalDate.now().minusYears(2);
+        for (int i = 0; i < allSecurities.getLength(); i++) {
+            removedCount += removeOldPrices((Element) allSecurities.item(i), olderThan);
+        }
+        logger.info("Removed " + removedCount + " old prices before " + olderThan.toString());
+    }
+
+    int removeOldPrices(Element securitiesElement, LocalDate olderThan) {
+        int removedCount = 0;
+        boolean isRetired = Boolean.parseBoolean(xmlHelper.getTextContent(securitiesElement, "isRetired"));
+        Element prices = xmlHelper.getFirstChildElementWithNodeName(securitiesElement, "prices");
+        if (prices == null) return removedCount;
+        NodeList children = prices.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE && children.item(i).getNodeName().equals("price")) {
+                Element price = (Element) children.item(i);
+                if (isRetired) {
+                    prices.removeChild(price);
+                    removedCount++;
+                    continue;
+                }
+                // else
+                NamedNodeMap attributes = price.getAttributes();
+                if (attributes != null) {
+                    Node timeAttribute = attributes.getNamedItem("t");
+                    if (timeAttribute != null) {
+                        String dateString = timeAttribute.getNodeValue().trim();
+                        LocalDate date = LocalDate.parse(dateString);
+                        if (date.isBefore(olderThan)) {
+                            prices.removeChild(price);
+                            removedCount++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return removedCount;
     }
 
 }

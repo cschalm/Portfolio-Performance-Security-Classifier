@@ -542,6 +542,7 @@ public class PortfolioDocumentService {
                 result = "Hardware Technologie, Speicherung & Peripherie";
                 break;
             case "Fahrzeugbau":
+            case "Kraftfahrzeuge":
                 result = "Automobilbranche";
                 break;
             case "Halbleiterelektronik":

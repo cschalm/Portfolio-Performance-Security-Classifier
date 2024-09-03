@@ -4,12 +4,14 @@ import models.Security;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static constants.PathConstants.BASE_TARGET_PATH;
@@ -93,6 +95,44 @@ public class SecurityServiceTest extends AbstractTest {
         assertFalse(security.getCountries().isEmpty());
         assertNotNull(security.getHoldings());
         assertFalse(security.getHoldings().isEmpty());
+    }
+
+    @Test
+    public void removeOldPricesRetired() throws IOException, ParserConfigurationException, SAXException {
+        SecurityService service = new SecurityService();
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-retired.xml");
+        NodeList securityNodes = document.getElementsByTagName("security");
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        Element securitiesElement = (Element) securityNodes.item(0);
+        int noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(1111, noOfPrices);
+
+        int removedCount = service.removeOldPrices(securitiesElement, LocalDate.parse("2025-01-01"));
+        assertEquals(1111, removedCount);
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(0, noOfPrices);
+    }
+
+    @Test
+    public void removeOldPricesActive() throws IOException, ParserConfigurationException, SAXException {
+        SecurityService service = new SecurityService();
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-oldPrices.xml");
+        NodeList securityNodes = document.getElementsByTagName("security");
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        Element securitiesElement = (Element) securityNodes.item(0);
+        int noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(2404, noOfPrices);
+
+        int removedCount = service.removeOldPrices(securitiesElement, LocalDate.parse("2023-01-01"));
+        assertEquals(2048, removedCount);
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(356, noOfPrices);
     }
 
 }
