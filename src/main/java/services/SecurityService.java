@@ -84,18 +84,21 @@ public class SecurityService {
             } else {
                 String industry = securityDetails.getIndustry();
                 Map<String, Double> industriesMap = new HashMap<>();
-                industriesMap.put(industry, 100.0);
+                if (!industry.isEmpty())
+                    industriesMap.put(industry, 100.0);
                 security.setIndustries(industriesMap);
 
                 String country = securityDetails.getCountryForSecurity();
                 Map<String, Double> countryMap = new HashMap<>();
-                countryMap.put(country, 100.0);
+                if (country != null && !country.isEmpty())
+                    countryMap.put(country, 100.0);
                 security.setCountries(countryMap);
 
                 String companyName = securityDetails.getName();
                 security.setName(companyName);
                 Map<String, Double> holdingsMap = new HashMap<>();
-                holdingsMap.put(companyName, 100.0);
+                if (companyName != null && !companyName.isEmpty())
+                    holdingsMap.put(companyName, 100.0);
                 security.setHoldings(holdingsMap);
 
                 logger.fine("Setting name \"" + companyName + "\" and industry \"" + industry + "\" and country \"" + country + "\" to security: " + security);

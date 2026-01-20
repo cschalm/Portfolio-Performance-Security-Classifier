@@ -1,5 +1,6 @@
 package services;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
@@ -147,16 +148,19 @@ public class SecurityDetails {
     }
 
     public String getCountryForSecurity() {
-        String country = rootNode.getAsJsonObject("props")
+        JsonObject jsonObject = rootNode.getAsJsonObject("props")
                 .getAsJsonObject("pageProps")
                 .getAsJsonObject("data")
                 .getAsJsonObject("snapshot")
-                .getAsJsonObject("company")
-                .get("nameCountry").getAsString();
-        if (country == null || country.isEmpty()) {
-            if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
+                .getAsJsonObject("company");
+        if (jsonObject != null) {
+            JsonElement nameCountry = jsonObject.get("nameCountry");
+            String country = nameCountry.getAsString();
+            if (country == null || country.isEmpty()) {
+                if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
+            }
+            if ("Vereinigte Staaten".equalsIgnoreCase(country)) country = "USA";
         }
-        if ("Vereinigte Staaten".equalsIgnoreCase(country)) country = "USA";
 
         return country;
     }
@@ -179,29 +183,40 @@ public class SecurityDetails {
     }
 
     void loadSecurityMetaData() {
+        industry = "";
+        country = "";
+        name = "";
         try {
+            Element td;
+            List<TextNode> textNodes;
             String url = "https://app.parqet.com/wertpapiere/" + isin;
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.selectXpath("//td[contains(text(), \"Industrie\")]");
-            Element td = elements.get(0);
-            List<TextNode> textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
-            String industry = textNodes.get(0).text().trim();
-            logger.fine("found industry \"" + industry + "\" for " + isin);
-            this.industry = industry;
+            if (!elements.isEmpty()) {
+                td = elements.get(0);
+                textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
+                String industry = textNodes.get(0).text().trim();
+                logger.fine("found industry \"" + industry + "\" for " + isin);
+                this.industry = industry;
+            }
 
             elements = doc.selectXpath("//td[contains(text(), \"Name\")]");
-            td = elements.get(0);
-            textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
-            String name = textNodes.get(0).text().trim();
-            logger.fine("found name \"" + name + "\" for " + isin);
-            this.name = name;
+            if (!elements.isEmpty()) {
+                td = elements.get(0);
+                textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
+                String name = textNodes.get(0).text().trim();
+                logger.fine("found name \"" + name + "\" for " + isin);
+                this.name = name;
+            }
 
             elements = doc.selectXpath("//td[contains(text(), \"Sitz\")]");
-            td = elements.get(0);
-            textNodes = td.selectXpath("..//td[2]/div/div/span/text()", TextNode.class);
-            String country = textNodes.get(0).text().trim();
-            logger.fine("found country \"" + country + "\" for " + isin);
-            this.country = country;
+            if (!elements.isEmpty()) {
+                td = elements.get(0);
+                textNodes = td.selectXpath("..//td[2]/div/div/span/text()", TextNode.class);
+                String country = textNodes.get(0).text().trim();
+                logger.fine("found country \"" + country + "\" for " + isin);
+                this.country = country;
+            }
         } catch (IOException e) {
             logger.warning("Error loading branch for " + isin + ": " + e.getMessage());
         }

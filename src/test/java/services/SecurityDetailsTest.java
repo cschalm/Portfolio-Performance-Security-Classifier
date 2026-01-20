@@ -98,4 +98,14 @@ public class SecurityDetailsTest extends AbstractTest {
         assertEquals(SecurityDetails.SecurityType.FONDS, securityType);
     }
 
+    @Test
+    public void readGoldPageFromParquet() throws IOException, InterruptedException {
+        String isin = "XC0009655157";
+        SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
+        securityDetails.loadSecurityMetaData();
+        assertEquals("", securityDetails.getIndustry());
+        assertEquals("", securityDetails.getName());
+        assertEquals("", securityDetails.getCountry());
+    }
+
 }

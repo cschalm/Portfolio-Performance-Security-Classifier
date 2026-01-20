@@ -60,6 +60,19 @@ public class SecurityServiceTest extends AbstractTest {
         assertNotNull(security.getHoldings());
         assertFalse(security.getHoldings().isEmpty());
     }
+    @Test
+    public void createSecurityCommodity() {
+        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
+        Security security = service.createSecurity("XC0009655157", 0);
+        assertNotNull(security);
+        assertEquals("XC0009655157", security.getIsin());
+        assertNotNull(security.getIndustries());
+        assertTrue(security.getIndustries().isEmpty());
+        assertNotNull(security.getCountries());
+        assertTrue(security.getCountries().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertTrue(security.getHoldings().isEmpty());
+    }
 
     @Test
     public void getMappedPercentageForNode() {
