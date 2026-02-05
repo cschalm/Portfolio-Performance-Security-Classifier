@@ -10,7 +10,7 @@ import java.util.*;
 public class Security {
     private final String isin;
     private String name;
-    private boolean fond;
+    private SecurityType securityType;
     private final int indexInPortfolio;
     private Map<String, Double> industriesMap = new HashMap<>();
     private Map<String, Double> holdingsMap = new HashMap<>();
@@ -109,12 +109,24 @@ public class Security {
         return isin;
     }
 
-    public boolean isFond() {
-        return fond;
+    public boolean isETF() {
+        return SecurityType.ETF.equals(securityType);
     }
 
-    public void setFond(boolean fond) {
-        this.fond = fond;
+    public boolean isFonds() {
+        return SecurityType.FONDS.equals(securityType);
+    }
+
+    public boolean isShare() {
+        return SecurityType.SHARE.equals(securityType);
+    }
+
+    public boolean isCommodity() {
+        return SecurityType.COMMODITY.equals(securityType);
+    }
+
+    public void setType(SecurityType type) {
+        this.securityType = type;
     }
 
     public int getIndexInPortfolio() {

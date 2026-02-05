@@ -3,6 +3,7 @@ package services;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import models.Security;
+import models.SecurityType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -64,10 +65,10 @@ public class SecurityService {
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
-            boolean isEftOrFond = securityDetails.isETF() || securityDetails.isFonds();
-            logger.fine(" - is ETF or Fond: " + isEftOrFond);
-            security.setFond(isEftOrFond);
-            if (isEftOrFond) {
+            SecurityType securityType = getSecurityType(securityDetails);
+            logger.fine(" - security is of type: " + securityType);
+            security.setType(securityType);
+            if (security.isETF() || security.isFonds()) {
                 JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
 
                 if (breakdownsNode != null) {
@@ -81,7 +82,7 @@ public class SecurityService {
                     // parsing country
                     security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
                 }
-            } else {
+            } else if (security.isShare()) {
                 String industry = securityDetails.getIndustry();
                 Map<String, Double> industriesMap = new HashMap<>();
                 if (!industry.isEmpty())
@@ -183,6 +184,22 @@ public class SecurityService {
         }
 
         return removedCount;
+    }
+
+    SecurityType getSecurityType(SecurityDetails securityDetails) {
+        if (securityDetails.isCommodity()) {
+            return SecurityType.COMMODITY;
+        }
+        if (securityDetails.isETF()) {
+            return SecurityType.ETF;
+        }
+        if (securityDetails.isShare()) {
+            return SecurityType.SHARE;
+        }
+        if (securityDetails.isFonds()) {
+            return SecurityType.FONDS;
+        }
+        throw new RuntimeException("Invalid security type!");
     }
 
 }

@@ -11,9 +11,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import xml.XmlFileReader;
+import xml.XmlFileWriter;
 import xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -67,9 +69,29 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
-        assertEquals("Countries", 24, securityDetailsCache.getCachedCountries().asList().size());
+        assertEquals("Countries", 23, securityDetailsCache.getCachedCountries().asList().size());
         assertEquals("Branches", 11, securityDetailsCache.getCachedIndustries().asList().size());
         assertEquals("Top 10", 10, securityDetailsCache.getCachedTopTen().asList().size());
+    }
+
+    @Test
+    public void updateXml_XC0009655157() throws IOException, ParserConfigurationException, SAXException, TransformerException {
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
+        SecurityService service = new SecurityService();
+        Security security = service.createSecurity("XC0009655157", 0);
+        assertNotNull(security);
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/XC0009655157-" + UUID.randomUUID() + ".json");
+
+        portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
+        assertEquals("Countries", 0, securityDetailsCache.getCachedCountries().asList().size());
+        assertEquals("Branches", 0, securityDetailsCache.getCachedIndustries().asList().size());
+        assertEquals("Top 10", 0, securityDetailsCache.getCachedTopTen().asList().size());
+
+        XmlFileWriter xmlFileWriter = new XmlFileWriter();
+        xmlFileWriter.writeXml(portfolioDocument, BASE_TEST_PATH + "Portfolio Performance Single Commodity-Result.xml");
     }
 
     @Test
@@ -222,11 +244,19 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void collectAllStockNames() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-//        Document portfolioDocument = xmlHelper.readXmlStream(BASE_PATH + INPUT_FILE_NAME);
         List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
         TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
         assertNotNull(allStockNames);
         assertEquals(10, allStockNames.size());
+    }
+
+    @Test
+    public void collectAllStockNamesCommodity() throws IOException, ParserConfigurationException, SAXException {
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
+        List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
+        TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
+        assertNotNull(allStockNames);
+        assertEquals(0, allStockNames.size());
     }
 
     @Test

@@ -313,11 +313,11 @@ public class PortfolioDocumentService {
         Set<String> fondStockNames = new HashSet<>();
         Set<String> amundiStockNames = new HashSet<>();
         for (Security security : allSecurities) {
-            if (!security.isFond()) {
+            if (security.isShare()) {
                 if (security.getName() != null && !security.getName().isEmpty()) {
                     allStockNames.add(security.getName());
                 }
-            } else {
+            } else if (security.isETF() || security.isFonds()) {
                 Map<String, Double> holdings = security.getHoldings();
                 if (security.getName() != null && security.getName().toLowerCase().startsWith("amundi")) {
                     amundiStockNames.addAll(holdings.keySet());
@@ -715,8 +715,7 @@ public class PortfolioDocumentService {
     private String getReference(Element assignment) {
         Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
         if (investmentVehicle == null || !investmentVehicle.getAttribute("class").equals("security")) return null;
-        String reference = investmentVehicle.getAttribute("reference");
-        return reference;
+        return investmentVehicle.getAttribute("reference");
     }
 
     List<Element> findAssignmentsBySecurityIndex(Node parent, int securityIndex) {

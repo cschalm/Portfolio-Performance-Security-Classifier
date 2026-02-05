@@ -148,4 +148,23 @@ public class SecurityServiceTest extends AbstractTest {
         assertEquals(356, noOfPrices);
     }
 
+    @Test
+    public void removeOldPricesCommodity() throws IOException, ParserConfigurationException, SAXException {
+        SecurityService service = new SecurityService();
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-commodity.xml");
+        NodeList securityNodes = document.getElementsByTagName("security");
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        Element securitiesElement = (Element) securityNodes.item(0);
+        int noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(711, noOfPrices);
+
+        int removedCount = service.removeOldPrices(securitiesElement, LocalDate.parse("2026-01-01"));
+        assertEquals(692, removedCount);
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+        noOfPrices = securitiesElement.getElementsByTagName("price").getLength();
+        assertEquals(19, noOfPrices);
+    }
+
 }

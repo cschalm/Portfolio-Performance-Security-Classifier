@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import models.SecurityDetailsCache;
+import models.SecurityType;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 
@@ -78,24 +79,24 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresSecurityTypeShareFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
-        assertEquals(SecurityDetails.SecurityType.SHARE, securityType);
+        SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityType.SHARE, securityType);
     }
 
     @Test
     public void readMsciWorldSecurityTypeEtfFromParquet() throws IOException, InterruptedException {
         String isin = "IE000CNSFAR2";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
-        assertEquals(SecurityDetails.SecurityType.ETF, securityType);
+        SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityType.ETF, securityType);
     }
 
     @Test
     public void readGlobalSmallCapSecurityTypeFondsFromParquet() throws IOException, InterruptedException {
         String isin = "IE00B42W4L06";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        SecurityDetails.SecurityType securityType = securityDetails.loadSecurityType();
-        assertEquals(SecurityDetails.SecurityType.FONDS, securityType);
+        SecurityType securityType = securityDetails.loadSecurityType();
+        assertEquals(SecurityType.FONDS, securityType);
     }
 
     @Test

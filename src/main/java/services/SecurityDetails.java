@@ -3,6 +3,7 @@ package services;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import models.SecurityType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -50,7 +51,7 @@ public class SecurityDetails {
     }
 
     private void initializeMetaData(String cachePath, String isin) {
-        if (isETF() || isFonds()) {
+        if (isETF() || isFonds() || isCommodity()) {
             industry = "";
             country = "";
             name = "";
@@ -178,6 +179,14 @@ public class SecurityDetails {
         return SecurityType.FONDS.equals(securityType);
     }
 
+    public boolean isShare() {
+        return SecurityType.SHARE.equals(securityType);
+    }
+
+    public boolean isCommodity() {
+        return SecurityType.COMMODITY.equals(securityType);
+    }
+
     JsonObject getRootNode() {
         return rootNode;
     }
@@ -234,12 +243,6 @@ public class SecurityDetails {
         return country;
     }
 
-    enum SecurityType {
-        SHARE,
-        ETF,
-        FONDS
-    }
-
     SecurityType loadSecurityType() throws IOException, InterruptedException {
         String url = "https://app.parqet.com/wertpapiere/" + isin;
         HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
@@ -251,7 +254,11 @@ public class SecurityDetails {
         if (response.uri().getPath().startsWith("/fonds/")) {
             return SecurityType.FONDS;
         }
-        return SecurityType.SHARE;
+        if (response.uri().getPath().startsWith("/aktien/")) {
+            return SecurityType.SHARE;
+        }
+        // might cause errors!!!
+        return SecurityType.COMMODITY;
     }
 
     void initializeSecurityType(String cachePath, String isin) throws IOException, InterruptedException {
