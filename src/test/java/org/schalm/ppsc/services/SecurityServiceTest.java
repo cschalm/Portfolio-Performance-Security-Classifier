@@ -1,20 +1,20 @@
-package services;
+package org.schalm.ppsc.services;
 
-import models.Security;
+import org.schalm.ppsc.models.Security;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import xml.XmlHelper;
+import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static constants.PathConstants.BASE_TARGET_PATH;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
 public class SecurityServiceTest extends AbstractTest {

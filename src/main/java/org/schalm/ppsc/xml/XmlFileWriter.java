@@ -1,4 +1,4 @@
-package xml;
+package org.schalm.ppsc.xml;
 
 import org.w3c.dom.Document;
 

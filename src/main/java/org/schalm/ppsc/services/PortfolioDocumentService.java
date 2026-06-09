@@ -1,16 +1,16 @@
-package services;
+package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import models.Security;
-import models.SecurityDetailsCache;
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.models.SecurityDetailsCache;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import xml.XmlHelper;
+import org.schalm.ppsc.xml.XmlHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.CACHE_PATH;
+import static org.schalm.ppsc.constants.PathConstants.CACHE_PATH;
 
 public class PortfolioDocumentService {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentService.class.getCanonicalName());
@@ -116,6 +116,7 @@ public class PortfolioDocumentService {
                                 Node assignmentsNode = assignment.getParentNode();
                                 assignmentsNode.removeChild(assignment);
                                 if (((Element) assignmentsNode).getElementsByTagName("assignment").getLength() == 0) {
+                                    // TODO old assignments from former securities might still be included and prevent deletion of company -> check for inactive securities?
                                     // no assignments left, so we remove this classification
                                     logger.fine("Removing Unternehmensgewichtung " + topTenNameFromPortfolio);
                                     topTenFromPortfolioNode.getParentNode().removeChild(topTenFromPortfolioNode);

@@ -1,14 +1,16 @@
-import models.Security;
-import models.SecurityDetailsCache;
+package org.schalm.ppsc;
+
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.models.SecurityDetailsCache;
 import org.apache.commons.cli.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import services.PortfolioDocumentService;
-import services.SecurityService;
-import xml.XmlFileReader;
-import xml.XmlFileWriter;
-import xml.XmlHelper;
+import org.schalm.ppsc.services.PortfolioDocumentService;
+import org.schalm.ppsc.services.SecurityService;
+import org.schalm.ppsc.xml.XmlFileReader;
+import org.schalm.ppsc.xml.XmlFileWriter;
+import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.CACHE_FILE_NAME;
+import static org.schalm.ppsc.constants.PathConstants.CACHE_FILE_NAME;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
@@ -75,7 +77,7 @@ public class Main {
                         location = line.getOptionValue(logConfigFile);
                         logConfig = main.getClass().getResourceAsStream(location);
                     } else {
-                        logConfig = main.getClass().getResourceAsStream("logging.properties");
+                        logConfig = main.getClass().getResourceAsStream("/logging.properties");
                     }
                     LogManager logManager = LogManager.getLogManager();
                     logManager.readConfiguration(logConfig);

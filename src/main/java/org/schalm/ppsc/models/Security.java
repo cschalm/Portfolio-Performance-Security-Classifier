@@ -1,11 +1,12 @@
-package models;
+package org.schalm.ppsc.models;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 import java.util.*;
 
 /**
  * One share from the portfolio in Portfolio Performance or ETF with name, ISIN and branches, holdings and counties.
+ * TODO: Create sub-classes for each SecurityType
  */
 public class Security {
     private final String isin;
@@ -42,10 +43,10 @@ public class Security {
         Map<String, Double> toAdd = new HashMap<>();
         for (Map.Entry<String, Double> entry : industriesMap.entrySet()) {
             String strKey = entry.getKey();
-            if (StringUtils.containsIgnoreCase(strKey, "service")) {
+            if (Strings.CI.contains(strKey, "service")) {
                 toRemove.add(strKey);
-                strKey = strKey.toLowerCase().replaceAll("services", "dienste");
-                strKey = strKey.toLowerCase().replaceAll("service", "dienste");
+                strKey = strKey.toLowerCase().replace("services", "dienste");
+                strKey = strKey.toLowerCase().replace("service", "dienste");
                 toAdd.put(strKey, entry.getValue());
             }
         }

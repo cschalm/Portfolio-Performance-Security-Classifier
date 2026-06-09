@@ -127,7 +127,7 @@ gespeichert werden!
 
 Sobald Java installiert und dieses Tool heruntergeladen ist, kann es auf der Kommandozeile gestartet werden:
 
-> java -jar PortfolioPerformanceSecurityClassifier-1.0-SNAPSHOT.jar -inputfile Portfolio.xml -outputfile Portfolio-NEU.xml
+> java -jar PortfolioPerformanceSecurityClassifier-1.0-SNAPSHOT.jar -inputfile Portfolio.org.schalm.ppsc.xml -outputfile Portfolio-NEU.org.schalm.ppsc.xml
 
 **WICHTIG**: inputfile und outputfile müssen sich unterscheiden, sonst droht im Fehlerfall Datenverlust!
 
@@ -270,7 +270,7 @@ format (binary or password-protected), it must first be saved again in XML forma
 
 As soon as Java is installed and this tool is downloaded, it can be started on the command line:
 
-> java -jar PortfolioPerformanceSecurityClassifier-1.0-SNAPSHOT.jar -inputfile Portfolio.xml -outputfile Portfolio-NEU.xml
+> java -jar PortfolioPerformanceSecurityClassifier-1.0-SNAPSHOT.jar -inputfile Portfolio.org.schalm.ppsc.xml -outputfile Portfolio-NEU.org.schalm.ppsc.xml
 
 **IMPORTANT**: inputfile and outputfile must be different, otherwise there is a risk of data loss in the event 
 of an error!

@@ -1,8 +1,8 @@
-package services;
+package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
-import models.Security;
-import models.SecurityDetailsCache;
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.models.SecurityDetailsCache;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
@@ -10,9 +10,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import xml.XmlFileReader;
-import xml.XmlFileWriter;
-import xml.XmlHelper;
+import org.schalm.ppsc.xml.XmlFileReader;
+import org.schalm.ppsc.xml.XmlFileWriter;
+import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static constants.PathConstants.BASE_TARGET_PATH;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
 public class PortfolioDocumentServiceTest extends AbstractTest {

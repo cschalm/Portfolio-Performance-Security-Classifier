@@ -1,9 +1,9 @@
-package services;
+package org.schalm.ppsc.services;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import models.SecurityType;
+import org.schalm.ppsc.models.SecurityType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

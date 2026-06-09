@@ -84,12 +84,12 @@ German below
 2. import the library `lib >> gson-2..9.0.jar` into the project. (In IntelliJ: Project Structure... >> Modules >>
    Dependencies >> + (Export checkbox ticked))
 
-3. go to [Go to Main.java-file](src/Main.java)
+3. go to [org.schalm.ppsc.Main.java-file](../main/java/org/schalm/ppsc/Main.java)
 
 4. run
 
 At the first start it is normal that
-the [Save file](portfolio_performance_file/logs/do_not_delete_needed_for_next_import) is not present and everything
+the [Save file](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import) is not present and everything
 should be imported.
 
 This save file prevents duplicate entries from being created in later executions (however, a new entry will be shown
@@ -153,20 +153,20 @@ after rebalancing the ETF if the weighting of a sector has changed).
     2. Im `portfolio_performance_file`-Ordner einen Ordner mit dem namen `logs`
 2. Kopiere deine PP-XML-Datei in den Ordner `portfolio_performance_file`. (Verschiebe deine Originaldatei nicht, sonst
    bist du aufgeschmissen im Fehlerfall!)
-3. Bennene deine Datei `Portfolio Performance.xml`
+3. Benenne deine Datei `Portfolio Performance.xml`
 
 ### _Programmstart_
 
 1. Öffne das Projekt in einer IDE deiner Wahl.
 2. Importiere die Bibliothek `lib >> gson-2..9.0.jar` in das Project. (In IntelliJ: Project Structure... >> Modules >>
    Dependencies >> + (Export checkbox ticked))
-3. Gehe zur [Gehe zur Main.java-file](src/Main.java)
+3. Gehe zur [org.schalm.ppsc.Main.java-file](../main/java/org/schalm/ppsc/Main.java)
 4. Run
    Beim ersten Start ist es normal, dass
-   die [Speicherungs Datei](portfolio_performance_file/logs/do_not_delete_needed_for_next_import) nicht vorhanden ist
+   die [Speicherungs Datei](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import) nicht vorhanden ist
    und alles importiert werden soll.
-   Diese Speicherungs Datei verhindert bei späteren Ausführungen, dass doppelte Einträge angelegt werden (jedoch wird
-   nach einem Rebalancing des ETF ein neuer Eintrag erzeigt, wenn die Gewichtung einer Branche sich verändert hat).
+   Diese Speicherungsdatei verhindert bei späteren Ausführungen, dass doppelte Einträge angelegt werden (jedoch wird
+   nach einem Rebalancing des ETF ein neuer Eintrag erzeugt, wenn die Gewichtung einer Branche sich verändert hat).
 
 ### _Verwendung_
 

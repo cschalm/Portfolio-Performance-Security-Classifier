@@ -1,10 +1,12 @@
-import models.Security;
+package org.schalm.ppsc;
+
+import org.schalm.ppsc.models.Security;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import xml.XmlHelper;
+import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class MainTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
-    private Main main = new Main();
+    private final Main main = new Main();
     XmlHelper xmlHelper = new XmlHelper();
 
     @Test

@@ -1,4 +1,4 @@
-package constants;
+package org.schalm.ppsc.constants;
 
 public class PathConstants {
     public static final String BASE_TARGET_PATH = System.getProperty("user.dir") + "/target/";

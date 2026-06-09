@@ -1,10 +1,10 @@
-package services;
+package org.schalm.ppsc.services;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import models.SecurityDetailsCache;
-import models.SecurityType;
+import org.schalm.ppsc.models.SecurityDetailsCache;
+import org.schalm.ppsc.models.SecurityType;
 import org.junit.Test;
 import org.schalm.test.AbstractTest;
 
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static constants.PathConstants.BASE_TARGET_PATH;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
 
 public class SecurityDetailsTest extends AbstractTest {
