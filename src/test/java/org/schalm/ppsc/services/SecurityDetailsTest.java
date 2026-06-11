@@ -69,7 +69,7 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readAresPageFromParquet() throws IOException, InterruptedException {
         String isin = "US04010L1035";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        securityDetails.loadSecurityMetaData();
+        securityDetails.loadShareMetaData();
         assertEquals("Kapitalmärkte", securityDetails.getIndustry());
         assertEquals("Ares Capital", securityDetails.getName());
         assertEquals("USA", securityDetails.getCountry());
@@ -103,7 +103,7 @@ public class SecurityDetailsTest extends AbstractTest {
     public void readGoldPageFromParquet() throws IOException, InterruptedException {
         String isin = "XC0009655157";
         SecurityDetails securityDetails = new SecurityDetails(BASE_TARGET_PATH + "cache/", isin);
-        securityDetails.loadSecurityMetaData();
+        securityDetails.loadShareMetaData();
         assertEquals("", securityDetails.getIndustry());
         assertEquals("", securityDetails.getName());
         assertEquals("", securityDetails.getCountry());

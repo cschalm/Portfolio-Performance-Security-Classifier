@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * One object of this class represents a security (share or ETF) containing data from a provider on the internet.
- * It contains meta-data for this share like the name and percentages for each country, branch and holding.
+ * One object of this class represents a security (share, commodity, fund or ETF) containing data from a provider on the internet.
+ * It contains metadata for this security like the name and percentages for each country, branch and holding.
  */
 public class SecurityDetails {
     public static final String ONVISTA_DETAILS_REQUEST_URL = "https://www.onvista.de/etf/anlageschwerpunkt/";
@@ -56,6 +56,7 @@ public class SecurityDetails {
             country = "";
             name = "";
         } else {
+            // only for shares
             File industryAndNameCacheFileName = new File(cachePath, isin + "-metadata.txt");
             try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
                 List<String> input = lines.collect(Collectors.toList());
@@ -66,7 +67,7 @@ public class SecurityDetails {
                 }
             } catch (IOException e) {
                 logger.info("Branch for " + isin + " not found in cache, loading...");
-                loadSecurityMetaData();
+                loadShareMetaData();
                 try (PrintWriter savingImport = new PrintWriter(industryAndNameCacheFileName, StandardCharsets.UTF_8)) {
                     savingImport.print(industry + "\n");
                     savingImport.print(country + "\n");
@@ -191,7 +192,7 @@ public class SecurityDetails {
         return rootNode;
     }
 
-    void loadSecurityMetaData() {
+    void loadShareMetaData() {
         industry = "";
         country = "";
         name = "";

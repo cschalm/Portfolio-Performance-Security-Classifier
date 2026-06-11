@@ -7,20 +7,19 @@ import java.util.*;
 /**
  * One security of any type from the portfolio in Portfolio Performance.
  */
-public class Security {
+public abstract class Security {
     private final String isin;
     private String name;
-    private boolean active;
-    private SecurityType securityType;
+    private final boolean active;
     private final int indexInPortfolio;
     private Map<String, Double> industriesMap = new HashMap<>();
     private Map<String, Double> holdingsMap = new HashMap<>();
     private Map<String, Double> countriesMap = new HashMap<>();
 
-    public Security(String isin, int indexInPortfolio) {
+    public Security(String isin, int indexInPortfolio, boolean active) {
         this.isin = isin;
         this.indexInPortfolio = indexInPortfolio;
-        active = true;
+        this.active = active;
     }
 
     public String getName() {
@@ -111,25 +110,13 @@ public class Security {
         return isin;
     }
 
-    public boolean isETF() {
-        return SecurityType.ETF.equals(securityType);
-    }
+    public abstract boolean isETF();
 
-    public boolean isFonds() {
-        return SecurityType.FONDS.equals(securityType);
-    }
+    public abstract boolean isFund();
 
-    public boolean isShare() {
-        return SecurityType.SHARE.equals(securityType);
-    }
+    public abstract boolean isShare();
 
-    public boolean isCommodity() {
-        return SecurityType.COMMODITY.equals(securityType);
-    }
-
-    public void setType(SecurityType type) {
-        this.securityType = type;
-    }
+    public abstract boolean isCommodity();
 
     public int getIndexInPortfolio() {
         return indexInPortfolio;
@@ -142,6 +129,10 @@ public class Security {
             return one.name.compareToIgnoreCase(two.name);
         }
 
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
 }

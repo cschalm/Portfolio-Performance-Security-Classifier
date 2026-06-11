@@ -1,21 +1,24 @@
 package org.schalm.ppsc.services;
 
-import org.schalm.ppsc.models.Security;
 import org.junit.Test;
+import org.schalm.ppsc.models.Commodity;
+import org.schalm.ppsc.models.ETF;
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.models.Share;
+import org.schalm.ppsc.xml.XmlHelper;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 
 public class SecurityServiceTest extends AbstractTest {
     XmlHelper xmlHelper = new XmlHelper();
@@ -36,9 +39,15 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityEtf() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE00BYYHSM20", 0);
+        Security security = service.createSecurity("IE00BYYHSM20", 0, true);
         assertNotNull(security);
+        assertEquals(ETF.class, security.getClass());
         assertEquals("IE00BYYHSM20", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isETF());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isShare());
         assertNotNull(security.getIndustries());
         assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
@@ -48,11 +57,17 @@ public class SecurityServiceTest extends AbstractTest {
     }
 
     @Test
-    public void createSecurityStock() {
+    public void createSecurityShare() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("DE000TUAG505", 0);
+        Security security = service.createSecurity("DE000TUAG505", 0, true);
         assertNotNull(security);
+        assertEquals(Share.class, security.getClass());
         assertEquals("DE000TUAG505", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isShare());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isETF());
         assertNotNull(security.getIndustries());
         assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
@@ -60,12 +75,19 @@ public class SecurityServiceTest extends AbstractTest {
         assertNotNull(security.getHoldings());
         assertFalse(security.getHoldings().isEmpty());
     }
+
     @Test
-    public void createSecurityCommodity() {
+    public void createSecurityCommodityGold() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("XC0009655157", 0);
+        Security security = service.createSecurity("XC0009655157", 0, true);
         assertNotNull(security);
+        assertEquals(Commodity.class, security.getClass());
         assertEquals("XC0009655157", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isCommodity());
+        assertFalse(security.isETF());
+        assertFalse(security.isFund());
+        assertFalse(security.isShare());
         assertNotNull(security.getIndustries());
         assertTrue(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
@@ -85,9 +107,15 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityEtfMsciWorld() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
+        assertEquals(ETF.class, security.getClass());
         assertEquals("IE000CNSFAR2", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isETF());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isShare());
         assertNotNull(security.getIndustries());
         assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());
@@ -97,11 +125,17 @@ public class SecurityServiceTest extends AbstractTest {
     }
 
     @Test
-    public void createSecurityStockAres() {
+    public void createSecurityShareAres() {
         SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
-        Security security = service.createSecurity("US04010L1035", 0);
+        Security security = service.createSecurity("US04010L1035", 0, true);
         assertNotNull(security);
+        assertEquals(Share.class, security.getClass());
         assertEquals("US04010L1035", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isShare());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isETF());
         assertNotNull(security.getIndustries());
         assertFalse(security.getIndustries().isEmpty());
         assertNotNull(security.getCountries());

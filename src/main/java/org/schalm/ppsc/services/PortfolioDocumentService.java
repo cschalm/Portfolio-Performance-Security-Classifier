@@ -318,7 +318,7 @@ public class PortfolioDocumentService {
                 if (security.getName() != null && !security.getName().isEmpty()) {
                     allStockNames.add(security.getName());
                 }
-            } else if (security.isETF() || security.isFonds()) {
+            } else if (security.isETF() || security.isFund()) {
                 Map<String, Double> holdings = security.getHoldings();
                 if (security.getName() != null && security.getName().toLowerCase().startsWith("amundi")) {
                     amundiStockNames.addAll(holdings.keySet());

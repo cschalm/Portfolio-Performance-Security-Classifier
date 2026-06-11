@@ -1,18 +1,18 @@
 package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
+import org.junit.Test;
 import org.schalm.ppsc.models.Security;
 import org.schalm.ppsc.models.SecurityDetailsCache;
-import org.junit.Test;
+import org.schalm.ppsc.xml.XmlFileReader;
+import org.schalm.ppsc.xml.XmlFileWriter;
+import org.schalm.ppsc.xml.XmlHelper;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.schalm.ppsc.xml.XmlFileReader;
-import org.schalm.ppsc.xml.XmlFileWriter;
-import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -26,8 +26,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 
 public class PortfolioDocumentServiceTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentServiceTest.class.getCanonicalName());
@@ -61,7 +61,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void updateXml_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService();
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -78,7 +78,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void updateXml_XC0009655157() throws IOException, ParserConfigurationException, SAXException, TransformerException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
         SecurityService service = new SecurityService();
-        Security security = service.createSecurity("XC0009655157", 0);
+        Security security = service.createSecurity("XC0009655157", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -117,7 +117,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void importBranches_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -159,7 +159,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void importTopTen_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -182,7 +182,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void importTopTen_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE00BYYHSM20", 0);
+        Security security = service.createSecurity("IE00BYYHSM20", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -219,7 +219,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void importCountries_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -411,7 +411,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Ungarn" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -456,7 +456,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Portugal" to add
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -505,7 +505,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Finnland" to update
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -577,7 +577,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Software" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -622,7 +622,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Basiskonsumgüter" to add 655
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -671,7 +671,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Industrie" to update 1113
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -739,7 +739,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Saia" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -783,7 +783,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -817,7 +817,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -852,7 +852,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Eli Lilly & Co." to add 96
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -901,13 +901,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("FR0007052782", 0);
+        Security security = service.createSecurity("FR0007052782", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE00B945VV12", 1);
+        security = service.createSecurity("IE00B945VV12", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -952,13 +952,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-FR0007052782.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("IE00B945VV12", 0);
+        Security security = service.createSecurity("IE00B945VV12", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("FR0007052782", 1);
+        security = service.createSecurity("FR0007052782", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -1006,7 +1006,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Microsoft" to update 462
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0);
+        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -1056,13 +1056,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet2.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0);
+        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1);
+        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
@@ -1102,13 +1102,13 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet3.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0);
+        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1);
+        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
@@ -1146,19 +1146,19 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet4.xml");
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0);
+        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1);
+        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("DE000A0F5UF5-Alphabet", 2);
+        security = service.createSecurity("DE000A0F5UF5-Alphabet", 2, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());

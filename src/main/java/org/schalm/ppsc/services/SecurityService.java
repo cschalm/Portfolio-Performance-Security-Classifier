@@ -2,13 +2,12 @@ package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.schalm.ppsc.models.Security;
-import org.schalm.ppsc.models.SecurityType;
+import org.schalm.ppsc.models.*;
+import org.schalm.ppsc.xml.XmlHelper;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.schalm.ppsc.xml.XmlHelper;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -47,9 +46,10 @@ public class SecurityService {
     Security processSecurity(Element securitiesElement, int indexInPortfolio) {
         String isin = xmlHelper.getTextContent(securitiesElement, "isin");
         String isRetired = xmlHelper.getTextContent(securitiesElement, "isRetired");
+        boolean active = !Boolean.parseBoolean(isRetired);
 
-        if (!isin.isEmpty() && "false".equals(isRetired)) {
-            Security security = createSecurity(isin, indexInPortfolio);
+        if (!isin.isEmpty()) {
+            Security security = createSecurity(isin, indexInPortfolio, active);
             String name = xmlHelper.getTextContent(securitiesElement, "name");
             if ((security.getName() == null || security.getName().isEmpty()) && !name.isEmpty()) {
                 security.setName(name);
@@ -60,29 +60,17 @@ public class SecurityService {
         return null;
     }
 
-    Security createSecurity(String strIsin, int indexInPortfolio) {
-        Security security = new Security(strIsin, indexInPortfolio);
+    Security createSecurity(String strIsin, int indexInPortfolio, boolean active) {
+        Security security = null; //new Security(strIsin, indexInPortfolio, active);
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
             SecurityType securityType = getSecurityType(securityDetails);
             logger.fine(" - security is of type: " + securityType);
-            security.setType(securityType);
-            if (security.isETF() || security.isFonds()) {
-                JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
-
-                if (breakdownsNode != null) {
-                    // parsing holdings
-                    Map<String, Double> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
-                    security.setHoldings(oListForHoldings);
-
-                    // parsing branches
-                    security.setIndustries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
-
-                    // parsing country
-                    security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
-                }
-            } else if (security.isShare()) {
+            if (securityDetails.isCommodity())
+                security = new Commodity(strIsin, indexInPortfolio, active);
+            else if (securityDetails.isShare()) {
+                security = new Share(strIsin, indexInPortfolio, active);
                 String industry = securityDetails.getIndustry();
                 Map<String, Double> industriesMap = new HashMap<>();
                 if (!industry.isEmpty())
@@ -102,12 +90,36 @@ public class SecurityService {
                     holdingsMap.put(companyName, 100.0);
                 security.setHoldings(holdingsMap);
 
-                logger.fine("Setting name \"" + companyName + "\" and industry \"" + industry + "\" and country \"" + country + "\" to security: " + security);
-            }
-        } catch (Exception e) {
+                logger.fine("Setting name \"" + companyName + "\" and industry \"" + industry + "\" and country \"" + country + "\" to share: " + security);
+            } else if (securityDetails.isETF()) {
+                security = new ETF(strIsin, indexInPortfolio, active);
+                fillAdditionalData4FundOrETF(securityDetails, security);
+            } else if (securityDetails.isFonds()) {
+                security = new Fund(strIsin, indexInPortfolio, active);
+                fillAdditionalData4FundOrETF(securityDetails, security);
+            } else
+                logger.warning("Unknown type of security for isin " + strIsin + ", skipping!");
+        } catch (
+                Exception e) {
             logger.warning("Error loading details for " + strIsin + " from " + cachePath + ": " + e.getMessage());
         }
         return security;
+    }
+
+    private void fillAdditionalData4FundOrETF(SecurityDetails securityDetails, Security security) {
+        JsonObject breakdownsNode = securityDetails.getBreakDownForSecurity();
+
+        if (breakdownsNode != null) {
+            // parsing holdings
+            Map<String, Double> oListForHoldings = getHoldingPercentageMap(breakdownsNode);
+            security.setHoldings(oListForHoldings);
+
+            // parsing branches
+            security.setIndustries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("branchBreakdown")));
+
+            // parsing country
+            security.setCountries(getMappedPercentageForNode(breakdownsNode.getAsJsonObject("countryBreakdown")));
+        }
     }
 
     Map<String, Double> getMappedPercentageForNode(JsonObject oNode) {
