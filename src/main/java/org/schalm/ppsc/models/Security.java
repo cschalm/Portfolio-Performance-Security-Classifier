@@ -5,12 +5,12 @@ import org.apache.commons.lang3.Strings;
 import java.util.*;
 
 /**
- * One share from the portfolio in Portfolio Performance or ETF with name, ISIN and branches, holdings and counties.
- * TODO: Create sub-classes for each SecurityType
+ * One security of any type from the portfolio in Portfolio Performance.
  */
 public class Security {
     private final String isin;
     private String name;
+    private boolean active;
     private SecurityType securityType;
     private final int indexInPortfolio;
     private Map<String, Double> industriesMap = new HashMap<>();
@@ -20,6 +20,7 @@ public class Security {
     public Security(String isin, int indexInPortfolio) {
         this.isin = isin;
         this.indexInPortfolio = indexInPortfolio;
+        active = true;
     }
 
     public String getName() {
