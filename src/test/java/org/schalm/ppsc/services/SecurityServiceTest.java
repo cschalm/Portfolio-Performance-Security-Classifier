@@ -37,6 +37,34 @@ public class SecurityServiceTest extends AbstractTest {
     }
 
     @Test
+    public void processSecuritiesRetired() throws IOException, ParserConfigurationException, SAXException {
+        SecurityService service = new SecurityService();
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-retired.xml");
+        NodeList securityNodes = document.getElementsByTagName("security");
+        assertNotNull(securityNodes);
+        assertEquals(1, securityNodes.getLength());
+
+        List<Security> securityList = service.processSecurities(securityNodes);
+        assertNotNull(securityList);
+        assertEquals(1, securityList.size());
+    }
+
+    @Test
+    public void processSecuritiesMixedRetiredAndActive() throws IOException, ParserConfigurationException, SAXException {
+        SecurityService service = new SecurityService();
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "SecurityActiveInactive.xml");
+        NodeList securityNodes = document.getElementsByTagName("security");
+        assertNotNull(securityNodes);
+        assertEquals(2, securityNodes.getLength());
+
+        List<Security> securityList = service.processSecurities(securityNodes);
+        assertNotNull(securityList);
+        assertEquals(2, securityList.size());
+        assertEquals(1, securityList.stream().filter(Security::isActive).count());
+        assertEquals(1, securityList.stream().filter(security -> !security.isActive()).count());
+    }
+
+    @Test
     public void createSecurityEtf() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         Security security = service.createSecurity("IE00BYYHSM20", 0, true);
@@ -132,6 +160,26 @@ public class SecurityServiceTest extends AbstractTest {
         assertEquals(Share.class, security.getClass());
         assertEquals("US04010L1035", security.getIsin());
         assertTrue(security.isActive());
+        assertTrue(security.isShare());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isETF());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
+        assertNotNull(security.getCountries());
+        assertFalse(security.getCountries().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertFalse(security.getHoldings().isEmpty());
+    }
+
+    @Test
+    public void createSecurityShareInactive() {
+        SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
+        Security security = service.createSecurity("US04010L1035", 0, false);
+        assertNotNull(security);
+        assertEquals(Share.class, security.getClass());
+        assertEquals("US04010L1035", security.getIsin());
+        assertFalse(security.isActive());
         assertTrue(security.isShare());
         assertFalse(security.isCommodity());
         assertFalse(security.isFund());

@@ -61,7 +61,7 @@ public class SecurityService {
     }
 
     Security createSecurity(String strIsin, int indexInPortfolio, boolean active) {
-        Security security = null; //new Security(strIsin, indexInPortfolio, active);
+        Security security = null;
         try {
             SecurityDetails securityDetails = new SecurityDetails(cachePath, strIsin);
 
