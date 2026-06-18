@@ -2,8 +2,10 @@ package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
 import org.junit.Test;
+import org.schalm.ppsc.models.ETF;
 import org.schalm.ppsc.models.Security;
 import org.schalm.ppsc.models.SecurityDetailsCache;
+import org.schalm.ppsc.models.Share;
 import org.schalm.ppsc.xml.XmlFileReader;
 import org.schalm.ppsc.xml.XmlFileWriter;
 import org.schalm.ppsc.xml.XmlHelper;
@@ -28,14 +30,16 @@ import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
+import static org.schalm.ppsc.services.PortfolioDocumentService.*;
 
 public class PortfolioDocumentServiceTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentServiceTest.class.getCanonicalName());
     XmlHelper xmlHelper = new XmlHelper();
     SecurityService securityService = new SecurityService();
     PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
+    SecurityService securityServiceWithCache = new SecurityService(BASE_TEST_PATH + "cache/");
 
-    private List<Security> loadTestSecurity() throws IOException, ParserConfigurationException, SAXException {
+    private List<Security> loadTestSecurity() throws Exception {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         List<Security> securityList = securityService.processSecurities(securityNodes);
@@ -45,7 +49,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void updateXml_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateXml_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
 
@@ -58,7 +62,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void updateXml_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateXml_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         SecurityService service = new SecurityService();
         Security security = service.createSecurity("IE000CNSFAR2", 0, true);
@@ -75,7 +79,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void updateXml_XC0009655157() throws IOException, ParserConfigurationException, SAXException, TransformerException {
+    public void testUpdateXml_XC0009655157() throws Exception, TransformerException {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
         SecurityService service = new SecurityService();
         Security security = service.createSecurity("XC0009655157", 0, true);
@@ -95,7 +99,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importBranches_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportBranches_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
 
@@ -105,7 +109,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Branchen (GICS)")) {
+                if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                     JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
                     assertEquals(9, importedBranches.size());
                 }
@@ -114,10 +118,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importBranches_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportBranches_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -128,7 +131,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Branchen (GICS)")) {
+                if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                     JsonArray importedBranches = portfolioDocumentService.importIndustries(portfolioDocument, securities, taxonomyElement);
                     assertEquals(11, importedBranches.size());
                 }
@@ -137,7 +140,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importTopTen() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
 
@@ -147,7 +150,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
@@ -156,10 +159,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importTopTen_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -170,7 +172,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
@@ -179,10 +181,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importTopTen_IE00BYYHSM20() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE00BYYHSM20", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE00BYYHSM20", 0, true);
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
@@ -193,7 +194,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
@@ -216,10 +217,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void importCountries_IE000CNSFAR2() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportCountries_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -233,7 +233,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Regionen")) {
+                if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                     JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
                     assertEquals(32, importedCountries.size());
                 }
@@ -242,7 +242,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void collectAllStockNames() throws IOException, ParserConfigurationException, SAXException {
+    public void testCollectAllStockNames() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
         TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
@@ -251,7 +251,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void collectAllStockNamesCommodity() throws IOException, ParserConfigurationException, SAXException {
+    public void testCollectAllStockNamesCommodity() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
         List<Security> securities = securityService.processSecurities(Objects.requireNonNull(new XmlFileReader().getAllSecurities(portfolioDocument)));
         TreeMap<String, List<String>> allStockNames = portfolioDocumentService.collectAllStockNames(securities);
@@ -288,7 +288,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void isNameSimilar() {
+    public void testIsNameSimilar() {
         assertTrue(portfolioDocumentService.isNameSimilar("SAP", "SAP SE"));
         assertTrue(portfolioDocumentService.isNameSimilar("SAP", "Sap SE"));
         assertTrue(portfolioDocumentService.isNameSimilar("Sap", "SAP SE"));
@@ -366,7 +366,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testFindAssignmentBySecurityIndex() throws IOException, ParserConfigurationException, SAXException {
+    public void testFindAssignmentBySecurityIndex() throws Exception {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country.xml");
         Node classification = document.getFirstChild();
         Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 4);
@@ -389,7 +389,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateWeightOfAssignmentCountry() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateWeightOfAssignmentCountry() throws Exception {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country.xml");
         Node classification = document.getFirstChild();
         Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 4);
@@ -406,12 +406,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportRegions_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportRegions_IE000CNSFAR2_Remove() throws Exception {
         // "Tschechien" to be removed by import
         // "Ungarn" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -425,7 +424,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Regionen")) {
+                if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                     Element tschechien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Tschechien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tschechien, 1);
                     assertNotNull(assignment);
@@ -451,12 +450,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportRegions_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportRegions_IE000CNSFAR2_Add() throws Exception {
         // "Italien" to add
         // "Portugal" to add
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -470,7 +468,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Regionen")) {
+                if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                     Element grossbritannien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
@@ -500,12 +498,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportRegions_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportRegions_IE000CNSFAR2_Update() throws Exception {
         // "Dänemark" to update
         // "Finnland" to update
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getCountries());
         assertEquals(32, security.getCountries().size());
@@ -519,7 +516,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Regionen")) {
+                if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                     Element grossbritannien = portfolioDocumentService.findClassificationByName(taxonomyElement, "Großbritannien");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(grossbritannien, 1);
                     assertNotNull(assignment);
@@ -555,7 +552,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateWeightOfAssignmentIndustry() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateWeightOfAssignmentIndustry() throws Exception {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry.xml");
         Node classification = document.getFirstChild();
         Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 38);
@@ -572,12 +569,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportIndustries_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportIndustries_IE000CNSFAR2_Remove() throws Exception {
         // "Kapitalmärkte" to be removed by import
         // "Software" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -591,7 +587,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Branchen (GICS)")) {
+                if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                     Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
@@ -617,12 +613,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportIndustries_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportIndustries_IE000CNSFAR2_Add() throws Exception {
         // "Nicht-Basiskonsumgüter" to add 1092
         // "Basiskonsumgüter" to add 655
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -636,7 +631,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Branchen (GICS)")) {
+                if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                     Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
@@ -666,12 +661,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportIndustries_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportIndustries_IE000CNSFAR2_Update() throws Exception {
         // "Gesundheitswesen" to update 1205
         // "Industrie" to update 1113
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getIndustries());
         assertEquals(11, security.getIndustries().size());
@@ -685,7 +679,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Branchen (GICS)")) {
+                if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                     Element informationstechnologie = portfolioDocumentService.findClassificationByName(taxonomyElement, "Informationstechnologie");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(informationstechnologie, 1);
                     assertNotNull(assignment);
@@ -717,7 +711,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateWeightOfAssignmentTopTen() throws IOException, ParserConfigurationException, SAXException {
+    public void testUpdateWeightOfAssignmentTopTen() throws Exception {
         Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten.xml");
         Node classification = document.getFirstChild();
         Element assessment = portfolioDocumentService.findAssignmentBySecurityIndex(classification, 20);
@@ -734,12 +728,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_IE000CNSFAR2_Remove() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2_Remove() throws Exception {
         // "ABB" to be removed by import
         // "Saia" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -753,7 +746,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element abb = portfolioDocumentService.findClassificationByName(taxonomyElement, "ABB");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(abb, 1);
                     assertNotNull(assignment);
@@ -779,11 +772,10 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntry() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntry() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -797,7 +789,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element tesla = portfolioDocumentService.findClassificationByName(taxonomyElement, "Tesla");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
                     assertNotNull(assignment);
@@ -813,11 +805,10 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntryAndClassificationFolder() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntryAndClassificationFolder() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -831,7 +822,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
                     assertNotNull(assignment);
@@ -847,12 +838,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_IE000CNSFAR2_Add() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2_Add() throws Exception {
         // "Alphabet A (Google)" to add 130
         // "Eli Lilly & Co." to add 96
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -866,7 +856,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element amazon = portfolioDocumentService.findClassificationByName(taxonomyElement, "Amazon");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
                     assertNotNull(assignment);
@@ -896,18 +886,17 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_FR0007052782_AddWithSimilarName() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_FR0007052782_AddWithSimilarName() throws Exception {
         // "LVMH MOET HENNESSY LOUIS VUI" to add 1154
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("FR0007052782", 0, true);
+        Security security = securityServiceWithCache.createSecurity("FR0007052782", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE00B945VV12", 1, true);
+        security = securityServiceWithCache.createSecurity("IE00B945VV12", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -920,7 +909,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element lvmh = portfolioDocumentService.findClassificationByName(taxonomyElement, "LVMH Moet Hennessy Louis Vuitton SE");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
                     assertNull(assignment);
@@ -950,15 +939,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_FR0007052782_AddWithSimilarNameReverseOrder() throws Exception {
         // "LVMH MOET HENNESSY LOUIS VUI" to add 1154
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-FR0007052782.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("IE00B945VV12", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE00B945VV12", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("FR0007052782", 1, true);
+        security = securityServiceWithCache.createSecurity("FR0007052782", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -971,7 +959,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     // existing
                     Element lvmh = portfolioDocumentService.findClassificationByName(taxonomyElement, "LVMH Moet Hennessy Louis Vuitton SE");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -1001,12 +989,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testImportTopTen_IE000CNSFAR2_Update() throws IOException, ParserConfigurationException, SAXException {
+    public void testImportTopTen_IE000CNSFAR2_Update() throws Exception {
         // "Meta Platforms Inc." to update 172
         // "Microsoft" to update 462
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
@@ -1020,7 +1007,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element amazon = portfolioDocumentService.findClassificationByName(taxonomyElement, "Amazon");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
                     assertNotNull(assignment);
@@ -1054,15 +1041,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2ExistingClassification() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet2.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
+        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
+        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
@@ -1075,7 +1061,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 1);
                     assertNull(assignment);
@@ -1100,15 +1086,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2NewClassification() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet3.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
+        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
+        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
@@ -1121,7 +1106,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     assertNull(alphabet);
 
@@ -1144,21 +1129,20 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2ExistingClassificationSecondHolding() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet4.xml");
-        SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
         List<Security> securities = new ArrayList<>(2);
-        Security security = service.createSecurity("LU1681043599-Alphabet", 0, true);
+        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
+        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
         securities.add(security);
-        security = service.createSecurity("DE000A0F5UF5-Alphabet", 2, true);
+        security = securityServiceWithCache.createSecurity("DE000A0F5UF5-Alphabet", 2, true);
         assertNotNull(security);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
@@ -1171,7 +1155,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
-                if (taxonomyName.equals("Unternehmensgewichtung")) {
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 1);
                     assertNotNull(assignment);
@@ -1200,6 +1184,48 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testImportTopTen_IE000CNSFAR2_RemoveOneEntryAndParentClassificationFolderDueToInactiveSecurity() throws Exception {
+        // nothing to be removed by import
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2-Inactive-Security.xml");
+
+        Security msciWorldEtf = new ETF("IE000CNSFAR2", 0, true);
+        Map<String, Double> holdings = msciWorldEtf.getHoldings();
+        holdings.put("Apple", 20d);
+        holdings.put("Microsoft", 18d);
+
+        Security steinhoffShare = new Share("NL0011375019", 1, false);
+        steinhoffShare.setName("Steinhoff International Holdings N.V.");
+        holdings = steinhoffShare.getHoldings();
+        holdings.put("Steinhoff International Holdings N.V.", 100d);
+
+        List<Security> securities = new ArrayList<>(2);
+        securities.add(msciWorldEtf);
+        securities.add(steinhoffShare);
+
+        NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
+        for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
+            Node taxonomyNode = listOfTaxonomies.item(i);
+            if (taxonomyNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element taxonomyElement = (Element) taxonomyNode;
+                String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
+                if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
+                    Element amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
+                    Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    assertEquals(3, importedTopTen.size());
+
+                    amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
+                    assertNull(amd);
+                }
+            }
+        }
+        XmlFileWriter xmlFileWriter = new XmlFileWriter();
+        xmlFileWriter.writeXml(portfolioDocument, BASE_TEST_PATH + "classification-topten-IE000CNSFAR2-Inactive-Security-RESULT.xml");
     }
 
 }
