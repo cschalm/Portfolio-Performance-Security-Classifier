@@ -77,7 +77,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateXml_XC0009655157() throws Exception, TransformerException {
+    public void testUpdateXml_XC0009655157() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
         SecurityService service = new SecurityService();
         Security security = service.createSecurity("XC0009655157", 0, true);
@@ -1219,7 +1219,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
 
                     Element steinhoff = portfolioDocumentService.findClassificationByName(taxonomyElement, "Steinhoff International Holdings N.V.");
                     Element assignmentSteinhoff = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
-                    assertNotNull(assignment);
+                    assertNotNull(assignmentSteinhoff);
 
                     JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, allSecurities, activeSecurities, taxonomyElement);
                     assertEquals(2, importedTopTen.size());
