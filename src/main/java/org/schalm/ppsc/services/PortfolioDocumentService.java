@@ -26,6 +26,9 @@ import static org.schalm.ppsc.constants.PathConstants.CACHE_PATH;
 
 public class PortfolioDocumentService {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentService.class.getCanonicalName());
+    public static final String TAXONOMY_TOPTEN = "Unternehmensgewichtung";
+    public static final String TAXONOMY_REGIONS = "Regionen";
+    public static final String TAXONOMY_INDUSTRIES_GICS = "Branchen (GICS)";
     Random random = new Random();
     XmlHelper xmlHelper = new XmlHelper();
     LevenshteinDistance distance = LevenshteinDistance.getDefaultInstance();
@@ -49,19 +52,19 @@ public class PortfolioDocumentService {
                     String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                     logger.info("taxonomyName: " + taxonomyName);
 
-                    if (taxonomyName.equals("Regionen")) {
+                    if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                         // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedRegions = importRegions(portfolioDocument, activeSecurities, taxonomyElement);
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
 
-                    if (taxonomyName.equals("Branchen (GICS)")) {
+                    if (taxonomyName.equals(TAXONOMY_INDUSTRIES_GICS)) {
                         // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedIndustries = importIndustries(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedIndustries(importedIndustries);
                     }
 
-                    if (taxonomyName.equals("Unternehmensgewichtung")) {
+                    if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
                         // if there is an entry in the cache-file, nothing is imported !!!
                         JsonArray importedTopTen = importCompanyRatio(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedTopTen(importedTopTen);
@@ -70,13 +73,13 @@ public class PortfolioDocumentService {
             }
             // write all saved triples to avoid importing the same assignments several times for each run
             securityDetailsCache.save();
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.warning("Error updating XML: " + e.getMessage());
         }
     }
 
-    JsonArray importCompanyRatio(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
-        logger.info("Importing Unternehmensgewichtung..");
+    JsonArray importCompanyRatio(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws Exception {
+        logger.info("Importing " + TAXONOMY_TOPTEN + "...");
         JsonArray importedTopTen = new JsonArray();
 
         TreeMap<String, List<String>> allStockNames = collectAllStockNames(allSecurities);
@@ -89,8 +92,10 @@ public class PortfolioDocumentService {
         } else {
             // remove orphan Unternehmensgewichtung assignments
             NodeList allTopTenFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
+            logger.fine("Found " + allTopTenFromPortfolioNodeList.getLength() + " elements");
             for (int indexTopTen = 0; indexTopTen < allTopTenFromPortfolioNodeList.getLength(); indexTopTen++) {
                 Node topTenFromPortfolioNode = allTopTenFromPortfolioNodeList.item(indexTopTen);
+                // logger.fine("Classification-Node: " + xmlHelper.domNode2String(topTenFromPortfolioNode, true));
                 if (topTenFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                     String topTenNameFromPortfolio = xmlHelper.getTextContent((Element) topTenFromPortfolioNode, "name");
                     // check for each assignment if the corresponding stock still exists in portfolio
@@ -115,13 +120,16 @@ public class PortfolioDocumentService {
                             Optional<Security> security = allSecurities.stream().filter(s -> s.getIndexInPortfolio() == finalIndexSecurityToCheck).findFirst();
                             if (security.isPresent() && !(security.get().isActive() || hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio))) {
                                 logger.fine("Removing " + security.get() + " from Unternehmensgewichtung " + topTenNameFromPortfolio);
+                            if (security.isPresent() && !hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio)) {
+                                logger.fine("Removing " + security.get() + " from " + TAXONOMY_TOPTEN + " " + topTenNameFromPortfolio);
                                 Node assignmentsNode = assignment.getParentNode();
                                 assignmentsNode.removeChild(assignment);
                                 if (((Element) assignmentsNode).getElementsByTagName("assignment").getLength() == 0) {
                                     // TODO old assignments from former securities might still be included and prevent deletion of company -> check for inactive securities?
                                     // no assignments left, so we remove this classification
-                                    logger.fine("Removing Unternehmensgewichtung " + topTenNameFromPortfolio);
+                                    logger.fine("Removing " + TAXONOMY_TOPTEN + " " + topTenNameFromPortfolio);
                                     topTenFromPortfolioNode.getParentNode().removeChild(topTenFromPortfolioNode);
+                                    // TODO this changes the array and skips later occurences!
                                 }
                             }
                         }
@@ -147,11 +155,11 @@ public class PortfolioDocumentService {
                             if (existingAssignmentsList.size() > index) {
                                 // update EXISTING assignment
                                 Element existingAssignment = existingAssignmentsList.get(index);
-                                logger.fine("Updating TopTen " + stockName + " with " + existingSecurity + ": " + percentage);
+                                logger.fine("Updating " + TAXONOMY_TOPTEN + " " + stockName + " with " + existingSecurity + ": " + percentage);
                                 updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
                             } else {
                                 // add NEW assignment
-                                logger.fine("Adding " + existingSecurity + " to Unternehmensgewichtung " + stockName + ": " + percentage);
+                                logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " " + stockName + ": " + percentage);
                                 Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
                                 addTopTenAssignment(portfolioDocument, stockName, existingSecurity, 0, assignments, importedTopTen, percentage);
                             }
@@ -163,13 +171,13 @@ public class PortfolioDocumentService {
                             assignments = portfolioDocument.createElement("assignments");
                             childrenElement.appendChild(assignments);
                         }
-                        logger.fine("Adding " + existingSecurity + " to Unternehmensgewichtung for " + stockName);
+                        logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " for " + stockName);
                         addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, 0);
                     }
                 }
             } else {
                 // add new assignment to NEW classification!
-                logger.fine("Adding all holdings to Unternehmensgewichtung for " + stockName);
+                logger.fine("Adding all holdings to " + TAXONOMY_TOPTEN + " for " + stockName);
                 Element assignments = portfolioDocument.createElement("assignments");
                 childrenElement.appendChild(assignments);
                 addAssignmentsToAssignments(portfolioDocument, allSecurities, stockName, importedTopTen, allStockNames, assignments);

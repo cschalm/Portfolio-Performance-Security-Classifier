@@ -73,10 +73,10 @@
 	<taxonomies>
 		<taxonomy>
 			<id>d1d32dd6-09dc-447e-b43a-a235d5e362b0</id>
-			<name>Top Ten</name>
+			<name>Unternehmensgewichtung</name>
 			<root>
 				<id>543c55d1-e3ac-4f2c-b382-e2d7ac0b45c3</id>
-				<name>topten</name>
+				<name>Unternehmensgewichtung</name>
 				<color>#a4c4f5</color>
 				<children>
 					<classification>
