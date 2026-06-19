@@ -14,9 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -151,7 +149,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -173,7 +171,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -195,7 +193,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(10, importedTopTen.size());
                 }
             }
@@ -758,7 +756,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(nvidia, 1);
@@ -795,7 +793,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(tesla, 1);
@@ -828,7 +826,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
                     amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
@@ -869,7 +867,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(eliLilly, 1);
                     assertNull(assignment);
 
-                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(3, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
@@ -920,7 +918,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNotNull(assignment);
                     assertEquals("190", getWeightOfAssignment(assignment));
 
-                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(10, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -972,7 +970,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 2);
                     assertNull(assignment);
 
-                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(10, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(lvmh, 1);
@@ -1022,7 +1020,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNotNull(assignment);
                     assertEquals("200", getWeightOfAssignment(assignment));
 
-                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(3, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
@@ -1069,7 +1067,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 2);
                     assertNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
 
                     List<Element> foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 1);
@@ -1111,7 +1109,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     Element alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
                     assertNull(alphabet);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
 
                     alphabet = portfolioDocumentService.findClassificationByName(taxonomyElement, "Alphabet A (Google)");
@@ -1163,7 +1161,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(alphabet, 2);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
                     assertEquals(4, importedTopTen.size());
                     logger.info(xmlHelper.domNode2String(alphabet, true));
 
@@ -1202,9 +1200,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         holdings = steinhoffShare.getHoldings();
         holdings.put("Steinhoff International Holdings N.V.", 100d);
 
-        List<Security> securities = new ArrayList<>(2);
-        securities.add(msciWorldEtf);
-        securities.add(steinhoffShare);
+        List<Security> allSecurities = new ArrayList<>(1);
+        allSecurities.add(msciWorldEtf);
+        allSecurities.add(steinhoffShare);
+        List<Security> activeSecurities = new ArrayList<>(1);
+        activeSecurities.add(msciWorldEtf);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -1217,16 +1217,23 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
                     assertNotNull(assignment);
 
-                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, taxonomyElement);
-                    assertEquals(3, importedTopTen.size());
+                    Element steinhoff = portfolioDocumentService.findClassificationByName(taxonomyElement, "Steinhoff International Holdings N.V.");
+                    Element assignmentSteinhoff = portfolioDocumentService.findAssignmentBySecurityIndex(amd, 1);
+                    assertNotNull(assignment);
+
+                    JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, allSecurities, activeSecurities, taxonomyElement);
+                    assertEquals(2, importedTopTen.size());
 
                     amd = portfolioDocumentService.findClassificationByName(taxonomyElement, "AMD");
                     assertNull(amd);
+
+                    steinhoff = portfolioDocumentService.findClassificationByName(taxonomyElement, "Steinhoff International Holdings N.V.");
+                    assertNull(steinhoff);
                 }
             }
         }
-        XmlFileWriter xmlFileWriter = new XmlFileWriter();
-        xmlFileWriter.writeXml(portfolioDocument, BASE_TEST_PATH + "classification-topten-IE000CNSFAR2-Inactive-Security-RESULT.xml");
+//        XmlFileWriter xmlFileWriter = new XmlFileWriter();
+//        xmlFileWriter.writeXml(portfolioDocument, BASE_TEST_PATH + "classification-topten-IE000CNSFAR2-Inactive-Security-RESULT.xml");
     }
 
 }
