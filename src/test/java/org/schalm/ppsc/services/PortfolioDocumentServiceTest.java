@@ -76,7 +76,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateXml_XC0009655157() throws Exception {
+    public void testUpdateXml_CommodityGold() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
         SecurityService service = new SecurityService();
         Security security = service.createSecurity("XC0009655157", 0, true);
