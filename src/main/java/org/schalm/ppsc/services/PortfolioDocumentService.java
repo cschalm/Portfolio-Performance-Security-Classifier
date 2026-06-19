@@ -2,15 +2,15 @@ package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.schalm.ppsc.models.Security;
-import org.schalm.ppsc.models.SecurityDetailsCache;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.LevenshteinDistance;
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.models.SecurityDetailsCache;
+import org.schalm.ppsc.xml.XmlHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.schalm.ppsc.xml.XmlHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +20,7 @@ import java.nio.file.FileSystems;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static org.schalm.ppsc.constants.PathConstants.CACHE_PATH;
 
@@ -38,6 +39,7 @@ public class PortfolioDocumentService {
     }
 
     public void updateXml(Document portfolioDocument, List<Security> allSecurities, SecurityDetailsCache securityDetailsCache) {
+        List<Security> activeSecurities = allSecurities.stream().filter(Security::isActive).collect(Collectors.toList());
         try {
             NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
             for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -49,7 +51,7 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals("Regionen")) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, taxonomyElement);
+                        JsonArray importedRegions = importRegions(portfolioDocument, activeSecurities, taxonomyElement);
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
 
@@ -111,7 +113,7 @@ public class PortfolioDocumentService {
                             if (indexSecurityToCheck < 0 || indexSecurityToCheck >= allSecurities.size()) continue;
                             int finalIndexSecurityToCheck = indexSecurityToCheck;
                             Optional<Security> security = allSecurities.stream().filter(s -> s.getIndexInPortfolio() == finalIndexSecurityToCheck).findFirst();
-                            if (security.isPresent() && !hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio)) {
+                            if (security.isPresent() && !(security.get().isActive() || hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio))) {
                                 logger.fine("Removing " + security.get() + " from Unternehmensgewichtung " + topTenNameFromPortfolio);
                                 Node assignmentsNode = assignment.getParentNode();
                                 assignmentsNode.removeChild(assignment);
@@ -410,37 +412,25 @@ public class PortfolioDocumentService {
 
     JsonArray importIndustries(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing industries...");
-        NodeList allIndustriesFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
-
         JsonArray importedIndustries = new JsonArray();
-        Map<String, PortfolioDocumentService.NodeRankTuple> industryNameFromPortfolioToNodeMap = new HashMap<>();
-        for (int indexIndustry = 0; indexIndustry < allIndustriesFromPortfolioNodeList.getLength(); indexIndustry++) {
-            Node industryFromPortfolioNode = allIndustriesFromPortfolioNodeList.item(indexIndustry);
-            if (industryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
-                String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
-                logger.fine("Importing industry " + industryNameFromPortfolio);
-                industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new PortfolioDocumentService.NodeRankTuple(industryFromPortfolioNode, 0));
-                removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
-            }
-        }
+
+        Map<String, NodePositionTuple> industryNameFromPortfolioToNodeMap = mapIndustryNameFromPortfolio2XmlNodePositionTuple(allSecurities, taxonomyElement);
+
         for (Security security : allSecurities) {
+            if (!security.isActive()) continue;
             logger.fine("Security: " + security);
 
             StringBuilder industryAssignmentLog = new StringBuilder();
             for (String industryNameFromSecurity : security.getIndustries().keySet()) {
-                String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity);
-                if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
-                    // Hannover Rück is classified as "Versicherung" ?!?
-                    optimizedIndustryNameFromSecurity = "Rückversicherungen";
-                }
+                String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity, security.getIsin());
                 // skip not matching industries, e.g. "diverse Branchen"
                 if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
                 BestMatch bestMatch = getBestMatch(industryNameFromPortfolioToNodeMap.keySet(), optimizedIndustryNameFromSecurity);
 
                 int percentage = (int) Math.round(security.getPercentageOfBranch(industryNameFromSecurity) * 100.0);
 
-                PortfolioDocumentService.NodeRankTuple oTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
-                Node industryNode = oTuple.oNode;
+                NodePositionTuple nodePositionTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
+                Node industryNode = nodePositionTuple.xmlNode;
                 Element assignment = findAssignmentBySecurityIndex(industryNode, security.getIndexInPortfolio() + 1);
                 if (percentage > 0) {
                     // check if assignment already exists and needs to be updated or added
@@ -449,7 +439,7 @@ public class PortfolioDocumentService {
                         updateWeightOfAssignment(assignment, Integer.toString(percentage));
                     } else {
                         // create and add new assignment
-                        assignment = createAssignmentElement(portfolioDocument, ++oTuple.nRank, percentage);
+                        assignment = createAssignmentElement(portfolioDocument, ++nodePositionTuple.position, percentage);
                         Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
                         Element assignments = linkAssignmentsToInvestmentVehicle(industryNode, investmentVehicle, security.getIndexInPortfolio());
                         assignment.appendChild(investmentVehicle);
@@ -467,6 +457,24 @@ public class PortfolioDocumentService {
         logger.info(" - done!");
 
         return importedIndustries;
+    }
+
+    /**
+     *  Collect all names of all industries from the portfolio, put them in a map with key = industryName and value = tuple(xmlNode, position)
+     */
+    private Map<String, NodePositionTuple> mapIndustryNameFromPortfolio2XmlNodePositionTuple(List<Security> allSecurities, Element taxonomyElement) {
+        Map<String, NodePositionTuple> industryNameFromPortfolioToNodeMap = new HashMap<>();
+        NodeList allIndustriesFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
+        for (int indexIndustry = 0; indexIndustry < allIndustriesFromPortfolioNodeList.getLength(); indexIndustry++) {
+            Node industryFromPortfolioNode = allIndustriesFromPortfolioNodeList.item(indexIndustry);
+            if (industryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
+                String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
+                logger.fine("Importing industry " + industryNameFromPortfolio);
+                industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new NodePositionTuple(industryFromPortfolioNode, 0));
+                removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
+            }
+        }
+        return industryNameFromPortfolioToNodeMap;
     }
 
     BestMatch getBestMatch(Collection<String> branchNamesFromPortfolio, String branchNameFromSecurity) {
@@ -515,7 +523,7 @@ public class PortfolioDocumentService {
         Some names from the official data from a security might not fit well into the schema from
         Portfolio Performance (or GICS) and should be "optimized" - some are even misspelled
      */
-    String optimizeIndustryNameFromSecurity(String industryNameFromSecurity) {
+    String optimizeIndustryNameFromSecurity(String industryNameFromSecurity, String isin) {
         String result = industryNameFromSecurity;
         switch (industryNameFromSecurity) {
             case "IT/Telekommunikation":
@@ -600,10 +608,14 @@ public class PortfolioDocumentService {
             default:
                 break;
         }
+        if ("DE0008402215".equalsIgnoreCase(isin)) {
+            // Hannover Rück is classified as "Versicherung" ?!?
+            result = "Rückversicherungen";
+        }
         return result;
     }
 
-    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
+    JsonArray importRegions(Document portfolioDocument, List<Security> activeSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing regions...");
         NodeList allCountriesFromPortfolioList = taxonomyElement.getElementsByTagName("classification");
 
@@ -617,7 +629,7 @@ public class PortfolioDocumentService {
                     countryNameFromPortfolio = "USA";
                 }
                 logger.fine("CountryFromPortfolio " + countryNameFromPortfolio);
-                for (Security security : allSecurities) {
+                for (Security security : activeSecurities) {
                     // potential problem with german umlauts due to different encodings!!!
                     int percentage = (int) Math.round(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
 
@@ -650,7 +662,7 @@ public class PortfolioDocumentService {
             }
         }
         // write logfile
-        for (Security security : allSecurities) {
+        for (Security security : activeSecurities) {
             if (security != null) {
                 StringBuilder countryAssignmentLog = new StringBuilder();
                 for (String country : security.getCountries().keySet()) {
@@ -674,13 +686,13 @@ public class PortfolioDocumentService {
         }
     }
 
-    public static class NodeRankTuple {
-        Node oNode;
-        int nRank;
+    public static class NodePositionTuple {
+        Node xmlNode;
+        int position;
 
-        public NodeRankTuple(Node node, int b) {
-            this.oNode = node;
-            this.nRank = b;
+        public NodePositionTuple(Node xmlNode, int position) {
+            this.xmlNode = xmlNode;
+            this.position = position;
         }
     }
 
@@ -756,11 +768,7 @@ public class PortfolioDocumentService {
                 // there is an assignment from this security to the current industry-node, but should it be removed?
                 boolean found = false;
                 for (String industryNameFromSecurity : security.getIndustries().keySet()) {
-                    String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity);
-                    if ("DE0008402215".equalsIgnoreCase(security.getIsin())) {
-                        // Hannover Rück is classified as "Versicherung" ?!?
-                        optimizedIndustryNameFromSecurity = "Rückversicherungen";
-                    }
+                    String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity, security.getIsin());
                     // skip not matching industries, e.g. "diverse Branchen"
                     if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
 
