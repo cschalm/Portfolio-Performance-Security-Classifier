@@ -249,4 +249,24 @@ public class SecurityServiceTest extends AbstractTest {
         assertEquals(19, noOfPrices);
     }
 
+    @Test
+    public void createSecurityShareInactiveSteinhoffInternational() {
+        SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
+        Security security = service.createSecurity("NL0011375019", 0, false);
+        assertNotNull(security);
+        assertEquals(Share.class, security.getClass());
+        assertEquals("NL0011375019", security.getIsin());
+        assertFalse(security.isActive());
+        assertTrue(security.isShare());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isETF());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
+        assertNotNull(security.getCountries());
+        assertFalse(security.getCountries().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertFalse(security.getHoldings().isEmpty());
+    }
+
 }

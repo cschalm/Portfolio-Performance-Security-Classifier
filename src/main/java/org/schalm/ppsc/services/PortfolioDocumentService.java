@@ -142,7 +142,7 @@ public class PortfolioDocumentService {
             logger.fine("Stockname: " + stockName);
 
             Element existingClassification = findClassificationBySimilarName(childrenElement, stockName);
-            List<Security> existingSecurities = findSecuritiesByHolding(allSecurities, allStockNames, stockName);
+            List<Security> existingSecurities = findSecuritiesByHolding(activeSecurities, allStockNames, stockName);
             if (existingClassification != null && !existingSecurities.isEmpty()) {
                 for (Security existingSecurity : existingSecurities) {
                     int indexOfExistingSecurity = existingSecurity.getIndexInPortfolio();
@@ -180,7 +180,7 @@ public class PortfolioDocumentService {
                 logger.fine("Adding all holdings to " + TAXONOMY_TOPTEN + " for " + stockName);
                 Element assignments = portfolioDocument.createElement("assignments");
                 childrenElement.appendChild(assignments);
-                addAssignmentsToAssignments(portfolioDocument, allSecurities, stockName, importedTopTen, allStockNames, assignments);
+                addAssignmentsToAssignments(portfolioDocument, activeSecurities, stockName, importedTopTen, allStockNames, assignments);
                 // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
                 if (assignments.hasChildNodes()) {
                     Element classificationNodeForStock = createNewClassification(portfolioDocument, stockName, assignments);
@@ -256,9 +256,11 @@ public class PortfolioDocumentService {
         }
         // alternative names
         List<String> alternativeNames = allStockNames.get(stockName);
-        for (String alternativeName : alternativeNames) {
-            if (security.getHoldings().containsKey(alternativeName)) {
-                rank = addTopTenAssignment(portfolioDocument, alternativeName, security, rank, assignments, importedTopTen);
+        if (alternativeNames != null) {
+            for (String alternativeName : alternativeNames) {
+                if (security.getHoldings().containsKey(alternativeName)) {
+                    rank = addTopTenAssignment(portfolioDocument, alternativeName, security, rank, assignments, importedTopTen);
+                }
             }
         }
 

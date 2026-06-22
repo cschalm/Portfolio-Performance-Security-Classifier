@@ -157,9 +157,11 @@ public class SecurityDetails {
                 .getAsJsonObject("company");
         if (jsonObject != null) {
             JsonElement nameCountry = jsonObject.get("nameCountry");
-            String country = nameCountry.getAsString();
-            if (country == null || country.isEmpty()) {
-                if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
+            if (nameCountry != null) {
+                String country = nameCountry.getAsString();
+                if (country == null || country.isEmpty()) {
+                    if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
+                }
             }
             if ("Vereinigte Staaten".equalsIgnoreCase(country)) country = "USA";
         }
