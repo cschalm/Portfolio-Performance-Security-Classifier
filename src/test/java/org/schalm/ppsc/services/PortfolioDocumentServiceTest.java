@@ -33,11 +33,11 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(PortfolioDocumentServiceTest.class.getCanonicalName());
     XmlHelper xmlHelper = new XmlHelper();
     SecurityService securityService = new SecurityService();
-    PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
     SecurityService securityServiceWithCache = new SecurityService(BASE_TEST_PATH + "cache/");
+    PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
 
     private List<Security> loadTestSecurity() throws Exception {
-        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-etf.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         List<Security> securityList = securityService.processSecurities(securityNodes);
         logger.info("Loaded " + securityList.size() + " securities from file");
@@ -45,8 +45,51 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         return securityList;
     }
 
+    private List<Security> getSecurities(String isin, int indexInPortfolio, boolean active) {
+        return getSecuritiesFromService(securityService, isin, indexInPortfolio, active);
+    }
+
+    private List<Security> getCachedSecurities(String isin, int indexInPortfolio, boolean active) {
+        return getSecuritiesFromService(securityServiceWithCache, isin, indexInPortfolio, active);
+    }
+
+    private List<Security> getSecuritiesFromService(SecurityService securityService, String isin, int indexInPortfolio, boolean active) {
+        Security security = securityService.createSecurity(isin, indexInPortfolio, active);
+        assertNotNull(security);
+        List<Security> securities = new ArrayList<>(1);
+        securities.add(security);
+        return securities;
+    }
+
+    private List<Security> getIE000CNSFAR2AndVerifyCountries() {
+        List<Security> securities = getCachedSecurities("IE000CNSFAR2",0, true);
+        Security security = securities.get(0);
+        assertNotNull(security.getCountries());
+        assertEquals(32, security.getCountries().size());
+        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
+        return securities;
+    }
+
+    private List<Security> getIE000CNSFAR2AndVerifyIndustries() {
+        List<Security> securities = getCachedSecurities("IE000CNSFAR2",0, true);
+        Security security = securities.get(0);
+        assertNotNull(security.getIndustries());
+        assertEquals(11, security.getIndustries().size());
+        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
+        return securities;
+    }
+
+    private List<Security> getSecurityAndVerifyHoldings(String isin, int expected) {
+        List<Security> securities = getCachedSecurities(isin, 0, true);
+        Security security = securities.get(0);
+        assertNotNull(security.getHoldings());
+        assertEquals(expected, security.getHoldings().size());
+        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
+        return securities;
+    }
+
     @Test
-    public void testUpdateXml_IE00BYYHSM20() throws Exception {
+    public void testUpdateXml_ETF_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
         List<Security> securities = loadTestSecurity();
 
@@ -59,13 +102,9 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateXml_IE000CNSFAR2() throws Exception {
+    public void testUpdateXml_ETF_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        SecurityService service = new SecurityService();
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurities("IE000CNSFAR2",0, true);
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
@@ -76,13 +115,22 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
+    public void testUpdateXml_inactiveETF_mustNotImportAnything() throws Exception {
+        Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
+        List<Security> securities = getSecurities("IE000CNSFAR2",0, false);
+
+        SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
+
+        portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
+        assertEquals("Countries", 0, securityDetailsCache.getCachedCountries().asList().size());
+        assertEquals("Branches", 0, securityDetailsCache.getCachedIndustries().asList().size());
+        assertEquals("Top 10", 0, securityDetailsCache.getCachedTopTen().asList().size());
+    }
+
+    @Test
     public void testUpdateXml_CommodityGold() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
-        SecurityService service = new SecurityService();
-        Security security = service.createSecurity("XC0009655157", 0, true);
-        assertNotNull(security);
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurities("XC0009655157",0,true);
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/XC0009655157-" + UUID.randomUUID() + ".json");
 
@@ -117,10 +165,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportBranches_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getCachedSecurities("IE000CNSFAR2",0, true);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -158,10 +203,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getCachedSecurities("IE000CNSFAR2",0, true);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -180,10 +222,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        Security security = securityServiceWithCache.createSecurity("IE00BYYHSM20", 0, true);
-        assertNotNull(security);
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getCachedSecurities("IE00BYYHSM20",0, true);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -216,13 +255,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportCountries_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getCountries());
-        assertEquals(32, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -408,13 +441,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Tschechien" to be removed by import
         // "Ungarn" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getCountries());
-        assertEquals(32, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -452,13 +479,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Italien" to add
         // "Portugal" to add
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getCountries());
-        assertEquals(32, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -500,13 +521,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Dänemark" to update
         // "Finnland" to update
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getCountries());
-        assertEquals(32, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -571,13 +586,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Kapitalmärkte" to be removed by import
         // "Software" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getIndustries());
-        assertEquals(11, security.getIndustries().size());
-        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -615,13 +624,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Nicht-Basiskonsumgüter" to add 1092
         // "Basiskonsumgüter" to add 655
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getIndustries());
-        assertEquals(11, security.getIndustries().size());
-        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -663,13 +666,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Gesundheitswesen" to update 1205
         // "Industrie" to update 1113
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getIndustries());
-        assertEquals(11, security.getIndustries().size());
-        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -730,13 +727,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "ABB" to be removed by import
         // "Saia" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -773,13 +764,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntry() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -806,13 +791,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntryAndClassificationFolder() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -840,13 +819,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Alphabet A (Google)" to add 130
         // "Eli Lilly & Co." to add 96
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -887,19 +860,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_FR0007052782_AddWithSimilarName() throws Exception {
         // "LVMH MOET HENNESSY LOUIS VUI" to add 1154
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = new ArrayList<>(2);
-        Security security = securityServiceWithCache.createSecurity("FR0007052782", 0, true);
-        assertNotNull(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("FR0007052782", 10);
+        Security security;
+
+        securities.addAll(getCachedSecurities("IE00B945VV12",1, true));
+        security = securities.get(1);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("IE00B945VV12", 1, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -937,19 +905,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_FR0007052782_AddWithSimilarNameReverseOrder() throws Exception {
         // "LVMH MOET HENNESSY LOUIS VUI" to add 1154
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-FR0007052782.xml");
-        List<Security> securities = new ArrayList<>(2);
-        Security security = securityServiceWithCache.createSecurity("IE00B945VV12", 0, true);
-        assertNotNull(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE00B945VV12", 10);
+        Security security;
+
+        securities.addAll(getCachedSecurities("FR0007052782",1, true));
+        security = securities.get(1);
         assertNotNull(security.getHoldings());
         assertEquals(10, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("FR0007052782", 1, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -991,13 +954,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Meta Platforms Inc." to update 172
         // "Microsoft" to update 462
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        Security security = securityServiceWithCache.createSecurity("IE000CNSFAR2", 0, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(10, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        List<Security> securities = new ArrayList<>(1);
-        securities.add(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -1039,19 +996,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2ExistingClassification() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet2.xml");
-        List<Security> securities = new ArrayList<>(2);
-        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
-        assertNotNull(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("LU1681043599-Alphabet", 2);
+        Security security;
+
+        securities.addAll(getCachedSecurities("IE000CNSFAR2-Alphabet",1, true));
+        security = securities.get(1);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(2, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -1084,19 +1036,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2NewClassification() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet3.xml");
-        List<Security> securities = new ArrayList<>(2);
-        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
-        assertNotNull(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("LU1681043599-Alphabet", 2);
+        Security security;
+
+        securities.addAll(getCachedSecurities("IE000CNSFAR2-Alphabet",1, true));
+        security = securities.get(1);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(2, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -1127,25 +1074,20 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_AlphabetAdd2ExistingClassificationSecondHolding() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Alphabet4.xml");
-        List<Security> securities = new ArrayList<>(2);
-        Security security = securityServiceWithCache.createSecurity("LU1681043599-Alphabet", 0, true);
-        assertNotNull(security);
+        List<Security> securities = getSecurityAndVerifyHoldings("LU1681043599-Alphabet", 2);
+        Security security;
+
+        securities.addAll(getCachedSecurities("IE000CNSFAR2-Alphabet",1, true));
+        security = securities.get(1);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("IE000CNSFAR2-Alphabet", 1, true);
-        assertNotNull(security);
+
+        securities.addAll(getCachedSecurities("DE000A0F5UF5-Alphabet",2, true));
+        security = securities.get(2);
         assertNotNull(security.getHoldings());
         assertEquals(2, security.getHoldings().size());
         logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
-        security = securityServiceWithCache.createSecurity("DE000A0F5UF5-Alphabet", 2, true);
-        assertNotNull(security);
-        assertNotNull(security.getHoldings());
-        assertEquals(2, security.getHoldings().size());
-        logger.info("Holdings from Security: " + security.getHoldings().keySet().stream().sorted().collect(Collectors.toList()));
-        securities.add(security);
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {

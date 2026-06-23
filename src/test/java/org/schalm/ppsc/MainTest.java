@@ -25,7 +25,7 @@ public class MainTest extends AbstractTest {
 
     @Test
     public void addClassificationData() throws IOException, ParserConfigurationException, SAXException {
-        Document document = xmlHelper.readXmlStream("src/test/resources/EtfSecurity.xml");
+        Document document = xmlHelper.readXmlStream("src/test/resources/Security-etf.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         assertNotNull(securityNodes);
         assertEquals(1, securityNodes.getLength());

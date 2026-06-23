@@ -26,7 +26,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void processSecurities() throws IOException, ParserConfigurationException, SAXException {
         SecurityService service = new SecurityService();
-        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "EtfSecurity.xml");
+        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-etf.xml");
         NodeList securityNodes = document.getElementsByTagName("security");
         assertNotNull(securityNodes);
         assertEquals(1, securityNodes.getLength());
