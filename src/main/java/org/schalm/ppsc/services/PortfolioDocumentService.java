@@ -142,7 +142,7 @@ public class PortfolioDocumentService {
             logger.fine("Stockname: " + stockName);
 
             Element existingClassification = findClassificationBySimilarName(childrenElement, stockName);
-            List<Security> existingSecurities = findSecuritiesByHolding(activeSecurities, allStockNames, stockName);
+            List<Security> existingSecurities = findSecuritiesByHolding(activeSecurities, activeStockNames, stockName);
             if (existingClassification != null && !existingSecurities.isEmpty()) {
                 for (Security existingSecurity : existingSecurities) {
                     int indexOfExistingSecurity = existingSecurity.getIndexInPortfolio();

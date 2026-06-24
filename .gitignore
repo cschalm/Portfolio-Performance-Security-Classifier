@@ -99,3 +99,12 @@ nb-configuration.xml
 /src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.xml
 /src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.settings
 /src/main/resources/portfolio_performance_file/Portfolio-Performance-Result.backup-after-open.xml
+/src/test/resources/classification-topten-IE000CNSFAR2-Inactive-Security-RESULT.xml
+/src/test/resources/Portfolio Performance Single Commodity.backup-after-open.xml
+/src/test/resources/Portfolio Performance Single Commodity.settings
+/src/test/resources/Portfolio Performance Single Commodity-Result.backup-after-open.xml
+/src/test/resources/Portfolio Performance Single Commodity-Result.settings
+/src/test/resources/Portfolio Performance Single Commodity-Result.xml
+/src/test/resources/cache/XC0009655157-type.txt
+/src/test/resources/cache/XC0009655157.txt
+/src/test/resources/cache/XC0009655157.json
