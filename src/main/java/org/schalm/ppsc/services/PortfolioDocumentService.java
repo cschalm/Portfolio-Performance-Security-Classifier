@@ -111,12 +111,12 @@ public class PortfolioDocumentService {
                             String reference = investmentVehicle.getAttribute("reference");
                             if (reference.isEmpty()) continue;
                             if (reference.endsWith("securities/security")) {
-                                indexSecurityToCheck = 0;
+                                indexSecurityToCheck = 1;
                             } else {
                                 String foundIndex = reference.substring(reference.indexOf('[') + 1, reference.indexOf(']'));
                                 indexSecurityToCheck = Integer.parseInt(foundIndex);
                             }
-                            if (indexSecurityToCheck < 0 || indexSecurityToCheck >= allSecurities.size()) continue;
+                            if (indexSecurityToCheck < 0 || indexSecurityToCheck > allSecurities.size() + 1) continue;
                             int finalIndexSecurityToCheck = indexSecurityToCheck;
                             Optional<Security> security = allSecurities.stream().filter(s -> s.getIndexInPortfolio() == finalIndexSecurityToCheck).findFirst();
                             if (security.isPresent() && !(security.get().isActive() && hasSecurityHolding(security.get(), allStockNames, topTenNameFromPortfolio))) {
@@ -146,7 +146,7 @@ public class PortfolioDocumentService {
             if (existingClassification != null && !existingSecurities.isEmpty()) {
                 for (Security existingSecurity : existingSecurities) {
                     int indexOfExistingSecurity = existingSecurity.getIndexInPortfolio();
-                    List<Element> existingAssignmentsList = findAssignmentsBySecurityIndex(existingClassification, indexOfExistingSecurity + 1);
+                    List<Element> existingAssignmentsList = findAssignmentsBySecurityIndex(existingClassification, indexOfExistingSecurity);
                     if (!existingAssignmentsList.isEmpty()) {
                         // update existing or add additional assignments
                         List<Integer> allPercentagesOfHoldingsForSecurityByStockname = getAllPercentagesOfHoldingsForSecurityByStockname(existingSecurity, allStockNames, stockName);
@@ -286,7 +286,10 @@ public class PortfolioDocumentService {
         if (!found) {
             Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
             investmentVehicle.setAttribute("class", "security");
-            investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (security.getIndexInPortfolio() + 1) + "]");
+            if (security.getIndexInPortfolio() == 1)
+                investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security");
+            else
+                investmentVehicle.setAttribute("reference", "../../../../../../../../securities/security[" + (security.getIndexInPortfolio()) + "]");
 
             Element assignment = createAssignmentElement(portfolioDocument, rank, percentage);
             assignment.appendChild(investmentVehicle);
@@ -386,7 +389,7 @@ public class PortfolioDocumentService {
     boolean isNameSimilar(String one, String two) {
         final int LEVENSHTEINDISTANCELIMIT = 15;
         Integer levenshteinDistanceLowerCase = distance.apply(one.toLowerCase(), two.toLowerCase());
-        logger.fine("Distance of \"" + one + "\" and \"" + two + "\": " + levenshteinDistanceLowerCase);
+        logger.finer("Distance of \"" + one + "\" and \"" + two + "\": " + levenshteinDistanceLowerCase);
         if (levenshteinDistanceLowerCase <= 1) {
             return true;
         }
@@ -396,7 +399,7 @@ public class PortfolioDocumentService {
             int inputNameLength = one.length();
             int existingNameLength = two.length();
             int shorterNameLength = Math.min(inputNameLength, existingNameLength);
-            logger.fine("IndexOfDifference of \"" + one + "\" and \"" + two + "\": " + indexOfDifferenceLowerCase + ", shorterNameLength: " + shorterNameLength);
+            logger.finer("IndexOfDifference of \"" + one + "\" and \"" + two + "\": " + indexOfDifferenceLowerCase + ", shorterNameLength: " + shorterNameLength);
             if (shorterNameLength <= indexOfDifferenceLowerCase) {
                 // real subsets of names are identical, e.g. "SAP" and "SAP SE"
                 return true;
@@ -441,7 +444,7 @@ public class PortfolioDocumentService {
 
                 NodePositionTuple nodePositionTuple = industryNameFromPortfolioToNodeMap.get(bestMatch.bestMatchingIndustryName);
                 Node industryNode = nodePositionTuple.xmlNode;
-                Element assignment = findAssignmentBySecurityIndex(industryNode, security.getIndexInPortfolio() + 1);
+                Element assignment = findAssignmentBySecurityIndex(industryNode, security.getIndexInPortfolio());
                 if (percentage > 0) {
                     // check if assignment already exists and needs to be updated or added
                     if (assignment != null) {
@@ -449,7 +452,7 @@ public class PortfolioDocumentService {
                         updateWeightOfAssignment(assignment, Integer.toString(percentage));
                     } else {
                         // create and add new assignment
-                        assignment = createAssignmentElement(portfolioDocument, ++nodePositionTuple.position, percentage);
+                        assignment = createAssignmentElement(portfolioDocument, nodePositionTuple.position, percentage);
                         Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
                         Element assignments = linkAssignmentsToInvestmentVehicle(industryNode, investmentVehicle, security.getIndexInPortfolio());
                         assignment.appendChild(investmentVehicle);
@@ -470,7 +473,7 @@ public class PortfolioDocumentService {
     }
 
     /**
-     *  Collect all names of all industries from the portfolio, put them in a map with key = industryName and value = tuple(xmlNode, position)
+     * Collect all names of all industries from the portfolio, put them in a map with key = industryName and value = tuple(xmlNode, position)
      */
     private Map<String, NodePositionTuple> mapIndustryNameFromPortfolio2XmlNodePositionTuple(List<Security> allSecurities, Element taxonomyElement) {
         Map<String, NodePositionTuple> industryNameFromPortfolioToNodeMap = new HashMap<>();
@@ -480,7 +483,7 @@ public class PortfolioDocumentService {
             if (industryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                 String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
                 logger.fine("Importing industry " + industryNameFromPortfolio);
-                industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new NodePositionTuple(industryFromPortfolioNode, 0));
+                industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new NodePositionTuple(industryFromPortfolioNode, 1));
                 removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
             }
         }
@@ -517,7 +520,10 @@ public class PortfolioDocumentService {
         assert assignments != null;
         int stepsToRoot = returnRootSteps(assignments) + 3;
 
-        investmentVehicle.setAttribute("reference", "../".repeat(stepsToRoot) + "securities/security[" + (indexOfSecurity + 1) + "]");
+        if (indexOfSecurity == 1)
+            investmentVehicle.setAttribute("reference", "../".repeat(stepsToRoot) + "securities/security");
+        else
+            investmentVehicle.setAttribute("reference", "../".repeat(stepsToRoot) + "securities/security[" + indexOfSecurity + "]");
         investmentVehicle.setAttribute("class", "security");
 
         return assignments;
@@ -643,7 +649,7 @@ public class PortfolioDocumentService {
                     // potential problem with german umlauts due to different encodings!!!
                     int percentage = (int) Math.round(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
 
-                    Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, security.getIndexInPortfolio() + 1);
+                    Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, security.getIndexInPortfolio());
                     if (percentage == 0) {
                         // maybe this holding was contained before, so check if we have to remove it from this country
                         if (assignment != null)

@@ -117,6 +117,29 @@
             <isRetired>false</isRetired>
             <updatedAt>2024-02-29T19:43:29.531423900Z</updatedAt>
         </security>
+        <security>
+            <uuid>19ac302a-6e30-455c-abe7-81bb119b61fe</uuid>
+            <name>Xtrackers Stoxx Global Select Dividend 100 Swap UCITS ETF 1D</name>
+            <currencyCode>EUR</currencyCode>
+            <isin>LU0292096186</isin>
+            <tickerSymbol>XGSD.DE</tickerSymbol>
+            <wkn>DBX1DG</wkn>
+            <feed>YAHOO</feed>
+            <prices>
+                <price t="2024-04-02" v="1167800000"/>
+                <price t="2024-04-03" v="1169800000"/>
+            </prices>
+            <latest t="2024-04-03" v="1169800000">
+                <high>-1</high>
+                <low>-1</low>
+                <volume>-1</volume>
+            </latest>
+            <attributes>
+            </attributes>
+            <events/>
+            <isRetired>false</isRetired>
+            <updatedAt>2024-02-29T19:43:29.531423900Z</updatedAt>
+        </security>
     </securities>
     <watchlists/>
     <accounts>
@@ -152,6 +175,12 @@
                                                    reference="../../../../../../../../securities/security[2]"/>
                                 <weight>350</weight>
                                 <rank>2</rank>
+                            </assignment>
+                            <assignment>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[6]"/>
+                                <weight>550</weight>
+                                <rank>3</rank>
                             </assignment>
                         </assignments>
                         <weight>10000</weight>
