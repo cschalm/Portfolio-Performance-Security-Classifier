@@ -53,7 +53,7 @@ public class PortfolioDocumentService {
 
                     if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                         // if there is an entry in the cache-file, nothing is imported !!!
-                        JsonArray importedRegions = importRegions(portfolioDocument, activeSecurities, taxonomyElement);
+                        JsonArray importedRegions = importRegions(portfolioDocument, allSecurities, taxonomyElement);
                         securityDetailsCache.setCachedCountries(importedRegions);
                     }
 
@@ -483,7 +483,7 @@ public class PortfolioDocumentService {
             Node industryFromPortfolioNode = allIndustriesFromPortfolioNodeList.item(indexIndustry);
             if (industryFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                 String industryNameFromPortfolio = xmlHelper.getTextContent((Element) industryFromPortfolioNode, "name");
-                logger.fine("Importing industry " + industryNameFromPortfolio);
+//                logger.fine("Importing industry " + industryNameFromPortfolio);
                 industryNameFromPortfolioToNodeMap.put(industryNameFromPortfolio, new NodePositionTuple(industryFromPortfolioNode, 1));
                 removeOrphanIndustryAssignment(industryFromPortfolioNode, industryNameFromPortfolio, allSecurities);
             }
@@ -632,7 +632,7 @@ public class PortfolioDocumentService {
         return result;
     }
 
-    JsonArray importRegions(Document portfolioDocument, List<Security> activeSecurities, Element taxonomyElement) throws FileNotFoundException {
+    JsonArray importRegions(Document portfolioDocument, List<Security> allSecurities, Element taxonomyElement) throws FileNotFoundException {
         logger.info("Importing regions...");
         NodeList allCountriesFromPortfolioList = taxonomyElement.getElementsByTagName("classification");
 
@@ -646,41 +646,43 @@ public class PortfolioDocumentService {
                     countryNameFromPortfolio = "USA";
                 }
                 logger.fine("CountryFromPortfolio " + countryNameFromPortfolio);
-                for (Security security : activeSecurities) {
+                for (Security security : allSecurities) {
                     // potential problem with german umlauts due to different encodings!!!
                     int percentage = (int) Math.round(security.getPercentageOfCountry(countryNameFromPortfolio) * 100.0);
 
                     Element assignment = findAssignmentBySecurityIndex(countryFromPortfolioNode, security.getIndexInPortfolio());
-                    if (percentage == 0) {
+                    if (percentage == 0 || !security.isActive()) {
                         // maybe this holding was contained before, so check if we have to remove it from this country
                         if (assignment != null)
                             assignment.getParentNode().removeChild(assignment);
                     } else {
                         // check if assignment already exists and needs to be updated or added
-                        if (assignment != null) {
-                            // update
-                            updateWeightOfAssignment(assignment, Integer.toString(percentage));
-                        } else {
-                            // create and add new assignment
-                            assignment = createAssignmentElement(portfolioDocument, rank, percentage);
+                        if (security.isActive()) {
+                            if (assignment != null) {
+                                // update
+                                updateWeightOfAssignment(assignment, Integer.toString(percentage));
+                            } else {
+                                // create and add new assignment
+                                assignment = createAssignmentElement(portfolioDocument, rank, percentage);
 
-                            Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
-                            Element assignments = linkAssignmentsToInvestmentVehicle(countryFromPortfolioNode, investmentVehicle, security.getIndexInPortfolio());
-                            assignment.appendChild(investmentVehicle);
-                            assignments.appendChild(assignment);
+                                Element investmentVehicle = portfolioDocument.createElement("investmentVehicle");
+                                Element assignments = linkAssignmentsToInvestmentVehicle(countryFromPortfolioNode, investmentVehicle, security.getIndexInPortfolio());
+                                assignment.appendChild(investmentVehicle);
+                                assignments.appendChild(assignment);
 
-                            JsonObject securityJsonObject = createSecurityJson(countryNameFromPortfolio, security.getIsin(), percentage);
-                            importedRegions.add(securityJsonObject);
+                                JsonObject securityJsonObject = createSecurityJson(countryNameFromPortfolio, security.getIsin(), percentage);
+                                importedRegions.add(securityJsonObject);
 
-                            rank++;
+                                rank++;
+                            }
                         }
                     }
                 }
             }
         }
         // write logfile
-        for (Security security : activeSecurities) {
-            if (security != null) {
+        for (Security security : allSecurities) {
+            if (security != null && security.isActive()) {
                 StringBuilder countryAssignmentLog = new StringBuilder();
                 for (String country : security.getCountries().keySet()) {
                     int nPercentage = (int) Math.round(security.getPercentageOfCountry(country) * 100.0);
@@ -779,19 +781,21 @@ public class PortfolioDocumentService {
 
     void removeOrphanIndustryAssignment(Node industryFromPortfolio, String industryNameFromPortfolio, List<Security> allSecurities) {
         for (Security security : allSecurities) {
-            logger.fine("Security: " + security);
-            Element assignment = findAssignmentBySecurityIndex(industryFromPortfolio, security.getIndexInPortfolio() + 1);
+//            logger.fine("Security: " + security);
+            Element assignment = findAssignmentBySecurityIndex(industryFromPortfolio, security.getIndexInPortfolio());
             if (assignment != null) {
                 // there is an assignment from this security to the current industry-node, but should it be removed?
                 boolean found = false;
-                for (String industryNameFromSecurity : security.getIndustries().keySet()) {
-                    String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity, security.getIsin());
-                    // skip not matching industries, e.g. "diverse Branchen"
-                    if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
+                if (security.isActive()) {
+                    for (String industryNameFromSecurity : security.getIndustries().keySet()) {
+                        String optimizedIndustryNameFromSecurity = optimizeIndustryNameFromSecurity(industryNameFromSecurity, security.getIsin());
+                        // skip not matching industries, e.g. "diverse Branchen"
+                        if (optimizedIndustryNameFromSecurity.isEmpty()) continue;
 
-                    if (isNameSimilar(industryNameFromPortfolio, optimizedIndustryNameFromSecurity)) {
-                        found = true;
-                        break;
+                        if (isNameSimilar(industryNameFromPortfolio, optimizedIndustryNameFromSecurity)) {
+                            found = true;
+                            break;
+                        }
                     }
                 }
                 if (!found) {

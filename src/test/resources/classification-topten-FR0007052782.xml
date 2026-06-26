@@ -1160,7 +1160,7 @@
 						<children/>
 						<assignments>
 							<assignment>
-								<investmentVehicle class="security" reference="../../../../../../../../securities/security"/>
+								<investmentVehicle class="security" reference="../../../../../../../../securities/security[2]"/>
 								<weight>190</weight>
 								<rank>0</rank>
 							</assignment>
