@@ -679,7 +679,7 @@
 						<assignments>
 							<assignment>
 								<investmentVehicle class="security" reference="../../../../../../../../securities/security[8]"/>
-								<weight>96</weight>
+								<weight>95</weight>
 								<rank>0</rank>
 							</assignment>
 							<assignment>

@@ -883,6 +883,8 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertNull(assignment);
 
                     JsonArray importedBranches = portfolioDocumentService.importCompanyRatio(portfolioDocument, securities, securities, taxonomyElement);
+//                    XmlFileWriter xmlFileWriter = new XmlFileWriter();
+//                    xmlFileWriter.writeXml(portfolioDocument, BASE_TEST_PATH + "classification-topten-IE000CNSFAR2-RESULT.xml");
                     assertEquals(3, importedBranches.size());
 
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(amazon, 1);
@@ -1228,6 +1230,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportTopTen_MetaPlatforms_DoNotChangeNameOfExistingGrouping() throws Exception {
         // there is already a group called "Meta Platforms Inc." and this should not change by re-calculating the top 10
+        final String CLASSIFICATION_META = "Meta Platforms Inc.";
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-Meta.xml");
 
         Security msciWorldEtfT = new ETF("LU1681043599", 1, true);
@@ -1274,14 +1277,14 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 Element taxonomyElement = (Element) taxonomyNode;
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals(TAXONOMY_TOPTEN)) {
-                    Element meta = portfolioDocumentService.findClassificationByName(taxonomyElement, "Meta Platforms Inc.");
+                    Element meta = portfolioDocumentService.findClassificationByName(taxonomyElement, CLASSIFICATION_META);
                     Element assignment = portfolioDocumentService.findAssignmentBySecurityIndex(meta, 1);
                     assertNotNull(assignment);
 
                     JsonArray importedTopTen = portfolioDocumentService.importCompanyRatio(portfolioDocument, allSecurities, activeSecurities, taxonomyElement);
                     assertEquals(3, importedTopTen.size());
 
-                    meta = portfolioDocumentService.findClassificationByName(taxonomyElement, "Meta Platforms Inc.");
+                    meta = portfolioDocumentService.findClassificationByName(taxonomyElement, CLASSIFICATION_META);
                     assertNotNull(meta);
 
                     NodeList assignments = taxonomyElement.getElementsByTagName("assignment");

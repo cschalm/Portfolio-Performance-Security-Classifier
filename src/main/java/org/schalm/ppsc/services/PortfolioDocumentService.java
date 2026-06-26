@@ -144,6 +144,7 @@ public class PortfolioDocumentService {
             Element existingClassification = findClassificationBySimilarName(childrenElement, stockName);
             List<Security> existingSecurities = findSecuritiesByHolding(activeSecurities, activeStockNames, stockName);
             if (existingClassification != null && !existingSecurities.isEmpty()) {
+                String topTenNameFromPortfolio = xmlHelper.getTextContent((Element) existingClassification, "name");
                 for (Security existingSecurity : existingSecurities) {
                     int indexOfExistingSecurity = existingSecurity.getIndexInPortfolio();
                     List<Element> existingAssignmentsList = findAssignmentsBySecurityIndex(existingClassification, indexOfExistingSecurity);
@@ -155,12 +156,13 @@ public class PortfolioDocumentService {
                             if (existingAssignmentsList.size() > index) {
                                 // update EXISTING assignment
                                 Element existingAssignment = existingAssignmentsList.get(index);
-                                logger.fine("Updating " + TAXONOMY_TOPTEN + " " + stockName + " with " + existingSecurity + ": " + percentage);
+                                logger.fine("Updating " + TAXONOMY_TOPTEN + " " + topTenNameFromPortfolio + " with " + existingSecurity + ": " + percentage);
                                 updateWeightOfAssignment(existingAssignment, Integer.toString(percentage));
                             } else {
                                 // add NEW assignment
-                                logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " " + stockName + ": " + percentage);
+                                logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " " + topTenNameFromPortfolio + ": " + percentage);
                                 Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
+//                                addTopTenAssignment(portfolioDocument, topTenNameFromPortfolio, existingSecurity, 0, assignments, importedTopTen, percentage);
                                 addTopTenAssignment(portfolioDocument, stockName, existingSecurity, 0, assignments, importedTopTen, percentage);
                             }
                         }
@@ -171,8 +173,9 @@ public class PortfolioDocumentService {
                             assignments = portfolioDocument.createElement("assignments");
                             childrenElement.appendChild(assignments);
                         }
-                        logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " for " + stockName);
-                        addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, allStockNames, assignments, 0);
+                        logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " for " + topTenNameFromPortfolio);
+//                        addAssignmentToAssignments(portfolioDocument, existingSecurity, topTenNameFromPortfolio, importedTopTen, activeStockNames, assignments, 0);
+                        addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, activeStockNames, assignments, 0);
                     }
                 }
             } else {
@@ -180,7 +183,7 @@ public class PortfolioDocumentService {
                 logger.fine("Adding all holdings to " + TAXONOMY_TOPTEN + " for " + stockName);
                 Element assignments = portfolioDocument.createElement("assignments");
                 childrenElement.appendChild(assignments);
-                addAssignmentsToAssignments(portfolioDocument, activeSecurities, stockName, importedTopTen, allStockNames, assignments);
+                addAssignmentsToAssignments(portfolioDocument, activeSecurities, stockName, importedTopTen, activeStockNames, assignments);
                 // only add classification if it has assignments; no assignments happen, if the ETF were added in previous runs and is written into the save file
                 if (assignments.hasChildNodes()) {
                     Element classificationNodeForStock = createNewClassification(portfolioDocument, stockName, assignments);

@@ -106,8 +106,8 @@ public abstract class Security {
     @Override
     public String toString() {
         if (name != null)
-            return isin + ": " + name;
-        return isin;
+            return isin + ": " + name + " (i: " + indexInPortfolio + ", a: " + (isActive() ? "t" : "f") + ")";
+        return isin + "(i: " + indexInPortfolio + ", a: " + (isActive() ? "t" : "f") + ")";
     }
 
     public abstract boolean isETF();
