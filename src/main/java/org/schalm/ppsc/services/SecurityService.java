@@ -35,7 +35,8 @@ public class SecurityService {
     public List<Security> processSecurities(NodeList allSecurities) {
         List<Security> securities = new ArrayList<>();
         for (int i = 0; i < allSecurities.getLength(); i++) {
-            Security security = processSecurity((Element) allSecurities.item(i), i);
+            // index in portfolio perfdrmance starts at 1!
+            Security security = processSecurity((Element) allSecurities.item(i), i + 1);
             if (security != null) securities.add(security);
         }
         securities.sort(new Security.SecurityComparator());

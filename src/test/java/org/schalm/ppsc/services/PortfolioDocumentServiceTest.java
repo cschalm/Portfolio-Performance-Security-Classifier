@@ -3,10 +3,7 @@ package org.schalm.ppsc.services;
 import com.google.gson.JsonArray;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.schalm.ppsc.models.ETF;
-import org.schalm.ppsc.models.Security;
-import org.schalm.ppsc.models.SecurityDetailsCache;
-import org.schalm.ppsc.models.Share;
+import org.schalm.ppsc.models.*;
 import org.schalm.ppsc.xml.XmlFileReader;
 import org.schalm.ppsc.xml.XmlFileWriter;
 import org.schalm.ppsc.xml.XmlHelper;
@@ -37,17 +34,121 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     SecurityService securityServiceWithCache = new SecurityService(BASE_TEST_PATH + "cache/");
     PortfolioDocumentService portfolioDocumentService = new PortfolioDocumentService();
 
-    private List<Security> loadTestSecurity() throws Exception {
-        Document document = xmlHelper.readXmlStream(BASE_TEST_PATH + "Security-etf.xml");
-        NodeList securityNodes = document.getElementsByTagName("security");
-        List<Security> securityList = securityService.processSecurities(securityNodes);
-        logger.info("Loaded " + securityList.size() + " securities from file");
-
-        return securityList;
+    private List<Security> createTestSecurityEtfIE00BYYHSM20() {
+        Security security = new ETF("IE00BYYHSM20", 1, true);
+        Map<String, Double> holdings = security.getHoldings();
+        holdings.put("ABB", 2.88);
+        holdings.put("Novo Nordisk", 4.83);
+        holdings.put("SAP", 4.0);
+        holdings.put("Lonza Group", 2.72);
+        holdings.put("Zurich Insurance Group", 2.68);
+        holdings.put("AXA", 2.67);
+        holdings.put("Diageo", 2.71);
+        holdings.put("Schneider Electric", 3.43);
+        holdings.put("Relx Plc", 2.89);
+        holdings.put("ASML Holding", 4.29);
+        Map<String, Double> industries = security.getIndustries();
+        industries.put("Industrie", 14.06);
+        industries.put("Informationstechnologie", 11.61);
+        industries.put("Versorgungsbetriebe", 9.24);
+        industries.put("Gesundheitswesen", 8.32);
+        industries.put("Roh-, Hilfs- & Betriebsstoffe", 6.63);
+        industries.put("Energie", 2.27);
+        industries.put("Finanzwesen", 27.91);
+        industries.put("Basiskonsumgüter", 15.06);
+        industries.put("Immobilien", 3.77);
+        Map<String, Double> countries = security.getCountries();
+        countries.put("Großbritannien", 19.35);
+        countries.put("Belgien", 19.35);
+        countries.put("Norwegen", 19.35);
+        countries.put("Spanien", 19.35);
+        countries.put("Österreich", 19.35);
+        countries.put("Dänemark", 19.35);
+        countries.put("Schweiz", 19.35);
+        countries.put("Deutschland", 19.35);
+        countries.put("Frankreich", 19.35);
+        countries.put("Niederlande", 19.35);
+        countries.put("Finnland", 19.35);
+        countries.put("Schweden", 19.35);
+        countries.put("Italien", 19.35);
+        countries.put("Irland", 19.35);
+        return List.of(security);
     }
 
-    private List<Security> getSecurities(String isin, int indexInPortfolio, boolean active) {
-        return getSecuritiesFromService(securityService, isin, indexInPortfolio, active);
+    private List<Security> createTestSecurityEtfIE000CNSFAR2() {
+        Security security = new ETF("IE000CNSFAR2", 1, true);
+        Map<String, Double> holdings = security.getHoldings();
+        holdings.put("Meta Platforms (ehem. Facebook)", 1.72);
+        holdings.put("Nvidia", 3.09);
+        holdings.put("Apple", 4.2);
+        holdings.put("Alphabet A (Google)", 1.3);
+        holdings.put("Tesla", 0.91);
+        holdings.put("Microsoft", 4.62);
+        holdings.put("Alphabet C (Google)", 1.14);
+        holdings.put("Amazon", 2.6);
+        holdings.put("Broadcom", 0.91);
+        holdings.put("Eli Lilly and Company", 0.96);
+        Map<String, Double> industries = security.getIndustries();
+        industries.put("Industrie", 11.13);
+        industries.put("Informationstechnologie", 24.11);
+        industries.put("Telekommunikationsdienste", 7.42);
+        industries.put("Gesundheitswesen", 12.05);
+        industries.put("Nicht-Basiskonsumgüter", 10.92);
+        industries.put("Roh-, Hilfs- & Betriebsstoffe", 3.8);
+        industries.put("Versorgungsbetriebe", 2.37);
+        industries.put("Energie", 4.24);
+        industries.put("Finanzwesen", 15.12);
+        industries.put("Basiskonsumgüter", 6.55);
+        industries.put("Immobilien", 2.28);
+        Map<String, Double> countries = security.getCountries();
+        countries.put("Großbritannien", 2.78);
+        countries.put("USA", 72.43);
+        countries.put("Kanada", 3.37);
+        countries.put("Belgien", 0.28);
+        countries.put("Singapur", 0.4);
+        countries.put("Norwegen", 0.16);
+        countries.put("Japan", 5.71);
+        countries.put("Spanien", 0.93);
+        countries.put("Hongkong", 0.46);
+        countries.put("Österreich", 0.08);
+        countries.put("Portugal", 0.05);
+        countries.put("Dänemark", 0.41);
+        countries.put("Schweiz", 2.25);
+        countries.put("Neuseeland", 0.05);
+        countries.put("Australien", 1.59);
+        countries.put("Frankreich", 2.39);
+        countries.put("Deutschland", 2.18);
+        countries.put("Niederlande", 1.37);
+        countries.put("Finnland", 0.31);
+        countries.put("Schweden", 0.87);
+        countries.put("Israel", 0.28);
+        countries.put("Italien", 0.8);
+        countries.put("Irland", 0.11);
+        return List.of(security);
+    }
+
+    private List<Security> createTestSecurityEtfLU1681043599Alphabet() {
+        Security security = new ETF("LU1681043599-Alphabet", 1, true);
+        Map<String, Double> holdings = security.getHoldings();
+        holdings.put("ALPHABET INC CL A", 3.22);
+        holdings.put("ALPHABET INC CL C", 3.11);
+        return List.of(security);
+    }
+
+    private List<Security> createTestSecurityEtfIE000CNSFAR2Alphabet() {
+        Security security = new ETF("IE000CNSFAR2-Alphabet", 1, true);
+        Map<String, Double> holdings = security.getHoldings();
+        holdings.put("Alphabet A (Google)", 1.11);
+        holdings.put("Alphabet C (Google)", 1.22);
+        return List.of(security);
+    }
+
+    private List<Security> createTestSecurityEtfDE000A0F5UF5Alphabet() {
+        Security security = new ETF("DE000A0F5UF5-Alphabet", 1, true);
+        Map<String, Double> holdings = security.getHoldings();
+        holdings.put("Alphabet A (Google)", 2.11);
+        holdings.put("Alphabet C (Google)", 2.22);
+        return List.of(security);
     }
 
     private List<Security> getCachedSecurities(String isin, int indexInPortfolio, boolean active) {
@@ -59,24 +160,6 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         assertNotNull(security);
         List<Security> securities = new ArrayList<>(1);
         securities.add(security);
-        return securities;
-    }
-
-    private List<Security> getIE000CNSFAR2AndVerifyCountries() {
-        List<Security> securities = getCachedSecurities("IE000CNSFAR2", 1, true);
-        Security security = securities.get(0);
-        assertNotNull(security.getCountries());
-        assertEquals(32, security.getCountries().size());
-        logger.info("Countries from Security: " + security.getCountries().keySet().stream().sorted().collect(Collectors.toList()));
-        return securities;
-    }
-
-    private List<Security> getIE000CNSFAR2AndVerifyIndustries() {
-        List<Security> securities = getCachedSecurities("IE000CNSFAR2", 1, true);
-        Security security = securities.get(0);
-        assertNotNull(security.getIndustries());
-        assertEquals(11, security.getIndustries().size());
-        logger.info("Industries from Security: " + security.getIndustries().keySet().stream().sorted().collect(Collectors.toList()));
         return securities;
     }
 
@@ -92,7 +175,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testUpdateXml_ETF_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = loadTestSecurity();
+        List<Security> securities = createTestSecurityEtfIE00BYYHSM20();
 
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE00BYYHSM20-" + UUID.randomUUID() + ".json");
 
@@ -105,8 +188,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testUpdateXml_ETF_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = getSecurities("IE000CNSFAR2", 0, true);
-
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
@@ -118,8 +200,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testUpdateXml_inactiveETF_mustNotImportAnything() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = getSecurities("IE000CNSFAR2", 0, false);
-
+        List<Security> securities = List.of(new ETF("IE000CNSFAR2", 0, false));
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/IE000CNSFAR2-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
@@ -131,8 +212,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testUpdateXml_CommodityGold() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single Commodity.xml");
-        List<Security> securities = getSecurities("XC0009655157", 0, true);
-
+        List<Security> securities = List.of(new Commodity("XC0009655157", 0, true));
         SecurityDetailsCache securityDetailsCache = new SecurityDetailsCache(BASE_TARGET_PATH + "test-classes/XC0009655157-" + UUID.randomUUID() + ".json");
 
         portfolioDocumentService.updateXml(portfolioDocument, securities, securityDetailsCache);
@@ -147,7 +227,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportBranches_IE00BYYHSM20() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = loadTestSecurity();
+        List<Security> securities = createTestSecurityEtfIE00BYYHSM20();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -256,7 +336,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testImportCountries_IE000CNSFAR2() throws Exception {
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "Portfolio Performance Single.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -266,7 +346,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                 String taxonomyName = xmlHelper.getTextContent(taxonomyElement, "name");
                 if (taxonomyName.equals(TAXONOMY_REGIONS)) {
                     JsonArray importedCountries = portfolioDocumentService.importRegions(portfolioDocument, securities, taxonomyElement);
-                    assertEquals(32, importedCountries.size());
+                    assertEquals(23, importedCountries.size());
                 }
             }
         }
@@ -479,7 +559,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Tschechien" to be removed by import
         // "Ungarn" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -517,7 +597,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Italien" to add
         // "Portugal" to add
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -545,10 +625,10 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertEquals("278", getWeightOfAssignment(assignment));
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(italien, 1);
                     assertNotNull(assignment);
-                    assertEquals("62", getWeightOfAssignment(assignment));
+                    assertEquals("80", getWeightOfAssignment(assignment));
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(portugal, 1);
                     assertNotNull(assignment);
-                    assertEquals("4", getWeightOfAssignment(assignment));
+                    assertEquals("5", getWeightOfAssignment(assignment));
                 }
             }
         }
@@ -559,7 +639,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Dänemark" to update
         // "Finnland" to update
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-country-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyCountries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -589,10 +669,10 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertEquals("278", getWeightOfAssignment(assignment));
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(daenemark, 1);
                     assertNotNull(assignment);
-                    assertEquals("92", getWeightOfAssignment(assignment));
+                    assertEquals("41", getWeightOfAssignment(assignment));
                     assignment = portfolioDocumentService.findAssignmentBySecurityIndex(finnland, 1);
                     assertNotNull(assignment);
-                    assertEquals("27", getWeightOfAssignment(assignment));
+                    assertEquals("31", getWeightOfAssignment(assignment));
                 }
             }
         }
@@ -625,7 +705,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Kapitalmärkte" to be removed by import
         // "Software" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -667,7 +747,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Nicht-Basiskonsumgüter" to add 1092
         // "Basiskonsumgüter" to add 655
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -709,7 +789,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Gesundheitswesen" to update 1205
         // "Industrie" to update 1113
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-industry-IE000CNSFAR2.xml");
-        List<Security> securities = getIE000CNSFAR2AndVerifyIndustries();
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -770,7 +850,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "ABB" to be removed by import
         // "Saia" to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -807,7 +887,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntry() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -834,7 +914,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     public void testImportTopTen_IE000CNSFAR2_RemoveOnlyOneEntryAndClassificationFolder() throws Exception {
         // nothing to be removed by import
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -862,7 +942,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Alphabet A (Google)" to add 130
         // "Eli Lilly & Co." to add 96
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {
@@ -1002,7 +1082,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
         // "Meta Platforms Inc." to update 172
         // "Microsoft" to update 462
         Document portfolioDocument = xmlHelper.readXmlStream(BASE_TEST_PATH + "classification-topten-IE000CNSFAR2.xml");
-        List<Security> securities = getSecurityAndVerifyHoldings("IE000CNSFAR2", 10);
+        List<Security> securities = createTestSecurityEtfIE000CNSFAR2();
 
         NodeList listOfTaxonomies = portfolioDocument.getElementsByTagName("taxonomy");
         for (int i = 0; i < listOfTaxonomies.getLength(); i++) {

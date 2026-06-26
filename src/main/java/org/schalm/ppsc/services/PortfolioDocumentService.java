@@ -91,18 +91,18 @@ public class PortfolioDocumentService {
         } else {
             // remove orphan Unternehmensgewichtung assignments
             NodeList allTopTenFromPortfolioNodeList = taxonomyElement.getElementsByTagName("classification");
-            logger.fine("Found " + allTopTenFromPortfolioNodeList.getLength() + " classifications");
+            logger.finer("Found " + allTopTenFromPortfolioNodeList.getLength() + " classifications");
             for (int indexTopTen = 0; indexTopTen < allTopTenFromPortfolioNodeList.getLength(); indexTopTen++) {
-                logger.fine("Found " + allTopTenFromPortfolioNodeList.getLength() + " classifications");
+                logger.finer("Found " + allTopTenFromPortfolioNodeList.getLength() + " classifications");
                 Node topTenFromPortfolioNode = allTopTenFromPortfolioNodeList.item(indexTopTen);
                 if (topTenFromPortfolioNode.getNodeType() == Node.ELEMENT_NODE) {
                     String topTenNameFromPortfolio = xmlHelper.getTextContent((Element) topTenFromPortfolioNode, "name");
                     // check for each assignment if the corresponding stock still exists in portfolio
                     NodeList assignments = ((Element) topTenFromPortfolioNode).getElementsByTagName("assignment");
-                    logger.fine("Number of Assignments for " + topTenNameFromPortfolio + ": " + assignments.getLength());
+                    logger.finer("Number of Assignments for " + topTenNameFromPortfolio + ": " + assignments.getLength());
                     int indexSecurityToCheck;
                     for (int indexAssignments = 0; indexAssignments < assignments.getLength(); indexAssignments++) {
-                        logger.fine("Number of Assignments for " + topTenNameFromPortfolio + ": " + assignments.getLength());
+                        logger.finer("Number of Assignments for " + topTenNameFromPortfolio + ": " + assignments.getLength());
                         Node assignment = assignments.item(indexAssignments);
                         if (assignment.getNodeType() == Node.ELEMENT_NODE) {
                             Element investmentVehicle = xmlHelper.getFirstChildElementWithNodeName(assignment, "investmentVehicle");
@@ -162,7 +162,6 @@ public class PortfolioDocumentService {
                                 // add NEW assignment
                                 logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " " + topTenNameFromPortfolio + ": " + percentage);
                                 Element assignments = xmlHelper.getFirstChildElementWithNodeName(existingClassification, "assignments");
-//                                addTopTenAssignment(portfolioDocument, topTenNameFromPortfolio, existingSecurity, 0, assignments, importedTopTen, percentage);
                                 addTopTenAssignment(portfolioDocument, stockName, existingSecurity, 0, assignments, importedTopTen, percentage);
                             }
                         }
@@ -173,8 +172,7 @@ public class PortfolioDocumentService {
                             assignments = portfolioDocument.createElement("assignments");
                             childrenElement.appendChild(assignments);
                         }
-                        logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " for " + topTenNameFromPortfolio);
-//                        addAssignmentToAssignments(portfolioDocument, existingSecurity, topTenNameFromPortfolio, importedTopTen, activeStockNames, assignments, 0);
+                        logger.fine("Adding " + existingSecurity + " to " + TAXONOMY_TOPTEN + " for " + stockName);
                         addAssignmentToAssignments(portfolioDocument, existingSecurity, stockName, importedTopTen, activeStockNames, assignments, 0);
                     }
                 }
@@ -192,7 +190,7 @@ public class PortfolioDocumentService {
             }
         }
         // write logfile
-        for (Security security : allSecurities) {
+        for (Security security : activeSecurities) {
             StringBuilder holdingAssignmentLog = new StringBuilder();
             for (String holding : security.getHoldings().keySet()) {
                 int nPercentage = getPercentageOfHolding(security, holding);

@@ -34,6 +34,10 @@ public class SecurityServiceTest extends AbstractTest {
         List<Security> securityList = service.processSecurities(securityNodes);
         assertNotNull(securityList);
         assertEquals(1, securityList.size());
+        Security security = securityList.get(0);
+        assertEquals(1, security.getIndexInPortfolio());
+        assertTrue(security.isETF());
+        assertTrue(security.isActive());
     }
 
     @Test
@@ -47,6 +51,10 @@ public class SecurityServiceTest extends AbstractTest {
         List<Security> securityList = service.processSecurities(securityNodes);
         assertNotNull(securityList);
         assertEquals(1, securityList.size());
+        Security security = securityList.get(0);
+        assertEquals(1, security.getIndexInPortfolio());
+        assertTrue(security.isShare());
+        assertFalse(security.isActive());
     }
 
     @Test
@@ -62,6 +70,8 @@ public class SecurityServiceTest extends AbstractTest {
         assertEquals(2, securityList.size());
         assertEquals(1, securityList.stream().filter(Security::isActive).count());
         assertEquals(1, securityList.stream().filter(security -> !security.isActive()).count());
+        assertEquals(1, securityList.stream().filter(Security::isActive).findFirst().get().getIndexInPortfolio());
+        assertEquals(2, securityList.stream().filter(security -> !security.isActive()).findFirst().get().getIndexInPortfolio());
     }
 
     @Test
@@ -87,7 +97,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityShare() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("DE000TUAG505", 0, true);
+        Security security = service.createSecurity("DE000TUAG505", 1, true);
         assertNotNull(security);
         assertEquals(Share.class, security.getClass());
         assertEquals("DE000TUAG505", security.getIsin());
@@ -107,7 +117,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityCommodityGold() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("XC0009655157", 0, true);
+        Security security = service.createSecurity("XC0009655157", 1, true);
         assertNotNull(security);
         assertEquals(Commodity.class, security.getClass());
         assertEquals("XC0009655157", security.getIsin());
@@ -125,17 +135,9 @@ public class SecurityServiceTest extends AbstractTest {
     }
 
     @Test
-    public void getMappedPercentageForNode() {
-    }
-
-    @Test
-    public void getHoldingPercentageMap() {
-    }
-
-    @Test
     public void createSecurityEtfMsciWorld() {
         SecurityService service = new SecurityService(BASE_TEST_PATH + "cache/");
-        Security security = service.createSecurity("IE000CNSFAR2", 0, true);
+        Security security = service.createSecurity("IE000CNSFAR2", 1, true);
         assertNotNull(security);
         assertEquals(ETF.class, security.getClass());
         assertEquals("IE000CNSFAR2", security.getIsin());
@@ -155,7 +157,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityShareAres() {
         SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
-        Security security = service.createSecurity("US04010L1035", 0, true);
+        Security security = service.createSecurity("US04010L1035", 1, true);
         assertNotNull(security);
         assertEquals(Share.class, security.getClass());
         assertEquals("US04010L1035", security.getIsin());
@@ -175,7 +177,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityShareInactive() {
         SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
-        Security security = service.createSecurity("US04010L1035", 0, false);
+        Security security = service.createSecurity("US04010L1035", 1, false);
         assertNotNull(security);
         assertEquals(Share.class, security.getClass());
         assertEquals("US04010L1035", security.getIsin());
@@ -252,7 +254,7 @@ public class SecurityServiceTest extends AbstractTest {
     @Test
     public void createSecurityShareInactiveSteinhoffInternational() {
         SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
-        Security security = service.createSecurity("NL0011375019", 0, false);
+        Security security = service.createSecurity("NL0011375019", 1, false);
         assertNotNull(security);
         assertEquals(Share.class, security.getClass());
         assertEquals("NL0011375019", security.getIsin());
