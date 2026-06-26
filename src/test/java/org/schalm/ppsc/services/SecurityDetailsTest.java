@@ -3,17 +3,17 @@ package org.schalm.ppsc.services;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.junit.Test;
 import org.schalm.ppsc.models.SecurityDetailsCache;
 import org.schalm.ppsc.models.SecurityType;
-import org.junit.Test;
 import org.schalm.test.AbstractTest;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 import static org.junit.Assert.*;
+import static org.schalm.ppsc.constants.PathConstants.BASE_TARGET_PATH;
 
 public class SecurityDetailsTest extends AbstractTest {
     private static final Logger logger = Logger.getLogger(SecurityDetailsTest.class.getCanonicalName());

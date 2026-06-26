@@ -1,12 +1,12 @@
 package org.schalm.ppsc;
 
-import org.schalm.ppsc.models.Security;
 import org.junit.Test;
+import org.schalm.ppsc.models.Security;
+import org.schalm.ppsc.xml.XmlHelper;
 import org.schalm.test.AbstractTest;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.schalm.ppsc.xml.XmlHelper;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

@@ -1,197 +1,195 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <client>
-        
+
     <version>59</version>
-        
+
     <baseCurrency>EUR</baseCurrency>
-        
+
     <securities>
-                
+
         <security>
-                        
+
             <uuid>19ac302a-6e30-455c-abe7-81bb119b61ee</uuid>
-                        
+
             <name>Amundi MSCI World UCITS ETF DR - USD (D)</name>
-                        
+
             <currencyCode>EUR</currencyCode>
-                        
+
             <isin>IE000CNSFAR2</isin>
-                        
+
             <tickerSymbol>MWOE.DE</tickerSymbol>
-                        
+
             <wkn>A3DH0A</wkn>
-                        
+
             <feed>YAHOO</feed>
-                        
+
             <prices>
-                                
+
                 <price t="2024-04-02" v="1167800000"/>
-                                
+
                 <price t="2024-04-03" v="1169800000"/>
-                            
+
             </prices>
-                        
+
             <latest t="2024-04-03" v="1169800000">
-                                
+
                 <high>-1</high>
-                                
+
                 <low>-1</low>
-                                
+
                 <volume>-1</volume>
-                            
+
             </latest>
-                        
+
             <attributes/>
-                        
+
             <events>
-                                
+
                 <dividendEvent>
-                                        
+
                     <date>2024-02-14</date>
-                                        
+
                     <type>DIVIDEND_PAYMENT</type>
-                                        
+
                     <paymentDate>2024-02-16</paymentDate>
-                                        
+
                     <amount amount="18" currency="USD"/>
-                                        
+
                     <source>divvydiary.com</source>
-                                    
+
                 </dividendEvent>
-                            
+
             </events>
-                        
+
             <isRetired>false</isRetired>
-                        
+
             <updatedAt>2024-02-29T19:43:29.531423900Z</updatedAt>
-                    
+
         </security>
-                
+
         <security>
-                        
+
             <uuid>90918d7f-5d3b-4659-a4ff-fe4d522ffbad</uuid>
-                        
+
             <name>Steinhoff International Holdings N.V.</name>
-                        
+
             <currencyCode>EUR</currencyCode>
-                        
+
             <isin>NL0011375019</isin>
-                        
+
             <tickerSymbol>SNH.F</tickerSymbol>
-                        
+
             <wkn>A14XB9</wkn>
-                        
+
             <feed>YAHOO</feed>
-                        
+
             <prices>
-                                
+
                 <price t="2023-10-10" v="100000"/>
-                                
+
                 <price t="2023-10-11" v="100000"/>
-                                
+
                 <price t="2023-10-12" v="100000"/>
-                                
+
                 <price t="2023-10-13" v="100000"/>
-                            
+
             </prices>
-                        
+
             <latest t="2023-10-10" v="100000">
-                                
+
                 <high>-1</high>
-                                
+
                 <low>-1</low>
-                                
+
                 <volume>-1</volume>
-                            
+
             </latest>
-                        
+
             <attributes>
-                                
+
                 <map>
-                                        
+
                     <entry>
-                                                
+
                         <string>logo</string>
-                                                
+
                         <string>
                             data:image/png;base64,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
                         </string>
-                                            
+
                     </entry>
-                                    
+
                 </map>
-                            
+
             </attributes>
-                        
+
             <events>
-                                
+
                 <dividendEvent>
-                                        
+
                     <date>2017-03-16</date>
-                                        
+
                     <type>DIVIDEND_PAYMENT</type>
-                                        
+
                     <paymentDate>2017-03-20</paymentDate>
-                                        
+
                     <amount amount="15" currency="EUR"/>
-                                        
+
                     <source>divvydiary.com</source>
-                                    
+
                 </dividendEvent>
-                                
+
                 <dividendEvent>
-                                        
+
                     <date>2016-12-01</date>
-                                        
+
                     <type>DIVIDEND_PAYMENT</type>
-                                        
+
                     <paymentDate>2016-12-06</paymentDate>
-                                        
+
                     <amount amount="12" currency="EUR"/>
-                                        
+
                     <source>divvydiary.com</source>
-                                    
+
                 </dividendEvent>
-                            
+
             </events>
-                        
+
             <isRetired>true</isRetired>
-                        
+
             <updatedAt>2023-10-25T17:42:57.254065500Z</updatedAt>
-                    
+
         </security>
-            
+
     </securities>
-        
+
     <watchlists/>
-        
+
     <accounts/>
-        
+
     <portfolios/>
-        
+
     <plans/>
-        
+
     <taxonomies>
-                
+
         <taxonomy>
-                        
+
             <id>d1d32dd6-09dc-447e-b43a-a235d5e362b0</id>
-                        
+
             <name>Unternehmensgewichtung</name>
-                        
+
             <root>
-                                
+
                 <id>543c55d1-e3ac-4f2c-b382-e2d7ac0b45c3</id>
-                                
+
                 <name>Unternehmensgewichtung</name>
-                                
+
                 <color>#a4c4f5</color>
-                                
+
                 <children>
-                                        
-                    
-                    
-                
+
+
                     <classification>
                         <id>73ad0a30-9cba-4b16-bded-beb2e46f59b1</id>
                         <name>Apple</name>
@@ -202,7 +200,8 @@
                             <assignment>
                                 <weight>2000</weight>
                                 <rank>0</rank>
-                                <investmentVehicle class="security" reference="../../../../../../../../securities/security[1]"/>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[1]"/>
                             </assignment>
                         </assignments>
                         <weight>10000</weight>
@@ -218,717 +217,723 @@
                             <assignment>
                                 <weight>1800</weight>
                                 <rank>0</rank>
-                                <investmentVehicle class="security" reference="../../../../../../../../securities/security[1]"/>
+                                <investmentVehicle class="security"
+                                                   reference="../../../../../../../../securities/security[1]"/>
                             </assignment>
                         </assignments>
                         <weight>10000</weight>
                         <rank>0</rank>
                     </classification>
                 </children>
-                                
+
                 <assignments/>
-                                
+
                 <weight>10000</weight>
-                                
+
                 <rank>0</rank>
-                            
+
             </root>
-                    
+
         </taxonomy>
-            
+
     </taxonomies>
-        
+
     <dashboards/>
-        
+
     <properties>
-                
+
         <entry>
-                        
+
             <string>security-chart-details</string>
-                        
+
             <string>
                 SCALING_LINEAR,INVESTMENT,DIVIDENDS,EVENTS,FLOATINGAVGPURCHASE,SMA_50DAYS,SMA_200DAYS,SHOW_MAIN_HORIZONTAL_LINES
             </string>
-                    
+
         </entry>
-            
+
     </properties>
-        
+
     <settings>
-                
+
         <bookmarks>
-                        
+
             <bookmark>
-                                
+
                 <label>Finanzfluss</label>
-                                
+
                 <pattern>https://www.finanzfluss.de/informer/etf/{isin}/</pattern>
-                            
+
             </bookmark>
-                    
+
         </bookmarks>
-                
+
         <attributeTypes>
-                        
+
             <attribute-type>
-                                
+
                 <id>ter</id>
-                                
+
                 <name>Gesamtkostenquote (TER)</name>
-                                
+
                 <columnLabel>TER</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.Double</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>aum</id>
-                                
+
                 <name>Fondsgröße</name>
-                                
+
                 <columnLabel>Fondsgröße</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.Long</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$AmountPlainConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>vendor</id>
-                                
+
                 <name>Anbieter</name>
-                                
+
                 <columnLabel>Anbieter</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.String</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$StringConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>acquisitionFee</id>
-                                
+
                 <name>Kaufgebühr (prozentual)</name>
-                                
+
                 <columnLabel>Kaufgebühr</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.Double</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>managementFee</id>
-                                
+
                 <name>Verwaltungsgebühr (prozentual)</name>
-                                
+
                 <columnLabel>Verwaltungsgebühr</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.Double</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$PercentConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>logo</id>
-                                
+
                 <name>Logo</name>
-                                
+
                 <columnLabel>Logo</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Security</target>
-                                
+
                 <type>java.lang.String</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>logo</id>
-                                
+
                 <name>Logo</name>
-                                
+
                 <columnLabel>Logo</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Account</target>
-                                
+
                 <type>java.lang.String</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>logo</id>
-                                
+
                 <name>Logo</name>
-                                
+
                 <columnLabel>Logo</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.Portfolio</target>
-                                
+
                 <type>java.lang.String</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
-                            
+
             </attribute-type>
-                        
+
             <attribute-type>
-                                
+
                 <id>logo</id>
-                                
+
                 <name>Logo</name>
-                                
+
                 <columnLabel>Logo</columnLabel>
-                                
+
                 <target>name.abuchen.portfolio.model.InvestmentPlan</target>
-                                
+
                 <type>java.lang.String</type>
-                                
+
                 <converterClass>name.abuchen.portfolio.model.AttributeType$ImageConverter</converterClass>
-                            
+
             </attribute-type>
-                    
+
         </attributeTypes>
-                
+
         <configurationSets>
-                        
+
             <entry>
-                                
+
                 <string>StatementOfAssetsHistoryView-PICKER</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>72cad49a-97bb-47c3-b74c-c799bdd8a805</uuid>
-                                                        
+
                             <name>Gesamt</name>
-                                                        
+
                             <data>
                                 ClientFilter2eb3c2d1-428f-42de-af40-891a4372a00d;#80ff80;SOLID;true;2,Client-absolute_delta_all_records;#ff0000;SOLID;false;2,Client-absolute_invested_capital;#c0c0c0;SOLID;true;2,Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;false;2,Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;false;2,Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff8040;SOLID;false;2,Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#ff00ff;SOLID;false;2,Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>f20912de-02b2-475d-96b7-d155c6d38525</uuid>
-                                                        
+
                             <name>DKB</name>
-                                                        
+
                             <data>
                                 Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0000ff;SOLID;true;2,Security55a7d7fd-6d70-4814-802f-cdd35037e73b;#80ff80;SOLID;false;2,Security8b5d3c4c-7e32-4b48-9db0-27d624495d7c;#80ffff;SOLID;false;2,Security6777031c-7b0a-4a92-832a-1cbb384b15e0;#ff80c0;SOLID;false;2,Security2429f614-0358-440e-8c35-76a3f3c471b3;#ff0000;SOLID;false;2,Securityc039e0ca-4e40-4fda-8a30-ae56cf93f0e9;#0080ff;SOLID;false;2,Securityca41cf3f-fb90-4291-98b3-3d39830b18f3;#7991e2;SOLID;false;2,Security19ac302a-6e30-455c-abe7-81bb119b61ee;#000000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>18c59e83-c21d-4ddd-8394-68b3350e5ee4</uuid>
-                                                        
+
                             <name>WeltSparen</name>
-                                                        
+
                             <data>
                                 Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff0000;SOLID;true;2,Securitye4f17bb6-8ead-4fa7-9fd0-69c181654a94;#ffff00;SOLID;false;2,Security14971bd6-46ed-46af-9920-a21d96165fbd;#7ce279;SOLID;false;2,Securityee56b095-889b-4c58-8c8f-8ae81cadc2f2;#0080ff;SOLID;false;2,Securityaf9e0be8-21b0-4c4a-96b4-54cfe70bde53;#ff00ff;SOLID;false;2,Securityb25dae77-b5a4-4a4d-aab7-851eb0106b9a;#000000;SOLID;false;2,Security1ddc9b96-8269-4a59-81ab-be6b8a0e402c;#ff8000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>c837641e-dacf-46ce-b8de-e8ded4514053</uuid>
-                                                        
+
                             <name>Trade Republic</name>
-                                                        
+
                             <data>
                                 Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;true;2,Security1dfdbf1f-0b89-4de2-8384-24ee76f019ce;#e28b79;SOLID;false;2,Security9fbdac56-b087-4ab0-a92b-5ef53d0101e4;#e2b579;SOLID;false;2,Securityb8a5958b-ad8d-4ba0-8906-3e8feaa6cf5b;#ffff80;SOLID;false;2,Security38f1fc15-2ade-4e5b-b8cf-254a39a506a1;#8b79e2;SOLID;false;2,Security39c2efc9-d40f-4d66-8f63-f242c06e6d4e;#0080ff;SOLID;false;2,Securityff601225-2862-4cb6-b2b3-3492d29b9c60;#e2a079;SOLID;false;2,Security1f7fc942-36ff-496d-875a-83e35e81da1c;#ca79e2;SOLID;false;2,Securitya469ff89-6f29-41e0-a3cd-fbfc15f182c3;#80ffff;SOLID;false;2,Security01a460d8-c4d7-41d5-9516-3a0eab213f7a;#b579e2;SOLID;false;2,Securitydd51535c-23a7-4c34-9c28-4697329f42e7;#ff0000;SOLID;false;2,Security26bfdca2-53cc-494c-ad83-aa5c77476c39;#e27991;SOLID;false;2,Securityb76957cd-ae27-4dab-bf92-1f6338747f98;#e279a6;SOLID;false;2,Securityae646cc4-06c2-4e5c-a2f7-edb0de1a724a;#e2df79;SOLID;false;2,Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff80;SOLID;false;2,Securityabc56d40-232b-4a82-a05f-b1b1dcc164d8;#ff8080;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>6ddfb866-1207-42f5-bcb3-e27c98a28389</uuid>
-                                                        
+
                             <name>Finanzen.net Zero</name>
-                                                        
+
                             <data>
                                 Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;true;2,Security19b59beb-3536-412d-ac5c-c82fdc4b3957;#000000;SOLID;false;2,Securitydcca00f9-e46d-4413-bb70-fcf8139b67b1;#a079e2;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>2443a83c-d12b-46a1-9bdb-124ef2f7eb94</uuid>
-                                                        
+
                             <name>Vanguard</name>
-                                                        
+
                             <data>
                                 Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;true;2,Security1f3232e2-6b44-499d-bb4c-4427ff9b9f19;#008040;SOLID;false;2,Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
+
                 <string>ReturnsVolatilityChartView-PICKER</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>2ccb6a50-5025-4ad4-99fb-4a421999f7c8</uuid>
-                                                        
+
                             <name>Standard</name>
-                                                        
+
                             <data>
                                 Client-totals;#000000;SOLID;false;2,Classification2d2ced2f-e21f-444a-906e-38184bfd9219;#0000ff;SOLID;false;2,Classificationf5f27ecf-5d49-4396-a840-df0a63b737a8;#ff0000;SOLID;false;2,Classificationa7396834-be78-4d72-be42-ffe7ee4b3ffd;#00ff40;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
+
                 <string>name.abuchen.portfolio.ui.views.SecuritiesPerformanceView</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>37bf955d-4864-496d-baae-d055d71a25ad</uuid>
-                                                        
+
                             <name>Gesamt</name>
-                                                        
-                            <data>{"items":[{"id":"shares","width":56},{"id":"name","sortDirection":128,"width":433},{"id":"pv","width":116},{"id":"pp","width":115},{"id":"quote","width":58},{"id":"mv","width":66},{"id":"capitalgainsmvavg","width":114},{"id":"capitalgainsmvavg%","width":126},{"id":"dcount","width":36},{"id":"sumdiv","width":62},{"id":"d%mvavg","width":72},{"id":"delta","width":83},{"id":"izf","width":77},{"id":"delta%","width":80},{"id":"dperiod","width":85}]}</data>
-                                                    
+
+                            <data>
+                                {"items":[{"id":"shares","width":56},{"id":"name","sortDirection":128,"width":433},{"id":"pv","width":116},{"id":"pp","width":115},{"id":"quote","width":58},{"id":"mv","width":66},{"id":"capitalgainsmvavg","width":114},{"id":"capitalgainsmvavg%","width":126},{"id":"dcount","width":36},{"id":"sumdiv","width":62},{"id":"d%mvavg","width":72},{"id":"delta","width":83},{"id":"izf","width":77},{"id":"delta%","width":80},{"id":"dperiod","width":85}]}
+                            </data>
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
+
                 <string>PerformanceChartView-PICKER</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>2855ce6c-2a23-4036-b0e8-3eff67ed6dbf</uuid>
-                                                        
+
                             <name>Gesamt</name>
-                                                        
+
                             <data>
                                 Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;false;2,Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;false;2,Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff8000;SOLID;false;2,Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;false;2,Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#ff0000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>b653a510-e7e9-474b-8736-da827fa31e97</uuid>
-                                                        
+
                             <name>Benchmarks</name>
-                                                        
+
                             <data>
                                 [b]Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2,[b]Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff00;SOLID;false;2,Client-totals;#000000;SOLID;false;2,[b]Security2429f614-0358-440e-8c35-76a3f3c471b3;#0080ff;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>ff73f902-afed-409c-b7ef-cf4dbb3b546a</uuid>
-                                                        
+
                             <name>Wertpapierart</name>
-                                                        
+
                             <data>
                                 Classification2d2ced2f-e21f-444a-906e-38184bfd9219;#0000ff;SOLID;false;2,Classificationf5f27ecf-5d49-4396-a840-df0a63b737a8;#ff0000;SOLID;false;2,Classificationa7396834-be78-4d72-be42-ffe7ee4b3ffd;#ffff00;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>8b66a708-3590-4c1e-98f0-dc9c99af70d3</uuid>
-                                                        
+
                             <name>DKB</name>
-                                                        
+
                             <data>
                                 Portfolio9470d992-4896-4ac9-b930-a360a89ddb51;#0080ff;SOLID;true;2,Security55a7d7fd-6d70-4814-802f-cdd35037e73b;#80ff80;SOLID;false;2,Security8b5d3c4c-7e32-4b48-9db0-27d624495d7c;#80ffff;SOLID;false;2,Security6777031c-7b0a-4a92-832a-1cbb384b15e0;#ff80c0;SOLID;false;2,Security2429f614-0358-440e-8c35-76a3f3c471b3;#ff0000;SOLID;false;2,Securityc039e0ca-4e40-4fda-8a30-ae56cf93f0e9;#0080ff;SOLID;false;2,Securityca41cf3f-fb90-4291-98b3-3d39830b18f3;#7991e2;SOLID;false;2,Security19ac302a-6e30-455c-abe7-81bb119b61ee;#000000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>eddc3c31-c680-492b-9a8c-8a464d18b462</uuid>
-                                                        
+
                             <name>Trade Republic</name>
-                                                        
+
                             <data>
                                 Portfolio7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e;#000000;SOLID;true;2,Security1dfdbf1f-0b89-4de2-8384-24ee76f019ce;#e27991;SOLID;false;2,Security9fbdac56-b087-4ab0-a92b-5ef53d0101e4;#e2b579;SOLID;false;2,Securityb8a5958b-ad8d-4ba0-8906-3e8feaa6cf5b;#ffff80;SOLID;false;2,Security39c2efc9-d40f-4d66-8f63-f242c06e6d4e;#0080ff;SOLID;false;2,Security38f1fc15-2ade-4e5b-b8cf-254a39a506a1;#c0c0c0;SOLID;false;2,Securityff601225-2862-4cb6-b2b3-3492d29b9c60;#e28b79;SOLID;false;2,Securityabc56d40-232b-4a82-a05f-b1b1dcc164d8;#ff8000;SOLID;false;2,Securitya469ff89-6f29-41e0-a3cd-fbfc15f182c3;#80ffff;SOLID;false;2,Security1f7fc942-36ff-496d-875a-83e35e81da1c;#8b79e2;SOLID;false;2,Security01a460d8-c4d7-41d5-9516-3a0eab213f7a;#b579e2;SOLID;false;2,Securitydd51535c-23a7-4c34-9c28-4697329f42e7;#ff0000;SOLID;false;2,Security26bfdca2-53cc-494c-ad83-aa5c77476c39;#e279d0;SOLID;false;2,Securityb76957cd-ae27-4dab-bf92-1f6338747f98;#ca79e2;SOLID;false;2,Securityae646cc4-06c2-4e5c-a2f7-edb0de1a724a;#e2df79;SOLID;false;2,Securityf77c242b-966d-48a9-b7f1-12f3f379b7b6;#80ff80;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>04dbf88a-038a-45fd-ba01-12796cdf5497</uuid>
-                                                        
+
                             <name>WeltSparen</name>
-                                                        
+
                             <data>
                                 Portfoliobb7a86a0-6a7a-4d92-8e57-f71026bee171;#ff0000;SOLID;true;2,Securitye4f17bb6-8ead-4fa7-9fd0-69c181654a94;#79bbe2;SOLID;false;2,Security14971bd6-46ed-46af-9920-a21d96165fbd;#797ce2;SOLID;false;2,Securityee56b095-889b-4c58-8c8f-8ae81cadc2f2;#79d0e2;SOLID;false;2,Securityaf9e0be8-21b0-4c4a-96b4-54cfe70bde53;#7991e2;SOLID;false;2,Securityb25dae77-b5a4-4a4d-aab7-851eb0106b9a;#8b79e2;SOLID;false;2,Security1ddc9b96-8269-4a59-81ab-be6b8a0e402c;#79a6e2;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>a2cb172c-ffe5-43b0-91cb-5179da621425</uuid>
-                                                        
+
                             <name>Finanzen.net Zero</name>
-                                                        
+
                             <data>
                                 Portfolioc49f7988-be89-48aa-8471-07c166be52b2;#91e279;SOLID;true;2,Security19b59beb-3536-412d-ac5c-c82fdc4b3957;#000000;SOLID;false;2,Securitydcca00f9-e46d-4413-bb70-fcf8139b67b1;#e2a079;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>18411762-cb6d-4152-8a32-48878128a21d</uuid>
-                                                        
+
                             <name>Vanguard</name>
-                                                        
+
                             <data>
                                 Portfolioe87bcf88-6d35-4a3d-adf8-39691c73adaf;#800000;SOLID;true;2,Security1f3232e2-6b44-499d-bb4c-4427ff9b9f19;#91e279;SOLID;false;2,Security1881f84f-6ea3-46cc-9d73-b0f1952b7581;#ff0000;SOLID;false;2
                             </data>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
+
                 <string>name.abuchen.portfolio.ui.views.SecuritiesTable</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>0fe3f231-f834-437d-bf1f-7825cfe6a746</uuid>
-                                                        
+
                             <name>alle</name>
-                                                        
-                            <data>{"items":[{"id":"0","sortDirection":128,"width":445},{"id":"1","width":100},{"id":"7","width":80},{"id":"2","width":109},{"id":"4","width":83},{"id":"currency","width":68},{"id":"5","width":75},{"id":"changeonpreviousamount","width":80},{"id":"9","width":106},{"id":"delta-w-period","option":"Z","width":95},{"id":"note","width":454}]}</data>
-                                                    
-                        </config>
-                                            
-                    </configurations>
-                                    
-                </config-set>
-                            
-            </entry>
-                        
-            <entry>
-                                
-                <string>reporting-periods</string>
-                                
-                <config-set>
-                                        
-                    <configurations>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>L1Y0</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>L2Y0</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>L3Y0</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>L4Y0</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>X</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>B</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>E</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>S2019-07-01</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>T1</data>
-                                                    
-                        </config>
-                                                
-                        <config>
-                                                        
-                            <uuid/>
-                                                        
-                            <name/>
-                                                        
-                            <data>Z</data>
-                                                    
-                        </config>
-                                            
-                    </configurations>
-                                    
-                </config-set>
-                            
-            </entry>
-                        
-            <entry>
-                                
-                <string>name.abuchen.portfolio.ui.views.StatementOfAssetsViewer</string>
-                                
-                <config-set>
-                                        
-                    <configurations>
-                                                
-                        <config>
-                                                        
-                            <uuid>e43dcb0c-02dd-42a0-ae2e-5f29bad2b47c</uuid>
-                                                        
-                            <name>Gesamt</name>
-                                                        
-                            <data>{"items":[{"id":"0","width":57},{"id":"1","sortDirection":128,"width":432},{"id":"3","width":97},{"id":"2","width":92},{"id":"6","width":69},{"id":"ppmvavg","width":118},{"id":"4","width":56},{"id":"baseCurrency","width":61},{"id":"pvmvavg","width":120},{"id":"5","width":80},{"id":"9","width":99},{"id":"sumdiv","option":"X","width":144},{"id":"sumdiv","option":"L4Y0","width":75},{"id":"d%mvavg","option":"L4Y0","width":75},{"id":"d%mvavg","option":"X","width":72},{"id":"d%mvavg","option":"L1Y0","width":80}]}
+
+                            <data>
+                                {"items":[{"id":"0","sortDirection":128,"width":445},{"id":"1","width":100},{"id":"7","width":80},{"id":"2","width":109},{"id":"4","width":83},{"id":"currency","width":68},{"id":"5","width":75},{"id":"changeonpreviousamount","width":80},{"id":"9","width":106},{"id":"delta-w-period","option":"Z","width":95},{"id":"note","width":454}]}
                             </data>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
-                <string>client-filter-definitions</string>
-                                
+
+                <string>reporting-periods</string>
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>L1Y0</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>L2Y0</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>L3Y0</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>L4Y0</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>X</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>B</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>E</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>S2019-07-01</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>T1</data>
+
+                        </config>
+
+                        <config>
+
+                            <uuid/>
+
+                            <name/>
+
+                            <data>Z</data>
+
+                        </config>
+
+                    </configurations>
+
+                </config-set>
+
+            </entry>
+
+            <entry>
+
+                <string>name.abuchen.portfolio.ui.views.StatementOfAssetsViewer</string>
+
+                <config-set>
+
+                    <configurations>
+
+                        <config>
+
+                            <uuid>e43dcb0c-02dd-42a0-ae2e-5f29bad2b47c</uuid>
+
+                            <name>Gesamt</name>
+
+                            <data>
+                                {"items":[{"id":"0","width":57},{"id":"1","sortDirection":128,"width":432},{"id":"3","width":97},{"id":"2","width":92},{"id":"6","width":69},{"id":"ppmvavg","width":118},{"id":"4","width":56},{"id":"baseCurrency","width":61},{"id":"pvmvavg","width":120},{"id":"5","width":80},{"id":"9","width":99},{"id":"sumdiv","option":"X","width":144},{"id":"sumdiv","option":"L4Y0","width":75},{"id":"d%mvavg","option":"L4Y0","width":75},{"id":"d%mvavg","option":"X","width":72},{"id":"d%mvavg","option":"L1Y0","width":80}]}
+                            </data>
+
+                        </config>
+
+                    </configurations>
+
+                </config-set>
+
+            </entry>
+
+            <entry>
+
+                <string>client-filter-definitions</string>
+
+                <config-set>
+
+                    <configurations>
+
+                        <config>
+
                             <uuid>2eb3c2d1-428f-42de-af40-891a4372a00d</uuid>
-                                                        
+
                             <name>Alle Depots</name>
-                                                        
+
                             <data>
                                 9470d992-4896-4ac9-b930-a360a89ddb51,c49f7988-be89-48aa-8471-07c166be52b2,7fc2fbdc-7b5f-4e5c-bfcc-2d99d907b53e,bb7a86a0-6a7a-4d92-8e57-f71026bee171,e87bcf88-6d35-4a3d-adf8-39691c73adaf
                             </data>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                        
+
             <entry>
-                                
+
                 <string>client-filter-selection</string>
-                                
+
                 <config-set>
-                                        
+
                     <configurations>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>PaymentsViewModel</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data/>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>StatementOfAssetsView</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>HoldingsPieChartView</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>TaxonomyView-75e0d985-afeb-4c96-809c-4c590fedeb25</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>TaxonomyView-dd795aed-d551-4207-8c53-7e66c33e41a9</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data>2eb3c2d1-428f-42de-af40-891a4372a00d</data>
-                                                    
+
                         </config>
-                                                
+
                         <config>
-                                                        
+
                             <uuid>PerformanceView</uuid>
-                                                        
+
                             <name/>
-                                                        
+
                             <data/>
-                                                    
+
                         </config>
-                                            
+
                     </configurations>
-                                    
+
                 </config-set>
-                            
+
             </entry>
-                    
+
         </configurationSets>
-            
+
     </settings>
-    
+
 </client>

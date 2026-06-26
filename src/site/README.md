@@ -16,10 +16,9 @@ German below
 
 - Examples in the `portfolio_performance_file_example` folder.
 
-
-|              Regionen              |              Top10              |
-|:----------------------------------:|:-------------------------------:|
-| ![Regions](examples/regionen.png)  |  ![Top Ten](examples/top10.png) |
+|             Regionen              |             Top10              |
+|:---------------------------------:|:------------------------------:|
+| ![Regions](examples/regionen.png) | ![Top Ten](examples/top10.png) |
 
 |                 Branchen (GICS)                  |
 |:------------------------------------------------:|
@@ -89,7 +88,8 @@ German below
 4. run
 
 At the first start it is normal that
-the [Save file](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import) is not present and everything
+the [Save file](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import) is not present
+and everything
 should be imported.
 
 This save file prevents duplicate entries from being created in later executions (however, a new entry will be shown
@@ -163,7 +163,8 @@ after rebalancing the ETF if the weighting of a sector has changed).
 3. Gehe zur [org.schalm.ppsc.Main.java-file](../main/java/org/schalm/ppsc/Main.java)
 4. Run
    Beim ersten Start ist es normal, dass
-   die [Speicherungs Datei](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import) nicht vorhanden ist
+   die [Speicherungs Datei](../main/resources/portfolio_performance_file/logs/do_not_delete_needed_for_next_import)
+   nicht vorhanden ist
    und alles importiert werden soll.
    Diese Speicherungsdatei verhindert bei späteren Ausführungen, dass doppelte Einträge angelegt werden (jedoch wird
    nach einem Rebalancing des ETF ein neuer Eintrag erzeugt, wenn die Gewichtung einer Branche sich verändert hat).
