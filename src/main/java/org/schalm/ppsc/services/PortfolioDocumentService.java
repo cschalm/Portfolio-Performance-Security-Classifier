@@ -451,6 +451,7 @@ public class PortfolioDocumentService {
                     if (assignment != null) {
                         // update
                         updateWeightOfAssignment(assignment, Integer.toString(percentage));
+                        industryAssignmentLog.append("Industry \"").append(industryNameFromSecurity).append("\" assigned with ").append((double) percentage / 100.0).append("% to industry in PP \"").append(bestMatch.bestMatchingIndustryName).append("\". LevenshteinDistance in naming: ").append(bestMatch.lowestDistance).append("\n");
                     } else {
                         // create and add new assignment
                         assignment = createAssignmentElement(portfolioDocument, nodePositionTuple.position, percentage);

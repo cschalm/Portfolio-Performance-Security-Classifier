@@ -271,4 +271,24 @@ public class SecurityServiceTest extends AbstractTest {
         assertFalse(security.getHoldings().isEmpty());
     }
 
+    @Test
+    public void createSecurityEtfEmergingMarkets() {
+        SecurityService service = new SecurityService(BASE_TARGET_PATH + "cache/");
+        Security security = service.createSecurity("IE00B3VVMM84", 0, true);
+        assertNotNull(security);
+        assertEquals(ETF.class, security.getClass());
+        assertEquals("IE00B3VVMM84", security.getIsin());
+        assertTrue(security.isActive());
+        assertTrue(security.isETF());
+        assertFalse(security.isCommodity());
+        assertFalse(security.isFund());
+        assertFalse(security.isShare());
+        assertNotNull(security.getIndustries());
+        assertFalse(security.getIndustries().isEmpty());
+        assertNotNull(security.getCountries());
+        assertFalse(security.getCountries().isEmpty());
+        assertNotNull(security.getHoldings());
+        assertFalse(security.getHoldings().isEmpty());
+    }
+
 }

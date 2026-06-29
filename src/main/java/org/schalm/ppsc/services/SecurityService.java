@@ -2,6 +2,7 @@ package org.schalm.ppsc.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.Strings;
 import org.schalm.ppsc.models.*;
 import org.schalm.ppsc.xml.XmlHelper;
 import org.w3c.dom.Element;
@@ -133,7 +134,7 @@ public class SecurityService {
                 Double nPercent = oNodeInsideArray.get("investmentPct").getAsDouble();
                 String nameFundsBreakdown = oNode.get("nameFundsBreakdown").getAsString();
                 logger.finer("nameBreakdown: " + strName + " - nameFundsBreakdown: " + nameFundsBreakdown);
-                if (!strName.equals("Barmittel") || nameFundsBreakdown.equals("Instrument")) {
+                if (!(strName.equals("Barmittel") || Strings.CI.contains(strName, "Barmittel") || nameFundsBreakdown.equals("Instrument"))) {
                     oResultList.put(strName, nPercent);
                     logger.fine(String.format("name: %s; Percentage: %s%%", strName, DECIMAL_FORMAT.format(nPercent)));
                 }
