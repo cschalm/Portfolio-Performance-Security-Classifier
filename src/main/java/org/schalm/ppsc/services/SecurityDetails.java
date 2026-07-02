@@ -21,7 +21,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -61,7 +61,7 @@ public class SecurityDetails {
         } else {
             // only for shares
             File industryAndNameCacheFileName = new File(cachePath, isin + "-metadata.txt");
-            try (Stream<String> lines = Files.lines(Paths.get(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
+            try (Stream<String> lines = Files.lines(Path.of(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
                 List<String> input = lines.collect(Collectors.toList());
                 if (!input.isEmpty()) {
                     industry = input.get(0);
@@ -109,7 +109,7 @@ public class SecurityDetails {
 
     private void initializeDetailsRequestUrl(String cachePath, String isin) {
         File requestUrl = new File(cachePath, isin + ".txt");
-        try (Stream<String> lines = Files.lines(Paths.get(requestUrl.toURI()), StandardCharsets.UTF_8)) {
+        try (Stream<String> lines = Files.lines(Path.of(requestUrl.toURI()), StandardCharsets.UTF_8)) {
             List<String> input = lines.collect(Collectors.toList());
             if (!input.isEmpty()) detailsRequestPath = input.get(0);
         } catch (IOException e) {
@@ -269,7 +269,7 @@ public class SecurityDetails {
 
     void initializeSecurityType(String cachePath, String isin) throws IOException, InterruptedException {
         File securityTypeCacheFileName = new File(cachePath, isin + "-type.txt");
-        try (Stream<String> lines = Files.lines(Paths.get(securityTypeCacheFileName.toURI()), StandardCharsets.UTF_8)) {
+        try (Stream<String> lines = Files.lines(Path.of(securityTypeCacheFileName.toURI()), StandardCharsets.UTF_8)) {
             List<String> input = lines.collect(Collectors.toList());
             if (!input.isEmpty()) {
                 String type = input.get(0);

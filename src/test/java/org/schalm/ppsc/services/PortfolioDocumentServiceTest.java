@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -309,7 +309,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testReduceDistinctStrings() throws IOException {
         List<String> input;
-        try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-input.txt"))) {
+        try (Stream<String> lines = Files.lines(Path.of(BASE_TEST_PATH + "StockNames-input.txt"))) {
             input = lines.collect(Collectors.toList());
             assertEquals(176, input.size());
         }
@@ -394,7 +394,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     @Test
     public void testReduceDistinctStrings2() throws IOException {
         List<String> input;
-        try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-input2.txt"))) {
+        try (Stream<String> lines = Files.lines(Path.of(BASE_TEST_PATH + "StockNames-input2.txt"))) {
             input = lines.collect(Collectors.toList());
             assertEquals(168, input.size());
         }
@@ -409,7 +409,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
             logger.warning("List of all StockNames could not be saved: " + e.getMessage());
         }
         String expected;
-        try (Stream<String> lines = Files.lines(Paths.get(BASE_TEST_PATH + "StockNames-distinct2.txt"))) {
+        try (Stream<String> lines = Files.lines(Path.of(BASE_TEST_PATH + "StockNames-distinct2.txt"))) {
             expected = lines.collect(Collectors.joining("\n"));
             assertEquals(expected.trim(), sb.toString().trim());
         }
