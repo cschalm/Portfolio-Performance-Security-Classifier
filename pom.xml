@@ -56,8 +56,7 @@
                 <version>6.42.0</version>
                 <configuration>
                     <activeRecipes>
-                        <recipe>org.openrewrite.xml.format.AutoFormat</recipe>
-                        <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
+                        <recipe>org.openrewrite.java.migrate.UpgradeToJava25</recipe>
                     </activeRecipes>
                 </configuration>
                 <dependencies>
@@ -73,7 +72,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>25</release>
                 </configuration>
             </plugin>
             <plugin>
