@@ -15,7 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -25,7 +24,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -62,9 +60,9 @@ public class SecurityDetails {
             // only for shares
             File industryAndNameCacheFileName = new File(cachePath, isin + "-metadata.txt");
             try (Stream<String> lines = Files.lines(Path.of(industryAndNameCacheFileName.toURI()), StandardCharsets.UTF_8)) {
-                List<String> input = lines.collect(Collectors.toList());
+                List<String> input = lines.toList();
                 if (!input.isEmpty()) {
-                    industry = input.get(0);
+                    industry = input.getFirst();
                     country = input.get(1);
                     name = input.get(2);
                 }
@@ -93,10 +91,11 @@ public class SecurityDetails {
                 String htmlPageAnlageschwerpunkt = readStringFromURL(ONVISTA_URL + detailsRequestPath);
                 jsonResponsePart = extractJsonPartFromHtml(htmlPageAnlageschwerpunkt);
             } else {
-                HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
-                HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://www.onvista.de/suche.html?SEARCH_VALUE=" + isin + "&SELECTED_TOOL=ALL_TOOLS")).build();
-                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                jsonResponsePart = extractJsonPartFromHtml(response.body());
+                try (HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build()) {
+                    HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://www.onvista.de/suche.html?SEARCH_VALUE=" + isin + "&SELECTED_TOOL=ALL_TOOLS")).build();
+                    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                    jsonResponsePart = extractJsonPartFromHtml(response.body());
+                }
             }
             rootNode = JsonParser.parseString(jsonResponsePart).getAsJsonObject();
             try (PrintWriter savingImport = new PrintWriter(jsonUrl, StandardCharsets.UTF_8)) {
@@ -110,8 +109,8 @@ public class SecurityDetails {
     private void initializeDetailsRequestUrl(String cachePath, String isin) {
         File requestUrl = new File(cachePath, isin + ".txt");
         try (Stream<String> lines = Files.lines(Path.of(requestUrl.toURI()), StandardCharsets.UTF_8)) {
-            List<String> input = lines.collect(Collectors.toList());
-            if (!input.isEmpty()) detailsRequestPath = input.get(0);
+            List<String> input = lines.toList();
+            if (!input.isEmpty()) detailsRequestPath = input.getFirst();
         } catch (IOException e) {
             logger.info("DetailsRequestPath for " + isin + " not found in cache, loading...");
             detailsRequestPath = readStringFromURL(ONVISTA_DETAILS_REQUEST_URL + isin);
@@ -133,7 +132,7 @@ public class SecurityDetails {
         Scanner scanner = null;
         String result = "";
         try {
-            scanner = new Scanner(new URL(requestURL).openStream(), StandardCharsets.UTF_8);
+            scanner = new Scanner(new URI(requestURL).toURL().openStream(), StandardCharsets.UTF_8);
             scanner.useDelimiter("\\A");
             result = scanner.hasNext() ? scanner.next() : "";
         } catch (Exception e) {
@@ -161,8 +160,8 @@ public class SecurityDetails {
         if (jsonObject != null) {
             JsonElement nameCountry = jsonObject.get("nameCountry");
             if (nameCountry != null) {
-                String country = nameCountry.getAsString();
-                if (country == null || country.isEmpty()) {
+                String countryAsString = nameCountry.getAsString();
+                if (countryAsString == null || countryAsString.isEmpty()) {
                     if (isin != null && isin.toUpperCase().startsWith("US")) country = "Vereinigte Staaten";
                 }
             }
@@ -208,27 +207,27 @@ public class SecurityDetails {
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.selectXpath("//td[contains(text(), \"Industrie\")]");
             if (!elements.isEmpty()) {
-                td = elements.get(0);
+                td = elements.getFirst();
                 textNodes = td.selectXpath("..//td[2]/div/span/text()", TextNode.class);
-                String industry = textNodes.get(0).text().trim();
+                String industry = textNodes.getFirst().text().trim();
                 logger.fine("found industry \"" + industry + "\" for " + isin);
                 this.industry = industry;
             }
 
             elements = doc.selectXpath("//td[contains(text(), \"Name\")]");
             if (!elements.isEmpty()) {
-                td = elements.get(0);
+                td = elements.getFirst();
                 textNodes = td.selectXpath("..//td[2]/div/text()", TextNode.class);
-                String name = textNodes.get(0).text().trim();
+                String name = textNodes.getFirst().text().trim();
                 logger.fine("found name \"" + name + "\" for " + isin);
                 this.name = name;
             }
 
             elements = doc.selectXpath("//td[contains(text(), \"Sitz\")]");
             if (!elements.isEmpty()) {
-                td = elements.get(0);
+                td = elements.getFirst();
                 textNodes = td.selectXpath("..//td[2]/div/div/span/text()", TextNode.class);
-                String country = textNodes.get(0).text().trim();
+                String country = textNodes.getFirst().text().trim();
                 logger.fine("found country \"" + country + "\" for " + isin);
                 this.country = country;
             }
@@ -251,17 +250,18 @@ public class SecurityDetails {
 
     SecurityType loadSecurityType() throws IOException, InterruptedException {
         String url = "https://app.parqet.com/wertpapiere/" + isin;
-        HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        if (response.uri().getPath().startsWith("/etf/")) {
-            return SecurityType.ETF;
-        }
-        if (response.uri().getPath().startsWith("/fonds/")) {
-            return SecurityType.FONDS;
-        }
-        if (response.uri().getPath().startsWith("/aktien/")) {
-            return SecurityType.SHARE;
+        try (HttpClient httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build()) {
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.uri().getPath().startsWith("/etf/")) {
+                return SecurityType.ETF;
+            }
+            if (response.uri().getPath().startsWith("/fonds/")) {
+                return SecurityType.FONDS;
+            }
+            if (response.uri().getPath().startsWith("/aktien/")) {
+                return SecurityType.SHARE;
+            }
         }
         // might cause errors!!!
         return SecurityType.COMMODITY;
@@ -270,9 +270,9 @@ public class SecurityDetails {
     void initializeSecurityType(String cachePath, String isin) throws IOException, InterruptedException {
         File securityTypeCacheFileName = new File(cachePath, isin + "-type.txt");
         try (Stream<String> lines = Files.lines(Path.of(securityTypeCacheFileName.toURI()), StandardCharsets.UTF_8)) {
-            List<String> input = lines.collect(Collectors.toList());
+            List<String> input = lines.toList();
             if (!input.isEmpty()) {
-                String type = input.get(0);
+                String type = input.getFirst();
                 securityType = SecurityType.valueOf(type);
             }
         } catch (IOException e) {

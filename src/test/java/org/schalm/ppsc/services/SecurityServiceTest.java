@@ -34,7 +34,7 @@ public class SecurityServiceTest extends AbstractTest {
         List<Security> securityList = service.processSecurities(securityNodes);
         assertNotNull(securityList);
         assertEquals(1, securityList.size());
-        Security security = securityList.get(0);
+        Security security = securityList.getFirst();
         assertEquals(1, security.getIndexInPortfolio());
         assertTrue(security.isETF());
         assertTrue(security.isActive());
@@ -51,7 +51,7 @@ public class SecurityServiceTest extends AbstractTest {
         List<Security> securityList = service.processSecurities(securityNodes);
         assertNotNull(securityList);
         assertEquals(1, securityList.size());
-        Security security = securityList.get(0);
+        Security security = securityList.getFirst();
         assertEquals(1, security.getIndexInPortfolio());
         assertTrue(security.isShare());
         assertFalse(security.isActive());

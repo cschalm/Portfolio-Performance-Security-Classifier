@@ -348,7 +348,7 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testCollectAllStockNamesEtf() throws Exception {
+    public void testCollectAllStockNamesEtf() {
         Security msciWorldEtfT = new ETF("LU1681043599", 0, true);
         Map<String, Double> holdings = msciWorldEtfT.getHoldings();
         holdings.put("Meta Platforms Inc", 1d);
@@ -1258,16 +1258,16 @@ public class PortfolioDocumentServiceTest extends AbstractTest {
                     assertFalse(foundAssignments.isEmpty());
                     assertEquals(2, foundAssignments.size());
                     assertEquals("311", getWeightOfAssignment(foundAssignments.get(1)));
-                    assertEquals("322", getWeightOfAssignment(foundAssignments.get(0)));
+                    assertEquals("322", getWeightOfAssignment(foundAssignments.getFirst()));
                     foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 3);
                     assertFalse(foundAssignments.isEmpty());
                     assertEquals(2, foundAssignments.size());
-                    assertEquals("211", getWeightOfAssignment(foundAssignments.get(0)));
+                    assertEquals("211", getWeightOfAssignment(foundAssignments.getFirst()));
                     assertEquals("222", getWeightOfAssignment(foundAssignments.get(1)));
                     foundAssignments = portfolioDocumentService.findAssignmentsBySecurityIndex(alphabet, 2);
                     assertFalse(foundAssignments.isEmpty());
                     assertEquals(2, foundAssignments.size());
-                    assertEquals("111", getWeightOfAssignment(foundAssignments.get(0)));
+                    assertEquals("111", getWeightOfAssignment(foundAssignments.getFirst()));
                     assertEquals("122", getWeightOfAssignment(foundAssignments.get(1)));
                 }
             }
